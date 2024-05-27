@@ -19,6 +19,7 @@ public class EtatReceptionDTO {
     private String designationAr;
 
     private String designationLt;
+    
 
     private String userCreate;
 
