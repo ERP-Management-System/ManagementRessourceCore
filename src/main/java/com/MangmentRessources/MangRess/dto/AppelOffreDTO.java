@@ -22,6 +22,7 @@ public class AppelOffreDTO {
     private String designationAr;
 
     private String designationLt;
+    
     private boolean actif;
 
     private boolean visible;
