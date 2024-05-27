@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="test1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8a0c1b94-1300-426d-bcd7-7901387c165e">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL"/>
+	<subDataset name="Dataset1" uuid="391e36c4-adde-4263-9ed8-d056b9c093a7">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQL"/>
+		<queryString language="SQL">
+			<![CDATA[select * from achat.matiere]]>
+		</queryString>
+		<field name="code" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.name" value="code"/>
+			<property name="com.jaspersoft.studio.field.label" value="code"/>
+		</field>
+		<field name="code_saisie" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="code_saisie"/>
+			<property name="com.jaspersoft.studio.field.label" value="code_saisie"/>
+		</field>
+		<field name="designation_ar" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="designation_ar"/>
+			<property name="com.jaspersoft.studio.field.label" value="designation_ar"/>
+		</field>
+		<field name="designation_lt" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="designation_lt"/>
+			<property name="com.jaspersoft.studio.field.label" value="designation_lt"/>
+		</field>
+		<field name="code_type_matiere" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.name" value="code_type_matiere"/>
+			<property name="com.jaspersoft.studio.field.label" value="code_type_matiere"/>
+		</field>
+		<field name="actif" class="java.lang.Boolean">
+			<property name="com.jaspersoft.studio.field.name" value="actif"/>
+			<property name="com.jaspersoft.studio.field.label" value="actif"/>
+		</field>
+		<field name="Visible" class="java.lang.Boolean">
+			<property name="com.jaspersoft.studio.field.name" value="Visible"/>
+			<property name="com.jaspersoft.studio.field.label" value="Visible"/>
+		</field>
+		<field name="User_create" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="User_create"/>
+			<property name="com.jaspersoft.studio.field.label" value="User_create"/>
+		</field>
+		<field name="Date_create" class="java.sql.Timestamp">
+			<property name="com.jaspersoft.studio.field.name" value="Date_create"/>
+			<property name="com.jaspersoft.studio.field.label" value="Date_create"/>
+		</field>
+		<group name="code">
+			<groupExpression><![CDATA[$F{code}]]></groupExpression>
+		</group>
+		<group name="code_saisie">
+			<groupExpression><![CDATA[$F{code_saisie}]]></groupExpression>
+		</group>
+		<group name="designation_ar">
+			<groupExpression><![CDATA[$F{designation_ar}]]></groupExpression>
+		</group>
+		<group name="designation_lt">
+			<groupExpression><![CDATA[$F{designation_lt}]]></groupExpression>
+		</group>
+		<group name="code_type_matiere">
+			<groupExpression><![CDATA[$F{code_type_matiere}]]></groupExpression>
+		</group>
+		<group name="actif">
+			<groupExpression><![CDATA[$F{actif}]]></groupExpression>
+		</group>
+		<group name="Visible">
+			<groupExpression><![CDATA[$F{Visible}]]></groupExpression>
+		</group>
+		<group name="User_create">
+			<groupExpression><![CDATA[$F{User_create}]]></groupExpression>
+		</group>
+		<group name="Date_create">
+			<groupExpression><![CDATA[$F{Date_create}]]></groupExpression>
+		</group>
+	</subDataset>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="220" y="15" width="131" height="41" uuid="5fb4a64d-73b4-4867-bb11-bc458617a213"/>
+				<textElement>
+					<font fontName="Bauhaus 93" size="19"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Welcome Jasper"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="570" splitType="Stretch">
+			<textField>
+				<reportElement x="440" y="540" width="100" height="30" uuid="f6ad5c95-3bcb-4b54-82a7-f68650f9750f"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

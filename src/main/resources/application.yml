@@ -1,0 +1,127 @@
+management:
+    security:
+        enabled: false
+security:
+    basic:
+        enabled: false
+#liquibase:
+#    default-schema: param
+#    enabled : false
+#    change-log: classpath:data/changelog-master.xml
+#    
+ 
+spring:
+    application:
+        name: DevPointSystem
+    batch:
+        job:
+            enabled: false        
+ 
+    jmx.enabled: true
+    devtools:
+        restart:
+            enabled: true
+        livereload:
+            enabled: true
+    datasource:
+        url: jdbc:sqlserver://localhost\sql2019;database=MasterDev;integratedSecurity=false;encrypt=false;trustServerCertificate=true
+        username: sa
+        password: 123 
+
+        
+    jpa:
+        database-platform: org.hibernate.dialect.SQLServer2012Dialect
+        database: SQL_SERVER
+        show-sql: true
+        generate-ddl: true
+        hibernate:
+            ddl-auto: update
+
+            naming:
+                implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        properties:
+            hibernate.default_schema: PARAM
+            hibernate.id.new_generator_mappings: true
+            hibernate.cache.use_second_level_cache: false
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: false
+            org.hibernate.envers.store_data_at_delete: true
+ 
+#
+#    mail:
+#        host: smtp.tunet.tn
+#        port: 25
+#        properties:
+#            mail:
+#                smtp:
+#                    auth: false
+#                    starttls:
+#                        enable: false                       
+    messages:
+        basename: i18n/messages
+ 
+#paramAchatService :
+#    base-uri : http://xxx/parametrage-achat-core
+##    base-uri : http://172.20.102.26/parametrage-achat-core
+##    base-uri : http://172.20.18.26/parametrage-achat-core
+#    catArticle: /api/categorie-articles
+#    depot : /api/depots
+#paramMock :
+#    base-uri:  http://192.168.0.131:8070/api/medications
+#    
+#receptionService :
+##    base-uri : http://41.226.168.150:7045/reception-core
+#    base-uri : http://qa.clinisys.local/reception-core
+##    base-uri : http://172.16.10.15/reception-core
+##    base-uri : http://172.20.18.26/reception-core
+#    admission : /api/admissions
+#    detailsAdmission : /api/detailsadmissions
+#    remiseRespAdmission : /api/remiserespadmissions
+#    creditSociete : /api/credit-societes
+#    rubriqueImpression : /api/Rubrique_Impression
+#caisseService :
+#    base-uri : http://xxx/caisse-core
+#    reglements : /api/reglements
+#   
+#AccessService :
+#    base-uri : http://xxx/CliniSys
+##    base-uri : http://vvvvv/vvvvv
+#    
+#gestionStockService :
+#   base-uri : http://xxx/pharmacie-core
+#   stock: /stock
+#   
+#comptabiliteService :
+#   base-uri : http://xxxx/comptabilite-core
+#   societes: /api/societes
+#   tiers: /api/tiers
+#   sousfamilletiers: /api/sousfamilletiers
+#
+#                 
+lang:
+    secondary: en
+server:
+    port: 9000
+    contextPath: /parametrage-core
+    
+
+  
+    
+#proxy:
+#    ip: 192.168.0.131
+#hystrix:
+#    command.default.execution.isolation.strategy: THREAD
+#    
+#cronPrixConsultation : 0 41 10 1/1 * *
+#cron.prixConsultation.enabled : false
+#mailFrom : xxxx@xxxx.com    
+#recipient_prix_consultation : nihel.turki@csys.com.tn
+environnement : local
+#    
+  
+#http:
+#    auth-token-header-name: x-api-key
+#    auth-token: 115424
+#    auth-token-parametrage-achat: c040d610-134a-475d-b0a3-707e300927a5
+#add_tiers_activated: true
