@@ -42,7 +42,9 @@ public class AppelOffreDTO {
     private Collection<DetailsAppelOffreDTO> detailsAppelOffreDTOs;
 
     private EtatReceptionDTO etatReceptionDTO;
+    
     private String designationArEtatReception;
+    
     private String designationLTEtatReception;
 
     private Integer codeEtatReception;
