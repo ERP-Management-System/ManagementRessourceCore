@@ -19,8 +19,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ModeReglementFactory {
-    
-     static String LANGUAGE_SEC;
+
+    static String LANGUAGE_SEC;
 
     @Value("${lang.secondary}")
     public void setLanguage(String db) {
@@ -48,6 +48,17 @@ public class ModeReglementFactory {
             domaine.setVisible(Dto.isVisible());
             domaine.setDateCreate(Dto.getDateCreate());
             domaine.setUserCreate(Dto.getUserCreate());
+
+            domaine.setCodeBanque(Dto.getCodeBanque());
+            if (Dto.getCodeBanque()!= null) {
+                domaine.setBanque(BanqueFactory.createBanqueByCode(Dto.getCodeBanque()));
+            }
+ 
+            domaine.setCodeTypeCaisse(Dto.getCodeTypeCaisse());
+            if (Dto.getCodeTypeCaisse()!= null) {
+                domaine.setTypeCaisse(TypeCaisseFactory.createTypeCaisseByCode(Dto.getCodeTypeCaisse()));
+            }
+ 
             return domaine;
         } else {
             return null;
@@ -73,6 +84,12 @@ public class ModeReglementFactory {
             dTO.setDateCreate(domaine.getDateCreate());
             dTO.setUserCreate(domaine.getUserCreate());
 
+            dTO.setTypeCaisse(TypeCaisseFactory.typeCaisseToTypeCaisseDTO(domaine.getTypeCaisse()));
+            dTO.setCodeTypeCaisse(domaine.getCodeTypeCaisse());
+
+            dTO.setBanque(BanqueFactory.banqueToBanqueDTO(domaine.getBanque()));
+            dTO.setCodeBanque(domaine.getCodeBanque());
+
             return dTO;
         } else {
             return null;
@@ -86,5 +103,5 @@ public class ModeReglementFactory {
         }
         return list;
     }
-    
+
 }

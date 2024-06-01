@@ -32,7 +32,7 @@ spring:
     jpa:
         database-platform: org.hibernate.dialect.SQLServer2012Dialect
         database: SQL_SERVER
-        show-sql: true
+        show-sql: false
         generate-ddl: true
         hibernate:
             ddl-auto: update
@@ -48,16 +48,7 @@ spring:
             hibernate.generate_statistics: false
             org.hibernate.envers.store_data_at_delete: true
  
-#
-#    mail:
-#        host: smtp.tunet.tn
-#        port: 25
-#        properties:
-#            mail:
-#                smtp:
-#                    auth: false
-#                    starttls:
-#                        enable: false                       
+                   
     messages:
         basename: i18n/messages
  

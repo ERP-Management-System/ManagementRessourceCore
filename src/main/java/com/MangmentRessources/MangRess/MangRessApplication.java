@@ -30,9 +30,11 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @SpringBootApplication
 @EnableAutoConfiguration
+@EnableAspectJAutoProxy(proxyTargetClass=true)
 public class MangRessApplication {
 
 //    public static void main(String[] args) {
@@ -77,19 +79,6 @@ public class MangRessApplication {
             consumersStauts += ("\t\t" + consumerInstance.getConsumerIdentity() + ": " + consumerInstance.getConsumerStatus().toString() + "\n");
         }
 
-//        log.info("\n----------------------------------------------------------\n\t"
-//                    +"Kafka profile status: \t {}\n\t{}"
-//                    +"\n----------------------------------------------------------"
-//                    ,kafkaProfileStauts?"Active":"Unactive"
-//                    ,kafkaProfileStauts?consumersStauts:""
-//        );
-//        if (kafkaProfileStauts) {
-//            // Starting the consumers
-//            consumerInstances.forEach(consumer-> {
-//                if(consumer.getConsumerStatus())consumer.start();
-//            });
-//                
-//        }
         String protocol = "http";
         if (env.getProperty("server.ssl.key-store") != null) {
             protocol = "https";
