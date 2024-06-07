@@ -5,6 +5,7 @@
 package com.MangmentRessources.MangRess.service;
 
 import com.MangmentRessources.MangRess.domaine.Matiere;
+import com.MangmentRessources.MangRess.dto.AoDTO;
 import com.MangmentRessources.MangRess.dto.MatiereDTO;
 import com.MangmentRessources.MangRess.factory.MatiereFactory;
 import com.MangmentRessources.MangRess.repository.matiereRepo;
@@ -57,6 +58,13 @@ public class matiereService {
         Matiere domaine = matiereRepo.getReferenceById(code);
         Preconditions.checkArgument(domaine.getCode() != null, "error.MatiereNotFound");
         return MatiereFactory.matiereToMatiereDTO(domaine);
+    }
+
+    @Transactional(readOnly = true)
+    public AoDTO findOneAO(Integer code) {
+        Matiere domaine = matiereRepo.getReferenceById(code);
+        Preconditions.checkArgument(domaine.getCode() != null, "error.MatiereNotFound");
+        return MatiereFactory.matiereToMatiereDTOAO(domaine);
     }
 
 //

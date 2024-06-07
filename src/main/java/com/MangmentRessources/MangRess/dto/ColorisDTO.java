@@ -27,6 +27,9 @@ public class ColorisDTO {
     private String userCreate;
 
     private Date dateCreate;
+    
+        private String desigColor;
+
 
     public ColorisDTO() {
     }
@@ -93,6 +96,14 @@ public class ColorisDTO {
 
     public void setDateCreate(Date dateCreate) {
         this.dateCreate = dateCreate;
+    }
+
+    public String getDesigColor() {
+        return desigColor;
+    }
+
+    public void setDesigColor(String desigColor) {
+        this.desigColor = desigColor;
     }
     
     

@@ -39,6 +39,13 @@ public class UniteService {
         Preconditions.checkArgument(matiere.getCode() != null, "error.UniteNotFound");
         return UniteFactory.uniteToUniteDTO(matiere);
     }
+    
+        @Transactional(readOnly = true)
+    public UniteDTO findOneToAO(Integer code) {
+        Unite matiere = uniteRepo.getReferenceById(code);
+        Preconditions.checkArgument(matiere.getCode() != null, "error.UniteNotFound");
+        return UniteFactory.uniteToUniteDTO(matiere);
+    }
 
 //
     public UniteDTO save(UniteDTO dTO) {

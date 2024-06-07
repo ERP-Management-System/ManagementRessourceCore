@@ -51,6 +51,13 @@ public class UniteRessource {
         return ResponseEntity.ok().body(ddeTransfertDTO);
     }
 
+    
+         @GetMapping("unite_ao/{code}")
+    public ResponseEntity<UniteDTO> getUniteByCodeToAO(@PathVariable Integer code) {
+        UniteDTO ddeTransfertDTO = uniteService.findOneToAO(code);
+        return ResponseEntity.ok().body(ddeTransfertDTO);
+    }
+
 
     @GetMapping("unite/all")
     public ResponseEntity<List<UniteDTO>> getAllUnite() { 

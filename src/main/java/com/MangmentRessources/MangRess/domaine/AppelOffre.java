@@ -69,7 +69,7 @@ public class AppelOffre {
     @Column(name = "code_mode_reglement", updatable = false, insertable = false)
     private Integer codeModeReglement;
 
-    @JoinColumn(name = "code_fournisseur", referencedColumnName = "Code", nullable = false)
+    @JoinColumn(name = "code_fournisseur", referencedColumnName = "Code", nullable = true)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonBackReference
     private Fournisseur fournisseur;
@@ -97,6 +97,9 @@ public class AppelOffre {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "appelOffre", fetch = FetchType.LAZY, orphanRemoval = true)
     private Collection<DetailsAppelOffre> detailsAppelOffres;
+    
+    
+ 
 
     public AppelOffre() {
     }

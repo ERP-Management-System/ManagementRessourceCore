@@ -78,7 +78,9 @@ public class ColorisFactory {
             dTO.setActif(domaine.isActif());
             dTO.setVisible(domaine.isVisible());
             dTO.setDateCreate(domaine.getDateCreate());
-            dTO.setUserCreate(domaine.getUserCreate());
+            dTO.setUserCreate(domaine.getUserCreate());       
+            dTO.setDesigColor(domaine.getDesignationAr());
+
 
             return dTO;
         } else {

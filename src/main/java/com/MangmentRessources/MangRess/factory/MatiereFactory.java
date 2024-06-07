@@ -5,6 +5,7 @@
 package com.MangmentRessources.MangRess.factory;
 
 import com.MangmentRessources.MangRess.domaine.Matiere;
+import com.MangmentRessources.MangRess.dto.AoDTO;
 import com.MangmentRessources.MangRess.dto.MatiereDTO;
 import com.MangmentRessources.MangRess.dto.TypeMatiereDTO;
 import java.util.ArrayList;
@@ -66,8 +67,8 @@ public class MatiereFactory {
         if (domaine != null) {
             MatiereDTO dTO = new MatiereDTO();
             dTO.setCode(domaine.getCode());
-    //            System.out.println("jihennn  " + LocaleContextHolder.getLocale().getLanguage());
-    //            System.out.println("jihennn  " + new Locale(LANGUAGE_SEC).getLanguage());
+            //            System.out.println("jihennn  " + LocaleContextHolder.getLocale().getLanguage());
+            //            System.out.println("jihennn  " + new Locale(LANGUAGE_SEC).getLanguage());
             if (LocaleContextHolder.getLocale().getLanguage().equals(new Locale(LANGUAGE_SEC).getLanguage())) {
 
                 dTO.setDesignationAr(domaine.getDesignationAr());
@@ -82,8 +83,25 @@ public class MatiereFactory {
             dTO.setDateCreate(domaine.getDateCreate());
             dTO.setUserCreate(domaine.getUserCreate());
 
+            dTO.setDesigColoris("");
             dTO.setCodeTypeMatiereDTO(TypeMatiereFactory.typeMatiereToTypeMatiereDTO(domaine.getCodeTypeMatiere()));
             dTO.setTypeMatiere(domaine.getTypeMatiere());
+
+            return dTO;
+        } else {
+            return null;
+        }
+    }
+
+    public static AoDTO matiereToMatiereDTOAO(Matiere domaine) {
+
+        if (domaine != null) {
+            AoDTO dTO = new AoDTO();
+            dTO.setCode(domaine.getCode());    
+            dTO.setDesignation(domaine.getDesignationAr());
+            dTO.setColoris("");
+            dTO.setQuantite("");
+            dTO.setUnite("");
 
             return dTO;
         } else {

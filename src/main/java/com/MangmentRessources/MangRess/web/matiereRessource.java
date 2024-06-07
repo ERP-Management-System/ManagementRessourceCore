@@ -5,6 +5,7 @@
 package com.MangmentRessources.MangRess.web;
 
 import com.MangmentRessources.MangRess.domaine.Matiere;
+import com.MangmentRessources.MangRess.dto.AoDTO;
 import com.MangmentRessources.MangRess.dto.MatiereDTO;
 import com.MangmentRessources.MangRess.service.matiereService;
 import jakarta.validation.Valid;
@@ -47,8 +48,14 @@ public class matiereRessource {
         return ResponseEntity.ok().body(dTO);
     }
 
+    @GetMapping("matieres/{code}")
+    public ResponseEntity<AoDTO> getMatiereByCodeAO(@PathVariable Integer code) {
+        AoDTO dTO = matiereservice.findOneAO(code);
+        return ResponseEntity.ok().body(dTO);
+    }
+
     @GetMapping("getPDF/{format}")
-    public String getPdf(@PathVariable String format) throws FileNotFoundException , JRException {
+    public String getPdf(@PathVariable String format) throws FileNotFoundException, JRException {
 //        MatiereDTO ddeTransfertDTO = matiereservice.findOne(code);
         return matiereservice.exportJasper(format);
     }

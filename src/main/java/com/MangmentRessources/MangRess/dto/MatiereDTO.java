@@ -36,7 +36,7 @@ public class MatiereDTO {
 
     private Integer typeMatiere;
     
-    
+    private String desigColoris;
     
 
     public MatiereDTO() {
@@ -122,6 +122,14 @@ public class MatiereDTO {
         this.typeMatiere = typeMatiere;
     }
 
+    public String getDesigColoris() {
+        return desigColoris;
+    }
+
+    public void setDesigColoris(String desigColoris) {
+        this.desigColoris = desigColoris;
+    }
+ 
  
 
 }

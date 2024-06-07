@@ -47,25 +47,7 @@ public class MangRessApplication {
 
     public static void main(String[] args) throws UnknownHostException {
 
-        String fileNameJrxml = "c:/HelloPDF.jrxml";
-        String fileNamePdf = "c:/HelloPDFv2.pdf";
-
-        try {
-            System.out.println("Loading the .JRMXML file ....");
-            JasperDesign jasperDesign = JRXmlLoader.load(fileNameJrxml);
-            System.out.println("Compiling the .JRMXML file to .JASPER file....");
-            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-            HashMap hm = new HashMap();
-            System.out.println("filling parameters to .JASPER file....");
-            JasperPrint jprint = (JasperPrint) JasperFillManager.fillReport(jasperReport, hm, new JREmptyDataSource());
-            System.out.println("exporting the JASPER file to PDF file....");
-            JasperExportManager.exportReportToPdfFile(jprint, fileNamePdf);
-            System.out.println("Successfully completed the export");
-
-        } catch (Exception e) {
-            System.out.print("Exception:" + e);
-        }
-
+        
         SpringApplication app = new SpringApplication(MangRessApplication.class);
 //        DefaultProfileUtil.addDefaultProfile(app);
 //        Environment env = app.run(args).getEnvironment();
