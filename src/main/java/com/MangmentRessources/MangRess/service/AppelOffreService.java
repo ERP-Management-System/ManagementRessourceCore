@@ -4,11 +4,12 @@
  */
 package com.MangmentRessources.MangRess.service;
 
-import com.MangmentRessources.MangRess.domaine.AppelOffre; 
-import com.MangmentRessources.MangRess.dto.AppelOffreDTO; 
-import com.MangmentRessources.MangRess.factory.AppelOffreFactory; 
+import com.MangmentRessources.MangRess.domaine.AppelOffre;
+import com.MangmentRessources.MangRess.dto.AppelOffreDTO;
+import com.MangmentRessources.MangRess.factory.AppelOffreFactory;
 import com.MangmentRessources.MangRess.repository.AppelOffreRepo;
 import com.google.common.base.Preconditions;
+import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class AppelOffreService {
-    
+
     private final AppelOffreRepo appelOffreRepo;
 
     public AppelOffreService(AppelOffreRepo appelOffreRepo) {
@@ -35,6 +36,13 @@ public class AppelOffreService {
 
     @Transactional(readOnly = true)
     public AppelOffreDTO findOne(Integer code) {
+        AppelOffre domaine = appelOffreRepo.getReferenceById(code);
+        Preconditions.checkArgument(domaine.getCode() != null, "error.AppelOffreNotFound");
+        return AppelOffreFactory.appelOffreToAppelOffreDTO(domaine);
+    }
+
+    @Transactional(readOnly = true)
+    public AppelOffreDTO findOneDetails(Integer code) {
         AppelOffre domaine = appelOffreRepo.getReferenceById(code);
         Preconditions.checkArgument(domaine.getCode() != null, "error.AppelOffreNotFound");
         return AppelOffreFactory.appelOffreToAppelOffreDTO(domaine);
@@ -60,11 +68,35 @@ public class AppelOffreService {
         Preconditions.checkArgument(appelOffreRepo.existsById(code), "error.AppelOffreNotFound");
         appelOffreRepo.deleteById(code);
     }
-    
-        @Transactional(readOnly = true)
-    public AppelOffreDTO findOneWithDetilas(Integer code) {
-        AppelOffre domaine = appelOffreRepo.getReferenceById(code);
-        Preconditions.checkArgument(domaine.getCode() != null, "error.AppelOffreNotFound");
-        return AppelOffreFactory.AppelOffreToAppelOffreDTOCollection(domaine);
+
+//    @Transactional(readOnly = true)
+//    public AppelOffreDTO findOneWithDetilas(Integer code) {
+//        AppelOffre domaine = appelOffreRepo.getReferenceById(code);
+//        Preconditions.checkArgument(domaine.getCode() != null, "error.AppelOffreNotFound");
+//        return AppelOffreFactory.AppelOffreToAppelOffreDTOCollection(domaine);
+//    }
+//    public AppelOffreDTO saveWithDetails(AppelOffreDTO dTO) {
+////        log.debug("Request to save dde DdeTransfer: {}", dTO);
+//        AppelOffre appelOffre = AppelOffreFactory.ordreAchatDTOToordreAchatCollection(dTO, new AppelOffre());
+//        appelOffre = appelOffreRepo.save(appelOffre);
+//        return AppelOffreFactory.AppelOffreToAppelOffreDTOCollection(appelOffre);
+//    }
+//
+//    public AppelOffreDTO saveNew(AppelOffreDTO ddeAchatDTO) {
+////        log.debug("Request to save dde DdeTransfer: {}", ddeAchatDTO);
+//        AppelOffre ddeAchat = AppelOffreFactory.ddeAchatDTOToddeAchatCollection(ddeAchatDTO, new AppelOffre());
+//        ddeAchat = appelOffreRepo.save(ddeAchat);
+//        return AppelOffreFactory.ddeAchatToddeAchatDTOwithDetails(ddeAchat);
+//    }
+    public AppelOffreDTO saveAO(AppelOffreDTO Dto) {
+
+        AppelOffre domaine = AppelOffreFactory.appelOffreDTOToAppelOffreWithDetails(new AppelOffre(), Dto);
+        domaine.setCode(null);
+        domaine.setUserCreate(domaine.getUserCreate());
+        domaine.setDateCreate(new Date());
+        domaine.setCodeSaisie(Dto.getCodeSaisie());
+        domaine = appelOffreRepo.save(domaine);
+        AppelOffreDTO resultDTO = AppelOffreFactory.appelOffreWithDetailsToappelOffreDTOWithDetails(domaine);
+        return resultDTO;
     }
 }

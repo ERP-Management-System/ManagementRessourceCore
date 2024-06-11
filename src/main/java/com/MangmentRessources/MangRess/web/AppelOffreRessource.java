@@ -7,6 +7,7 @@ package com.MangmentRessources.MangRess.web;
 import com.MangmentRessources.MangRess.domaine.AppelOffre;
 import com.MangmentRessources.MangRess.dto.AppelOffreDTO;
 import com.MangmentRessources.MangRess.dto.DemandeAchatDTO;
+import com.MangmentRessources.MangRess.dto.DetailsAppelOffreDTO;
 import com.MangmentRessources.MangRess.service.AppelOffreService;
 import jakarta.validation.Valid;
 import java.net.URI;
@@ -72,12 +73,18 @@ public class AppelOffreRessource {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
- 
-    @GetMapping("details_appel_offre/code_appel_offre")
-    public ResponseEntity<AppelOffreDTO> getDetailsAppelOffreByCode(@RequestParam Integer code_appel_offre) {
-        AppelOffreDTO dTO = appelOffreService.findOneWithDetilas(code_appel_offre);
-        return ResponseEntity.ok().body(dTO);
+
+   @PostMapping("details_appel_offre_new")
+    public ResponseEntity<AppelOffreDTO> postDetailsAppelOffreNew(@Valid @RequestBody AppelOffreDTO dTO, BindingResult bindingResult) throws URISyntaxException, MethodArgumentNotValidException {
+        AppelOffreDTO result = appelOffreService.saveAO(dTO);
+        return ResponseEntity.created(new URI("/api/parametrage-achat/" + result.getCode())).body(result);
     }
 
  
+//        @GetMapping("details_appel_offre/{code}")
+//    public ResponseEntity<DetailsAppelOffreDTO> getDetailsAppelOffreByCode(@PathVariable Integer code) {
+//        DetailsAppelOffreDTO dTO = appelOffreService.findOne(code);
+//        return ResponseEntity.ok().body(dTO);
+//    }
+
 }

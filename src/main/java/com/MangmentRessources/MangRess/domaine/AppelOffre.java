@@ -5,6 +5,7 @@
 package com.MangmentRessources.MangRess.domaine;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,7 +19,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Date;
 import javax.validation.constraints.Size;
@@ -33,7 +33,8 @@ public class AppelOffre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "code")
+    @Basic(optional = false)
+    @Column(name = "Code", nullable = false)
     private Integer code;
 
     @Size(max = 200)
@@ -41,11 +42,11 @@ public class AppelOffre {
     private String codeSaisie;
 
     @Size(max = 200)
-    @Column(name = "designation_ar", length = 200, nullable = false, columnDefinition = "nvarchar")
+    @Column(name = "designation_ar", length = 200, nullable = false, columnDefinition = "nvarchar(200)")
     private String designationAr;
 
     @Size(max = 200)
-    @Column(name = "designation_lt", length = 200, nullable = false, columnDefinition = "nvarchar")
+    @Column(name = "designation_lt", length = 200, nullable = false, columnDefinition = "nvarchar(200)")
     private String designationLt;
 
     @Column(name = "actif", nullable = false)
@@ -54,7 +55,7 @@ public class AppelOffre {
     @Column(name = "visible", nullable = false)
     private boolean visible;
 
-    @Column(name = "user_Create", nullable = false, length = 255, columnDefinition = "nvarchar")
+    @Column(name = "user_Create", nullable = false, length = 255, columnDefinition = "nvarchar(200)")
     private String userCreate;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -76,14 +77,7 @@ public class AppelOffre {
 
     @Column(name = "code_fournisseur", updatable = false, insertable = false)
     private Integer codeFournisseur;
-
-//    @JoinColumn(name = "code_article", referencedColumnName = "Code", nullable = false)
-//    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-//    @JsonBackReference
-//    private Article article;
-//
-//    @Column(name = "code_article", updatable = false, insertable = false)
-//    private Integer codeArticle;
+ 
     @JoinColumn(name = "code_etat_reception", referencedColumnName = "Code", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonBackReference
@@ -95,11 +89,8 @@ public class AppelOffre {
     @Column(name = "observation", nullable = false, columnDefinition = "nvarchar(max)")
     private String observation;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "appelOffre", fetch = FetchType.LAZY, orphanRemoval = true)
-    private Collection<DetailsAppelOffre> detailsAppelOffres;
-    
-    
- 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "appelOffre", orphanRemoval = true)
+    private Collection<DetailsAppelOffre> detailsAppelOffresCollections;
 
     public AppelOffre() {
     }
@@ -240,14 +231,12 @@ public class AppelOffre {
         this.observation = observation;
     }
 
-    public Collection<DetailsAppelOffre> getDetailsAppelOffres() {
-        return detailsAppelOffres;
+    public Collection<DetailsAppelOffre> getDetailsAppelOffresCollections() {
+        return detailsAppelOffresCollections;
     }
 
-    public void setDetailsAppelOffres(Collection<DetailsAppelOffre> detailsAppelOffres) {
-        this.detailsAppelOffres = detailsAppelOffres;
+    public void setDetailsAppelOffresCollections(Collection<DetailsAppelOffre> detailsAppelOffresCollections) {
+        this.detailsAppelOffresCollections = detailsAppelOffresCollections;
     }
 
-    
-    
 }

@@ -41,7 +41,7 @@ public class CategorieArticleFactory {
                 domaine.setDesignationLt(Dto.getDesignationLt());
                 domaine.setDesignationAr(Dto.getDesignationAr());
             }
-            domaine.setCodeSaisie(Dto.getCodeSaisie());
+//            domaine.setCodeSaisie(Dto.getCodeSaisie());
             domaine.setActif(Dto.isActif());
             domaine.setVisible(Dto.isVisible());
             domaine.setDateCreate(Dto.getDateCreate());

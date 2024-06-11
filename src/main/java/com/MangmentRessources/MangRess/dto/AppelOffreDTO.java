@@ -5,7 +5,9 @@
 package com.MangmentRessources.MangRess.dto;
 
 import com.MangmentRessources.MangRess.domaine.EtatReception;
-import jakarta.persistence.Column;
+ 
+import jakarta.validation.constraints.NotNull;
+
 import java.util.Collection;
 import java.util.Date;
 
@@ -17,12 +19,15 @@ public class AppelOffreDTO {
 
     private Integer code;
 
+
+    private Integer codeAppel;
+
     private String codeSaisie;
 
     private String designationAr;
 
     private String designationLt;
-    
+
     private boolean actif;
 
     private boolean visible;
@@ -42,9 +47,9 @@ public class AppelOffreDTO {
     private Collection<DetailsAppelOffreDTO> detailsAppelOffreDTOs;
 
     private EtatReceptionDTO etatReceptionDTO;
-    
+
     private String designationArEtatReception;
-    
+
     private String designationLTEtatReception;
 
     private Integer codeEtatReception;
@@ -60,6 +65,14 @@ public class AppelOffreDTO {
 
     public void setCode(Integer code) {
         this.code = code;
+    }
+
+    public Integer getCodeAppel() {
+        return codeAppel;
+    }
+
+    public void setCodeAppel(Integer codeAppel) {
+        this.codeAppel = codeAppel;
     }
 
     public String getCodeSaisie() {
@@ -150,12 +163,36 @@ public class AppelOffreDTO {
         this.codeFournisseur = codeFournisseur;
     }
 
+    public Collection<DetailsAppelOffreDTO> getDetailsAppelOffreDTOs() {
+        return detailsAppelOffreDTOs;
+    }
+
+    public void setDetailsAppelOffreDTOs(Collection<DetailsAppelOffreDTO> detailsAppelOffreDTOs) {
+        this.detailsAppelOffreDTOs = detailsAppelOffreDTOs;
+    }
+
     public EtatReceptionDTO getEtatReceptionDTO() {
         return etatReceptionDTO;
     }
 
     public void setEtatReceptionDTO(EtatReceptionDTO etatReceptionDTO) {
         this.etatReceptionDTO = etatReceptionDTO;
+    }
+
+    public String getDesignationArEtatReception() {
+        return designationArEtatReception;
+    }
+
+    public void setDesignationArEtatReception(String designationArEtatReception) {
+        this.designationArEtatReception = designationArEtatReception;
+    }
+
+    public String getDesignationLTEtatReception() {
+        return designationLTEtatReception;
+    }
+
+    public void setDesignationLTEtatReception(String designationLTEtatReception) {
+        this.designationLTEtatReception = designationLTEtatReception;
     }
 
     public Integer getCodeEtatReception() {
@@ -174,28 +211,5 @@ public class AppelOffreDTO {
         this.observation = observation;
     }
 
-    public Collection<DetailsAppelOffreDTO> getDetailsAppelOffreDTOs() {
-        return detailsAppelOffreDTOs;
-    }
-
-    public void setDetailsAppelOffreDTOs(Collection<DetailsAppelOffreDTO> detailsAppelOffreDTOs) {
-        this.detailsAppelOffreDTOs = detailsAppelOffreDTOs;
-    }
-
-    public String getDesignationArEtatReception() {
-        return designationArEtatReception;
-    }
-
-    public void setDesignationArEtatReception(String designationArEtatReception) {
-        this.designationArEtatReception = designationArEtatReception;
-    }
-
-    public String getDesignationLTEtatReception() {
-        return designationLTEtatReception;
-    }
-
-    public void setDesignationLTEtatReception(String designationLTEtatReception) {
-        this.designationLTEtatReception = designationLTEtatReception;
-    }
 
 }

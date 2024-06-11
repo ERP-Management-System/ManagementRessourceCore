@@ -43,7 +43,7 @@ public class TypeCaisseFactory {
                 domaine.setDesignationLt(Dto.getDesignationLt());
                 domaine.setDesignationAr(Dto.getDesignationAr());
             }
-            domaine.setCodeSaisie(Dto.getCodeSaisie());
+//            domaine.setCodeSaisie(Dto.getCodeSaisie());
             domaine.setDateCreate(Dto.getDateCreate());
             domaine.setUserCreate(Dto.getUserCreate());
             return domaine;

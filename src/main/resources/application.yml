@@ -32,7 +32,7 @@ spring:
     jpa:
         database-platform: org.hibernate.dialect.SQLServer2012Dialect
         database: SQL_SERVER
-        show-sql: false
+        show-sql: true
         generate-ddl: true
         hibernate:
             ddl-auto: update

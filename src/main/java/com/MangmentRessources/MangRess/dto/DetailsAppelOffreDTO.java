@@ -4,11 +4,11 @@
  */
 package com.MangmentRessources.MangRess.dto;
 
+import com.MangmentRessources.MangRess.domaine.Matiere;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.Date;
 
 /**
@@ -17,22 +17,19 @@ import java.util.Date;
  */
 public class DetailsAppelOffreDTO {
 
-    private Integer codeAppelOffre;
 
+        
+//    private MatiereDTO matiereDTO;  
+    private String DesignationLTMatiere;
+    
+    
+    @NotNull
     private Integer codeMatiere;
-    private String designationMatiereAr;
-    private String designationMatiereLT;
-    private String codeSaisieMatiere;
 
-    private Integer codeColoris;
-    private String designationColorisAr;
-    private String designationColorisLT;
-    private String codeSaisieColoris;
 
-    private Integer codeUnite;
-    private String designationUniteAr;
-    private String designationUniteLT;
-    private String codeSaisieUnite;
+
+
+    private int codeAppelOffre;
 
     private BigDecimal qteDemander;
 
@@ -45,84 +42,17 @@ public class DetailsAppelOffreDTO {
     public DetailsAppelOffreDTO() {
     }
 
-    public Integer getCodeAppelOffre() {
+    @Override
+    public String toString() {
+        return "com.MangmentRessources.MangRess.domaine.DetailsAppelOffre[ detailsAppelOffrePK=" + " ]";
+    }
+
+    public int getCodeAppelOffre() {
         return codeAppelOffre;
     }
 
-    public void setCodeAppelOffre(Integer codeAppelOffre) {
+    public void setCodeAppelOffre(int codeAppelOffre) {
         this.codeAppelOffre = codeAppelOffre;
-    }
-
-    public String getDesignationMatiereAr() {
-        return designationMatiereAr;
-    }
-
-    public void setDesignationMatiereAr(String designationMatiereAr) {
-        this.designationMatiereAr = designationMatiereAr;
-    }
-
-    public String getDesignationMatiereLT() {
-        return designationMatiereLT;
-    }
-
-    public void setDesignationMatiereLT(String designationMatiereLT) {
-        this.designationMatiereLT = designationMatiereLT;
-    }
-
-    public String getCodeSaisieMatiere() {
-        return codeSaisieMatiere;
-    }
-
-    public void setCodeSaisieMatiere(String codeSaisieMatiere) {
-        this.codeSaisieMatiere = codeSaisieMatiere;
-    }
-
-    public String getDesignationColorisAr() {
-        return designationColorisAr;
-    }
-
-    public void setDesignationColorisAr(String designationColorisAr) {
-        this.designationColorisAr = designationColorisAr;
-    }
-
-    public String getDesignationColorisLT() {
-        return designationColorisLT;
-    }
-
-    public void setDesignationColorisLT(String designationColorisLT) {
-        this.designationColorisLT = designationColorisLT;
-    }
-
-    public String getCodeSaisieColoris() {
-        return codeSaisieColoris;
-    }
-
-    public void setCodeSaisieColoris(String codeSaisieColoris) {
-        this.codeSaisieColoris = codeSaisieColoris;
-    }
-
-    public String getDesignationUniteAr() {
-        return designationUniteAr;
-    }
-
-    public void setDesignationUniteAr(String designationUniteAr) {
-        this.designationUniteAr = designationUniteAr;
-    }
-
-    public String getDesignationUniteLT() {
-        return designationUniteLT;
-    }
-
-    public void setDesignationUniteLT(String designationUniteLT) {
-        this.designationUniteLT = designationUniteLT;
-    }
-
-    public String getCodeSaisieUnite() {
-        return codeSaisieUnite;
-    }
-
-    public void setCodeSaisieUnite(String codeSaisieUnite) {
-        this.codeSaisieUnite = codeSaisieUnite;
     }
 
     public BigDecimal getQteDemander() {
@@ -132,10 +62,6 @@ public class DetailsAppelOffreDTO {
     public void setQteDemander(BigDecimal qteDemander) {
         this.qteDemander = qteDemander;
     }
-
-  
- 
- 
 
     public String getUsercreate() {
         return usercreate;
@@ -153,6 +79,7 @@ public class DetailsAppelOffreDTO {
         this.datecreate = datecreate;
     }
 
+
     public Integer getCodeMatiere() {
         return codeMatiere;
     }
@@ -161,21 +88,17 @@ public class DetailsAppelOffreDTO {
         this.codeMatiere = codeMatiere;
     }
 
-    public Integer getCodeColoris() {
-        return codeColoris;
+    public String getDesignationLTMatiere() {
+        return DesignationLTMatiere;
     }
 
-    public void setCodeColoris(Integer codeColoris) {
-        this.codeColoris = codeColoris;
+    public void setDesignationLTMatiere(String DesignationLTMatiere) {
+        this.DesignationLTMatiere = DesignationLTMatiere;
     }
 
-    public Integer getCodeUnite() {
-        return codeUnite;
-    }
+ 
 
-    public void setCodeUnite(Integer codeUnite) {
-        this.codeUnite = codeUnite;
-    }
 
-    
+  
+
 }

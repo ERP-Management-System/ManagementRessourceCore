@@ -12,53 +12,33 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  *
  * @author Administrator
  */
 @Embeddable
-public class DetailsAppelOffrePK {
-    
-     
+public class DetailsAppelOffrePK implements Serializable {
+
     @Basic(optional = false)
     @NotNull
-    @Column(name = "code_appel_offre")
-    private Integer codeAppelOffre;
-    
+    @Column(name = "Code_Appel_Offre", nullable = false)
+    private int codeAppelOffre;
+
+ 
+
     @Column(name = "code_matiere", updatable = false, insertable = false)
     private Integer codeMatiere;
-
-    @JoinColumn(name = "code_matiere", referencedColumnName = "Code", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonBackReference
-    private Matiere matiere;
-
-    @Column(name = "code_coloris", updatable = false, insertable = false)
-    private Integer codeColoris;
-
-    @JoinColumn(name = "code_coloris", referencedColumnName = "Code", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonBackReference
-    private Coloris coloris;
-    
-    
-    @Column(name = "code_unite", updatable = false, insertable = false)
-    private Integer codeUnite;
-
-    @JoinColumn(name = "code_unite", referencedColumnName = "Code", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonBackReference
-    private Unite unite;
 
     public DetailsAppelOffrePK() {
     }
 
-    public Integer getCodeAppelOffre() {
+    public int getCodeAppelOffre() {
         return codeAppelOffre;
     }
 
-    public void setCodeAppelOffre(Integer codeAppelOffre) {
+    public void setCodeAppelOffre(int codeAppelOffre) {
         this.codeAppelOffre = codeAppelOffre;
     }
 
@@ -70,50 +50,6 @@ public class DetailsAppelOffrePK {
         this.codeMatiere = codeMatiere;
     }
 
-    public Matiere getMatiere() {
-        return matiere;
-    }
-
-    public void setMatiere(Matiere matiere) {
-        this.matiere = matiere;
-    }
-
  
-   
-
-    public Integer getCodeColoris() {
-        return codeColoris;
-    }
-
-    public void setCodeColoris(Integer codeColoris) {
-        this.codeColoris = codeColoris;
-    }
-
-    public Coloris getColoris() {
-        return coloris;
-    }
-
-    public void setColoris(Coloris coloris) {
-        this.coloris = coloris;
-    }
-
-    public Integer getCodeUnite() {
-        return codeUnite;
-    }
-
-    public void setCodeUnite(Integer codeUnite) {
-        this.codeUnite = codeUnite;
-    }
-
-    public Unite getUnite() {
-        return unite;
-    }
-
-    public void setUnite(Unite unite) {
-        this.unite = unite;
-    }
-    
-    
-    
-    
+ 
 }

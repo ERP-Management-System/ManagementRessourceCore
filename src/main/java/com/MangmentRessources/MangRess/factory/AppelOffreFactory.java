@@ -4,11 +4,14 @@
  */
 package com.MangmentRessources.MangRess.factory;
 
-import com.MangmentRessources.MangRess.domaine.AppelOffre; 
-import com.MangmentRessources.MangRess.dto.AppelOffreDTO; 
-import com.MangmentRessources.MangRess.dto.DetailsAppelOffreDTO; 
+import com.MangmentRessources.MangRess.domaine.AppelOffre;
+import com.MangmentRessources.MangRess.domaine.DetailsAppelOffre;
+import com.MangmentRessources.MangRess.domaine.DetailsAppelOffrePK;
+import com.MangmentRessources.MangRess.dto.AppelOffreDTO;
+import com.MangmentRessources.MangRess.dto.DetailsAppelOffreDTO;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,11 +51,7 @@ public class AppelOffreFactory {
             domaine.setCodeSaisie(Dto.getCodeSaisie());
             domaine.setActif(Dto.isActif());
             domaine.setVisible(Dto.isVisible());
-//            if (adherantDTO.getLienParentale() != null) {
-//                adherant.setCodeLienParental(adherantDTO.getLienParentale().getCode());
-//            } else {
-//                adherant.setCodeLienParental(null);
-//            } 
+
             domaine.setDateCreate(Dto.getDateCreate());
             domaine.setUserCreate(Dto.getUserCreate());
             domaine.setObservation(Dto.getObservation());
@@ -113,41 +112,113 @@ public class AppelOffreFactory {
         }
         return list;
     }
+
+    ///// new Factory with details
+    public static AppelOffre appelOffreDTOToAppelOffreWithDetails(AppelOffre domaine, AppelOffreDTO dTO) {
+        domaine.setCode(dTO.getCode());
+
+        domaine.setCodeSaisie(dTO.getCodeSaisie());
+        domaine.setDesignationAr(dTO.getDesignationAr());
+        domaine.setDesignationLt(dTO.getDesignationLt());
+
+        domaine.setActif(dTO.isActif());
+        domaine.setVisible(dTO.isVisible());
+
+        domaine.setDateCreate(new Date());
+        domaine.setUserCreate(dTO.getUserCreate());
+        domaine.setObservation(dTO.getObservation());
+        domaine.setCodeModeReglement(dTO.getCodeModeReglement());
+        domaine.setCodeFournisseur(1);
+        domaine.setCodeEtatReception(dTO.getCodeEtatReception());
+
+        Collection<DetailsAppelOffre> detailsModelePanierCollections = new ArrayList<>();
+
+        dTO.getDetailsAppelOffreDTOs().forEach(x -> {
+            DetailsAppelOffre detailsmodelepanier = new DetailsAppelOffre();
+            DetailsAppelOffrePK detailsmodelepanierPK = new DetailsAppelOffrePK();
+            detailsmodelepanierPK.setCodeMatiere(x.getCodeMatiere());
+//            detailsmodelepanierPK.setCodeMatiere(x.getMatiereDTO().getCode());
     
-    public static AppelOffreDTO AppelOffreToAppelOffreDTOCollection(AppelOffre domaine) {
+            detailsmodelepanier.setDetailsAppelOffrePK(detailsmodelepanierPK);
+            detailsmodelepanier.setQteDemander(x.getQteDemander());
+            detailsmodelepanier.setDateCreate(domaine.getDateCreate());
+            detailsmodelepanier.setUsercreate(domaine.getUserCreate());
+            detailsmodelepanier.setAppelOffre(domaine);
+            detailsModelePanierCollections.add(detailsmodelepanier);
+        });
+
+        if (domaine.getDetailsAppelOffresCollections() != null) {
+            domaine.getDetailsAppelOffresCollections().clear();
+            domaine.getDetailsAppelOffresCollections().addAll(detailsModelePanierCollections);
+        } else {
+            domaine.setDetailsAppelOffresCollections(detailsModelePanierCollections);
+        }
+        System.out.println("soufien send valider");
+        return domaine;
+    }
+
+    public static AppelOffreDTO appelOffreWithDetailsToappelOffreDTOWithDetails(AppelOffre domaine) {
+        if (domaine == null) {
+            return null;
+        }
+        AppelOffreDTO dTO = new AppelOffreDTO();
+        dTO.setCode(domaine.getCode());
+        dTO.setCodeSaisie(domaine.getCodeSaisie());
+        dTO.setActif(domaine.isActif());
+        dTO.setVisible(domaine.isVisible());
+        dTO.setDateCreate(domaine.getDateCreate());
+        dTO.setUserCreate(domaine.getUserCreate());
+        dTO.setObservation(domaine.getObservation());
+
+        if (domaine.getDetailsAppelOffresCollections() != null) {
+            Collection<DetailsAppelOffreDTO> detailsDdeTransfertDTOSCollection = new ArrayList<>();
+            domaine.getDetailsAppelOffresCollections().forEach(x -> {
+                DetailsAppelOffreDTO detailsDTO = new DetailsAppelOffreDTO();
+                detailsDTO = DetailsAppelOffreFactory.detailsAppelOffreTodetailsAppelOffreDTOCollection(x);
+                detailsDdeTransfertDTOSCollection.add(detailsDTO);
+            });
+            if (dTO.getDetailsAppelOffreDTOs() != null) {
+                dTO.getDetailsAppelOffreDTOs().clear();
+                dTO.getDetailsAppelOffreDTOs().addAll(detailsDdeTransfertDTOSCollection);
+            } else {
+                dTO.setDetailsAppelOffreDTOs(detailsDdeTransfertDTOSCollection);
+            }
+        }
+        return dTO;
+    }
+    
+    
+    public static AppelOffreDTO DetailsappelOffreToDetailsAppelOffreDTO(AppelOffre domaine) {
 
         if (domaine != null) {
             AppelOffreDTO dTO = new AppelOffreDTO();
             dTO.setCode(domaine.getCode());
+            //            System.out.println("jihennn  " + LocaleContextHolder.getLocale().getLanguage());
+            //            System.out.println("jihennn  " + new Locale(LANGUAGE_SEC).getLanguage());
+            if (LocaleContextHolder.getLocale().getLanguage().equals(new Locale(LANGUAGE_SEC).getLanguage())) {
 
+                dTO.setDesignationAr(domaine.getDesignationAr());
+                dTO.setDesignationLt(domaine.getDesignationLt());
+            } else {
+                dTO.setDesignationLt(domaine.getDesignationLt());
+                dTO.setDesignationAr(domaine.getDesignationAr());
+            }
+            dTO.setCodeSaisie(domaine.getCodeSaisie());
+            dTO.setActif(domaine.isActif());
+            dTO.setVisible(domaine.isVisible());
             dTO.setDateCreate(domaine.getDateCreate());
-            dTO.setUserCreate(domaine.getUserCreate());   
+            dTO.setUserCreate(domaine.getUserCreate());
             dTO.setObservation(domaine.getObservation());
 
+ 
+            dTO.setFournisseurDTO(FournisseurFactory.fournisseurToFournisseurDTO(domaine.getFournisseur()));
+            dTO.setCodeFournisseur(domaine.getCodeFournisseur());
 
-            dTO.setCodeEtatReception(domaine.getEtatReception().getCode());
-            if (LocaleContextHolder.getLocale().getLanguage().equals(new Locale(LANGUAGE_SEC).getLanguage())) {
-                dTO.setDesignationArEtatReception(domaine.getEtatReception().getDesignationAr());
-                dTO.setDesignationLTEtatReception(domaine.getEtatReception().getDesignationLt());
-            } else {
-                dTO.setDesignationLTEtatReception(domaine.getEtatReception().getDesignationLt());
-                dTO.setDesignationArEtatReception(domaine.getEtatReception().getDesignationAr());
-            }
+            dTO.setModeReglementDTO(ModeReglementFactory.modeReglementToModeReglementDTO(domaine.getModeReglement()));
+            dTO.setCodeModeReglement(domaine.getCodeModeReglement());
 
-            if (domaine.getDetailsAppelOffres()!= null) {
-                Collection<DetailsAppelOffreDTO> detailsAppelOffreDTOs = new ArrayList<>();
-                domaine.getDetailsAppelOffres().forEach(x -> {
-                    DetailsAppelOffreDTO dTos = new DetailsAppelOffreDTO();
-                    dTos = DetailsAppelOffreFactory.detailsAppelOffreTodetailsAppelOffreDTOCollection(x);
-                    detailsAppelOffreDTOs.add(dTos);
-                });
-                if (dTO.getDetailsAppelOffreDTOs()!= null) {
-                    dTO.getDetailsAppelOffreDTOs().clear();
-                    dTO.getDetailsAppelOffreDTOs().addAll(detailsAppelOffreDTOs);
-                } else {
-                    dTO.setDetailsAppelOffreDTOs(detailsAppelOffreDTOs);
-                }
-            }
+            dTO.setEtatReceptionDTO(EtatReceptionFactory.etatReceptionToEtatReceptionDTO(domaine.getEtatReception()));
+            dTO.setCodeEtatReception(domaine.getCodeEtatReception());
 
             return dTO;
         } else {

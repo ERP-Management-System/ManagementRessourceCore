@@ -17,6 +17,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -27,17 +28,23 @@ import java.util.Date;
 @Entity
 @Table(name = "details_appel_offre", schema = "achat")
 public class DetailsAppelOffre {
-    
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected DetailsAppelOffrePK detailsAppelOffrePK;
 
     @MapsId("codeAppelOffre")
-    @JoinColumn(name = "code_appel_offre", referencedColumnName = "code")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JoinColumn(name = "Code_Appel_Offre", referencedColumnName = "Code", nullable = false)
+    @ManyToOne(optional = false)
     private AppelOffre appelOffre;
+
+    @Column(name = "code_matiere", insertable = false, updatable = false)
+    private Integer codematiere;
+
+//    @JoinColumn(name = "code_matiere", referencedColumnName = "Code", nullable = false)
+//    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+//    @JsonBackReference
+//    private Matiere matiere;
 
     @NotNull
     @Column(name = "qte_demander", nullable = false)
@@ -71,6 +78,14 @@ public class DetailsAppelOffre {
         this.appelOffre = appelOffre;
     }
 
+    public Integer getCodematiere() {
+        return codematiere;
+    }
+
+    public void setCodematiere(Integer codematiere) {
+        this.codematiere = codematiere;
+    }
+
     public BigDecimal getQteDemander() {
         return qteDemander;
     }
@@ -79,7 +94,6 @@ public class DetailsAppelOffre {
         this.qteDemander = qteDemander;
     }
 
- 
     public String getUsercreate() {
         return usercreate;
     }
@@ -95,8 +109,6 @@ public class DetailsAppelOffre {
     public void setDateCreate(Date dateCreate) {
         this.dateCreate = dateCreate;
     }
-    
-    
-    
+
     
 }
