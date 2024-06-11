@@ -81,10 +81,10 @@ public class AppelOffreRessource {
     }
 
  
-//        @GetMapping("details_appel_offre/{code}")
-//    public ResponseEntity<DetailsAppelOffreDTO> getDetailsAppelOffreByCode(@PathVariable Integer code) {
-//        DetailsAppelOffreDTO dTO = appelOffreService.findOne(code);
-//        return ResponseEntity.ok().body(dTO);
-//    }
+        @GetMapping("details_appel_offre/{code}")
+    public ResponseEntity<AppelOffreDTO> getDetailsAppelOffreByCode(@PathVariable Integer code) {
+        AppelOffreDTO dTO = appelOffreService.findOneWithDetilas(code);
+        return ResponseEntity.ok().body(dTO);
+    }
 
 }

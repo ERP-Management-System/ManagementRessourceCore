@@ -136,7 +136,7 @@ public class AppelOffreFactory {
         dTO.getDetailsAppelOffreDTOs().forEach(x -> {
             DetailsAppelOffre detailsmodelepanier = new DetailsAppelOffre();
             DetailsAppelOffrePK detailsmodelepanierPK = new DetailsAppelOffrePK();
-            detailsmodelepanierPK.setCodeMatiere(x.getCodeMatiere());
+            detailsmodelepanierPK.setCodeMatiere(x.getCodematiere().getCode());
 //            detailsmodelepanierPK.setCodeMatiere(x.getMatiereDTO().getCode());
     
             detailsmodelepanier.setDetailsAppelOffrePK(detailsmodelepanierPK);
@@ -153,11 +153,12 @@ public class AppelOffreFactory {
         } else {
             domaine.setDetailsAppelOffresCollections(detailsModelePanierCollections);
         }
-        System.out.println("soufien send valider");
+//        System.out.println("soufien send valider");
         return domaine;
     }
 
     public static AppelOffreDTO appelOffreWithDetailsToappelOffreDTOWithDetails(AppelOffre domaine) {
+//        System.out.println("soufien return");
         if (domaine == null) {
             return null;
         }

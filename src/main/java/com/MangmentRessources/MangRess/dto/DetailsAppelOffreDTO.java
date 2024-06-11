@@ -16,18 +16,13 @@ import java.util.Date;
  * @author Administrator
  */
 public class DetailsAppelOffreDTO {
+    
+//    @NotNull
+//    private int codematiere;
 
 
-        
-//    private MatiereDTO matiereDTO;  
-    private String DesignationLTMatiere;
-    
-    
     @NotNull
-    private Integer codeMatiere;
-
-
-
+    private MatiereDTO codematiere;
 
     private int codeAppelOffre;
 
@@ -80,22 +75,25 @@ public class DetailsAppelOffreDTO {
     }
 
 
-    public Integer getCodeMatiere() {
-        return codeMatiere;
+
+ 
+//    public int getCodematiere() {
+//        return codematiere;
+//    }
+//
+//    public void setCodematiere(int codematiere) {
+//        this.codematiere = codematiere;
+//    }
+// 
+
+    public MatiereDTO getCodematiere() {
+        return codematiere;
     }
 
-    public void setCodeMatiere(Integer codeMatiere) {
-        this.codeMatiere = codeMatiere;
+    public void setCodematiere(MatiereDTO codematiere) {
+        this.codematiere = codematiere;
     }
-
-    public String getDesignationLTMatiere() {
-        return DesignationLTMatiere;
-    }
-
-    public void setDesignationLTMatiere(String DesignationLTMatiere) {
-        this.DesignationLTMatiere = DesignationLTMatiere;
-    }
-
+ 
  
 
 

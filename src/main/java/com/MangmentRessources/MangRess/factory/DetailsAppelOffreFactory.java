@@ -3,22 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.MangmentRessources.MangRess.factory;
-
-import com.MangmentRessources.MangRess.domaine.AppelOffre;
-import com.MangmentRessources.MangRess.domaine.Article;
+ 
 import com.MangmentRessources.MangRess.domaine.DetailsAppelOffre;
-import com.MangmentRessources.MangRess.domaine.DetailsAppelOffrePK;
-import com.MangmentRessources.MangRess.dto.ArticleDTO;
-import com.MangmentRessources.MangRess.dto.DetailsAppelOffreDTO;
-import com.MangmentRessources.MangRess.dto.DetailsAppelOffreDTOs;
-import static com.MangmentRessources.MangRess.factory.ArticleFactory.LANGUAGE_SEC;
-import java.util.ArrayList;
-import java.util.Collection;
-
+import com.MangmentRessources.MangRess.domaine.DetailsAppelOffrePK; 
+import com.MangmentRessources.MangRess.dto.DetailsAppelOffreDTO;  
+ 
 import java.util.Date;
 import java.util.Locale;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.beans.factory.annotation.Value; 
 import org.springframework.stereotype.Component;
 
 /**
@@ -65,65 +57,36 @@ public class DetailsAppelOffreFactory {
 
         return domain;
     }
-
-    public static DetailsAppelOffre detailddetransfertDTOTodetailddetransfertCollection(DetailsAppelOffreDTO detailsAppelOffreDTO, AppelOffre appelOffre) {
-        DetailsAppelOffre detailsAppelOffre = new DetailsAppelOffre();
-
-        DetailsAppelOffrePK detailsDdeTransfertPK = new DetailsAppelOffrePK();
-//        detailsDdeTransfert.set(detailsDdeTransfertDTO.getCodeddeTransfert());
-//        detailsDdeTransfertPK.setCodematiere(detailsAppelOffreDTO.getCodeMatiere());
-//        detailsDdeTransfertPK.setCodeappeloffre(appelOffre.getCode());
-
-        detailsAppelOffre.setDetailsAppelOffrePK(detailsDdeTransfertPK);
-
-        detailsAppelOffre.setQteDemander(detailsAppelOffreDTO.getQteDemander());
-        detailsAppelOffre.setDateCreate(new Date());
-        detailsAppelOffre.setUsercreate(detailsAppelOffreDTO.getUsercreate());
-
-        return detailsAppelOffre;
-    }
+//
+//    public static DetailsAppelOffre detailddetransfertDTOTodetailddetransfertCollection(DetailsAppelOffreDTO detailsAppelOffreDTO, AppelOffre appelOffre) {
+//        DetailsAppelOffre detailsAppelOffre = new DetailsAppelOffre();
+//
+//        DetailsAppelOffrePK detailsDdeTransfertPK = new DetailsAppelOffrePK();
+////        detailsDdeTransfert.set(detailsDdeTransfertDTO.getCodeddeTransfert());
+////        detailsDdeTransfertPK.setCodematiere(detailsAppelOffreDTO.getCodeMatiere());
+////        detailsDdeTransfertPK.setCodeappeloffre(appelOffre.getCode());
+//
+//        detailsAppelOffre.setDetailsAppelOffrePK(detailsDdeTransfertPK);
+//
+//        detailsAppelOffre.setQteDemander(detailsAppelOffreDTO.getQteDemander());
+//        detailsAppelOffre.setDateCreate(new Date());
+//        detailsAppelOffre.setUsercreate(detailsAppelOffreDTO.getUsercreate());
+//
+//        return detailsAppelOffre;
+//    }
 
     public static DetailsAppelOffreDTO detailsAppelOffreTodetailsAppelOffreDTOCollection(DetailsAppelOffre domaine) {
 
         if (domaine != null) {
-
             DetailsAppelOffreDTO dTO = new DetailsAppelOffreDTO();
-
             dTO.setCodeAppelOffre(domaine.getDetailsAppelOffrePK().getCodeAppelOffre());
             dTO.setDatecreate(domaine.getDateCreate());
-
             dTO.setUsercreate(domaine.getUsercreate());
-
-            if (LocaleContextHolder.getLocale().getLanguage().equals(new Locale(LANGUAGE_SEC).getLanguage())) {
-
-//                dTO.setCodeMatiere(domaine.getDetailsAppelOffrePK().getCodeMatiere());
-//                System.out.println("soufien v1 " + domaine.getMatiere());
- 
-//                dTO.setCodeMatiere(domaine.getDetailsAppelOffrePK().getCodeMatiere());
-//                dTO.setMatiereDTO(MatiereFactory.matiereToMatiereDTO(domaine.getMatiere()));
-                dTO.setCodeMatiere(domaine.getDetailsAppelOffrePK().getCodeMatiere());
-                
-                
-//            dTO.setMatiereDTO(MatiereFactory.matiereToMatiereDTO(domaine.getDetailsAppelOffrePK().getMatiere()));
-
-            } else {
-                dTO.setCodeMatiere(domaine.getDetailsAppelOffrePK().getCodeMatiere());
-//
-//                System.out.println("soufien v2" + domaine.getMatiere().getDesignationAr());
-//                dTO.setDesignationArMatiere(domaine.getMatiere().getDesignationAr());
-//                dTO.setDesignationArMatiere(domaine.getDetailsAppelOffrePK().getMatiere().getDesignationAr());
-//                dTO.setDesignationMatiereLT(domaine.getDetailsAppelOffrePK().getMatiere().getDesignationLt());
-//                dTO.setDesignationMatiereAr(domaine.getDetailsAppelOffrePK().getMatiere().getDesignationAr());
-//
-//                dTO.setCodeSaisieColoris(domaine.getDetailsAppelOffrePK().getColoris().getCodeSaisie());
-//                dTO.setDesignationColorisLT(domaine.getDetailsAppelOffrePK().getColoris().getDesignationLt());
-//                dTO.setDesignationColorisAr(domaine.getDetailsAppelOffrePK().getColoris().getDesignationAr());
-//
-//                dTO.setCodeSaisieUnite(domaine.getDetailsAppelOffrePK().getUnite().getCodeSaisie());
-//                dTO.setDesignationUniteLT(domaine.getDetailsAppelOffrePK().getUnite().getDesignationLt());
-//                dTO.setDesignationUniteAr(domaine.getDetailsAppelOffrePK().getUnite().getDesignationAr());
-            }
-
+            System.out.println("after save "+ MatiereFactory.matiereToMatiereDTO(domaine.getMatiere()));
+            dTO.setCodematiere(MatiereFactory.matiereToMatiereDTO(domaine.getMatiere())); 
+            
+            
+            
             dTO.setQteDemander(domaine.getQteDemander());
             return dTO;
         } else {
@@ -131,10 +94,6 @@ public class DetailsAppelOffreFactory {
         }
 
     }
-    
-    
-    /////// Appel Offre With Details From Base
-    
-  
 
+/////// Appel Offre With Details From Base
 }

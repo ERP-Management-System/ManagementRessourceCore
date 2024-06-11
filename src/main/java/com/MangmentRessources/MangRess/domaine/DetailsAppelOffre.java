@@ -40,11 +40,11 @@ public class DetailsAppelOffre {
 
     @Column(name = "code_matiere", insertable = false, updatable = false)
     private Integer codematiere;
-
-//    @JoinColumn(name = "code_matiere", referencedColumnName = "Code", nullable = false)
-//    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-//    @JsonBackReference
-//    private Matiere matiere;
+    
+    @JoinColumn(name = "code_matiere", referencedColumnName = "code", nullable = false, updatable = false, insertable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Matiere matiere;
 
     @NotNull
     @Column(name = "qte_demander", nullable = false)
@@ -78,14 +78,6 @@ public class DetailsAppelOffre {
         this.appelOffre = appelOffre;
     }
 
-    public Integer getCodematiere() {
-        return codematiere;
-    }
-
-    public void setCodematiere(Integer codematiere) {
-        this.codematiere = codematiere;
-    }
-
     public BigDecimal getQteDemander() {
         return qteDemander;
     }
@@ -110,5 +102,21 @@ public class DetailsAppelOffre {
         this.dateCreate = dateCreate;
     }
 
-    
+    public Integer getCodematiere() {
+        return codematiere;
+    }
+
+    public void setCodematiere(Integer codematiere) {
+        this.codematiere = codematiere;
+    }
+
+    public Matiere getMatiere() {
+        return matiere;
+    }
+
+  
+
+   
+ 
+
 }
