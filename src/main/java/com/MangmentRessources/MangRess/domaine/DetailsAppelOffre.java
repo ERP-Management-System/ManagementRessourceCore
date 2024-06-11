@@ -40,11 +40,30 @@ public class DetailsAppelOffre {
 
     @Column(name = "code_matiere", insertable = false, updatable = false)
     private Integer codematiere;
-    
     @JoinColumn(name = "code_matiere", referencedColumnName = "code", nullable = false, updatable = false, insertable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonBackReference
     private Matiere matiere;
+    
+    @JoinColumn(name = "code_coloris", referencedColumnName = "code", nullable = false, updatable = false, insertable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Coloris coloris;
+    @Column(name = "code_coloris", insertable = false, updatable = false)
+    private Integer codeColoris;
+    
+    
+    @JoinColumn(name = "code_unite", referencedColumnName = "code", nullable = false, updatable = false, insertable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Unite unite;
+    @Column(name = "code_unite", insertable = false, updatable = false)
+    private Integer codeUnite;
+    
+    
+    
+
+
 
     @NotNull
     @Column(name = "qte_demander", nullable = false)
@@ -114,9 +133,36 @@ public class DetailsAppelOffre {
         return matiere;
     }
 
-  
+    public Coloris getColoris() {
+        return coloris;
+    }
 
-   
- 
+    public void setColoris(Coloris coloris) {
+        this.coloris = coloris;
+    }
+
+    public Integer getCodeColoris() {
+        return codeColoris;
+    }
+
+    public void setCodeColoris(Integer codeColoris) {
+        this.codeColoris = codeColoris;
+    }
+
+    public Unite getUnite() {
+        return unite;
+    }
+
+    public void setUnite(Unite unite) {
+        this.unite = unite;
+    }
+
+    public Integer getCodeUnite() {
+        return codeUnite;
+    }
+
+    public void setCodeUnite(Integer codeUnite) {
+        this.codeUnite = codeUnite;
+    }
 
 }

@@ -9,6 +9,7 @@ import com.MangmentRessources.MangRess.domaine.DetailsAppelOffre;
 import com.MangmentRessources.MangRess.domaine.DetailsAppelOffrePK;
 import com.MangmentRessources.MangRess.dto.AppelOffreDTO;
 import com.MangmentRessources.MangRess.dto.DetailsAppelOffreDTO;
+import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -128,17 +129,22 @@ public class AppelOffreFactory {
         domaine.setUserCreate(dTO.getUserCreate());
         domaine.setObservation(dTO.getObservation());
         domaine.setCodeModeReglement(dTO.getCodeModeReglement());
-        domaine.setCodeFournisseur(1);
+        domaine.setCodeFournisseur(dTO.getCodeFournisseur());
         domaine.setCodeEtatReception(dTO.getCodeEtatReception());
 
         Collection<DetailsAppelOffre> detailsModelePanierCollections = new ArrayList<>();
 
         dTO.getDetailsAppelOffreDTOs().forEach(x -> {
+            
+            
             DetailsAppelOffre detailsmodelepanier = new DetailsAppelOffre();
             DetailsAppelOffrePK detailsmodelepanierPK = new DetailsAppelOffrePK();
+             Preconditions.checkArgument(x.getCodematiere()!= null, "error.MatiereRequired");
             detailsmodelepanierPK.setCodeMatiere(x.getCodematiere().getCode());
-//            detailsmodelepanierPK.setCodeMatiere(x.getMatiereDTO().getCode());
-    
+            Preconditions.checkArgument(x.getCodeColoris() != null, "error.ColorisRequired");
+            detailsmodelepanierPK.setCodeColoris(x.getCodeColoris().getCode());
+            Preconditions.checkArgument(x.getCodeUnite() != null, "error.UniteRequired");
+            detailsmodelepanierPK.setCodeUnite(x.getCodeUnite().getCode());
             detailsmodelepanier.setDetailsAppelOffrePK(detailsmodelepanierPK);
             detailsmodelepanier.setQteDemander(x.getQteDemander());
             detailsmodelepanier.setDateCreate(domaine.getDateCreate());
@@ -187,8 +193,7 @@ public class AppelOffreFactory {
         }
         return dTO;
     }
-    
-    
+
     public static AppelOffreDTO DetailsappelOffreToDetailsAppelOffreDTO(AppelOffre domaine) {
 
         if (domaine != null) {
@@ -211,7 +216,6 @@ public class AppelOffreFactory {
             dTO.setUserCreate(domaine.getUserCreate());
             dTO.setObservation(domaine.getObservation());
 
- 
             dTO.setFournisseurDTO(FournisseurFactory.fournisseurToFournisseurDTO(domaine.getFournisseur()));
             dTO.setCodeFournisseur(domaine.getCodeFournisseur());
 

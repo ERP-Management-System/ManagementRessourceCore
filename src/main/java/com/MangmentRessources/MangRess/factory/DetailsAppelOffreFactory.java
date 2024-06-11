@@ -3,14 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.MangmentRessources.MangRess.factory;
- 
+
 import com.MangmentRessources.MangRess.domaine.DetailsAppelOffre;
-import com.MangmentRessources.MangRess.domaine.DetailsAppelOffrePK; 
-import com.MangmentRessources.MangRess.dto.DetailsAppelOffreDTO;  
- 
+import com.MangmentRessources.MangRess.domaine.DetailsAppelOffrePK;
+import com.MangmentRessources.MangRess.dto.DetailsAppelOffreDTO;
+
 import java.util.Date;
 import java.util.Locale;
-import org.springframework.beans.factory.annotation.Value; 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -57,23 +57,6 @@ public class DetailsAppelOffreFactory {
 
         return domain;
     }
-//
-//    public static DetailsAppelOffre detailddetransfertDTOTodetailddetransfertCollection(DetailsAppelOffreDTO detailsAppelOffreDTO, AppelOffre appelOffre) {
-//        DetailsAppelOffre detailsAppelOffre = new DetailsAppelOffre();
-//
-//        DetailsAppelOffrePK detailsDdeTransfertPK = new DetailsAppelOffrePK();
-////        detailsDdeTransfert.set(detailsDdeTransfertDTO.getCodeddeTransfert());
-////        detailsDdeTransfertPK.setCodematiere(detailsAppelOffreDTO.getCodeMatiere());
-////        detailsDdeTransfertPK.setCodeappeloffre(appelOffre.getCode());
-//
-//        detailsAppelOffre.setDetailsAppelOffrePK(detailsDdeTransfertPK);
-//
-//        detailsAppelOffre.setQteDemander(detailsAppelOffreDTO.getQteDemander());
-//        detailsAppelOffre.setDateCreate(new Date());
-//        detailsAppelOffre.setUsercreate(detailsAppelOffreDTO.getUsercreate());
-//
-//        return detailsAppelOffre;
-//    }
 
     public static DetailsAppelOffreDTO detailsAppelOffreTodetailsAppelOffreDTOCollection(DetailsAppelOffre domaine) {
 
@@ -82,11 +65,10 @@ public class DetailsAppelOffreFactory {
             dTO.setCodeAppelOffre(domaine.getDetailsAppelOffrePK().getCodeAppelOffre());
             dTO.setDatecreate(domaine.getDateCreate());
             dTO.setUsercreate(domaine.getUsercreate());
-            System.out.println("after save "+ MatiereFactory.matiereToMatiereDTO(domaine.getMatiere()));
-            dTO.setCodematiere(MatiereFactory.matiereToMatiereDTO(domaine.getMatiere())); 
-            
-            
-            
+            dTO.setCodematiere(MatiereFactory.matiereToMatiereDTO(domaine.getMatiere()));
+            dTO.setCodeColoris(ColorisFactory.colorisToColorisDTO(domaine.getColoris()));
+            dTO.setCodeUnite(UniteFactory.uniteToUniteDTO(domaine.getUnite()));
+
             dTO.setQteDemander(domaine.getQteDemander());
             return dTO;
         } else {

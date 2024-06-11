@@ -7,6 +7,7 @@ package com.MangmentRessources.MangRess.service;
 import com.MangmentRessources.MangRess.domaine.AppelOffre;
 import com.MangmentRessources.MangRess.domaine.FamilleArticle;
 import com.MangmentRessources.MangRess.dto.AppelOffreDTO;
+import com.MangmentRessources.MangRess.dto.DetailsAppelOffreDTO;
 import com.MangmentRessources.MangRess.dto.FamilleArticleDTO;
 import com.MangmentRessources.MangRess.factory.AppelOffreFactory;
 import com.MangmentRessources.MangRess.factory.FamilleArticleFactory;
@@ -91,9 +92,11 @@ public class AppelOffreService {
 //        ddeAchat = appelOffreRepo.save(ddeAchat);
 //        return AppelOffreFactory.ddeAchatToddeAchatDTOwithDetails(ddeAchat);
 //    }
-    public AppelOffreDTO saveAO(AppelOffreDTO Dto) {
+    public AppelOffreDTO saveAO(AppelOffreDTO Dto) { 
 
+        
         AppelOffre domaine = AppelOffreFactory.appelOffreDTOToAppelOffreWithDetails(new AppelOffre(), Dto);
+
         domaine.setCode(null);
         domaine.setUserCreate(domaine.getUserCreate());
         domaine.setDateCreate(new Date());
@@ -102,14 +105,12 @@ public class AppelOffreService {
         AppelOffreDTO resultDTO = AppelOffreFactory.appelOffreWithDetailsToappelOffreDTOWithDetails(domaine);
         return resultDTO;
     }
-    
-        @Transactional(readOnly = true)
+
+    @Transactional(readOnly = true)
     public AppelOffreDTO findOneWithDetilas(Integer code) {
         AppelOffre domaine = appelOffreRepo.getReferenceById(code);
         Preconditions.checkArgument(domaine.getCode() != null, "error.AppelOffreNotFound");
         return AppelOffreFactory.appelOffreWithDetailsToappelOffreDTOWithDetails(domaine);
     }
-    
-    
-}
 
+}

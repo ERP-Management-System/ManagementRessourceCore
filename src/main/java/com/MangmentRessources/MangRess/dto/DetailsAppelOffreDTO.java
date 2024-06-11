@@ -16,15 +16,17 @@ import java.util.Date;
  * @author Administrator
  */
 public class DetailsAppelOffreDTO {
-    
-//    @NotNull
-//    private int codematiere;
 
+    private int codeAppelOffre;
 
     @NotNull
     private MatiereDTO codematiere;
 
-    private int codeAppelOffre;
+    @NotNull
+    private ColorisDTO codeColoris;
+
+    @NotNull
+    private UniteDTO codeUnite;
 
     private BigDecimal qteDemander;
 
@@ -74,18 +76,6 @@ public class DetailsAppelOffreDTO {
         this.datecreate = datecreate;
     }
 
-
-
- 
-//    public int getCodematiere() {
-//        return codematiere;
-//    }
-//
-//    public void setCodematiere(int codematiere) {
-//        this.codematiere = codematiere;
-//    }
-// 
-
     public MatiereDTO getCodematiere() {
         return codematiere;
     }
@@ -93,10 +83,21 @@ public class DetailsAppelOffreDTO {
     public void setCodematiere(MatiereDTO codematiere) {
         this.codematiere = codematiere;
     }
- 
- 
 
+    public ColorisDTO getCodeColoris() {
+        return codeColoris;
+    }
 
-  
+    public void setCodeColoris(ColorisDTO codeColoris) {
+        this.codeColoris = codeColoris;
+    }
+
+    public UniteDTO getCodeUnite() {
+        return codeUnite;
+    }
+
+    public void setCodeUnite(UniteDTO codeUnite) {
+        this.codeUnite = codeUnite;
+    }
 
 }

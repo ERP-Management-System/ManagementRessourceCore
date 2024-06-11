@@ -26,19 +26,20 @@ public class DetailsAppelOffrePK implements Serializable {
     @Column(name = "Code_Appel_Offre", nullable = false)
     private int codeAppelOffre;
 
-
- 
     @Basic(optional = false)
     @NotNull
     @Column(name = "code_matiere", nullable = false)
     private int codeMatiere;
-    
-    
-    
-    //    @Column(name = "code_matiere", updatable = false, insertable = false)
-//    private Integer codeMatiere;
-//    
- 
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "code_coloris", nullable = false)
+    private int codeColoris;
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "code_unite", nullable = false)
+    private int codeUnite;
 
     public DetailsAppelOffrePK() {
     }
@@ -59,4 +60,21 @@ public class DetailsAppelOffrePK implements Serializable {
         this.codeMatiere = codeMatiere;
     }
 
+    public int getCodeColoris() {
+        return codeColoris;
+    }
+
+    public void setCodeColoris(int codeColoris) {
+        this.codeColoris = codeColoris;
+    }
+
+    public int getCodeUnite() {
+        return codeUnite;
+    }
+
+    public void setCodeUnite(int codeUnite) {
+        this.codeUnite = codeUnite;
+    }
+
+    
 }
