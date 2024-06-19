@@ -4,15 +4,11 @@
  */
 package com.MangmentRessources.MangRess.Achat.domaine;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -25,29 +21,25 @@ import javax.validation.constraints.Size;
  * @author Administrator
  */
 @Entity
-@Table(name = "depot", schema = "achat")
-public class Depot {
-
+@Table(name = "unite", schema = "achat")
+public class Unite {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "code")
+    @Column(name = "Code")
     private Integer code;
 
     @Size(max = 200)
-    @NotNull
-    @Column(name = "code_saisie", length = 200)
+    @Column(name = "code_saisie", length = 200 , nullable = false)
     private String codeSaisie;
 
     @Size(max = 200)
-    @Column(name = "designation_ar", length = 200, nullable = false, columnDefinition = "nvarchar(200)")
+    @Column(name = "designation_ar", length = 200 , nullable = false , columnDefinition = "nvarchar")
     private String designationAr;
 
     @Size(max = 200)
-    @Column(name = "designation_lt", length = 200, nullable = false, columnDefinition = "nvarchar(200)")
+    @Column(name = "designation_lt", length = 200, nullable = false, columnDefinition = "nvarchar")
     private String designationLt;
-
-    @Column(name = "is_principal", nullable = false)
-    private boolean principal;
 
     @Column(name = "actif", nullable = false)
     private boolean actif;
@@ -55,26 +47,17 @@ public class Depot {
     @Column(name = "visible", nullable = false)
     private boolean visible;
 
-    @Column(name = "user_Create", nullable = false, length = 255, columnDefinition = "nvarchar(200)")
+    @Column(name = "user_Create", nullable = false, length = 255, columnDefinition = "nvarchar")
     private String userCreate;
 
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "date_Create", nullable = false)
+    @Column(name = "date_Create")
     private Date dateCreate;
 
-    @JoinColumn(name = "code_categorie_depot", referencedColumnName = "Code", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonBackReference
-    private CategorieDepot categorieDepot;
-
-    @Column(name = "code_categorie_depot", updatable = false, insertable = false)
-    private Integer codeCategorieDepot;
-
-    public Depot() {
+    public Unite() {
     }
 
-    
-    
     public Integer getCode() {
         return code;
     }
@@ -105,14 +88,6 @@ public class Depot {
 
     public void setDesignationLt(String designationLt) {
         this.designationLt = designationLt;
-    }
-
-    public boolean isPrincipal() {
-        return principal;
-    }
-
-    public void setPrincipal(boolean principal) {
-        this.principal = principal;
     }
 
     public boolean isActif() {
@@ -146,23 +121,7 @@ public class Depot {
     public void setDateCreate(Date dateCreate) {
         this.dateCreate = dateCreate;
     }
-
-    public CategorieDepot getCategorieDepot() {
-        return categorieDepot;
-    }
-
-    public void setCategorieDepot(CategorieDepot categorieDepot) {
-        this.categorieDepot = categorieDepot;
-    }
-
-    public Integer getCodeCategorieDepot() {
-        return codeCategorieDepot;
-    }
-
-    public void setCodeCategorieDepot(Integer codeCategorieDepot) {
-        this.codeCategorieDepot = codeCategorieDepot;
-    }
-
+    
     
     
 }

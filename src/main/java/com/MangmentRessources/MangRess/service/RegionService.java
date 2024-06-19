@@ -5,11 +5,12 @@
 package com.MangmentRessources.MangRess.service;
 
 //import com.MangmentRessources.MangRess.domaine.Client;
+import com.MangmentRessources.MangRess.Achat.service.ClientService;
 import com.MangmentRessources.MangRess.domaine.Region;
-import com.MangmentRessources.MangRess.dto.ClientDTO;
+import com.MangmentRessources.MangRess.Achat.dto.ClientDTO;
 import com.MangmentRessources.MangRess.dto.RegionDTO;
 import com.MangmentRessources.MangRess.factory.RegionFactory;
-import com.MangmentRessources.MangRess.repository.ClientRepo;
+import com.MangmentRessources.MangRess.Achat.repository.ClientRepo;
 import com.MangmentRessources.MangRess.repository.RegionRepo;
 
 import com.MangmentRessources.MangRess.web.Util.Preconditions;

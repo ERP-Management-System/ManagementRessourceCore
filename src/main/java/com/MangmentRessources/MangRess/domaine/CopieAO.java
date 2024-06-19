@@ -4,6 +4,7 @@
  */
 package com.MangmentRessources.MangRess.domaine;
 
+import com.MangmentRessources.MangRess.Achat.domaine.AppelOffre;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;

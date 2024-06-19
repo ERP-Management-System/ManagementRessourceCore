@@ -5,8 +5,8 @@
 package com.MangmentRessources.MangRess.web;
 
 import com.MangmentRessources.MangRess.domaine.Client;
-import com.MangmentRessources.MangRess.dto.ClientDTO;
-import com.MangmentRessources.MangRess.service.ClientService;
+import com.MangmentRessources.MangRess.Achat.dto.ClientDTO;
+import com.MangmentRessources.MangRess.Achat.service.ClientService;
 import jakarta.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;

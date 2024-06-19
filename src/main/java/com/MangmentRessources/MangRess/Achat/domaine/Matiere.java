@@ -5,18 +5,10 @@
 package com.MangmentRessources.MangRess.Achat.domaine;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import javax.xml.validation.Schema;
+import java.util.Collection;
 import java.util.Date;
 import javax.validation.constraints.Size;
 
@@ -25,8 +17,8 @@ import javax.validation.constraints.Size;
  * @author Administrator
  */
 @Entity
-@Table(name = "depot", schema = "achat")
-public class Depot {
+@Table(name = "matiere", schema = "achat")
+public class Matiere {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,42 +31,43 @@ public class Depot {
     private String codeSaisie;
 
     @Size(max = 200)
-    @Column(name = "designation_ar", length = 200, nullable = false, columnDefinition = "nvarchar(200)")
+    @NotNull
+    @Column(name = "designation_ar", length = 200, columnDefinition = "nvarchar")
     private String designationAr;
 
     @Size(max = 200)
-    @Column(name = "designation_lt", length = 200, nullable = false, columnDefinition = "nvarchar(200)")
+    @Column(name = "designation_lt", length = 200, columnDefinition = "nvarchar")
     private String designationLt;
 
-    @Column(name = "is_principal", nullable = false)
-    private boolean principal;
-
     @Column(name = "actif", nullable = false)
+    @NotNull
     private boolean actif;
 
     @Column(name = "visible", nullable = false)
+    @NotNull
     private boolean visible;
 
-    @Column(name = "user_Create", nullable = false, length = 255, columnDefinition = "nvarchar(200)")
+    @Column(name = "user_Create", nullable = false, length = 255, columnDefinition = "nvarchar")
     private String userCreate;
 
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "date_Create", nullable = false)
+    @Column(name = "date_Create")
     private Date dateCreate;
 
-    @JoinColumn(name = "code_categorie_depot", referencedColumnName = "Code", nullable = false)
+    @JoinColumn(name = "code_type_matiere", referencedColumnName = "Code", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonBackReference
-    private CategorieDepot categorieDepot;
+    private TypeMatiere codeTypeMatiere;
 
-    @Column(name = "code_categorie_depot", updatable = false, insertable = false)
-    private Integer codeCategorieDepot;
+    @Column(name = "code_type_matiere", updatable = false, insertable = false)
+    private Integer typeMatiere;
+    
+    
 
-    public Depot() {
+    public Matiere() {
     }
 
-    
-    
     public Integer getCode() {
         return code;
     }
@@ -105,14 +98,6 @@ public class Depot {
 
     public void setDesignationLt(String designationLt) {
         this.designationLt = designationLt;
-    }
-
-    public boolean isPrincipal() {
-        return principal;
-    }
-
-    public void setPrincipal(boolean principal) {
-        this.principal = principal;
     }
 
     public boolean isActif() {
@@ -147,22 +132,21 @@ public class Depot {
         this.dateCreate = dateCreate;
     }
 
-    public CategorieDepot getCategorieDepot() {
-        return categorieDepot;
+    public TypeMatiere getCodeTypeMatiere() {
+        return codeTypeMatiere;
     }
 
-    public void setCategorieDepot(CategorieDepot categorieDepot) {
-        this.categorieDepot = categorieDepot;
+    public void setCodeTypeMatiere(TypeMatiere codeTypeMatiere) {
+        this.codeTypeMatiere = codeTypeMatiere;
     }
 
-    public Integer getCodeCategorieDepot() {
-        return codeCategorieDepot;
+    public Integer getTypeMatiere() {
+        return typeMatiere;
     }
 
-    public void setCodeCategorieDepot(Integer codeCategorieDepot) {
-        this.codeCategorieDepot = codeCategorieDepot;
+    public void setTypeMatiere(Integer typeMatiere) {
+        this.typeMatiere = typeMatiere;
     }
 
-    
-    
+ 
 }

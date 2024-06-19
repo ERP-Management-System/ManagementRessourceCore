@@ -4,6 +4,7 @@
  */
 package com.MangmentRessources.MangRess.Achat.domaine;
 
+import com.MangmentRessources.MangRess.Achat.domaine.GrilleTaille;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,10 +25,12 @@ import javax.validation.constraints.Size;
  *
  * @author Administrator
  */
-@Entity
-@Table(name = "depot", schema = "achat")
-public class Depot {
 
+@Entity
+@Table(name = "taille", schema = "achat")
+public class Taille {
+    
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "code")
@@ -39,42 +42,41 @@ public class Depot {
     private String codeSaisie;
 
     @Size(max = 200)
-    @Column(name = "designation_ar", length = 200, nullable = false, columnDefinition = "nvarchar(200)")
+    @NotNull
+    @Column(name = "designation_ar", length = 200, columnDefinition = "nvarchar")
     private String designationAr;
 
     @Size(max = 200)
-    @Column(name = "designation_lt", length = 200, nullable = false, columnDefinition = "nvarchar(200)")
+    @Column(name = "designation_lt", length = 200, columnDefinition = "nvarchar")
     private String designationLt;
 
-    @Column(name = "is_principal", nullable = false)
-    private boolean principal;
-
-    @Column(name = "actif", nullable = false)
+    @Column(name = "Actif", nullable = false)
+    @NotNull
     private boolean actif;
 
-    @Column(name = "visible", nullable = false)
+    @Column(name = "Visible", nullable = false)
+    @NotNull
     private boolean visible;
 
-    @Column(name = "user_Create", nullable = false, length = 255, columnDefinition = "nvarchar(200)")
+    @Column(name = "User_Create", nullable = false, length = 255, columnDefinition = "nvarchar")
     private String userCreate;
 
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "date_Create", nullable = false)
+    @Column(name = "Date_Create")
     private Date dateCreate;
 
-    @JoinColumn(name = "code_categorie_depot", referencedColumnName = "Code", nullable = false)
+    @JoinColumn(name = "code_type_matiere", referencedColumnName = "Code", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonBackReference
-    private CategorieDepot categorieDepot;
+    private GrilleTaille grilleTaille;
 
-    @Column(name = "code_categorie_depot", updatable = false, insertable = false)
-    private Integer codeCategorieDepot;
+    @Column(name = "code_grille_taille", updatable = false, insertable = false)
+    private Integer codeGrilleTaille;
 
-    public Depot() {
+    public Taille() {
     }
 
-    
-    
     public Integer getCode() {
         return code;
     }
@@ -105,14 +107,6 @@ public class Depot {
 
     public void setDesignationLt(String designationLt) {
         this.designationLt = designationLt;
-    }
-
-    public boolean isPrincipal() {
-        return principal;
-    }
-
-    public void setPrincipal(boolean principal) {
-        this.principal = principal;
     }
 
     public boolean isActif() {
@@ -147,22 +141,24 @@ public class Depot {
         this.dateCreate = dateCreate;
     }
 
-    public CategorieDepot getCategorieDepot() {
-        return categorieDepot;
+    public GrilleTaille getGrilleTaille() {
+        return grilleTaille;
     }
 
-    public void setCategorieDepot(CategorieDepot categorieDepot) {
-        this.categorieDepot = categorieDepot;
+    public void setGrilleTaille(GrilleTaille grilleTaille) {
+        this.grilleTaille = grilleTaille;
     }
 
-    public Integer getCodeCategorieDepot() {
-        return codeCategorieDepot;
+    public Integer getCodeGrilleTaille() {
+        return codeGrilleTaille;
     }
 
-    public void setCodeCategorieDepot(Integer codeCategorieDepot) {
-        this.codeCategorieDepot = codeCategorieDepot;
+    public void setCodeGrilleTaille(Integer codeGrilleTaille) {
+        this.codeGrilleTaille = codeGrilleTaille;
     }
-
+    
+    
+    
     
     
 }

@@ -4,12 +4,9 @@
  */
 package com.MangmentRessources.MangRess.Achat.factory;
 
-import com.MangmentRessources.MangRess.Achat.domaine.Depot;
-import com.MangmentRessources.MangRess.Achat.dto.DepotDTO;
-import java.time.LocalDate;
+import com.MangmentRessources.MangRess.Achat.domaine.Unite;
+import com.MangmentRessources.MangRess.Achat.dto.UniteDTO;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,8 +18,9 @@ import org.springframework.stereotype.Component;
  * @author Administrator
  */
 @Component
-public class DepotFactory {
-
+public class UniteFactory {
+    
+    
     static String LANGUAGE_SEC;
 
     @Value("${lang.secondary}")
@@ -30,13 +28,13 @@ public class DepotFactory {
         LANGUAGE_SEC = db;
     }
 
-    public static Depot createDepotByCode(int code) {
-        Depot domaine = new Depot();
+    public static Unite createUniteByCode(int code) {
+        Unite domaine = new Unite();
         domaine.setCode(code);
         return domaine;
     }
 
-    public static Depot depotDTOToDepot(DepotDTO Dto, Depot domaine) {
+    public static Unite uniteDTOToUnite(UniteDTO Dto, Unite domaine) {
         if (Dto != null) {
             domaine.setCode(Dto.getCode());
             if (LocaleContextHolder.getLocale().getLanguage().equals(new Locale(LANGUAGE_SEC).getLanguage())) {
@@ -46,47 +44,36 @@ public class DepotFactory {
                 domaine.setDesignationLt(Dto.getDesignationLt());
                 domaine.setDesignationAr(Dto.getDesignationAr());
             }
-            domaine.setCodeSaisie(Dto.getCodeSaisie());
+//            domaine.setCodeSaisie(Dto.getCodeSaisie());
             domaine.setActif(Dto.isActif());
             domaine.setVisible(Dto.isVisible());
-            domaine.setPrincipal(Dto.isPrincipal());
-
-            domaine.setDateCreate(new Date());
+            domaine.setDateCreate(Dto.getDateCreate());
             domaine.setUserCreate(Dto.getUserCreate());
-            domaine.setCodeCategorieDepot(Dto.getCodeCategorieDepot());
-            if (domaine.getCodeCategorieDepot() != null) {
-                domaine.setCategorieDepot(CategorieDepotFactory.createCategorieDepotByCode(Dto.getCodeCategorieDepot()));
-
-            }
-
             return domaine;
         } else {
             return null;
         }
     }
 
-    public static DepotDTO depotToDepotDTO(Depot domaine) {
+    public static UniteDTO uniteToUniteDTO(Unite domaine) {
 
         if (domaine != null) {
-            DepotDTO dTO = new DepotDTO();
+            UniteDTO dTO = new UniteDTO();
             dTO.setCode(domaine.getCode());
+ 
             if (LocaleContextHolder.getLocale().getLanguage().equals(new Locale(LANGUAGE_SEC).getLanguage())) {
-
+                
                 dTO.setDesignationAr(domaine.getDesignationAr());
                 dTO.setDesignationLt(domaine.getDesignationLt());
             } else {
                 dTO.setDesignationLt(domaine.getDesignationLt());
                 dTO.setDesignationAr(domaine.getDesignationAr());
-            }
+            } 
             dTO.setCodeSaisie(domaine.getCodeSaisie());
             dTO.setActif(domaine.isActif());
-            dTO.setVisible(domaine.isVisible()); 
-            dTO.setPrincipal(domaine.isPrincipal());
-
+            dTO.setVisible(domaine.isVisible());
             dTO.setDateCreate(domaine.getDateCreate());
             dTO.setUserCreate(domaine.getUserCreate());
-            dTO.setCategorieDepotDTO(CategorieDepotFactory.categorieDepotToCategorieDepotDTO(domaine.getCategorieDepot()));
-            dTO.setCodeCategorieDepot(domaine.getCodeCategorieDepot());
 
             return dTO;
         } else {
@@ -94,20 +81,12 @@ public class DepotFactory {
         }
     }
 
-    public static List<DepotDTO> listDepotToDepotDTOs(List<Depot> ds) {
-        List<DepotDTO> list = new ArrayList<>();
-        for (Depot depot : ds) {
-            list.add(depotToDepotDTO(depot));
+    public static List<UniteDTO> listUniteToUniteDTOs(List<Unite> unites) {
+        List<UniteDTO> list = new ArrayList<>();
+        for (Unite unite : unites) {
+            list.add(uniteToUniteDTO(unite));
         }
         return list;
     }
-
-    public static Collection<DepotDTO> listDepotToDepotDTOsCollection(Collection<Depot> filiales) {
-        List<DepotDTO> dTOs = new ArrayList<>();
-        filiales.forEach(x -> {
-            dTOs.add(depotToDepotDTO(x));
-        });
-        return dTOs;
-
-    }
+    
 }

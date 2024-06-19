@@ -5,6 +5,7 @@
 package com.MangmentRessources.MangRess.Achat.domaine;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -25,56 +26,39 @@ import javax.validation.constraints.Size;
  * @author Administrator
  */
 @Entity
-@Table(name = "depot", schema = "achat")
-public class Depot {
-
+@Table(name = "type_circuit_achat", schema = "achat")
+public class TypeCircuitAchat {
+    
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "code")
+    @Basic(optional = false)
+    @Column(name = "Code", nullable = false)
     private Integer code;
 
-    @Size(max = 200)
-    @NotNull
-    @Column(name = "code_saisie", length = 200)
+    @Size(max = 2) 
+    @Column(name = "code_saisie", length = 2, nullable = false)
     private String codeSaisie;
 
-    @Size(max = 200)
-    @Column(name = "designation_ar", length = 200, nullable = false, columnDefinition = "nvarchar(200)")
+    @Size(max = 200) 
+    @Column(name = "designation_ar", length = 200, nullable = false, columnDefinition = "nvarchar")
     private String designationAr;
 
     @Size(max = 200)
-    @Column(name = "designation_lt", length = 200, nullable = false, columnDefinition = "nvarchar(200)")
+    @Column(name = "designation_lt", length = 200, nullable = false, columnDefinition = "nvarchar")
     private String designationLt;
-
-    @Column(name = "is_principal", nullable = false)
-    private boolean principal;
-
-    @Column(name = "actif", nullable = false)
-    private boolean actif;
-
-    @Column(name = "visible", nullable = false)
-    private boolean visible;
-
-    @Column(name = "user_Create", nullable = false, length = 255, columnDefinition = "nvarchar(200)")
+ 
+    @Column(name = "user_Create", nullable = false, length = 255, columnDefinition = "nvarchar")
     private String userCreate;
 
+ 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_Create", nullable = false)
     private Date dateCreate;
 
-    @JoinColumn(name = "code_categorie_depot", referencedColumnName = "Code", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonBackReference
-    private CategorieDepot categorieDepot;
-
-    @Column(name = "code_categorie_depot", updatable = false, insertable = false)
-    private Integer codeCategorieDepot;
-
-    public Depot() {
+    public TypeCircuitAchat() {
     }
 
-    
-    
     public Integer getCode() {
         return code;
     }
@@ -107,30 +91,6 @@ public class Depot {
         this.designationLt = designationLt;
     }
 
-    public boolean isPrincipal() {
-        return principal;
-    }
-
-    public void setPrincipal(boolean principal) {
-        this.principal = principal;
-    }
-
-    public boolean isActif() {
-        return actif;
-    }
-
-    public void setActif(boolean actif) {
-        this.actif = actif;
-    }
-
-    public boolean isVisible() {
-        return visible;
-    }
-
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
-
     public String getUserCreate() {
         return userCreate;
     }
@@ -147,22 +107,8 @@ public class Depot {
         this.dateCreate = dateCreate;
     }
 
-    public CategorieDepot getCategorieDepot() {
-        return categorieDepot;
-    }
-
-    public void setCategorieDepot(CategorieDepot categorieDepot) {
-        this.categorieDepot = categorieDepot;
-    }
-
-    public Integer getCodeCategorieDepot() {
-        return codeCategorieDepot;
-    }
-
-    public void setCodeCategorieDepot(Integer codeCategorieDepot) {
-        this.codeCategorieDepot = codeCategorieDepot;
-    }
-
+ 
     
     
+
 }

@@ -4,12 +4,10 @@
  */
 package com.MangmentRessources.MangRess.Achat.factory;
 
-import com.MangmentRessources.MangRess.Achat.domaine.Depot;
-import com.MangmentRessources.MangRess.Achat.dto.DepotDTO;
-import java.time.LocalDate;
+import com.MangmentRessources.MangRess.domaine.Client;
+import com.MangmentRessources.MangRess.Achat.dto.ClientDTO;
+import com.MangmentRessources.MangRess.factory.RegionFactory;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +19,7 @@ import org.springframework.stereotype.Component;
  * @author Administrator
  */
 @Component
-public class DepotFactory {
+public class ClientFactory {
 
     static String LANGUAGE_SEC;
 
@@ -30,13 +28,13 @@ public class DepotFactory {
         LANGUAGE_SEC = db;
     }
 
-    public static Depot createDepotByCode(int code) {
-        Depot domaine = new Depot();
+    public static Client createClientByCode(int code) {
+        Client domaine = new Client();
         domaine.setCode(code);
         return domaine;
     }
 
-    public static Depot depotDTOToDepot(DepotDTO Dto, Depot domaine) {
+    public static Client clientDTOToClient(ClientDTO Dto, Client domaine) {
         if (Dto != null) {
             domaine.setCode(Dto.getCode());
             if (LocaleContextHolder.getLocale().getLanguage().equals(new Locale(LANGUAGE_SEC).getLanguage())) {
@@ -46,18 +44,17 @@ public class DepotFactory {
                 domaine.setDesignationLt(Dto.getDesignationLt());
                 domaine.setDesignationAr(Dto.getDesignationAr());
             }
-            domaine.setCodeSaisie(Dto.getCodeSaisie());
+//            domaine.setCodeSaisie(Dto.getCodeSaisie());
             domaine.setActif(Dto.isActif());
             domaine.setVisible(Dto.isVisible());
-            domaine.setPrincipal(Dto.isPrincipal());
-
-            domaine.setDateCreate(new Date());
+//            if (adherantDTO.getLienParentale() != null) {
+//                adherant.setCodeLienParental(adherantDTO.getLienParentale().getCode());
+//            } else {
+//                adherant.setCodeLienParental(null);
+//            } 
+            domaine.setDateCreate(Dto.getDateCreate());
             domaine.setUserCreate(Dto.getUserCreate());
-            domaine.setCodeCategorieDepot(Dto.getCodeCategorieDepot());
-            if (domaine.getCodeCategorieDepot() != null) {
-                domaine.setCategorieDepot(CategorieDepotFactory.createCategorieDepotByCode(Dto.getCodeCategorieDepot()));
-
-            }
+            domaine.setCodeRegion(Dto.getCodeRegion());
 
             return domaine;
         } else {
@@ -65,11 +62,13 @@ public class DepotFactory {
         }
     }
 
-    public static DepotDTO depotToDepotDTO(Depot domaine) {
+    public static ClientDTO clientToClientDTO(Client domaine) {
 
         if (domaine != null) {
-            DepotDTO dTO = new DepotDTO();
+            ClientDTO dTO = new ClientDTO();
             dTO.setCode(domaine.getCode());
+            //            System.out.println("jihennn  " + LocaleContextHolder.getLocale().getLanguage());
+            //            System.out.println("jihennn  " + new Locale(LANGUAGE_SEC).getLanguage());
             if (LocaleContextHolder.getLocale().getLanguage().equals(new Locale(LANGUAGE_SEC).getLanguage())) {
 
                 dTO.setDesignationAr(domaine.getDesignationAr());
@@ -80,13 +79,12 @@ public class DepotFactory {
             }
             dTO.setCodeSaisie(domaine.getCodeSaisie());
             dTO.setActif(domaine.isActif());
-            dTO.setVisible(domaine.isVisible()); 
-            dTO.setPrincipal(domaine.isPrincipal());
-
+            dTO.setVisible(domaine.isVisible());
             dTO.setDateCreate(domaine.getDateCreate());
             dTO.setUserCreate(domaine.getUserCreate());
-            dTO.setCategorieDepotDTO(CategorieDepotFactory.categorieDepotToCategorieDepotDTO(domaine.getCategorieDepot()));
-            dTO.setCodeCategorieDepot(domaine.getCodeCategorieDepot());
+
+            dTO.setRegionDTO(RegionFactory.regionToRegionDTO(domaine.getRegion()));
+            dTO.setCodeRegion(domaine.getCodeRegion());
 
             return dTO;
         } else {
@@ -94,20 +92,11 @@ public class DepotFactory {
         }
     }
 
-    public static List<DepotDTO> listDepotToDepotDTOs(List<Depot> ds) {
-        List<DepotDTO> list = new ArrayList<>();
-        for (Depot depot : ds) {
-            list.add(depotToDepotDTO(depot));
+    public static List<ClientDTO> listClientToClientDTOs(List<Client> domaines) {
+        List<ClientDTO> list = new ArrayList<>();
+        for (Client client : domaines) {
+            list.add(clientToClientDTO(client));
         }
         return list;
-    }
-
-    public static Collection<DepotDTO> listDepotToDepotDTOsCollection(Collection<Depot> filiales) {
-        List<DepotDTO> dTOs = new ArrayList<>();
-        filiales.forEach(x -> {
-            dTOs.add(depotToDepotDTO(x));
-        });
-        return dTOs;
-
     }
 }

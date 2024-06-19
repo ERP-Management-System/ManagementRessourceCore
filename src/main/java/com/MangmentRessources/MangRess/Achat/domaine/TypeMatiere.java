@@ -4,19 +4,19 @@
  */
 package com.MangmentRessources.MangRess.Achat.domaine;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
+import java.util.Collection;
 import java.util.Date;
 import javax.validation.constraints.Size;
 
@@ -25,8 +25,8 @@ import javax.validation.constraints.Size;
  * @author Administrator
  */
 @Entity
-@Table(name = "depot", schema = "achat")
-public class Depot {
+@Table(name = "type_matiere", schema = "achat")
+public class TypeMatiere {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,42 +39,40 @@ public class Depot {
     private String codeSaisie;
 
     @Size(max = 200)
-    @Column(name = "designation_ar", length = 200, nullable = false, columnDefinition = "nvarchar(200)")
+    @NotNull
+    @Column(name = "designation_ar", length = 200, columnDefinition = "nvarchar")
     private String designationAr;
 
     @Size(max = 200)
-    @Column(name = "designation_lt", length = 200, nullable = false, columnDefinition = "nvarchar(200)")
+    @Column(name = "designation_lt", length = 200, columnDefinition = "nvarchar")
     private String designationLt;
 
-    @Column(name = "is_principal", nullable = false)
-    private boolean principal;
-
-    @Column(name = "actif", nullable = false)
+    @Column(name = "Actif", nullable = false)
+    @NotNull
     private boolean actif;
 
-    @Column(name = "visible", nullable = false)
+    @Column(name = "Visible", nullable = false)
+    @NotNull
     private boolean visible;
 
-    @Column(name = "user_Create", nullable = false, length = 255, columnDefinition = "nvarchar(200)")
+    @Column(name = "User_Create", nullable = false, length = 255, columnDefinition = "nvarchar")
     private String userCreate;
 
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "date_Create", nullable = false)
+    @Column(name = "Date_Create")
     private Date dateCreate;
 
-    @JoinColumn(name = "code_categorie_depot", referencedColumnName = "Code", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonBackReference
-    private CategorieDepot categorieDepot;
+//    @OneToMany(mappedBy = "typeMatiere")
+//    private Collection<TypeMatiere> typeMatieres;
+//    
+//    
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "typeMatiere", fetch = FetchType.LAZY, orphanRemoval = true)
+//    private Collection<TypeMatiere> typeMatieres;
 
-    @Column(name = "code_categorie_depot", updatable = false, insertable = false)
-    private Integer codeCategorieDepot;
-
-    public Depot() {
+    public TypeMatiere() {
     }
 
-    
-    
     public Integer getCode() {
         return code;
     }
@@ -105,14 +103,6 @@ public class Depot {
 
     public void setDesignationLt(String designationLt) {
         this.designationLt = designationLt;
-    }
-
-    public boolean isPrincipal() {
-        return principal;
-    }
-
-    public void setPrincipal(boolean principal) {
-        this.principal = principal;
     }
 
     public boolean isActif() {
@@ -147,22 +137,12 @@ public class Depot {
         this.dateCreate = dateCreate;
     }
 
-    public CategorieDepot getCategorieDepot() {
-        return categorieDepot;
-    }
+//    public Collection<TypeMatiere> getTypeMatieres() {
+//        return typeMatieres;
+//    }
+//
+//    public void setTypeMatieres(Collection<TypeMatiere> typeMatieres) {
+//        this.typeMatieres = typeMatieres;
+//    }
 
-    public void setCategorieDepot(CategorieDepot categorieDepot) {
-        this.categorieDepot = categorieDepot;
-    }
-
-    public Integer getCodeCategorieDepot() {
-        return codeCategorieDepot;
-    }
-
-    public void setCodeCategorieDepot(Integer codeCategorieDepot) {
-        this.codeCategorieDepot = codeCategorieDepot;
-    }
-
-    
-    
 }
