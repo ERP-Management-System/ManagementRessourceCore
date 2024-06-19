@@ -35,9 +35,13 @@ public class MatiereDTO {
     private TypeMatiereDTO codeTypeMatiereDTO;
 
     private Integer typeMatiere;
-    
+
     private String desigColoris;
-    
+
+    private Integer codeMatieres;
+    private String codeSaisieMatiere;
+    private String designationArMatiere;
+    private String designationLtMatiere;
 
     public MatiereDTO() {
     }
@@ -129,9 +133,39 @@ public class MatiereDTO {
     public void setDesigColoris(String desigColoris) {
         this.desigColoris = desigColoris;
     }
- 
-    
-    
-    
 
+    public void setCodeMatieres(Integer codeMatieres) {
+        this.codeMatieres = codeMatieres;
+    }
+
+    public void setCodeSaisieMatiere(String codeSaisieMatiere) {
+        this.codeSaisieMatiere = codeSaisieMatiere;
+    }
+
+    public void setDesignationArMatiere(String designationArMatiere) {
+        this.designationArMatiere = designationArMatiere;
+    }
+
+    public void setDesignationLtMatiere(String designationLtMatiere) {
+        this.designationLtMatiere = designationLtMatiere;
+    }
+
+    public Integer getCodeMatieres() {
+        return codeMatieres;
+    }
+
+    public String getCodeSaisieMatiere() {
+        return codeSaisieMatiere;
+    }
+
+    public String getDesignationArMatiere() {
+        return designationArMatiere;
+    }
+
+    public String getDesignationLtMatiere() {
+        return designationLtMatiere;
+    }
+
+    
+    
 }

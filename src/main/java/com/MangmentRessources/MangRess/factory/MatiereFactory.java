@@ -67,17 +67,24 @@ public class MatiereFactory {
         if (domaine != null) {
             MatiereDTO dTO = new MatiereDTO();
             dTO.setCode(domaine.getCode());
-            //            System.out.println("jihennn  " + LocaleContextHolder.getLocale().getLanguage());
-            //            System.out.println("jihennn  " + new Locale(LANGUAGE_SEC).getLanguage());
+
+            dTO.setCodeMatieres(domaine.getCode());
+
             if (LocaleContextHolder.getLocale().getLanguage().equals(new Locale(LANGUAGE_SEC).getLanguage())) {
 
                 dTO.setDesignationAr(domaine.getDesignationAr());
                 dTO.setDesignationLt(domaine.getDesignationLt());
+                dTO.setDesignationArMatiere(domaine.getDesignationAr());
+                dTO.setDesignationLtMatiere(domaine.getDesignationLt());
             } else {
                 dTO.setDesignationLt(domaine.getDesignationLt());
                 dTO.setDesignationAr(domaine.getDesignationAr());
+                dTO.setDesignationLtMatiere(domaine.getDesignationLt());
+                dTO.setDesignationArMatiere(domaine.getDesignationAr());
             }
-            dTO.setCodeSaisie(domaine.getCodeSaisie());
+            dTO.setCodeSaisie(domaine.getCodeSaisie());      
+            dTO.setCodeSaisieMatiere(domaine.getCodeSaisie());
+
             dTO.setActif(domaine.isActif());
             dTO.setVisible(domaine.isVisible());
             dTO.setDateCreate(domaine.getDateCreate());
@@ -97,7 +104,7 @@ public class MatiereFactory {
 
         if (domaine != null) {
             AoDTO dTO = new AoDTO();
-            dTO.setCode(domaine.getCode());    
+            dTO.setCode(domaine.getCode());
             dTO.setDesignation(domaine.getDesignationAr());
             dTO.setColoris("");
             dTO.setQuantite("");

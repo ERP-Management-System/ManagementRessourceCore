@@ -47,8 +47,7 @@ public class ArticleRessource {
     }
 
     @GetMapping("article/all")
-    public ResponseEntity<List<ArticleDTO>> getAllArticle() {
-//        List<DdeAchat> ddeAchatList = ddeAchatService.findAllDdeAchat();
+    public ResponseEntity<List<ArticleDTO>> getAllArticle() { 
         return ResponseEntity.ok().body(articleService.findAllArticle());
     }
 

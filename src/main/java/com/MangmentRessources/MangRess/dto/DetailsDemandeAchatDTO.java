@@ -7,6 +7,7 @@ package com.MangmentRessources.MangRess.dto;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -15,23 +16,47 @@ import java.util.Date;
  */
 public class DetailsDemandeAchatDTO {
 
-    private Integer codeDemandeAchat;
+//    private Integer codeDemandeAchat;
+//
+//    private String designationMatiereAr;
+//    private String designationMatiereLT;
+//    private String codeSaisieMatiere;
+//
+//    private String designationColorisAr;
+//    private String designationColorisLT;
+//    private String codeSaisieColoris;
+//
+//    private String designationUniteAr;
+//    private String designationUniteLT;
+//    private String codeSaisieUnite;
+//
+//    private Integer qteDemander;
+//
+//    private Integer qteLivrer;
+//
+//    private String usercreate;
+//
+//    @NotNull
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date datecreate;
+//    
+    
+    
+    
+    private int codeDemandeAchat;
+    private String codeSaisieDemandeAchat;
+    @NotNull
+    private MatiereDTO codematiere;
 
-    private String designationMatiereAr;
-    private String designationMatiereLT;
-    private String codeSaisieMatiere;
+    @NotNull
+    private ColorisDTO codeColoris;
 
-    private String designationColorisAr;
-    private String designationColorisLT;
-    private String codeSaisieColoris;
+    @NotNull
+    private UniteDTO codeUnite;
 
-    private String designationUniteAr;
-    private String designationUniteLT;
-    private String codeSaisieUnite;
-
-    private Integer qteDemander;
-
-    private Integer qteLivrer;
+    private BigDecimal qteDemander;
+    
+        private BigDecimal qteLivrer;
 
     private String usercreate;
 
@@ -39,78 +64,81 @@ public class DetailsDemandeAchatDTO {
     @Temporal(TemporalType.TIMESTAMP)
     private Date datecreate;
 
+    private Integer codeMatieres;
+    private String codeSaisieMatiere;
+    private String designationArMatiere;
+    private String designationLtMatiere;
+
+    private Integer codeUnites;
+    private String codeSaisieUnites;
+    private String designationArUnites;
+    private String designationLtUnites;
+
+    private Integer codeColoriss;
+    private String codeSaisieColoriss;
+    private String designationArColoriss;
+    private String designationLtColoriss;
+
+    
+    
+    
+
     public DetailsDemandeAchatDTO() {
     }
 
-    public Integer getCodeDemandeAchat() {
+    public int getCodeDemandeAchat() {
         return codeDemandeAchat;
     }
 
-    public void setCodeDemandeAchat(Integer codeDemandeAchat) {
+    public void setCodeDemandeAchat(int codeDemandeAchat) {
         this.codeDemandeAchat = codeDemandeAchat;
     }
 
-    public String getDesignationMatiereAr() {
-        return designationMatiereAr;
+    public String getCodeSaisieDemandeAchat() {
+        return codeSaisieDemandeAchat;
     }
 
-    public void setDesignationMatiereAr(String designationMatiereAr) {
-        this.designationMatiereAr = designationMatiereAr;
+    public void setCodeSaisieDemandeAchat(String codeSaisieDemandeAchat) {
+        this.codeSaisieDemandeAchat = codeSaisieDemandeAchat;
     }
 
-    public String getDesignationMatiereLT() {
-        return designationMatiereLT;
+    public MatiereDTO getCodematiere() {
+        return codematiere;
     }
 
-    public void setDesignationMatiereLT(String designationMatiereLT) {
-        this.designationMatiereLT = designationMatiereLT;
+    public void setCodematiere(MatiereDTO codematiere) {
+        this.codematiere = codematiere;
     }
 
-    public String getCodeSaisieMatiere() {
-        return codeSaisieMatiere;
+    public ColorisDTO getCodeColoris() {
+        return codeColoris;
     }
 
-    public void setCodeSaisieMatiere(String codeSaisieMatiere) {
-        this.codeSaisieMatiere = codeSaisieMatiere;
+    public void setCodeColoris(ColorisDTO codeColoris) {
+        this.codeColoris = codeColoris;
     }
 
-    public String getDesignationColorisAr() {
-        return designationColorisAr;
+    public UniteDTO getCodeUnite() {
+        return codeUnite;
     }
 
-    public void setDesignationColorisAr(String designationColorisAr) {
-        this.designationColorisAr = designationColorisAr;
+    public void setCodeUnite(UniteDTO codeUnite) {
+        this.codeUnite = codeUnite;
     }
 
-    public String getDesignationColorisLT() {
-        return designationColorisLT;
-    }
-
-    public void setDesignationColorisLT(String designationColorisLT) {
-        this.designationColorisLT = designationColorisLT;
-    }
-
-    public String getCodeSaisieColoris() {
-        return codeSaisieColoris;
-    }
-
-    public void setCodeSaisieColoris(String codeSaisieColoris) {
-        this.codeSaisieColoris = codeSaisieColoris;
-    }
-
-    public Integer getQteDemander() {
+    public BigDecimal getQteDemander() {
         return qteDemander;
     }
 
-    public void setQteDemander(Integer qteDemander) {
+    public void setQteDemander(BigDecimal qteDemander) {
         this.qteDemander = qteDemander;
     }
 
-    public Integer getQteLivrer() {
+    public BigDecimal getQteLivrer() {
         return qteLivrer;
     }
 
-    public void setQteLivrer(Integer qteLivrer) {
+    public void setQteLivrer(BigDecimal qteLivrer) {
         this.qteLivrer = qteLivrer;
     }
 
@@ -130,28 +158,101 @@ public class DetailsDemandeAchatDTO {
         this.datecreate = datecreate;
     }
 
-    public String getDesignationUniteAr() {
-        return designationUniteAr;
+    public Integer getCodeMatieres() {
+        return codeMatieres;
     }
 
-    public void setDesignationUniteAr(String designationUniteAr) {
-        this.designationUniteAr = designationUniteAr;
+    public void setCodeMatieres(Integer codeMatieres) {
+        this.codeMatieres = codeMatieres;
     }
 
-    public String getDesignationUniteLT() {
-        return designationUniteLT;
+    public String getCodeSaisieMatiere() {
+        return codeSaisieMatiere;
     }
 
-    public void setDesignationUniteLT(String designationUniteLT) {
-        this.designationUniteLT = designationUniteLT;
+    public void setCodeSaisieMatiere(String codeSaisieMatiere) {
+        this.codeSaisieMatiere = codeSaisieMatiere;
     }
 
-    public String getCodeSaisieUnite() {
-        return codeSaisieUnite;
+    public String getDesignationArMatiere() {
+        return designationArMatiere;
     }
 
-    public void setCodeSaisieUnite(String codeSaisieUnite) {
-        this.codeSaisieUnite = codeSaisieUnite;
+    public void setDesignationArMatiere(String designationArMatiere) {
+        this.designationArMatiere = designationArMatiere;
     }
+
+    public String getDesignationLtMatiere() {
+        return designationLtMatiere;
+    }
+
+    public void setDesignationLtMatiere(String designationLtMatiere) {
+        this.designationLtMatiere = designationLtMatiere;
+    }
+
+    public Integer getCodeUnites() {
+        return codeUnites;
+    }
+
+    public void setCodeUnites(Integer codeUnites) {
+        this.codeUnites = codeUnites;
+    }
+
+    public String getCodeSaisieUnites() {
+        return codeSaisieUnites;
+    }
+
+    public void setCodeSaisieUnites(String codeSaisieUnites) {
+        this.codeSaisieUnites = codeSaisieUnites;
+    }
+
+    public String getDesignationArUnites() {
+        return designationArUnites;
+    }
+
+    public void setDesignationArUnites(String designationArUnites) {
+        this.designationArUnites = designationArUnites;
+    }
+
+    public String getDesignationLtUnites() {
+        return designationLtUnites;
+    }
+
+    public void setDesignationLtUnites(String designationLtUnites) {
+        this.designationLtUnites = designationLtUnites;
+    }
+
+    public Integer getCodeColoriss() {
+        return codeColoriss;
+    }
+
+    public void setCodeColoriss(Integer codeColoriss) {
+        this.codeColoriss = codeColoriss;
+    }
+
+    public String getCodeSaisieColoriss() {
+        return codeSaisieColoriss;
+    }
+
+    public void setCodeSaisieColoriss(String codeSaisieColoriss) {
+        this.codeSaisieColoriss = codeSaisieColoriss;
+    }
+
+    public String getDesignationArColoriss() {
+        return designationArColoriss;
+    }
+
+    public void setDesignationArColoriss(String designationArColoriss) {
+        this.designationArColoriss = designationArColoriss;
+    }
+
+    public String getDesignationLtColoriss() {
+        return designationLtColoriss;
+    }
+
+    public void setDesignationLtColoriss(String designationLtColoriss) {
+        this.designationLtColoriss = designationLtColoriss;
+    }
+
 
 }

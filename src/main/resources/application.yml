@@ -1,16 +1,20 @@
+
 management:
     security:
         enabled: false
 security:
     basic:
         enabled: false
-#liquibase:
-#    default-schema: param
-#    enabled : false
-#    change-log: classpath:data/changelog-master.xml
-#    
  
 spring:
+    profiles:
+      active: "prod"
+    data:
+      rest:
+        base-path: /api/data
+    output:
+        ansi:
+            enabled: DETECT
     application:
         name: DevPointSystem
     batch:
@@ -32,11 +36,12 @@ spring:
     jpa:
         database-platform: org.hibernate.dialect.SQLServer2012Dialect
         database: SQL_SERVER
-        show-sql: true
+        show-sql: false
         generate-ddl: true
         hibernate:
             ddl-auto: update
-
+            use_sql_comments : true
+            show-sql: true
             naming:
                 implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
                 physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
@@ -48,71 +53,93 @@ spring:
             hibernate.generate_statistics: false
             org.hibernate.envers.store_data_at_delete: true
  
-                   
+#                   
     messages:
         basename: i18n/messages
- 
-#paramAchatService :
-#    base-uri : http://xxx/parametrage-achat-core
-##    base-uri : http://172.20.102.26/parametrage-achat-core
-##    base-uri : http://172.20.18.26/parametrage-achat-core
-#    catArticle: /api/categorie-articles
-#    depot : /api/depots
-#paramMock :
-#    base-uri:  http://192.168.0.131:8070/api/medications
-#    
-#receptionService :
-##    base-uri : http://41.226.168.150:7045/reception-core
-#    base-uri : http://qa.clinisys.local/reception-core
-##    base-uri : http://172.16.10.15/reception-core
-##    base-uri : http://172.20.18.26/reception-core
-#    admission : /api/admissions
-#    detailsAdmission : /api/detailsadmissions
-#    remiseRespAdmission : /api/remiserespadmissions
-#    creditSociete : /api/credit-societes
-#    rubriqueImpression : /api/Rubrique_Impression
-#caisseService :
-#    base-uri : http://xxx/caisse-core
-#    reglements : /api/reglements
-#   
-#AccessService :
-#    base-uri : http://xxx/CliniSys
-##    base-uri : http://vvvvv/vvvvv
-#    
-#gestionStockService :
-#   base-uri : http://xxx/pharmacie-core
-#   stock: /stock
-#   
-#comptabiliteService :
-#   base-uri : http://xxxx/comptabilite-core
-#   societes: /api/societes
-#   tiers: /api/tiers
-#   sousfamilletiers: /api/sousfamilletiers
-#
-#                 
+     
 lang:
-    secondary: en
+    secondary: ar
 server:
     port: 9000
     contextPath: /parametrage-core
-    
-
-  
-    
-#proxy:
-#    ip: 192.168.0.131
-#hystrix:
-#    command.default.execution.isolation.strategy: THREAD
-#    
-#cronPrixConsultation : 0 41 10 1/1 * *
-#cron.prixConsultation.enabled : false
-#mailFrom : xxxx@xxxx.com    
-#recipient_prix_consultation : nihel.turki@csys.com.tn
+    error:
+        include-stacktrace: ON_PARAM
+ 
 environnement : local
-#    
-  
-#http:
-#    auth-token-header-name: x-api-key
-#    auth-token: 115424
-#    auth-token-parametrage-achat: c040d610-134a-475d-b0a3-707e300927a5
-#add_tiers_activated: true
+ 
+ 
+# 
+#spring:
+#  datasource:
+#    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#    url: jdbc:sqlserver://localhost\sql2019;database=MasterDev;integratedSecurity=false;encrypt=false;trustServerCertificate=true
+#    username: sa
+#    password: 123
+#  jpa:
+#    show-sql: false
+#    generate-ddl: true
+#
+#
+#
+#
+#lang:
+#  secondary: ar
+#
+#  hibernate:
+#    dialect: org.hibernate.dialect.SQLServer2012Dialect
+#    format_sql : true
+#    ddl-auto : update
+#    show_sql: true
+#    use_sql_comments : true
+#
+#
+##logging:
+##  level:
+##    org:
+##      hibernate:
+##        type: trace
+##    connection:
+##      characterEncoding:utf-8
+##      CharSet:utf-8
+##      useUnicode:true
+#
+#
+#
+#
+#  data:
+#    rest:
+#      base-path: /api/data
+##  http:
+##    encoding:
+##      charset: UTF-8
+##      enabled: true
+##      force : true
+#paramAchatService :
+#  base-uri : http://localhost:8080/api/parametrage/
+#  #    base-uri : http://172.20.102.26/parametrage-achat-core
+#  #    base-uri : http://172.20.18.26/parametrage-achat-core
+##  catArticle: /api/Filiale
+#  religion : /api/Filiale
+#
+#
+#
+#server:
+#  error:
+#    include-stacktrace: ON_PARAM
+#  port : 8081
+##  tomcat:
+##    uri-encoding:UTF-8
+#
+#
+#
+##web:
+##  cors:
+##    allowed-origins: "http://localhost:4200"
+##    allowed-methods: GET,POST,PUT,DELETE,OPTIONS
+###    allowed-Headers: Origin,Access-Control-Allow-Origin, Content-Type,Accept, Authorization,Origin, Accept,X-Requested-With,Access-Control-Request-Method,Access-Control-Request-Headers
+###    Exposed-Headers: Origin,Content-Type,Accept,Authorization,Access-Control-Allow-Origin,Access-Control-Allow-Credentials
+##
+###    max-age: 3600
+###    allowed-headers: "Requestor-Type"
+###    exposed-headers: "X-Get-Header"
+##    changeOrigin": false

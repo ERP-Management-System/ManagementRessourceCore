@@ -28,7 +28,7 @@ public class DetailsAppelOffrePK implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "code_matiere", nullable = false)
+    @Column(name = "code_matiere")
     private int codeMatiere;
 
     @Basic(optional = false)

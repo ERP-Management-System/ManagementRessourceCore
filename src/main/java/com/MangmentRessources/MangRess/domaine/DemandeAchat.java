@@ -38,7 +38,7 @@ public class DemandeAchat {
 
     @Size(max = 200)
     @Column(name = "code_saisie_demande", length = 200, nullable = false)
-    private String codeSaisieDemande;
+    private String codeSaisie;
 
     @JoinColumn(name = "code_etat_demande", referencedColumnName = "Code", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -66,13 +66,7 @@ public class DemandeAchat {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "demandeAchat", fetch = FetchType.LAZY, orphanRemoval = true)
     private Collection<DetailsDemandeAchat> detailsDemandeAchats;
 
-//    @JoinColumn(name = "code_bon_commande", referencedColumnName = "Code", nullable = false)
-//    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-//    @JsonBackReference
-//    private BonCommande bonCommande;
-//
-//    @Column(name = "code_bon_commande", updatable = false, insertable = false)
-//    private Integer codeBonCommande;
+ 
     @Column(name = "observation", nullable = false, columnDefinition = "nvarchar(max)")
     private String observation;
 
@@ -87,14 +81,15 @@ public class DemandeAchat {
         this.code = code;
     }
 
-    public String getCodeSaisieDemande() {
-        return codeSaisieDemande;
+    public String getCodeSaisie() {
+        return codeSaisie;
     }
 
-    public void setCodeSaisieDemande(String codeSaisieDemande) {
-        this.codeSaisieDemande = codeSaisieDemande;
+    public void setCodeSaisie(String codeSaisie) {
+        this.codeSaisie = codeSaisie;
     }
 
+ 
     public EtatDemandeAchat getEtatDemande() {
         return etatDemande;
     }

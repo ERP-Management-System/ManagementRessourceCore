@@ -11,25 +11,29 @@ import java.util.Date;
  * @author Administrator
  */
 public class ColorisDTO {
-    
+
     private Integer code;
- 
+
     private String codeSaisie;
- 
+
     private String designationAr;
- 
+
     private String designationLt;
- 
+
     private boolean actif;
- 
+
     private boolean visible;
- 
+
     private String userCreate;
 
     private Date dateCreate;
-    
-        private String desigColor;
 
+    private String desigColor;
+
+    private Integer codeColoriss;
+    private String codeSaisieColoriss;
+    private String designationArColoriss;
+    private String designationLtColoriss;
 
     public ColorisDTO() {
     }
@@ -105,7 +109,39 @@ public class ColorisDTO {
     public void setDesigColor(String desigColor) {
         this.desigColor = desigColor;
     }
-    
+
+    public Integer getCodeColoriss() {
+        return codeColoriss;
+    }
+
+    public void setCodeColoriss(Integer codeColoriss) {
+        this.codeColoriss = codeColoriss;
+    }
+
+    public String getCodeSaisieColoriss() {
+        return codeSaisieColoriss;
+    }
+
+    public void setCodeSaisieColoriss(String codeSaisieColoriss) {
+        this.codeSaisieColoriss = codeSaisieColoriss;
+    }
+
+    public String getDesignationArColoriss() {
+        return designationArColoriss;
+    }
+
+    public void setDesignationArColoriss(String designationArColoriss) {
+        this.designationArColoriss = designationArColoriss;
+    }
+
+    public String getDesignationLtColoriss() {
+        return designationLtColoriss;
+    }
+
+    public void setDesignationLtColoriss(String designationLtColoriss) {
+        this.designationLtColoriss = designationLtColoriss;
+    }
+
     
     
 }

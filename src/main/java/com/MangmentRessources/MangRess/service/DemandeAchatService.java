@@ -5,11 +5,25 @@
 package com.MangmentRessources.MangRess.service;
 
 import com.MangmentRessources.MangRess.domaine.DemandeAchat;
+import com.MangmentRessources.MangRess.domaine.DemandeAchat;
+import com.MangmentRessources.MangRess.domaine.DetailsDemandeAchat;
+import com.MangmentRessources.MangRess.domaine.DetailsDemandeAchat;
 import com.MangmentRessources.MangRess.dto.DemandeAchatDTO;
+import com.MangmentRessources.MangRess.dto.DemandeAchatDTO;
+import com.MangmentRessources.MangRess.dto.DetailsDemandeAchatDTO;
+import com.MangmentRessources.MangRess.dto.DetailsDemandeAchatDTO;
 import com.MangmentRessources.MangRess.factory.DemandeAchatFactory;
+import com.MangmentRessources.MangRess.factory.DemandeAchatFactory;
+import com.MangmentRessources.MangRess.factory.DetailsDemandeAchatFactory;
+import com.MangmentRessources.MangRess.factory.DetailsDemandeAchatFactory;
 import com.MangmentRessources.MangRess.repository.DemandeAchatRepo;
+import com.MangmentRessources.MangRess.repository.DemandeAchatRepo;
+import com.MangmentRessources.MangRess.repository.DetailsDemandeAchatRepo;
+import com.MangmentRessources.MangRess.repository.DetailsDemandeAchatRepo;
 import com.MangmentRessources.MangRess.repository.NomenclatureRepo;
 import com.google.common.base.Preconditions;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,16 +37,25 @@ import org.springframework.transaction.annotation.Transactional;
 public class DemandeAchatService {
 
     private final DemandeAchatRepo demandeAchatRepo;
+    
+    private final DetailsDemandeAchatRepo detailsDemandeAchatRepo;
 
-    public DemandeAchatService(DemandeAchatRepo demandeAchatRepo) {
+    public DemandeAchatService(DemandeAchatRepo demandeAchatRepo, DetailsDemandeAchatRepo detailsDemandeAchatRepo) {
         this.demandeAchatRepo = demandeAchatRepo;
+        this.detailsDemandeAchatRepo = detailsDemandeAchatRepo;
     }
+    
+    
 
+  
+ 
     @Transactional(readOnly = true)
     public List<DemandeAchatDTO> findAllDemandeAchat() {
         return DemandeAchatFactory.listDemandeAchatToDemandeAchatDTOs(demandeAchatRepo.findAll());
 
     }
+    
+    
 
     @Transactional(readOnly = true)
     public DemandeAchatDTO findOne(Integer code) {
@@ -40,37 +63,69 @@ public class DemandeAchatService {
         Preconditions.checkArgument(domaine.getCode() != null, "error.DemandeAchatNotFound");
         return DemandeAchatFactory.demandeAchatToDemandeAchatDTO(domaine);
     }
-
-    @Transactional(readOnly = true)
-    public DemandeAchatDTO findOneWithDetilas(Integer code) {
-        DemandeAchat domaine = demandeAchatRepo.getReferenceById(code);
-        Preconditions.checkArgument(domaine.getCode() != null, "error.DemandeAchatNotFound");
-        return DemandeAchatFactory.demandeAchatToDemandeAchatDTOCollection(domaine);
-    }
+    
+ 
+//    @Transactional(readOnly = true)
+//    public DemandeAchatDTO findOneDetails(Integer code) {
+//        DemandeAchat domaine = demandeAchatRepo.getReferenceById(code);
+//        Preconditions.checkArgument(domaine.getCode() != null, "error.DemandeAchatNotFound");
+//        return DemandeAchatFactory.DetailsdemandeAchatToDetailsDemandeAchatDTO(domaine);
+//    }
 
 //
-    public DemandeAchatDTO save(DemandeAchatDTO dTO) {
-        DemandeAchat domaine = DemandeAchatFactory.nomenclatureArticleDTOToDemandeAchatCollection(dTO, new DemandeAchat());
-        domaine = demandeAchatRepo.save(domaine);
-        return DemandeAchatFactory.demandeAchatToDemandeAchatDTOCollection(domaine);
-    }
-
-    /// Update List
-    public DemandeAchat update(DemandeAchatDTO dTO) {
-        Preconditions.checkArgument((dTO.getCode() != null), "error.DemandeAchatNotFound");
+ 
+    public DemandeAchat update(DemandeAchatDTO dTO) { 
         DemandeAchat domaine = demandeAchatRepo.getReferenceById(dTO.getCode());
         Preconditions.checkArgument(true, "error.DemandeAchatNotFound");
         dTO.setCode(domaine.getCode());
-        DemandeAchatFactory.nomenclatureArticleDTOToDemandeAchatCollection(dTO, domaine);
+        DemandeAchatFactory.demandeAchatDTOToDemandeAchatWithDetails(domaine, dTO);
         return demandeAchatRepo.save(domaine);
     }
 
-    public void delete(Integer code) {
-        Preconditions.checkArgument(demandeAchatRepo.existsById(code), "error.DemandeAchatNotFound");
+    public DemandeAchatDTO updateNewWithFlush(DemandeAchatDTO dTO) { 
+        DemandeAchat inBase = demandeAchatRepo.getReferenceById(dTO.getCode());
+        Preconditions.checkArgument(inBase != null, "error.ModelePanierInexistant");
 
-        /// Control Order Achat + Demande Devis 
-//        Preconditions.checkArgument(nomenclatureRepo.existsById(code), "error.DemandeAchatNotFound");
+//        if ((inBase.getActif() != modelepanierDTO.getActif()) && (modelepanierDTO.getActif() == false)) {
+//            boolean testopr = operationService.existsBycodeModeleCodeAndActif(modelepanierDTO.getCode());
+//            Preconditions.checkArgument(testopr == false, "error.controleActif");
+//
+//            boolean testprest = prestationService.existsBycodeModeleCodeAndActif(modelepanierDTO.getCode());
+//            Preconditions.checkArgument(testprest == false, "error.controleActif");
+//        }
+        inBase.getDetailsDemandeAchats().clear();
+        demandeAchatRepo.flush();
+        inBase = DemandeAchatFactory.demandeAchatDTOToDemandeAchatWithDetails(inBase, dTO);
+        inBase = demandeAchatRepo.save(inBase);
+        DemandeAchatDTO resultDTO = DemandeAchatFactory.UpdatedemandeAchatWithDetailsTodemandeAchatDTOWithDetails(inBase);
+        return resultDTO;
+    }
+
+    public void deleteDemandeAchat(Integer code) {
+        Preconditions.checkArgument(demandeAchatRepo.existsById(code), "error.DemandeAchatNotFound");
         demandeAchatRepo.deleteById(code);
+    }
+
+    public DemandeAchatDTO saveDdeAchat(DemandeAchatDTO Dto) { 
+         
+        DemandeAchat domaine = DemandeAchatFactory.demandeAchatDTOToDemandeAchatWithDetails(new DemandeAchat(), Dto);
+
+        domaine.setCode(null);
+        domaine.setUserCreate(domaine.getUserCreate());
+        domaine.setDateCreate(new Date());
+        domaine.setCodeSaisie(Dto.getCodeSaisie()); 
+        
+        domaine = demandeAchatRepo.save(domaine);
+        DemandeAchatDTO resultDTO = DemandeAchatFactory.UpdatedemandeAchatWithDetailsTodemandeAchatDTOWithDetails(domaine);
+        return resultDTO;
+    }
+
+
+    @Transactional(readOnly = true)
+    public Collection<DetailsDemandeAchatDTO> findOneWithDetilas(Integer code) {
+ 
+        Collection<DetailsDemandeAchat> collection = detailsDemandeAchatRepo.findByDetailsDemandeAchatPK_codeDemandeAchat(code);
+        return DetailsDemandeAchatFactory.UpdatedetailsDemandeAchatTodetailsDemandeAchatDTOCollection(collection);
     }
 
 }

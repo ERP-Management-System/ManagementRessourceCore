@@ -4,7 +4,6 @@
  */
 package com.MangmentRessources.MangRess.dto;
 
-import com.MangmentRessources.MangRess.domaine.Matiere;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
@@ -18,7 +17,7 @@ import java.util.Date;
 public class DetailsAppelOffreDTO {
 
     private int codeAppelOffre;
-
+    private String codeSaisieAppelOffre;
     @NotNull
     private MatiereDTO codematiere;
 
@@ -35,6 +34,21 @@ public class DetailsAppelOffreDTO {
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date datecreate;
+
+    private Integer codeMatieres;
+    private String codeSaisieMatiere;
+    private String designationArMatiere;
+    private String designationLtMatiere;
+
+    private Integer codeUnites;
+    private String codeSaisieUnites;
+    private String designationArUnites;
+    private String designationLtUnites;
+
+    private Integer codeColoriss;
+    private String codeSaisieColoriss;
+    private String designationArColoriss;
+    private String designationLtColoriss;
 
     public DetailsAppelOffreDTO() {
     }
@@ -98,6 +112,110 @@ public class DetailsAppelOffreDTO {
 
     public void setCodeUnite(UniteDTO codeUnite) {
         this.codeUnite = codeUnite;
+    }
+
+    public Integer getCodeMatieres() {
+        return codeMatieres;
+    }
+
+    public void setCodeMatieres(Integer codeMatieres) {
+        this.codeMatieres = codeMatieres;
+    }
+
+    public String getCodeSaisieMatiere() {
+        return codeSaisieMatiere;
+    }
+
+    public void setCodeSaisieMatiere(String codeSaisieMatiere) {
+        this.codeSaisieMatiere = codeSaisieMatiere;
+    }
+
+    public String getDesignationArMatiere() {
+        return designationArMatiere;
+    }
+
+    public void setDesignationArMatiere(String designationArMatiere) {
+        this.designationArMatiere = designationArMatiere;
+    }
+
+    public String getDesignationLtMatiere() {
+        return designationLtMatiere;
+    }
+
+    public void setDesignationLtMatiere(String designationLtMatiere) {
+        this.designationLtMatiere = designationLtMatiere;
+    }
+
+    public Integer getCodeUnites() {
+        return codeUnites;
+    }
+
+    public void setCodeUnites(Integer codeUnites) {
+        this.codeUnites = codeUnites;
+    }
+
+    public String getCodeSaisieUnites() {
+        return codeSaisieUnites;
+    }
+
+    public void setCodeSaisieUnites(String codeSaisieUnites) {
+        this.codeSaisieUnites = codeSaisieUnites;
+    }
+
+    public String getDesignationArUnites() {
+        return designationArUnites;
+    }
+
+    public void setDesignationArUnites(String designationArUnites) {
+        this.designationArUnites = designationArUnites;
+    }
+
+    public String getDesignationLtUnites() {
+        return designationLtUnites;
+    }
+
+    public void setDesignationLtUnites(String designationLtUnites) {
+        this.designationLtUnites = designationLtUnites;
+    }
+
+    public Integer getCodeColoriss() {
+        return codeColoriss;
+    }
+
+    public void setCodeColoriss(Integer codeColoriss) {
+        this.codeColoriss = codeColoriss;
+    }
+
+    public String getCodeSaisieColoriss() {
+        return codeSaisieColoriss;
+    }
+
+    public void setCodeSaisieColoriss(String codeSaisieColoriss) {
+        this.codeSaisieColoriss = codeSaisieColoriss;
+    }
+
+    public String getDesignationArColoriss() {
+        return designationArColoriss;
+    }
+
+    public void setDesignationArColoriss(String designationArColoriss) {
+        this.designationArColoriss = designationArColoriss;
+    }
+
+    public String getDesignationLtColoriss() {
+        return designationLtColoriss;
+    }
+
+    public void setDesignationLtColoriss(String designationLtColoriss) {
+        this.designationLtColoriss = designationLtColoriss;
+    }
+
+    public String getCodeSaisieAppelOffre() {
+        return codeSaisieAppelOffre;
+    }
+
+    public void setCodeSaisieAppelOffre(String codeSaisieAppelOffre) {
+        this.codeSaisieAppelOffre = codeSaisieAppelOffre;
     }
 
 }

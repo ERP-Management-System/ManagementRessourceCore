@@ -6,11 +6,12 @@ package com.MangmentRessources.MangRess.web;
 
 import com.MangmentRessources.MangRess.domaine.Taille;
 import com.MangmentRessources.MangRess.dto.TailleDTO;
-import com.MangmentRessources.MangRess.service.TailleService;
+import com.MangmentRessources.MangRess.service.TailleService; 
 import jakarta.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+ 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -31,22 +32,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/parametrage_achat/")
 public class TailleRessource {
-    
-    
-     private final TailleService tailleService;
+
+    private final TailleService tailleService;
 
     public TailleRessource(TailleService tailleService) {
         this.tailleService = tailleService;
     }
 
- 
-
     @GetMapping("taille/{code}")
     public ResponseEntity<TailleDTO> getTailleByCode(@PathVariable Integer code) {
         TailleDTO dTO = tailleService.findOne(code);
         return ResponseEntity.ok().body(dTO);
+
     }
+
  
+
     @GetMapping("taille/all")
     public ResponseEntity<List<TailleDTO>> getAllTaille() {
 //        List<DdeAchat> ddeAchatList = ddeAchatService.findAllDdeAchat();

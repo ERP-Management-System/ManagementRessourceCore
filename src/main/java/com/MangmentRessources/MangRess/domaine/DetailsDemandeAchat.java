@@ -17,6 +17,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -28,23 +29,43 @@ import java.util.Date;
 public class DetailsDemandeAchat {
 
     private static final long serialVersionUID = 1L;
-
     @EmbeddedId
     protected DetailsDemandeAchatPK detailsDemandeAchatPK;
 
     @MapsId("codeDemandeAchat")
-    @JoinColumn(name = "code_demande_achat", referencedColumnName = "code")
+    @JoinColumn(name = "code_demande_achat", referencedColumnName = "Code", nullable = false)
+    @ManyToOne(optional = false)
+    private DemandeAchat demandeAchat;
+
+    @Column(name = "code_matiere", insertable = false, updatable = false)
+    private Integer codematiere;
+
+    @JoinColumn(name = "code_matiere", referencedColumnName = "Code", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonBackReference
-    private DemandeAchat demandeAchat;
+    private Matiere matiere;
+
+    @JoinColumn(name = "code_coloris", referencedColumnName = "code", nullable = false, updatable = false, insertable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Coloris coloris;
+    @Column(name = "code_coloris", insertable = false, updatable = false)
+    private Integer codeColoris;
+
+    @JoinColumn(name = "code_unite", referencedColumnName = "code", nullable = false, updatable = false, insertable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Unite unite;
+    @Column(name = "code_unite", insertable = false, updatable = false)
+    private Integer codeUnite;
 
     @NotNull
     @Column(name = "qte_demander", nullable = false)
-    private Integer qteDemander;
+    private BigDecimal qteDemander;
 
-    @NotNull
-    @Column(name = "qte_livrer", nullable = false)
-    private Integer qteLivrer;
+ 
+    @Column(name = "qte_livrer" )
+    private BigDecimal qteLivrer;
 
     @Column(name = "user_create", nullable = false, columnDefinition = "nvarchar(200)")
     private String usercreate;
@@ -74,19 +95,67 @@ public class DetailsDemandeAchat {
         this.demandeAchat = demandeAchat;
     }
 
-    public Integer getQteDemander() {
+    public Integer getCodematiere() {
+        return codematiere;
+    }
+
+    public void setCodematiere(Integer codematiere) {
+        this.codematiere = codematiere;
+    }
+
+    public Matiere getMatiere() {
+        return matiere;
+    }
+
+    public void setMatiere(Matiere matiere) {
+        this.matiere = matiere;
+    }
+
+    public Coloris getColoris() {
+        return coloris;
+    }
+
+    public void setColoris(Coloris coloris) {
+        this.coloris = coloris;
+    }
+
+    public Integer getCodeColoris() {
+        return codeColoris;
+    }
+
+    public void setCodeColoris(Integer codeColoris) {
+        this.codeColoris = codeColoris;
+    }
+
+    public Unite getUnite() {
+        return unite;
+    }
+
+    public void setUnite(Unite unite) {
+        this.unite = unite;
+    }
+
+    public Integer getCodeUnite() {
+        return codeUnite;
+    }
+
+    public void setCodeUnite(Integer codeUnite) {
+        this.codeUnite = codeUnite;
+    }
+
+    public BigDecimal getQteDemander() {
         return qteDemander;
     }
 
-    public void setQteDemander(Integer qteDemander) {
+    public void setQteDemander(BigDecimal qteDemander) {
         this.qteDemander = qteDemander;
     }
 
-    public Integer getQteLivrer() {
+    public BigDecimal getQteLivrer() {
         return qteLivrer;
     }
 
-    public void setQteLivrer(Integer qteLivrer) {
+    public void setQteLivrer(BigDecimal qteLivrer) {
         this.qteLivrer = qteLivrer;
     }
 

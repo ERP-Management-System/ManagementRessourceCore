@@ -38,12 +38,19 @@ public class DetailsAppelOffre {
     @ManyToOne(optional = false)
     private AppelOffre appelOffre;
 
-    @Column(name = "code_matiere", insertable = false, updatable = false)
+    @Column(name = "code_matiere" , insertable=false, updatable=false)
     private Integer codematiere;
-    @JoinColumn(name = "code_matiere", referencedColumnName = "code", nullable = false, updatable = false, insertable = false)
+ 
+    @JoinColumn(name = "code_matiere", referencedColumnName = "Code",nullable = false, insertable=false, updatable=false )
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonBackReference
     private Matiere matiere;
+    
+    
+
+
+    
+    
     
     @JoinColumn(name = "code_coloris", referencedColumnName = "code", nullable = false, updatable = false, insertable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

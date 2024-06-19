@@ -5,16 +5,37 @@
 package com.MangmentRessources.MangRess.web;
 
 import com.MangmentRessources.MangRess.domaine.AppelOffre;
+import com.MangmentRessources.MangRess.domaine.DetailsAppelOffre;
+import com.MangmentRessources.MangRess.domaine.ModeReglement;
 import com.MangmentRessources.MangRess.dto.AppelOffreDTO;
 import com.MangmentRessources.MangRess.dto.DemandeAchatDTO;
 import com.MangmentRessources.MangRess.dto.DetailsAppelOffreDTO;
+import com.MangmentRessources.MangRess.repository.AppelOffreRepo;
+import com.MangmentRessources.MangRess.repository.DetailsAppelOffreRepo;
 import com.MangmentRessources.MangRess.service.AppelOffreService;
 import jakarta.validation.Valid;
+import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfReportConfiguration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -35,12 +56,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/parametrage_achat/")
 public class AppelOffreRessource {
-    
-     private final AppelOffreService appelOffreService;
 
-    public AppelOffreRessource(AppelOffreService appelOffreService) {
+    private final AppelOffreService appelOffreService;
+    
+    private final DetailsAppelOffreRepo detailsAppelOffreRepo;
+
+    public AppelOffreRessource(AppelOffreService appelOffreService, DetailsAppelOffreRepo detailsAppelOffreRepo) {
         this.appelOffreService = appelOffreService;
+        this.detailsAppelOffreRepo = detailsAppelOffreRepo;
     }
+
+  
+    
+
+     
 
     @GetMapping("appel_offre/{code}")
     public ResponseEntity<AppelOffreDTO> getAppelOffreByCode(@PathVariable Integer code) {
@@ -49,21 +78,13 @@ public class AppelOffreRessource {
     }
 
     @GetMapping("appel_offre/all")
-    public ResponseEntity<List<AppelOffreDTO>> getAllAppelOffre() {
-//        List<DdeAchat> ddeAchatList = ddeAchatService.findAllDdeAchat();
+    public ResponseEntity<List<AppelOffreDTO>> getAllArticle() { 
         return ResponseEntity.ok().body(appelOffreService.findAllAppelOffre());
     }
 
-    @PostMapping("appel_offre")
-    public ResponseEntity<AppelOffreDTO> postAppelOffre(@Valid @RequestBody AppelOffreDTO dTO, BindingResult bindingResult) throws URISyntaxException, MethodArgumentNotValidException {
-
-        AppelOffreDTO result = appelOffreService.save(dTO);
-        return ResponseEntity.created(new URI("/api/parametrage-achat/" + result.getCode())).body(result);
-    }
-
     @PutMapping("appel_offre/update")
-    public ResponseEntity<AppelOffre> updateAppelOffre(@RequestBody @Valid AppelOffreDTO dTO) throws URISyntaxException {
-        AppelOffre result = appelOffreService.update(dTO);
+    public ResponseEntity<AppelOffreDTO> updateModelePanier(@Valid @RequestBody AppelOffreDTO modelepanierDTO, BindingResult bindingResult) throws MethodArgumentNotValidException {
+        AppelOffreDTO result = appelOffreService.updateNewWithFlush(modelepanierDTO);
         return ResponseEntity.ok().body(result);
     }
 
@@ -73,18 +94,64 @@ public class AppelOffreRessource {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
-   @PostMapping("details_appel_offre_new")
+    @PostMapping("appel_offre")
     public ResponseEntity<AppelOffreDTO> postDetailsAppelOffreNew(@Valid @RequestBody AppelOffreDTO dTO, BindingResult bindingResult) throws URISyntaxException, MethodArgumentNotValidException {
         AppelOffreDTO result = appelOffreService.saveAO(dTO);
         return ResponseEntity.created(new URI("/api/parametrage-achat/" + result.getCode())).body(result);
     }
 
- 
-        @GetMapping("details_appel_offre/{code}")
-    public ResponseEntity<AppelOffreDTO> getDetailsAppelOffreByCode(@PathVariable Integer code) {
-        AppelOffreDTO dTO = appelOffreService.findOneWithDetilas(code);
-        return ResponseEntity.ok().body(dTO);
-    }
+    @GetMapping("details_appel_offre/{code}")
+    public ResponseEntity<Collection<DetailsAppelOffreDTO>> getAppelOffre(@PathVariable Integer code) {
+        Collection<DetailsAppelOffreDTO> dto = appelOffreService.findOneWithDetilas(code);
+        return ResponseEntity.ok().body(dto);
 
+    }
+    
+    
+    @GetMapping("details_appel_offre/edition/{code}")
+    public ResponseEntity<byte[]> getReport (@PathVariable Integer code) throws Exception {
+
+        String fileNameJrxml = "src/main/resources/Reports/DetailsAppelOffre.jrxml";
+//        Collection<DetailsAppelOffre> products = detailsAppelOffreRepo.findAll();
+        
+         Collection<DetailsAppelOffreDTO> dto = appelOffreService.findOneWithDetilas(code);    
+         
+          AppelOffreDTO rslt = appelOffreService.findOne(code);
+
+        JasperDesign jasperDesign = JRXmlLoader.load(fileNameJrxml);
+        JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+        Map<String, Object> params = new HashMap<>();
+        params.put("ItemDataSource", new JRBeanCollectionDataSource(dto));
+        params.put("UserCreate", "SoufienCreateCore");     
+        params.put("codeSaisieAppelOffre", rslt.getCodeSaisie());     
+        params.put("Observation", rslt.getObservation());
+
+
+         
+
+        System.out.println("filling parameters to .JASPER file....");
+        JasperPrint print = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
+
+        //initiate exporter
+        JRPdfExporter exporter = new JRPdfExporter();
+        ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
+        exporter.setExporterInput(new SimpleExporterInput(print));
+        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(pdfOutputStream));
+
+        SimplePdfReportConfiguration reportConfig = new SimplePdfReportConfiguration();
+        reportConfig.setSizePageToContent(true);
+        reportConfig.setForceLineBreakPolicy(false);
+
+        exporter.exportReport();
+        var res = pdfOutputStream.toByteArray();
+
+        var headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename= filename.pdf");
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(res);
+    }
+    
 }

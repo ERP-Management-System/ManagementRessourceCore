@@ -5,9 +5,13 @@
 package com.MangmentRessources.MangRess.factory;
 
 import com.MangmentRessources.MangRess.domaine.DetailsDemandeAchat;
+import com.MangmentRessources.MangRess.domaine.DetailsDemandeAchat;
 import com.MangmentRessources.MangRess.domaine.DetailsDemandeAchatPK;
 import com.MangmentRessources.MangRess.domaine.DetailsNomenclaturePK;
 import com.MangmentRessources.MangRess.dto.DetailsDemandeAchatDTO;
+import com.MangmentRessources.MangRess.dto.DetailsDemandeAchatDTO;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,65 +32,64 @@ public class DetailsDemandeAchatFactory {
         LANGUAGE_SEC = db;
     }
 
-    public static DetailsDemandeAchat detailsNomenclatureDTOTodetailNomenclatureCollection(DetailsDemandeAchatDTO dTO) {
-        DetailsDemandeAchat detailsDdeAchat = new DetailsDemandeAchat();
-
-        DetailsDemandeAchatPK detailsDemandeAchatPK = new DetailsDemandeAchatPK(); 
-        detailsDdeAchat.setDetailsDemandeAchatPK(detailsDemandeAchatPK); 
-        detailsDdeAchat.setQteDemander(dTO.getQteDemander());   
-        detailsDdeAchat.setQteLivrer(dTO.getQteLivrer());
-
-        detailsDdeAchat.setDateCreate(new Date());
-        detailsDdeAchat.setUsercreate(dTO.getUsercreate());
-
-        return detailsDdeAchat;
-    }
-
+    
     public static DetailsDemandeAchatDTO detailsDemandeAchatTodetailsDemandeAchatDTOCollection(DetailsDemandeAchat domaine) {
 
         if (domaine != null) {
-
             DetailsDemandeAchatDTO dTO = new DetailsDemandeAchatDTO();
- 
+            dTO.setCodeDemandeAchat(domaine.getDetailsDemandeAchatPK().getCodeDemandeAchat());
             dTO.setDatecreate(domaine.getDateCreate());
-
             dTO.setUsercreate(domaine.getUsercreate());
-
-            if (LocaleContextHolder.getLocale().getLanguage().equals(new Locale(LANGUAGE_SEC).getLanguage())) {
-
-                dTO.setCodeSaisieMatiere(domaine.getDetailsDemandeAchatPK().getMatiere().getCodeSaisie());
-                dTO.setDesignationMatiereAr(domaine.getDetailsDemandeAchatPK().getMatiere().getDesignationAr());
-                dTO.setDesignationMatiereLT(domaine.getDetailsDemandeAchatPK().getMatiere().getDesignationLt());
-
-                dTO.setCodeSaisieColoris(domaine.getDetailsDemandeAchatPK().getColoris().getCodeSaisie());
-                dTO.setDesignationColorisAr(domaine.getDetailsDemandeAchatPK().getColoris().getDesignationAr());
-                dTO.setDesignationColorisLT(domaine.getDetailsDemandeAchatPK().getColoris().getDesignationLt());
-
-                dTO.setCodeSaisieUnite(domaine.getDetailsDemandeAchatPK().getUnite().getCodeSaisie());
-                dTO.setDesignationUniteAr(domaine.getDetailsDemandeAchatPK().getUnite().getDesignationAr());
-                dTO.setDesignationUniteLT(domaine.getDetailsDemandeAchatPK().getUnite().getDesignationLt());
-
-            } else {
-               
-                dTO.setCodeSaisieMatiere(domaine.getDetailsDemandeAchatPK().getMatiere().getCodeSaisie());
-                dTO.setDesignationMatiereLT(domaine.getDetailsDemandeAchatPK().getMatiere().getDesignationLt());
-                dTO.setDesignationMatiereAr(domaine.getDetailsDemandeAchatPK().getMatiere().getDesignationAr());
-
-                dTO.setCodeSaisieColoris(domaine.getDetailsDemandeAchatPK().getColoris().getCodeSaisie());
-                dTO.setDesignationColorisLT(domaine.getDetailsDemandeAchatPK().getColoris().getDesignationLt());
-                dTO.setDesignationColorisAr(domaine.getDetailsDemandeAchatPK().getColoris().getDesignationAr());
-
-                dTO.setCodeSaisieUnite(domaine.getDetailsDemandeAchatPK().getUnite().getCodeSaisie());
-                dTO.setDesignationUniteLT(domaine.getDetailsDemandeAchatPK().getUnite().getDesignationLt());
-                dTO.setDesignationUniteAr(domaine.getDetailsDemandeAchatPK().getUnite().getDesignationAr());
-
-            }
+            dTO.setCodematiere(MatiereFactory.matiereToMatiereDTO(domaine.getMatiere()));
+            dTO.setCodeColoris(ColorisFactory.colorisToColorisDTO(domaine.getColoris()));
+            dTO.setCodeUnite(UniteFactory.uniteToUniteDTO(domaine.getUnite()));
 
             dTO.setQteDemander(domaine.getQteDemander());
-            dTO.setQteLivrer(domaine.getQteLivrer());
             return dTO;
         } else {
             return null;
         }
+
+    }
+
+    public static DetailsDemandeAchatDTO UpdatedetailsDemandeAchatTodetailsDemandeAchatDTO(DetailsDemandeAchat domaine) {
+
+        if (domaine != null) {
+            DetailsDemandeAchatDTO dTO = new DetailsDemandeAchatDTO();
+            dTO.setCodeDemandeAchat(domaine.getDetailsDemandeAchatPK().getCodeDemandeAchat());
+            dTO.setDatecreate(domaine.getDateCreate());
+            dTO.setUsercreate(domaine.getUsercreate());
+            System.out.println("soufien returnxxxx");
+            dTO.setCodeSaisieDemandeAchat(domaine.getDemandeAchat().getCodeSaisie());
+            dTO.setCodeMatieres(domaine.getMatiere().getCode());
+
+            dTO.setCodeSaisieMatiere(domaine.getMatiere().getCodeSaisie());
+            dTO.setDesignationArMatiere(domaine.getMatiere().getDesignationAr());
+            dTO.setDesignationLtMatiere(domaine.getMatiere().getDesignationLt());
+
+            dTO.setCodeColoriss(domaine.getColoris().getCode());
+            dTO.setCodeSaisieColoriss(domaine.getColoris().getCodeSaisie());
+            dTO.setDesignationArColoriss(domaine.getColoris().getDesignationAr());
+            dTO.setDesignationLtColoriss(domaine.getColoris().getDesignationLt());
+
+            dTO.setCodeUnites(domaine.getUnite().getCode());
+            dTO.setCodeSaisieUnites(domaine.getUnite().getCodeSaisie());
+            dTO.setDesignationArUnites(domaine.getUnite().getDesignationAr());
+            dTO.setDesignationLtUnites(domaine.getUnite().getDesignationLt());
+
+            dTO.setQteDemander(domaine.getQteDemander());
+            return dTO;
+        } else {
+            return null;
+        }
+
+    }
+
+    public static Collection<DetailsDemandeAchatDTO> UpdatedetailsDemandeAchatTodetailsDemandeAchatDTOCollection(Collection<DetailsDemandeAchat> detailsDemandeAchats) {
+        Collection<DetailsDemandeAchatDTO> dTOs = new ArrayList<>();
+        for (DetailsDemandeAchat rslt : detailsDemandeAchats) {
+            dTOs.add(UpdatedetailsDemandeAchatTodetailsDemandeAchatDTO(rslt));
+        }
+        return dTOs;
     }
 }

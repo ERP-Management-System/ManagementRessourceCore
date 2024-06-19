@@ -10,6 +10,8 @@ import com.MangmentRessources.MangRess.factory.TailleFactory;
 import com.MangmentRessources.MangRess.repository.TailleRepo;
 import com.google.common.base.Preconditions;
 import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,15 +22,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class TailleService {
-    
-    
+
     private final TailleRepo tailleRepo;
 
     public TailleService(TailleRepo tailleRepo) {
         this.tailleRepo = tailleRepo;
     }
-
-   
 
     @Transactional(readOnly = true)
     public List<TailleDTO> findAllTaille() {
@@ -37,12 +36,19 @@ public class TailleService {
     }
 
     @Transactional(readOnly = true)
-    public TailleDTO findOne(Integer code) {
-        Taille domaine = tailleRepo.getReferenceById(code);
+    public TailleDTO findOne(Integer id) { 
+        Taille domaine = tailleRepo.getReferenceById(id);
         Preconditions.checkArgument(domaine.getCode() != null, "error.TailleNotFound");
         return TailleFactory.tailleToTailleDTO(domaine);
+        
+        
+        
     }
-
+//    public Optional<Taille> findOne(Integer id) {
+//    return tailleRepo.findById(id);
+//}
+//    
+ 
 //
     public TailleDTO save(TailleDTO dTO) {
         Taille domaine = TailleFactory.tailleDTOToTaille(dTO, new Taille());

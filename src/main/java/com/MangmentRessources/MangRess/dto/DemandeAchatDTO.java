@@ -17,14 +17,14 @@ public class DemandeAchatDTO {
 
     private Integer code;
 
-    private String codeSaisieDemande;
+    private String codeSaisie;
 
     private EtatDemandeAchatDTO etatDemandeAchatDTO;
 
     private Integer codeEtatDemande;
 
-    private String designationArEtatDemande;
-    private String designationLTEtatDemande;
+    private String designationArEtat;
+    private String designationLTEtat;
 
     private String userCreate;
 
@@ -32,7 +32,7 @@ public class DemandeAchatDTO {
 
     private Collection<DetailsDemandeAchatDTO> detailsDemandeAchatDTOs;
 
-    private TypeCircuitAchat typeCircuitAchat;
+    private TypeCircuitAchatDTO typeCircuitAchatDTO;
 
     private Integer codeTypeCircuitAchat;
 
@@ -53,13 +53,31 @@ public class DemandeAchatDTO {
         this.code = code;
     }
 
-    public String getCodeSaisieDemande() {
-        return codeSaisieDemande;
+    public String getCodeSaisie() {
+        return codeSaisie;
     }
 
-    public void setCodeSaisieDemande(String codeSaisieDemande) {
-        this.codeSaisieDemande = codeSaisieDemande;
+    public void setCodeSaisie(String codeSaisie) {
+        this.codeSaisie = codeSaisie;
     }
+
+    public String getDesignationArEtat() {
+        return designationArEtat;
+    }
+
+    public void setDesignationArEtat(String designationArEtat) {
+        this.designationArEtat = designationArEtat;
+    }
+
+    public String getDesignationLTEtat() {
+        return designationLTEtat;
+    }
+
+    public void setDesignationLTEtat(String designationLTEtat) {
+        this.designationLTEtat = designationLTEtat;
+    }
+
+ 
 
     public EtatDemandeAchatDTO getEtatDemandeAchatDTO() {
         return etatDemandeAchatDTO;
@@ -101,29 +119,16 @@ public class DemandeAchatDTO {
         this.detailsDemandeAchatDTOs = detailsDemandeAchatDTOs;
     }
 
-    public String getDesignationArEtatDemande() {
-        return designationArEtatDemande;
+    public TypeCircuitAchatDTO getTypeCircuitAchatDTO() {
+        return typeCircuitAchatDTO;
     }
 
-    public void setDesignationArEtatDemande(String designationArEtatDemande) {
-        this.designationArEtatDemande = designationArEtatDemande;
+    public void setTypeCircuitAchatDTO(TypeCircuitAchatDTO typeCircuitAchatDTO) {
+        this.typeCircuitAchatDTO = typeCircuitAchatDTO;
     }
 
-    public String getDesignationLTEtatDemande() {
-        return designationLTEtatDemande;
-    }
-
-    public void setDesignationLTEtatDemande(String designationLTEtatDemande) {
-        this.designationLTEtatDemande = designationLTEtatDemande;
-    }
-
-    public TypeCircuitAchat getTypeCircuitAchat() {
-        return typeCircuitAchat;
-    }
-
-    public void setTypeCircuitAchat(TypeCircuitAchat typeCircuitAchat) {
-        this.typeCircuitAchat = typeCircuitAchat;
-    }
+ 
+ 
 
     public Integer getCodeTypeCircuitAchat() {
         return codeTypeCircuitAchat;

@@ -104,57 +104,6 @@ public class ModeReglementRessource {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("mode_reglement/edition")
-    public ResponseEntity<ModeReglement> GetRapport() {
-
-        String fileNameJrxml = "c:/ModeReglement.jrxml";
-        String fileNamePdf = "c:/HelloPDFv2s.pdf";
-
-        Collection<ModeReglement> products = modeReglementRepo.findAll(); // Example using a repository
-
-        try {
-            System.out.println("Loading the .JRMXML file ....");
-            JasperDesign jasperDesign = JRXmlLoader.load(fileNameJrxml);
-            System.out.println("Compiling the .JRMXML file to .JASPER file....");
-            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-            Map<String, Object> params = new HashMap<>();
-            params.put("ItemDataSource", new JRBeanCollectionDataSource(products));
-            System.out.println("filling parameters to .JASPER file....");
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
-
-            System.out.println("exporting the JASPER file to PDF file....");
-            JasperExportManager.exportReportToPdfFile(jasperPrint, fileNamePdf);
-            System.out.println("Successfully completed the export");
-
-        } catch (Exception e) {
-            System.out.print("Exception:" + e);
-        }
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-//
-//    @GetMapping("mode_reglement/editionss")
-//    public void getDocument(HttpServletResponse response) throws IOException, JRException {
-//        String fileNameJrxml = "c:/ModeReglement.jrxml";
-////        String sourceFileName = ResourceUtils.getFile(fileNameJrxml).getAbsolutePath();
-//
-//        JasperDesign jasperDesign = JRXmlLoader.load(fileNameJrxml);
-//        JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-//        ModeReglement sampleBean = new ModeReglement();
-//
-//        Collection<ModeReglement> products = modeReglementRepo.findAll();
-//        JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(products);
-//        Map parameters = new HashMap();
-//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
-//        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
-//        response.setContentType("application/pdf");
-//
-////        HttpHeaders headers = new HttpHeaders();
-////        headers.setContentType(MediaType.APPLICATION_PDF);
-////        return ResponseEntity.ok().headers(headers).body(Helper.read(byteArrayInputStream));
-//        response.addHeader("Content-Disposition", "inline; filename=jasper.pdf;");
-//        System.out.println("Successfully completed the export");
-//    }
-
     @GetMapping("mode_reglement/exp")
     public ResponseEntity<byte[]> getReport() throws Exception {
 

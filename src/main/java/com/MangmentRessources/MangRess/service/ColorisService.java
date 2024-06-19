@@ -8,10 +8,14 @@ import com.MangmentRessources.MangRess.domaine.Coloris;
 import com.MangmentRessources.MangRess.dto.ColorisDTO;
 import com.MangmentRessources.MangRess.factory.ColorisFactory;
 import com.MangmentRessources.MangRess.repository.ColorisRepo;
+import com.MangmentRessources.MangRess.web.error.MyResourceNotFoundException;
 import com.google.common.base.Preconditions;
+//import com.MangmentRessources.MangRess.web.Util.Preconditions;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -20,13 +24,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class ColorisService {
-    
+
+    private final Logger log = LoggerFactory.getLogger(ColorisService.class);
+
     private final ColorisRepo colorisRepo;
 
     public ColorisService(ColorisRepo colorisRepo) {
         this.colorisRepo = colorisRepo;
     }
-    
+
     @Transactional(readOnly = true)
     public List<ColorisDTO> findAllColoris() {
         return ColorisFactory.listColorisToColorisDTOs(colorisRepo.findAll());
@@ -35,9 +41,14 @@ public class ColorisService {
 
     @Transactional(readOnly = true)
     public ColorisDTO findOne(Integer code) {
-        Coloris matiere = colorisRepo.getReferenceById(code);
-        Preconditions.checkArgument(matiere.getCode() != null, "error.ColorisNotFound");
-        return ColorisFactory.colorisToColorisDTO(matiere);
+        log.debug("Request to get fournisseur: {}", code);
+        Coloris coloris = colorisRepo.getReferenceById(code);
+//        Preconditions.checkArgument(!true, "error.Coloris Inexistant with Code :" + code);
+        if (coloris == null) {
+            throw new MyResourceNotFoundException("User not found with ID: " + code);
+        }
+        return ColorisFactory.colorisToColorisDTO(coloris);
+
     }
 
 //
@@ -51,6 +62,7 @@ public class ColorisService {
         Preconditions.checkArgument((dTO.getCode() != null), "error.ColorisNotFound");
         Coloris matiere = colorisRepo.getReferenceById(dTO.getCode());
         Preconditions.checkArgument(true, "error.ColorisNotFound");
+
         dTO.setCode(matiere.getCode());
         ColorisFactory.colorisDTOToColoris(dTO, matiere);
         return colorisRepo.save(matiere);
@@ -60,5 +72,5 @@ public class ColorisService {
         Preconditions.checkArgument(colorisRepo.existsById(code), "error.ColorisNotFound");
         colorisRepo.deleteColorisByCode(code);
     }
-    
+
 }

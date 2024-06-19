@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Preconditions {
     
-     private final static Logger LOG = LoggerFactory.getLogger(Preconditions.class);
+       private final static Logger LOG = LoggerFactory.getLogger(Preconditions.class);
 
     private Preconditions() {
         throw new AssertionError();
@@ -39,13 +39,13 @@ public class Preconditions {
     }
 
     public static void checkBusinessLogique(final boolean expression, String message, String... detailMessage) {
-       if (!expression) {
-           String detailMsgBuilder = String.join(";", detailMessage);
-           IllegalBusinessLogiqueException X = new IllegalBusinessLogiqueException(message, new Throwable(detailMsgBuilder));
-           LOG.error(message, new Throwable(detailMsgBuilder));
-           throw X;
-       }
-   }
+        if (!expression) {
+            String detailMsgBuilder = String.join(";", detailMessage);
+            IllegalBusinessLogiqueException X = new IllegalBusinessLogiqueException(message, new Throwable(detailMsgBuilder));
+            LOG.error(message, new Throwable(detailMsgBuilder));
+            throw X;
+        }
+    }
 
     /**
      * Check if some value was found, otherwise throw exception.
@@ -71,5 +71,5 @@ public class Preconditions {
 
         return resource;
     }
-    
+
 }

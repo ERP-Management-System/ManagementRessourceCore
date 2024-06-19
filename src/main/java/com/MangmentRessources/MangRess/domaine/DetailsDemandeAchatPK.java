@@ -23,96 +23,60 @@ public class DetailsDemandeAchatPK {
     
     @Basic(optional = false)
     @NotNull
-    @Column(name = "code_demande_achat")
-    private Integer codeDemandeAchat;
-    
-    @Column(name = "code_matiere", updatable = false, insertable = false)
-    private Integer codeMatiere;
+    @Column(name = "code_demande_achat", nullable = false)
+    private int codeDemandeAchat;
 
-    @JoinColumn(name = "code_matiere", referencedColumnName = "Code", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonBackReference
-    private Matiere matiere;
-    
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "code_matiere")
+    private int codeMatiere;
 
-    @Column(name = "code_coloris", updatable = false, insertable = false)
-    private Integer codeColoris;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "code_coloris", nullable = false)
+    private int codeColoris;
 
-    @JoinColumn(name = "code_coloris", referencedColumnName = "Code", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonBackReference
-    private Coloris coloris;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "code_unite", nullable = false)
+    private int codeUnite;
     
-    
-    @Column(name = "code_unite", updatable = false, insertable = false)
-    private Integer codeUnite;
-
-    @JoinColumn(name = "code_unite", referencedColumnName = "Code", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonBackReference
-    private Unite unite;
 
     public DetailsDemandeAchatPK() {
     }
 
-    public Integer getCodeDemandeAchat() {
+    public int getCodeDemandeAchat() {
         return codeDemandeAchat;
     }
 
-    public void setCodeDemandeAchat(Integer codeDemandeAchat) {
+    public void setCodeDemandeAchat(int codeDemandeAchat) {
         this.codeDemandeAchat = codeDemandeAchat;
     }
 
-    public Integer getCodeMatiere() {
+    public int getCodeMatiere() {
         return codeMatiere;
     }
 
-    public void setCodeMatiere(Integer codeMatiere) {
+    public void setCodeMatiere(int codeMatiere) {
         this.codeMatiere = codeMatiere;
     }
 
-    public Matiere getMatiere() {
-        return matiere;
-    }
-
-    public void setMatiere(Matiere matiere) {
-        this.matiere = matiere;
-    }
-
- 
-    
-    public Integer getCodeColoris() {
+    public int getCodeColoris() {
         return codeColoris;
     }
 
-    public void setCodeColoris(Integer codeColoris) {
+    public void setCodeColoris(int codeColoris) {
         this.codeColoris = codeColoris;
     }
 
-    public Coloris getColoris() {
-        return coloris;
-    }
-
-    public void setColoris(Coloris coloris) {
-        this.coloris = coloris;
-    }
-
-    public Integer getCodeUnite() {
+    public int getCodeUnite() {
         return codeUnite;
     }
 
-    public void setCodeUnite(Integer codeUnite) {
+    public void setCodeUnite(int codeUnite) {
         this.codeUnite = codeUnite;
     }
-
-    public Unite getUnite() {
-        return unite;
-    }
-
-    public void setUnite(Unite unite) {
-        this.unite = unite;
-    }
-    
+ 
     
     
     

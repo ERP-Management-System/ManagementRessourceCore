@@ -58,16 +58,21 @@ public class ColorisFactory {
 
         if (domaine != null) {
             ColorisDTO dTO = new ColorisDTO();
-            dTO.setCode(domaine.getCode());
-//            System.out.println("jihennn  " + LocaleContextHolder.getLocale().getLanguage());
-//            System.out.println("jihennn  " + new Locale(LANGUAGE_SEC).getLanguage());
+            dTO.setCode(domaine.getCode());       
+            dTO.setCodeColoriss(domaine.getCode());
+
+ 
             if (LocaleContextHolder.getLocale().getLanguage().equals(new Locale(LANGUAGE_SEC).getLanguage())) {
 
                 dTO.setDesignationAr(domaine.getDesignationAr());
                 dTO.setDesignationLt(domaine.getDesignationLt());
+                 dTO.setDesignationArColoriss(domaine.getDesignationAr());
+                dTO.setDesignationLtColoriss(domaine.getDesignationLt());
             } else {
                 dTO.setDesignationLt(domaine.getDesignationLt());
                 dTO.setDesignationAr(domaine.getDesignationAr());
+                 dTO.setDesignationLtColoriss(domaine.getDesignationLt());
+                dTO.setDesignationArColoriss(domaine.getDesignationAr());
             }
             dTO.setCodeSaisie(domaine.getCodeSaisie());
             dTO.setActif(domaine.isActif());

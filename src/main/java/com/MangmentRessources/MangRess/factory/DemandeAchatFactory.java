@@ -5,12 +5,20 @@
 package com.MangmentRessources.MangRess.factory;
 
 import com.MangmentRessources.MangRess.domaine.DemandeAchat;
+import com.MangmentRessources.MangRess.domaine.DemandeAchat;
+import com.MangmentRessources.MangRess.domaine.DetailsDemandeAchat;
+import com.MangmentRessources.MangRess.domaine.DetailsDemandeAchatPK;
 import com.MangmentRessources.MangRess.domaine.DetailsDemandeAchat;
 import com.MangmentRessources.MangRess.dto.DemandeAchatDTO;
+import com.MangmentRessources.MangRess.dto.DemandeAchatDTO;
 import com.MangmentRessources.MangRess.dto.DetailsDemandeAchatDTO;
+import com.MangmentRessources.MangRess.dto.DetailsDemandeAchatDTO;
+import static com.MangmentRessources.MangRess.factory.DemandeAchatFactory.LANGUAGE_SEC;
 import static com.MangmentRessources.MangRess.factory.DetailsDemandeAchatFactory.LANGUAGE_SEC;
+import com.MangmentRessources.MangRess.web.Util.Preconditions;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,37 +45,17 @@ public class DemandeAchatFactory {
         return domaine;
     }
 
-    public static DemandeAchat nomenclatureArticleDTOToDemandeAchatCollection(DemandeAchatDTO Dto, DemandeAchat domaine) {
+    public static DemandeAchat demandeAchatDTOToDemandeAchat(DemandeAchatDTO Dto, DemandeAchat domaine) {
         if (Dto != null) {
             domaine.setCode(Dto.getCode());
-
-            domaine.setCodeSaisieDemande(Dto.getCodeSaisieDemande());
-
+ 
+            domaine.setCodeSaisie(Dto.getCodeSaisie());
+ 
             domaine.setDateCreate(Dto.getDateCreate());
             domaine.setUserCreate(Dto.getUserCreate());
             domaine.setObservation(Dto.getObservation());
-
-            if (Dto.getCodeTypeCircuitAchat() != null) {
-                domaine.setTypeCircuitAchat(TypeCircuitAchatFactory.createTypeCircuitAchatByCode(Dto.getCodeTypeCircuitAchat()));
-            }
-            if (Dto.getCodeEtatDemande() != null) {
-                domaine.setEtatDemande(EtatDemandeAchatFactory.createEtatDemandeAchatByCode(Dto.getCodeEtatDemande()));
-            }
-            Collection<DetailsDemandeAchat> detailsDemandeAchats = new ArrayList<>();
-            if (Dto.getDetailsDemandeAchatDTOs() != null) {
-                Dto.getDetailsDemandeAchatDTOs().forEach(x -> {
-                    DetailsDemandeAchat detailsDemandeAchat = new DetailsDemandeAchat();
-                    detailsDemandeAchat = DetailsDemandeAchatFactory.detailsNomenclatureDTOTodetailNomenclatureCollection(x);
-                    detailsDemandeAchat.setDemandeAchat(domaine);
-                    detailsDemandeAchats.add(detailsDemandeAchat);
-                });
-            }
-            if (domaine.getDetailsDemandeAchats() != null) {
-                domaine.getDetailsDemandeAchats().clear();
-                domaine.getDetailsDemandeAchats().addAll(detailsDemandeAchats);
-            } else {
-                domaine.setDetailsDemandeAchats(detailsDemandeAchats);
-            }
+ 
+            domaine.setCodeEtatDemande(Dto.getCodeEtatDemande());
 
             return domaine;
         } else {
@@ -79,77 +67,33 @@ public class DemandeAchatFactory {
 
         if (domaine != null) {
             DemandeAchatDTO dTO = new DemandeAchatDTO();
-            dTO.setCode(domaine.getCode());
-            //            System.out.println("jihennn  " + LocaleContextHolder.getLocale().getLanguage());
-            //            System.out.println("jihennn  " + new Locale(LANGUAGE_SEC).getLanguage());
-
-            dTO.setCodeSaisieDemande(domaine.getCodeSaisieDemande());
-            dTO.setCodeTypeCircuitAchat(domaine.getTypeCircuitAchat().getCode());
-
+            dTO.setCode(domaine.getCode()); 
+ 
+            dTO.setCodeSaisie(domaine.getCodeSaisie());
+ 
             dTO.setDateCreate(domaine.getDateCreate());
             dTO.setUserCreate(domaine.getUserCreate());
-
             dTO.setObservation(domaine.getObservation());
 
-            dTO.setCodeEtatDemande(domaine.getEtatDemande().getCode());
-            if (LocaleContextHolder.getLocale().getLanguage().equals(new Locale(LANGUAGE_SEC).getLanguage())) {
-                dTO.setDesignationArEtatDemande(domaine.getEtatDemande().getDesignationAr());
-                dTO.setDesignationLTEtatDemande(domaine.getEtatDemande().getDesignationLt());
-                dTO.setDesignationArTypeCircuitAchat(domaine.getTypeCircuitAchat().getDesignationAr());
-                dTO.setDesignationLTTypeCircuitAchat(domaine.getTypeCircuitAchat().getDesignationLt());
-            } else {
-                dTO.setDesignationLTEtatDemande(domaine.getEtatDemande().getDesignationLt());
-                dTO.setDesignationArEtatDemande(domaine.getEtatDemande().getDesignationAr());
-                dTO.setDesignationLTTypeCircuitAchat(domaine.getTypeCircuitAchat().getDesignationLt());
-                dTO.setDesignationArTypeCircuitAchat(domaine.getTypeCircuitAchat().getDesignationAr());
-            }
-
-            return dTO;
-        } else {
-            return null;
-        }
-    }
-
-    public static List<DemandeAchatDTO> listDemandeAchatToDemandeAchatDTOs(List<DemandeAchat> domaines) {
-        List<DemandeAchatDTO> list = new ArrayList<>();
-        for (DemandeAchat nomenclatureArticle : domaines) {
-            list.add(demandeAchatToDemandeAchatDTO(nomenclatureArticle));
-        }
-        return list;
-    }
-
-    public static DemandeAchatDTO demandeAchatToDemandeAchatDTOCollection(DemandeAchat domaine) {
-
-        if (domaine != null) {
-            DemandeAchatDTO dTO = new DemandeAchatDTO();
-            dTO.setCode(domaine.getCode());
-
-            dTO.setDateCreate(domaine.getDateCreate());
-            dTO.setUserCreate(domaine.getUserCreate());   
-            dTO.setObservation(domaine.getObservation());
-
-
-            dTO.setCodeEtatDemande(domaine.getEtatDemande().getCode());
-            if (LocaleContextHolder.getLocale().getLanguage().equals(new Locale(LANGUAGE_SEC).getLanguage())) {
-                dTO.setDesignationArEtatDemande(domaine.getEtatDemande().getDesignationAr());
-                dTO.setDesignationLTEtatDemande(domaine.getEtatDemande().getDesignationLt());
-            } else {
-                dTO.setDesignationLTEtatDemande(domaine.getEtatDemande().getDesignationLt());
-                dTO.setDesignationArEtatDemande(domaine.getEtatDemande().getDesignationAr());
-            }
-
-            if (domaine.getDetailsDemandeAchats() != null) {
-                Collection<DetailsDemandeAchatDTO> detailsDemandeAchatDTOs = new ArrayList<>();
+ 
+            dTO.setTypeCircuitAchatDTO(TypeCircuitAchatFactory.typeCircuitAchatToTypeCircuitAchatDTO(domaine.getTypeCircuitAchat()));
+            dTO.setCodeTypeCircuitAchat(domaine.getCodeTypeCircuitAchat());
+            
+            dTO.setEtatDemandeAchatDTO(EtatDemandeAchatFactory.etatDemandeAchatToEtatDemandeAchatDTO(domaine.getEtatDemande()));
+            dTO.setCodeEtatDemande(domaine.getCodeEtatDemande());
+            
+            if (domaine.getDetailsDemandeAchats()!= null) {
+                Collection<DetailsDemandeAchatDTO> detailsDdeTransfertDTOSCollection = new ArrayList<>();
                 domaine.getDetailsDemandeAchats().forEach(x -> {
-                    DetailsDemandeAchatDTO detailsDemandeAchatDTO = new DetailsDemandeAchatDTO();
-                    detailsDemandeAchatDTO = DetailsDemandeAchatFactory.detailsDemandeAchatTodetailsDemandeAchatDTOCollection(x);
-                    detailsDemandeAchatDTOs.add(detailsDemandeAchatDTO);
+                    DetailsDemandeAchatDTO detailsDTO = new DetailsDemandeAchatDTO();
+                    detailsDTO = DetailsDemandeAchatFactory.detailsDemandeAchatTodetailsDemandeAchatDTOCollection(x);
+                    detailsDdeTransfertDTOSCollection.add(detailsDTO);
                 });
-                if (dTO.getDetailsDemandeAchatDTOs() != null) {
+                if (dTO.getDetailsDemandeAchatDTOs()!= null) {
                     dTO.getDetailsDemandeAchatDTOs().clear();
-                    dTO.getDetailsDemandeAchatDTOs().addAll(detailsDemandeAchatDTOs);
+                    dTO.getDetailsDemandeAchatDTOs().addAll(detailsDdeTransfertDTOSCollection);
                 } else {
-                    dTO.setDetailsDemandeAchatDTOs(detailsDemandeAchatDTOs);
+                    dTO.setDetailsDemandeAchatDTOs(detailsDdeTransfertDTOSCollection);
                 }
             }
 
@@ -158,5 +102,167 @@ public class DemandeAchatFactory {
             return null;
         }
     }
+    
+     
+    public static List<DemandeAchatDTO> listDemandeAchatToDemandeAchatDTOs(List<DemandeAchat> domaines) {
+        List<DemandeAchatDTO> list = new ArrayList<>();
+        for (DemandeAchat demandeAchat : domaines) {
+            list.add(demandeAchatToDemandeAchatDTO(demandeAchat));
+        }
+        return list;
+    }
 
+    ///// new Factory with details
+    public static DemandeAchat demandeAchatDTOToDemandeAchatWithDetails(DemandeAchat domaine, DemandeAchatDTO dTO) {
+        domaine.setCode(dTO.getCode());
+
+        domaine.setCodeSaisie(dTO.getCodeSaisie());
+ 
+        domaine.setDateCreate(new Date());
+        domaine.setUserCreate(dTO.getUserCreate());
+        domaine.setObservation(dTO.getObservation());
+
+  
+ 
+        domaine.setCodeEtatDemande(2);
+        if (domaine.getCodeEtatDemande() != null) {
+            domaine.setEtatDemande(EtatDemandeAchatFactory.createEtatDemandeAchatByCode(2));
+
+        }
+
+        
+         domaine.setCodeTypeCircuitAchat(dTO.getCodeTypeCircuitAchat());
+        if (domaine.getCodeTypeCircuitAchat()!= null) {
+            domaine.setTypeCircuitAchat(TypeCircuitAchatFactory.createTypeCircuitAchatByCode(dTO.getCodeTypeCircuitAchat()));
+
+        }
+        Collection<DetailsDemandeAchat> detailsCollections = new ArrayList<>();
+
+        dTO.getDetailsDemandeAchatDTOs().forEach(x -> {
+
+            DetailsDemandeAchat detailsmodelepanier = new DetailsDemandeAchat();
+            DetailsDemandeAchatPK detailsmodelepanierPK = new DetailsDemandeAchatPK();
+  
+            Preconditions.checkBusinessLogique(x.getCodematiere() != null, "error.MatiereRequired");
+            detailsmodelepanierPK.setCodeMatiere(x.getCodematiere().getCode());
+
+            Preconditions.checkBusinessLogique(x.getCodeUnite().getCode() != null, "error.UniteRequired");
+            detailsmodelepanierPK.setCodeUnite(x.getCodeUnite().getCode());
+            Preconditions.checkBusinessLogique(x.getCodeColoris().getCode() != null, "error.ColorisRequired");
+            detailsmodelepanierPK.setCodeColoris(x.getCodeColoris().getCode());
+            detailsmodelepanier.setDetailsDemandeAchatPK(detailsmodelepanierPK);
+            Preconditions.checkBusinessLogique(x.getQteDemander() != null, "error.QuantiteRequired");
+            detailsmodelepanier.setQteDemander(x.getQteDemander());
+            detailsmodelepanier.setDateCreate(domaine.getDateCreate());
+            detailsmodelepanier.setUsercreate(domaine.getUserCreate());
+            detailsmodelepanier.setDemandeAchat(domaine);
+            detailsCollections.add(detailsmodelepanier);
+        });
+
+        if (domaine.getDetailsDemandeAchats()!= null) {
+            domaine.getDetailsDemandeAchats().clear();
+            domaine.getDetailsDemandeAchats().addAll(detailsCollections);
+        } else {
+            domaine.setDetailsDemandeAchats(detailsCollections);
+        }
+//        System.out.println("soufien send valider");
+        return domaine;
+    }
+//
+//    public static DemandeAchatDTO demandeAchatWithDetailsTodemandeAchatDTOWithDetails(DemandeAchat domaine) {
+////        System.out.println("soufien return");
+//        if (domaine == null) {
+//            return null;
+//        }
+//        DemandeAchatDTO dTO = new DemandeAchatDTO();
+//        dTO.setCode(domaine.getCode());
+//        dTO.setCodeSaisie(domaine.getCodeSaisie());
+//        dTO.setActif(domaine.isActif());
+//        dTO.setVisible(domaine.isVisible());
+//        dTO.setDateCreate(domaine.getDateCreate());
+//        dTO.setUserCreate(domaine.getUserCreate());
+//        dTO.setObservation(domaine.getObservation());
+//        dTO.setFournisseurDTO(FournisseurFactory.fournisseurToFournisseurDTO(domaine.getFournisseur()));
+//        dTO.setCodeFournisseur(domaine.getCodeFournisseur());
+//
+//        dTO.setModeReglementDTO(ModeReglementFactory.modeReglementToModeReglementDTO(domaine.getModeReglement()));
+//        dTO.setCodeModeReglement(domaine.getCodeModeReglement());
+//
+//        dTO.setEtatReceptionDTO(EtatReceptionFactory.etatReceptionToEtatReceptionDTO(domaine.getEtatReception()));
+//        dTO.setCodeEtatReception(domaine.getCodeEtatReception());
+//
+//        if (domaine.getDetailsDemandeAchatsCollections() != null) {
+//            Collection<DetailsDemandeAchatDTO> detailsDdeTransfertDTOSCollection = new ArrayList<>();
+//            domaine.getDetailsDemandeAchatsCollections().forEach(x -> {
+//                DetailsDemandeAchatDTO detailsDTO = new DetailsDemandeAchatDTO();
+//                detailsDTO = DetailsDemandeAchatFactory.detailsDemandeAchatTodetailsDemandeAchatDTOCollection(x);
+//                detailsDdeTransfertDTOSCollection.add(detailsDTO);
+//            });
+//            if (dTO.getDetailsDemandeAchatDTOs() != null) {
+//                dTO.getDetailsDemandeAchatDTOs().clear();
+//                dTO.getDetailsDemandeAchatDTOs().addAll(detailsDdeTransfertDTOSCollection);
+//            } else {
+//                dTO.setDetailsDemandeAchatDTOs(detailsDdeTransfertDTOSCollection);
+//            }
+//        }
+//        return dTO;
+//    }
+
+    public static DemandeAchatDTO DetailsdemandeAchatToDetailsDemandeAchatDTO(DemandeAchat domaine) {
+
+        if (domaine != null) {
+            DemandeAchatDTO dTO = new DemandeAchatDTO();
+            dTO.setCode(domaine.getCode());
+ 
+            dTO.setCodeSaisie(domaine.getCodeSaisie());
+ 
+            dTO.setDateCreate(domaine.getDateCreate());
+            dTO.setUserCreate(domaine.getUserCreate());
+            dTO.setObservation(domaine.getObservation());
+ 
+
+            dTO.setEtatDemandeAchatDTO(EtatDemandeAchatFactory.etatDemandeAchatToEtatDemandeAchatDTO(domaine.getEtatDemande()));
+            dTO.setCodeEtatDemande(domaine.getCodeEtatDemande());
+
+            return dTO;
+        } else {
+            return null;
+        }
+    }
+
+    public static DemandeAchatDTO UpdatedemandeAchatWithDetailsTodemandeAchatDTOWithDetails(DemandeAchat domaine) {
+//        System.out.println("soufien return");
+        if (domaine == null) {
+            return null;
+        }
+        DemandeAchatDTO dTO = new DemandeAchatDTO();
+        dTO.setCode(domaine.getCode());
+        dTO.setCodeSaisie(domaine.getCodeSaisie());
+ 
+        dTO.setDateCreate(domaine.getDateCreate());
+        dTO.setUserCreate(domaine.getUserCreate());
+        dTO.setObservation(domaine.getObservation());
+ 
+
+ 
+
+        dTO.setEtatDemandeAchatDTO(EtatDemandeAchatFactory.etatDemandeAchatToEtatDemandeAchatDTO(domaine.getEtatDemande()));
+        dTO.setCodeEtatDemande(domaine.getCodeEtatDemande());
+
+        if (domaine.getDetailsDemandeAchats()!= null) {
+            Collection<DetailsDemandeAchatDTO> detailsDTOSCollection = new ArrayList<>();
+            domaine.getDetailsDemandeAchats().forEach(x -> {
+                DetailsDemandeAchatDTO detailsDTO = new DetailsDemandeAchatDTO();
+                detailsDTO = DetailsDemandeAchatFactory.detailsDemandeAchatTodetailsDemandeAchatDTOCollection(x);
+                detailsDTOSCollection.add(detailsDTO);
+            });
+            if (dTO.getDetailsDemandeAchatDTOs() != null) {
+                dTO.getDetailsDemandeAchatDTOs().clear();
+                dTO.getDetailsDemandeAchatDTOs().addAll(detailsDTOSCollection);
+            } else {
+                dTO.setDetailsDemandeAchatDTOs(detailsDTOSCollection);
+            }
+        }
+        return dTO;
+    }
 }
