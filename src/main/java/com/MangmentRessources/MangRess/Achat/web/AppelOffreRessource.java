@@ -6,7 +6,7 @@ package com.MangmentRessources.MangRess.Achat.web;
 
 import com.MangmentRessources.MangRess.Achat.domaine.AppelOffre;
 import com.MangmentRessources.MangRess.Achat.domaine.DetailsAppelOffre;
-import com.MangmentRessources.MangRess.domaine.ModeReglement;
+import com.MangmentRessources.MangRess.ParametrageCentral.domaine.ModeReglement;
 import com.MangmentRessources.MangRess.Achat.dto.AppelOffreDTO;
 import com.MangmentRessources.MangRess.Achat.dto.DemandeAchatDTO;
 import com.MangmentRessources.MangRess.Achat.dto.DetailsAppelOffreDTO;

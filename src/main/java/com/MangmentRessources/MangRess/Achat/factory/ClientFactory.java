@@ -4,9 +4,9 @@
  */
 package com.MangmentRessources.MangRess.Achat.factory;
 
-import com.MangmentRessources.MangRess.domaine.Client;
+import com.MangmentRessources.MangRess.ParametrageCentral.domaine.Client;
 import com.MangmentRessources.MangRess.Achat.dto.ClientDTO;
-import com.MangmentRessources.MangRess.factory.RegionFactory;
+import com.MangmentRessources.MangRess.ParametrageCentral.factory.RegionFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;

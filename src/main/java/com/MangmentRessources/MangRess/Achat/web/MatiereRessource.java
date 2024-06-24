@@ -4,15 +4,16 @@
  */
 package com.MangmentRessources.MangRess.Achat.web;
 
- 
-import com.MangmentRessources.MangRess.Achat.domaine.Matiere;
+import com.MangmentRessources.MangRess.Achat.domaine.Matiere; 
 import com.MangmentRessources.MangRess.Achat.dto.MatiereDTO;
+import com.MangmentRessources.MangRess.Achat.dto.StatuMatiereDTO; 
 import com.MangmentRessources.MangRess.Achat.service.MatiereService;
-import com.MangmentRessources.MangRess.dto.AoDTO;
+import com.MangmentRessources.MangRess.Achat.service.StatuMatiereService; 
 import jakarta.validation.Valid;
 import java.io.FileNotFoundException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collection;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,21 +30,19 @@ import net.sf.jasperreports.engine.*;
 @RequestMapping("/api/parametrage_achat/")
 public class MatiereRessource {
 
-    private final MatiereService matiereservice;
+    private final MatiereService matiereservice;  
+    private final StatuMatiereService statuMatiereService;
 
-    public MatiereRessource(MatiereService matiereservice) {
+    public MatiereRessource(MatiereService matiereservice, StatuMatiereService statuMatiereService) {
         this.matiereservice = matiereservice;
+        this.statuMatiereService = statuMatiereService;
     }
 
+
+ 
     @GetMapping("matiere/{code}")
     public ResponseEntity<MatiereDTO> getMatiereByCode(@PathVariable Integer code) {
         MatiereDTO dTO = matiereservice.findOne(code);
-        return ResponseEntity.ok().body(dTO);
-    }
-
-    @GetMapping("matieres/{code}")
-    public ResponseEntity<AoDTO> getMatiereByCodeAO(@PathVariable Integer code) {
-        AoDTO dTO = matiereservice.findOneAO(code);
         return ResponseEntity.ok().body(dTO);
     }
 
@@ -58,6 +57,18 @@ public class MatiereRessource {
 //        List<DdeAchat> ddeAchatList = ddeAchatService.findAllDdeAchat();
         return ResponseEntity.ok().body(matiereservice.findAllMatiere());
     }
+
+    @GetMapping("matiere/codeStatuArticle")
+    public ResponseEntity<Collection<MatiereDTO>> getStatuMatiere(@RequestParam Collection<Integer> codeStatuArticle) {
+        Collection<MatiereDTO> dTOs = matiereservice.findMatiereActive(codeStatuArticle);
+        return ResponseEntity.ok().body(dTOs);
+    }
+
+        @GetMapping("statu_matiere/all")
+    public ResponseEntity<List<StatuMatiereDTO>> getAllStatuMatiere() { 
+        return ResponseEntity.ok().body(statuMatiereService.findAllStatuMatiere());
+    }
+ 
 
     @PostMapping("matiere")
     public ResponseEntity<MatiereDTO> postMatiere(@Valid @RequestBody MatiereDTO dTO, BindingResult bindingResult) throws URISyntaxException, MethodArgumentNotValidException {

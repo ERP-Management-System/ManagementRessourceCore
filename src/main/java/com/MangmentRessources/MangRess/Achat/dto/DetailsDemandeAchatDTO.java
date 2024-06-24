@@ -15,32 +15,7 @@ import java.util.Date;
  * @author Administrator
  */
 public class DetailsDemandeAchatDTO {
-
-//    private Integer codeDemandeAchat;
-//
-//    private String designationMatiereAr;
-//    private String designationMatiereLT;
-//    private String codeSaisieMatiere;
-//
-//    private String designationColorisAr;
-//    private String designationColorisLT;
-//    private String codeSaisieColoris;
-//
-//    private String designationUniteAr;
-//    private String designationUniteLT;
-//    private String codeSaisieUnite;
-//
-//    private Integer qteDemander;
-//
-//    private Integer qteLivrer;
-//
-//    private String usercreate;
-//
-//    @NotNull
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date datecreate;
-//    
-    
+ 
     
     
     private int codeDemandeAchat;
@@ -68,7 +43,10 @@ public class DetailsDemandeAchatDTO {
     private String codeSaisieMatiere;
     private String designationArMatiere;
     private String designationLtMatiere;
-
+    private BigDecimal prixAchat;
+    private Integer codeTaxe;
+    
+    
     private Integer codeUnites;
     private String codeSaisieUnites;
     private String designationArUnites;
@@ -252,6 +230,22 @@ public class DetailsDemandeAchatDTO {
 
     public void setDesignationLtColoriss(String designationLtColoriss) {
         this.designationLtColoriss = designationLtColoriss;
+    }
+
+    public BigDecimal getPrixAchat() {
+        return prixAchat;
+    }
+
+    public void setPrixAchat(BigDecimal prixAchat) {
+        this.prixAchat = prixAchat;
+    }
+
+    public Integer getCodeTaxe() {
+        return codeTaxe;
+    }
+
+    public void setCodeTaxe(Integer codeTaxe) {
+        this.codeTaxe = codeTaxe;
     }
 
 

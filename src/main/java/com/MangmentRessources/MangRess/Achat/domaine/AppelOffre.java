@@ -4,7 +4,7 @@
  */
 package com.MangmentRessources.MangRess.Achat.domaine;
 
-import com.MangmentRessources.MangRess.domaine.ModeReglement;
+import com.MangmentRessources.MangRess.ParametrageCentral.domaine.ModeReglement;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;

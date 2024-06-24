@@ -4,15 +4,10 @@
  */
 package com.MangmentRessources.MangRess.Achat.factory;
 
-import com.MangmentRessources.MangRess.Achat.domaine.DetailsAppelOffre;
-import com.MangmentRessources.MangRess.Achat.domaine.DetailsAppelOffrePK;
+import com.MangmentRessources.MangRess.Achat.domaine.DetailsAppelOffre; 
 import com.MangmentRessources.MangRess.Achat.dto.DetailsAppelOffreDTO;
-import com.MangmentRessources.MangRess.dto.MatiereWithDetailsForAODTO;
 import java.util.ArrayList;
-import java.util.Collection;
-
-import java.util.Date;
-import java.util.Locale;
+import java.util.Collection;  
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -29,17 +24,19 @@ public class DetailsAppelOffreFactory {
     public void setLanguage(String db) {
         LANGUAGE_SEC = db;
     }
- 
+
     public static DetailsAppelOffreDTO detailsAppelOffreTodetailsAppelOffreDTOCollection(DetailsAppelOffre domaine) {
 
         if (domaine != null) {
             DetailsAppelOffreDTO dTO = new DetailsAppelOffreDTO();
             dTO.setCodeAppelOffre(domaine.getDetailsAppelOffrePK().getCodeAppelOffre());
             dTO.setDatecreate(domaine.getDateCreate());
-            dTO.setUsercreate(domaine.getUsercreate());
+            dTO.setUsercreate(domaine.getUsercreate()); 
             dTO.setCodematiere(MatiereFactory.matiereToMatiereDTO(domaine.getMatiere()));
             dTO.setCodeColoris(ColorisFactory.colorisToColorisDTO(domaine.getColoris()));
-            dTO.setCodeUnite(UniteFactory.uniteToUniteDTO(domaine.getUnite()));
+            dTO.setCodeUnite(UniteFactory.uniteToUniteDTO(domaine.getUnite()));    
+          
+
 
             dTO.setQteDemander(domaine.getQteDemander());
             return dTO;
@@ -55,14 +52,19 @@ public class DetailsAppelOffreFactory {
             DetailsAppelOffreDTO dTO = new DetailsAppelOffreDTO();
             dTO.setCodeAppelOffre(domaine.getDetailsAppelOffrePK().getCodeAppelOffre());
             dTO.setDatecreate(domaine.getDateCreate());
-            dTO.setUsercreate(domaine.getUsercreate());
+            dTO.setUsercreate(domaine.getUsercreate()); 
+
             System.out.println("soufien return");
             dTO.setCodeSaisieAppelOffre(domaine.getAppelOffre().getCodeSaisie());
             dTO.setCodeMatieres(domaine.getMatiere().getCode());
 
             dTO.setCodeSaisieMatiere(domaine.getMatiere().getCodeSaisie());
             dTO.setDesignationArMatiere(domaine.getMatiere().getDesignationAr());
-            dTO.setDesignationLtMatiere(domaine.getMatiere().getDesignationLt());
+            dTO.setDesignationLtMatiere(domaine.getMatiere().getDesignationLt());      
+            dTO.setPrixAchat(domaine.getMatiere().getPrixAchat());       
+            dTO.setCodeTaxe(domaine.getMatiere().getCodeTaxe());
+
+
 
             dTO.setCodeColoriss(domaine.getColoris().getCode());
             dTO.setCodeSaisieColoriss(domaine.getColoris().getCodeSaisie());

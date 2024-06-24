@@ -4,11 +4,11 @@
  */
 package com.MangmentRessources.MangRess.Achat.domaine;
 
+import com.MangmentRessources.MangRess.ParametrageCentral.domaine.Taxe;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import javax.xml.validation.Schema;
-import java.util.Collection;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.validation.constraints.Size;
 
@@ -39,20 +39,21 @@ public class Matiere {
     @Column(name = "designation_lt", length = 200, columnDefinition = "nvarchar")
     private String designationLt;
 
-    @Column(name = "actif", nullable = false)
-    @NotNull
-    private boolean actif;
+    @JoinColumn(name = "code_statu_matiere", referencedColumnName = "Code", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private StatuMatiere statuMatiere;
 
-    @Column(name = "visible", nullable = false)
+    @Column(name = "code_statu_matiere", updatable = false, insertable = false, columnDefinition = "Int default 2")
     @NotNull
-    private boolean visible;
+    private Integer codeStatuMatiere;
 
-    @Column(name = "user_Create", nullable = false, length = 255, columnDefinition = "nvarchar")
+    @Column(name = "user_Create", nullable = false, length = 255, columnDefinition = "nvarchar(200)")
     private String userCreate;
 
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "date_Create")
+    @Column(name = "date_Create", columnDefinition = ("datetime default getdate()"))
     private Date dateCreate;
 
     @JoinColumn(name = "code_type_matiere", referencedColumnName = "Code", nullable = false)
@@ -62,8 +63,23 @@ public class Matiere {
 
     @Column(name = "code_type_matiere", updatable = false, insertable = false)
     private Integer typeMatiere;
-    
-    
+
+    @Column(name = "qte_min_stock", nullable = false)
+    private Integer qteMinStock;
+
+    @Column(name = "qte_max_stock", nullable = false)
+    private Integer qteMaxStock;
+
+    @Column(name = "prix_achat", nullable = false, columnDefinition = "decimal(18,3)")
+    private BigDecimal prixAchat;
+
+    @JoinColumn(name = "code_taxe", referencedColumnName = "Code", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Taxe taxe;
+
+    @Column(name = "code_taxe", updatable = false, insertable = false , columnDefinition = ("decimal(18,3) default 0"))
+    private Integer codeTaxe;
 
     public Matiere() {
     }
@@ -100,22 +116,6 @@ public class Matiere {
         this.designationLt = designationLt;
     }
 
-    public boolean isActif() {
-        return actif;
-    }
-
-    public void setActif(boolean actif) {
-        this.actif = actif;
-    }
-
-    public boolean isVisible() {
-        return visible;
-    }
-
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
-
     public String getUserCreate() {
         return userCreate;
     }
@@ -148,5 +148,62 @@ public class Matiere {
         this.typeMatiere = typeMatiere;
     }
 
- 
+    public Integer getQteMinStock() {
+        return qteMinStock;
+    }
+
+    public void setQteMinStock(Integer qteMinStock) {
+        this.qteMinStock = qteMinStock;
+    }
+
+    public Integer getQteMaxStock() {
+        return qteMaxStock;
+    }
+
+    public void setQteMaxStock(Integer qteMaxStock) {
+        this.qteMaxStock = qteMaxStock;
+    }
+
+    public StatuMatiere getStatuMatiere() {
+        return statuMatiere;
+    }
+
+    public void setStatuMatiere(StatuMatiere statuMatiere) {
+        this.statuMatiere = statuMatiere;
+    }
+
+    public Integer getCodeStatuMatiere() {
+        return codeStatuMatiere;
+    }
+
+    public void setCodeStatuMatiere(Integer codeStatuMatiere) {
+        this.codeStatuMatiere = codeStatuMatiere;
+    }
+
+    public BigDecimal getPrixAchat() {
+        return prixAchat;
+    }
+
+    public void setPrixAchat(BigDecimal prixAchat) {
+        this.prixAchat = prixAchat;
+    }
+
+    public Taxe getTaxe() {
+        return taxe;
+    }
+
+    public void setTaxe(Taxe taxe) {
+        this.taxe = taxe;
+    }
+
+    public Integer getCodeTaxe() {
+        return codeTaxe;
+    }
+
+    public void setCodeTaxe(Integer codeTaxe) {
+        this.codeTaxe = codeTaxe;
+    }
+    
+    
+
 }

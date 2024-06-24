@@ -4,7 +4,7 @@
  */
 package com.MangmentRessources.MangRess.Achat.domaine;
 
-import com.MangmentRessources.MangRess.domaine.Region;
+import com.MangmentRessources.MangRess.ParametrageCentral.domaine.Region;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

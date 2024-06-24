@@ -7,7 +7,7 @@ package com.MangmentRessources.MangRess.Achat.service;
 import com.MangmentRessources.MangRess.Achat.domaine.Depot;
 import com.MangmentRessources.MangRess.Achat.dto.DepotDTO;
 import com.MangmentRessources.MangRess.Achat.factory.DepotFactory;
-import com.MangmentRessources.MangRess.Achat.repository.DepotRepo; 
+import com.MangmentRessources.MangRess.Achat.repository.DepotRepo;
 import com.MangmentRessources.MangRess.web.Util.Helper;
 import com.google.common.base.Preconditions;
 import java.util.Collection;
@@ -22,7 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class DepotService {
-     private final DepotRepo depotRepo;
+
+    private final DepotRepo depotRepo;
 
     public DepotService(DepotRepo depotRepo) {
         this.depotRepo = depotRepo;
@@ -47,14 +48,12 @@ public class DepotService {
 //        Preconditions.checkArgument(domaine.getCode() != null, "error.DepotNotFound");
 //        return DepotFactory.depotToDepotDTO(domaine);
 //    }
-    
-        @Transactional(readOnly = true)
-    public Collection<DepotDTO> findDepotPrincipal(Collection<Boolean> principal){
-        Collection<Depot> result =depotRepo.findDepotByPrincipalIn(Helper.removeNullValueFromCollection(principal));
+    @Transactional(readOnly = true)
+    public Collection<DepotDTO> findDepotPrincipal(Collection<Boolean> principal) {
+        Collection<Depot> result = depotRepo.findDepotByPrincipalIn(Helper.removeNullValueFromCollection(principal));
         return DepotFactory.listDepotToDepotDTOsCollection(result);
     }
-    
-    
+
 //
     public DepotDTO save(DepotDTO dTO) {
         Depot domaine = DepotFactory.depotDTOToDepot(dTO, new Depot());
@@ -75,5 +74,5 @@ public class DepotService {
         Preconditions.checkArgument(depotRepo.existsById(code), "error.DepotNotFound");
         depotRepo.deleteById(code);
     }
-    
+
 }

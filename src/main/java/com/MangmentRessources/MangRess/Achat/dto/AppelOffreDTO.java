@@ -5,7 +5,7 @@
 package com.MangmentRessources.MangRess.Achat.dto;
 
 import com.MangmentRessources.MangRess.Achat.domaine.EtatReception;
-import com.MangmentRessources.MangRess.dto.ModeReglementDTO;
+import com.MangmentRessources.MangRess.ParametrageCentral.dto.ModeReglementDTO;
  
 import jakarta.validation.constraints.NotNull;
 

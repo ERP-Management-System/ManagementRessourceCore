@@ -4,7 +4,7 @@
  */
 package com.MangmentRessources.MangRess.Achat.dto;
 
-import com.MangmentRessources.MangRess.dto.RegionDTO;
+import com.MangmentRessources.MangRess.ParametrageCentral.dto.RegionDTO;
 import java.util.Date;
 
 /**

@@ -5,15 +5,11 @@
 package com.MangmentRessources.MangRess.Achat.service;
 
 import com.MangmentRessources.MangRess.Achat.domaine.AppelOffre;
-import com.MangmentRessources.MangRess.Achat.domaine.DetailsAppelOffre;
-import com.MangmentRessources.MangRess.Achat.domaine.FamilleArticle;
-import com.MangmentRessources.MangRess.Achat.dto.AppelOffreDTO;
-import com.MangmentRessources.MangRess.dto.CopieAODTO;
-import com.MangmentRessources.MangRess.Achat.dto.DetailsAppelOffreDTO;
-import com.MangmentRessources.MangRess.Achat.dto.FamilleArticleDTO;
+import com.MangmentRessources.MangRess.Achat.domaine.DetailsAppelOffre; 
+import com.MangmentRessources.MangRess.Achat.dto.AppelOffreDTO; 
+import com.MangmentRessources.MangRess.Achat.dto.DetailsAppelOffreDTO; 
 import com.MangmentRessources.MangRess.Achat.factory.AppelOffreFactory;
-import com.MangmentRessources.MangRess.Achat.factory.DetailsAppelOffreFactory;
-import com.MangmentRessources.MangRess.Achat.factory.FamilleArticleFactory;
+import com.MangmentRessources.MangRess.Achat.factory.DetailsAppelOffreFactory; 
 import com.MangmentRessources.MangRess.Achat.repository.AppelOffreRepo;
 import com.MangmentRessources.MangRess.Achat.repository.DetailsAppelOffreRepo;
 import com.google.common.base.Preconditions;

@@ -4,7 +4,7 @@
  */
 package com.MangmentRessources.MangRess.Achat.repository;
 
-import com.MangmentRessources.MangRess.domaine.Client;
+import com.MangmentRessources.MangRess.ParametrageCentral.domaine.Client;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

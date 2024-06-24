@@ -241,7 +241,9 @@ public class DemandeAchatFactory {
  
         dTO.setDateCreate(domaine.getDateCreate());
         dTO.setUserCreate(domaine.getUserCreate());
+        dTO.setObservation(domaine.getObservation());  
         dTO.setObservation(domaine.getObservation());
+
  
 
  

@@ -66,7 +66,10 @@ public class DetailsDemandeAchatFactory {
             dTO.setCodeSaisieMatiere(domaine.getMatiere().getCodeSaisie());
             dTO.setDesignationArMatiere(domaine.getMatiere().getDesignationAr());
             dTO.setDesignationLtMatiere(domaine.getMatiere().getDesignationLt());
-
+            dTO.setPrixAchat(domaine.getMatiere().getPrixAchat());       
+            dTO.setCodeTaxe(domaine.getMatiere().getCodeTaxe());
+            
+            
             dTO.setCodeColoriss(domaine.getColoris().getCode());
             dTO.setCodeSaisieColoriss(domaine.getColoris().getCodeSaisie());
             dTO.setDesignationArColoriss(domaine.getColoris().getDesignationAr());

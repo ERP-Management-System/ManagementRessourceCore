@@ -5,8 +5,8 @@
 package com.MangmentRessources.MangRess.Achat.service;
 
 import com.MangmentRessources.MangRess.Achat.domaine.Article;
-import com.MangmentRessources.MangRess.domaine.Client;
-import com.MangmentRessources.MangRess.domaine.Client;
+import com.MangmentRessources.MangRess.ParametrageCentral.domaine.Client;
+import com.MangmentRessources.MangRess.ParametrageCentral.domaine.Client;
 import com.MangmentRessources.MangRess.Achat.dto.ArticleDTO;
 import com.MangmentRessources.MangRess.Achat.dto.ClientDTO;
 import com.MangmentRessources.MangRess.Achat.factory.ArticleFactory;

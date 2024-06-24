@@ -3,11 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.MangmentRessources.MangRess.Achat.factory;
-
-import com.MangmentRessources.MangRess.Achat.domaine.Matiere;
-import com.MangmentRessources.MangRess.dto.AoDTO;
-import com.MangmentRessources.MangRess.Achat.dto.MatiereDTO;
-import com.MangmentRessources.MangRess.Achat.dto.TypeMatiereDTO;
+ 
+import com.MangmentRessources.MangRess.Achat.domaine.Matiere; 
+import com.MangmentRessources.MangRess.Achat.dto.MatiereDTO;  
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -46,16 +44,27 @@ public class MatiereFactory {
                 domaine.setDesignationLt(Dto.getDesignationLt());
                 domaine.setDesignationAr(Dto.getDesignationAr());
             }
-//            domaine.setCodeSaisie(Dto.getCodeSaisie());
-            domaine.setActif(Dto.isActif());
-            domaine.setVisible(Dto.isVisible());
-//            if (adherantDTO.getLienParentale() != null) {
-//                adherant.setCodeLienParental(adherantDTO.getLienParentale().getCode());
-//            } else {
-//                adherant.setCodeLienParental(null);
-//            } 
+
             domaine.setDateCreate(Dto.getDateCreate());
             domaine.setUserCreate(Dto.getUserCreate());
+            domaine.setQteMinStock(Dto.getQteMinStock());
+            domaine.setQteMaxStock(Dto.getQteMaxStock());  
+            domaine.setPrixAchat(Dto.getPrixAchat());        
+            domaine.setCodeTaxe(Dto.getCodeTaxe());
+
+
+            domaine.setCodeStatuMatiere(Dto.getCodeStatuMatiere());
+            if (domaine.getCodeStatuMatiere() != null) {
+                domaine.setStatuMatiere(StatuMatiereFactory.createStatuArticleByCode(Dto.getCodeStatuMatiere()));
+
+            }
+
+            domaine.setTypeMatiere(Dto.getTypeMatiere());
+            if (domaine.getTypeMatiere() != null) {
+                domaine.setCodeTypeMatiere(TypeMatiereFactory.createTypeMatiereByCode(Dto.getTypeMatiere()));
+
+            }
+
             return domaine;
         } else {
             return null;
@@ -82,33 +91,23 @@ public class MatiereFactory {
                 dTO.setDesignationLtMatiere(domaine.getDesignationLt());
                 dTO.setDesignationArMatiere(domaine.getDesignationAr());
             }
-            dTO.setCodeSaisie(domaine.getCodeSaisie());      
-            dTO.setCodeSaisieMatiere(domaine.getCodeSaisie());
+            dTO.setCodeSaisie(domaine.getCodeSaisie());
+            dTO.setCodeSaisieMatiere(domaine.getCodeSaisie());     
+            dTO.setCodeTaxe(domaine.getCodeTaxe());
 
-            dTO.setActif(domaine.isActif());
-            dTO.setVisible(domaine.isVisible());
+
             dTO.setDateCreate(domaine.getDateCreate());
             dTO.setUserCreate(domaine.getUserCreate());
+            dTO.setQteMinStock(domaine.getQteMinStock());
+            dTO.setQteMaxStock(domaine.getQteMaxStock()); 
+            dTO.setPrixAchat(domaine.getPrixAchat());
 
-            dTO.setDesigColoris("");
+
             dTO.setCodeTypeMatiereDTO(TypeMatiereFactory.typeMatiereToTypeMatiereDTO(domaine.getCodeTypeMatiere()));
             dTO.setTypeMatiere(domaine.getTypeMatiere());
 
-            return dTO;
-        } else {
-            return null;
-        }
-    }
-
-    public static AoDTO matiereToMatiereDTOAO(Matiere domaine) {
-
-        if (domaine != null) {
-            AoDTO dTO = new AoDTO();
-            dTO.setCode(domaine.getCode());
-            dTO.setDesignation(domaine.getDesignationAr());
-            dTO.setColoris("");
-            dTO.setQuantite("");
-            dTO.setUnite("");
+            dTO.setStatuMatiereDTO(StatuMatiereFactory.statuArticleToStatuArticleDTO(domaine.getStatuMatiere()));
+            dTO.setCodeStatuMatiere(domaine.getCodeStatuMatiere());
 
             return dTO;
         } else {
@@ -122,5 +121,14 @@ public class MatiereFactory {
             list.add(matiereToMatiereDTO(matiere));
         }
         return list;
+    }
+
+    public static Collection<MatiereDTO> MatiereToMatiereDTOsCollection(Collection<Matiere> c) {
+        List<MatiereDTO> dTOs = new ArrayList<>();
+        c.forEach(x -> {
+            dTOs.add(matiereToMatiereDTO(x));
+        });
+        return dTOs;
+
     }
 }

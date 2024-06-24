@@ -3,15 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.MangmentRessources.MangRess.Achat.service;
- 
+
+import com.MangmentRessources.MangRess.Achat.domaine.Depot;
 import com.MangmentRessources.MangRess.Achat.domaine.Matiere;
+import com.MangmentRessources.MangRess.Achat.dto.DepotDTO;
 import com.MangmentRessources.MangRess.Achat.dto.MatiereDTO;
+import com.MangmentRessources.MangRess.Achat.factory.DepotFactory;
 import com.MangmentRessources.MangRess.Achat.factory.MatiereFactory;
-import com.MangmentRessources.MangRess.Achat.repository.MatiereRepo;
-import com.MangmentRessources.MangRess.dto.AoDTO;
+import com.MangmentRessources.MangRess.Achat.repository.MatiereRepo; 
+import com.MangmentRessources.MangRess.web.Util.Helper;
 import com.google.common.base.Preconditions;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,14 +60,6 @@ public class MatiereService {
         return MatiereFactory.matiereToMatiereDTO(domaine);
     }
 
-    @Transactional(readOnly = true)
-    public AoDTO findOneAO(Integer code) {
-        Matiere domaine = matiereRepo.getReferenceById(code);
-        Preconditions.checkArgument(domaine.getCode() != null, "error.MatiereNotFound");
-        return MatiereFactory.matiereToMatiereDTOAO(domaine);
-    }
-
-//
     public MatiereDTO save(MatiereDTO dTO) {
         Matiere domaine = MatiereFactory.matiereDTOToMatiere(dTO, new Matiere());
         domaine = matiereRepo.save(domaine);
@@ -85,51 +81,7 @@ public class MatiereService {
     }
 
     public String exportJasper(String reportFormat) throws FileNotFoundException, JRException {
-//        List<Matiere> matieres = matiereRepo.findAll();
-//        String path = "C:\\";
-//        File file = ResourceUtils.getFile("classpath:static/Reports/V1.jrxml");
-//        
-//        JasperReport  jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(matieres);
-//        Map<String , Object> parameters = new HashMap<>();
-//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,dataSource);
-//        if(reportFormat.equalsIgnoreCase("pdf")){
-//            JasperExportManager.exportReportToPdfFile(jasperPrint, path+"\\test.pdf");
-//        }
-//        
-//        return "File Exported";
-//        
 
-///////////////////////////////////// V2 ///////////////////////////////////
-//        try {
-//
-//            List<Matiere> employees = matiereRepo.findAll();
-//
-//            File file = ResourceUtils.getFile("classpath:static/Reports/List_matiere.jrxml");
-//
-//            // Get your data source
-//            JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(employees);
-//
-//            // Add parameters
-//            Map<String, Object> parameters = new HashMap<>();
-//            
-//
-//            parameters.put("CollectionBeanParam", jrBeanCollectionDataSource);
-//
-//            // Fill the report
-//            JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-//            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrBeanCollectionDataSource);
-// 
-//            String path = "C:\\"; 
-//            JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\Emp-Rpt-Database.pdf");
-//
-//            System.out.println("Done");
-//
-//            return "Report successfully generated @path= " + path;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return "Error--> check the console log";
-//        }
         /////////////////////////////////////// V3 ////////////////////////////////////////
         try {
 
@@ -162,6 +114,12 @@ public class MatiereService {
             return "Error--> check the console log";
         }
 
+    }
+
+    @Transactional(readOnly = true)
+    public Collection<MatiereDTO> findMatiereActive(Collection<Integer> codeStatuArticle) {
+        Collection<Matiere> result = matiereRepo.findMatiereByCodeStatuMatiereIn(Helper.removeNullValueFromCollection(codeStatuArticle));
+        return MatiereFactory.MatiereToMatiereDTOsCollection(result);
     }
 
 }

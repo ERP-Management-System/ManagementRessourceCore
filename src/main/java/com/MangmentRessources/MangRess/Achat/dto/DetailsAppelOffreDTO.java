@@ -38,7 +38,10 @@ public class DetailsAppelOffreDTO {
     private Integer codeMatieres;
     private String codeSaisieMatiere;
     private String designationArMatiere;
-    private String designationLtMatiere;
+    private String designationLtMatiere;   
+    private BigDecimal prixAchat;
+    private Integer codeTaxe;
+
 
     private Integer codeUnites;
     private String codeSaisieUnites;
@@ -49,7 +52,7 @@ public class DetailsAppelOffreDTO {
     private String codeSaisieColoriss;
     private String designationArColoriss;
     private String designationLtColoriss;
-
+     
     public DetailsAppelOffreDTO() {
     }
 
@@ -218,4 +221,23 @@ public class DetailsAppelOffreDTO {
         this.codeSaisieAppelOffre = codeSaisieAppelOffre;
     }
 
+    public BigDecimal getPrixAchat() {
+        return prixAchat;
+    }
+
+    public void setPrixAchat(BigDecimal prixAchat) {
+        this.prixAchat = prixAchat;
+    }
+
+    public Integer getCodeTaxe() {
+        return codeTaxe;
+    }
+
+    public void setCodeTaxe(Integer codeTaxe) {
+        this.codeTaxe = codeTaxe;
+    }
+
+ 
+
+ 
 }

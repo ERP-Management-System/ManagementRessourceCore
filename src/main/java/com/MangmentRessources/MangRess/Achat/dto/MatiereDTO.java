@@ -4,10 +4,15 @@
  */
 package com.MangmentRessources.MangRess.Achat.dto;
 
+import com.MangmentRessources.MangRess.Achat.domaine.StatuMatiere;
 import com.MangmentRessources.MangRess.Achat.domaine.TypeMatiere;
+import com.MangmentRessources.MangRess.ParametrageCentral.domaine.Taxe;
+import com.MangmentRessources.MangRess.ParametrageCentral.dto.TaxeDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -24,9 +29,9 @@ public class MatiereDTO {
 
     private String designationLt;
 
-    private boolean actif;
+    private StatuMatiereDTO statuMatiereDTO;
 
-    private boolean visible;
+    private Integer codeStatuMatiere;
 
     private String userCreate;
 
@@ -42,6 +47,16 @@ public class MatiereDTO {
     private String codeSaisieMatiere;
     private String designationArMatiere;
     private String designationLtMatiere;
+
+    private Integer qteMinStock;
+
+    private Integer qteMaxStock;
+
+    private BigDecimal prixAchat;
+
+    private TaxeDTO taxeDTO;
+
+    private Integer codeTaxe;
 
     public MatiereDTO() {
     }
@@ -76,22 +91,6 @@ public class MatiereDTO {
 
     public void setDesignationLt(String designationLt) {
         this.designationLt = designationLt;
-    }
-
-    public boolean isActif() {
-        return actif;
-    }
-
-    public void setActif(boolean actif) {
-        this.actif = actif;
-    }
-
-    public boolean isVisible() {
-        return visible;
-    }
-
-    public void setVisible(boolean visible) {
-        this.visible = visible;
     }
 
     public String getUserCreate() {
@@ -166,6 +165,60 @@ public class MatiereDTO {
         return designationLtMatiere;
     }
 
-    
-    
+    public Integer getQteMinStock() {
+        return qteMinStock;
+    }
+
+    public void setQteMinStock(Integer qteMinStock) {
+        this.qteMinStock = qteMinStock;
+    }
+
+    public Integer getQteMaxStock() {
+        return qteMaxStock;
+    }
+
+    public void setQteMaxStock(Integer qteMaxStock) {
+        this.qteMaxStock = qteMaxStock;
+    }
+
+    public StatuMatiereDTO getStatuMatiereDTO() {
+        return statuMatiereDTO;
+    }
+
+    public void setStatuMatiereDTO(StatuMatiereDTO statuMatiereDTO) {
+        this.statuMatiereDTO = statuMatiereDTO;
+    }
+
+    public Integer getCodeStatuMatiere() {
+        return codeStatuMatiere;
+    }
+
+    public void setCodeStatuMatiere(Integer codeStatuMatiere) {
+        this.codeStatuMatiere = codeStatuMatiere;
+    }
+
+    public BigDecimal getPrixAchat() {
+        return prixAchat;
+    }
+
+    public void setPrixAchat(BigDecimal prixAchat) {
+        this.prixAchat = prixAchat;
+    }
+
+    public TaxeDTO getTaxeDTO() {
+        return taxeDTO;
+    }
+
+    public void setTaxeDTO(TaxeDTO taxeDTO) {
+        this.taxeDTO = taxeDTO;
+    }
+
+    public Integer getCodeTaxe() {
+        return codeTaxe;
+    }
+
+    public void setCodeTaxe(Integer codeTaxe) {
+        this.codeTaxe = codeTaxe;
+    }
+
 }

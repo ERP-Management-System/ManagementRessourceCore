@@ -16,8 +16,7 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.validation.constraints.NotNull;
-import java.io.Serializable;
+import jakarta.validation.constraints.NotNull; 
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -69,7 +68,7 @@ public class DetailsAppelOffre {
     
     
     
-
+ 
 
 
     @NotNull
@@ -172,4 +171,6 @@ public class DetailsAppelOffre {
         this.codeUnite = codeUnite;
     }
 
+ 
+ 
 }
