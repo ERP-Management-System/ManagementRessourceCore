@@ -21,16 +21,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/parametrage/")
 public class ParamRessource {
+
     private final ParamService paramService;
 
     public ParamRessource(ParamService paramService) {
         this.paramService = paramService;
     }
-    
+
+//        @GetMapping("param/codeParam")
+//    public ResponseEntity<Collection<paramDTO>> getParamByCodeParam(@RequestParam Collection<String> codeParam) {
+//        Collection<paramDTO> dTOs = paramService.findParamByCodeParam(codeParam);
+//        return ResponseEntity.ok().body(dTOs);
+//    }
+ 
         @GetMapping("param/codeParam")
-    public ResponseEntity<Collection<paramDTO>> getParamByCodeParam(@RequestParam Collection<String> codeParam) {
-        Collection<paramDTO> dTOs = paramService.findParamByCodeParam(codeParam);
+    public ResponseEntity<paramDTO> getParamByCodeParam(@RequestParam String codeParam) {
+        paramDTO dTOs = paramService.findParamByCodeParamS(codeParam);
         return ResponseEntity.ok().body(dTOs);
     }
-
 }

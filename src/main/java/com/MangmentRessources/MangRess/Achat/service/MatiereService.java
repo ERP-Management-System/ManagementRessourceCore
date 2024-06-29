@@ -117,8 +117,8 @@ public class MatiereService {
     }
 
     @Transactional(readOnly = true)
-    public Collection<MatiereDTO> findMatiereActive(Collection<Integer> codeStatuArticle) {
-        Collection<Matiere> result = matiereRepo.findMatiereByCodeStatuMatiereIn(Helper.removeNullValueFromCollection(codeStatuArticle));
+    public Collection<MatiereDTO> findMatiereActive(Collection<Integer> codeStatuMatiere) {
+        Collection<Matiere> result = matiereRepo.findMatiereByCodeStatuMatiereIn(Helper.removeNullValueFromCollection(codeStatuMatiere));
         return MatiereFactory.MatiereToMatiereDTOsCollection(result);
     }
 

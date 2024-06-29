@@ -15,9 +15,7 @@ import java.util.Date;
  * @author Administrator
  */
 public class DetailsDemandeAchatDTO {
- 
-    
-    
+
     private int codeDemandeAchat;
     private String codeSaisieDemandeAchat;
     @NotNull
@@ -30,8 +28,8 @@ public class DetailsDemandeAchatDTO {
     private UniteDTO codeUnite;
 
     private BigDecimal qteDemander;
-    
-        private BigDecimal qteLivrer;
+
+    private BigDecimal qteLivrer;
 
     private String usercreate;
 
@@ -43,10 +41,9 @@ public class DetailsDemandeAchatDTO {
     private String codeSaisieMatiere;
     private String designationArMatiere;
     private String designationLtMatiere;
-    private BigDecimal prixAchat;
+//    private BigDecimal prixAchat;
     private Integer codeTaxe;
-    
-    
+
     private Integer codeUnites;
     private String codeSaisieUnites;
     private String designationArUnites;
@@ -57,9 +54,8 @@ public class DetailsDemandeAchatDTO {
     private String designationArColoriss;
     private String designationLtColoriss;
 
-    
-    
-    
+//    private Integer codeAppelOffre;
+//    private Integer codeModeReglement;
 
     public DetailsDemandeAchatDTO() {
     }
@@ -232,13 +228,13 @@ public class DetailsDemandeAchatDTO {
         this.designationLtColoriss = designationLtColoriss;
     }
 
-    public BigDecimal getPrixAchat() {
-        return prixAchat;
-    }
-
-    public void setPrixAchat(BigDecimal prixAchat) {
-        this.prixAchat = prixAchat;
-    }
+//    public BigDecimal getPrixAchat() {
+//        return prixAchat;
+//    }
+//
+//    public void setPrixAchat(BigDecimal prixAchat) {
+//        this.prixAchat = prixAchat;
+//    }
 
     public Integer getCodeTaxe() {
         return codeTaxe;
@@ -247,6 +243,21 @@ public class DetailsDemandeAchatDTO {
     public void setCodeTaxe(Integer codeTaxe) {
         this.codeTaxe = codeTaxe;
     }
-
+//
+//    public Integer getCodeAppelOffre() {
+//        return codeAppelOffre;
+//    }
+//
+//    public void setCodeAppelOffre(Integer codeAppelOffre) {
+//        this.codeAppelOffre = codeAppelOffre;
+//    }
+//
+//    public Integer getCodeModeReglement() {
+//        return codeModeReglement;
+//    }
+//
+//    public void setCodeModeReglement(Integer codeModeReglement) {
+//        this.codeModeReglement = codeModeReglement;
+//    }
 
 }

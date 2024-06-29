@@ -58,9 +58,9 @@ public class MatiereRessource {
         return ResponseEntity.ok().body(matiereservice.findAllMatiere());
     }
 
-    @GetMapping("matiere/codeStatuArticle")
-    public ResponseEntity<Collection<MatiereDTO>> getStatuMatiere(@RequestParam Collection<Integer> codeStatuArticle) {
-        Collection<MatiereDTO> dTOs = matiereservice.findMatiereActive(codeStatuArticle);
+    @GetMapping("matiere/codeStatuMatiere")
+    public ResponseEntity<Collection<MatiereDTO>> getStatuMatiere(@RequestParam Collection<Integer> codeStatuMatiere) {
+        Collection<MatiereDTO> dTOs = matiereservice.findMatiereActive(codeStatuMatiere);
         return ResponseEntity.ok().body(dTOs);
     }
 

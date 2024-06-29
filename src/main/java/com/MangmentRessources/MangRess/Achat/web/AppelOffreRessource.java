@@ -13,6 +13,8 @@ import com.MangmentRessources.MangRess.Achat.dto.DetailsAppelOffreDTO;
 import com.MangmentRessources.MangRess.Achat.repository.AppelOffreRepo;
 import com.MangmentRessources.MangRess.Achat.repository.DetailsAppelOffreRepo;
 import com.MangmentRessources.MangRess.Achat.service.AppelOffreService;
+import com.MangmentRessources.MangRess.ParametrageCentral.dto.paramDTO;
+import com.MangmentRessources.MangRess.ParametrageCentral.service.ParamService;
 import jakarta.validation.Valid;
 import java.io.ByteArrayOutputStream;
 import java.net.URI;
@@ -58,18 +60,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class AppelOffreRessource {
 
     private final AppelOffreService appelOffreService;
-    
+
     private final DetailsAppelOffreRepo detailsAppelOffreRepo;
 
-    public AppelOffreRessource(AppelOffreService appelOffreService, DetailsAppelOffreRepo detailsAppelOffreRepo) {
+    private final ParamService paramService;
+
+    public AppelOffreRessource(AppelOffreService appelOffreService, DetailsAppelOffreRepo detailsAppelOffreRepo, ParamService paramService) {
         this.appelOffreService = appelOffreService;
         this.detailsAppelOffreRepo = detailsAppelOffreRepo;
+        this.paramService = paramService;
     }
-
-  
-    
-
-     
 
     @GetMapping("appel_offre/{code}")
     public ResponseEntity<AppelOffreDTO> getAppelOffreByCode(@PathVariable Integer code) {
@@ -78,16 +78,24 @@ public class AppelOffreRessource {
     }
 
     @GetMapping("appel_offre/all")
-    public ResponseEntity<List<AppelOffreDTO>> getAllArticle() { 
+    public ResponseEntity<List<AppelOffreDTO>> getAllAppelOffre() {
         return ResponseEntity.ok().body(appelOffreService.findAllAppelOffre());
     }
 
+    @GetMapping("appel_offre/EtatApprouverOrdreAchat/{codeEtatApprouverOrdreAchat}")
+    public ResponseEntity<List<AppelOffreDTO>> getAppelOffreByCodeEtatApprouve(@PathVariable Integer codeEtatApprouverOrdreAchat) {
+        List<AppelOffreDTO> dto = appelOffreService.findOneByEtatApprouver(codeEtatApprouverOrdreAchat);
+        return ResponseEntity.ok().body(dto);
+
+    }
+
     @PutMapping("appel_offre/update")
-    public ResponseEntity<AppelOffreDTO> updateModelePanier(@Valid @RequestBody AppelOffreDTO modelepanierDTO, BindingResult bindingResult) throws MethodArgumentNotValidException {
-        AppelOffreDTO result = appelOffreService.updateNewWithFlush(modelepanierDTO);
+    public ResponseEntity<AppelOffreDTO> updateModelePanier(@Valid @RequestBody AppelOffreDTO dTO, BindingResult bindingResult) throws MethodArgumentNotValidException {
+        AppelOffreDTO result = appelOffreService.updateNewWithFlush(dTO);
         return ResponseEntity.ok().body(result);
     }
 
+// 
     @DeleteMapping("appel_offre/delete/{code}")
     public ResponseEntity<AppelOffre> deleteAppelOffre(@PathVariable("code") Integer code) {
         appelOffreService.deleteAppelOffre(code);
@@ -106,28 +114,30 @@ public class AppelOffreRessource {
         return ResponseEntity.ok().body(dto);
 
     }
-    
-    
+
     @GetMapping("details_appel_offre/edition/{code}")
-    public ResponseEntity<byte[]> getReport (@PathVariable Integer code) throws Exception {
+    public ResponseEntity<byte[]> getReport(@PathVariable Integer code) throws Exception {
 
         String fileNameJrxml = "src/main/resources/Reports/DetailsAppelOffre.jrxml";
 //        Collection<DetailsAppelOffre> products = detailsAppelOffreRepo.findAll();
-        
-         Collection<DetailsAppelOffreDTO> dto = appelOffreService.findOneWithDetilas(code);    
-         
-          AppelOffreDTO rslt = appelOffreService.findOne(code);
+
+        Collection<DetailsAppelOffreDTO> dto = appelOffreService.findOneWithDetilas(code);
+
+        paramDTO dTOs = paramService.findParamByCodeParamS("NomSociete");
+        AppelOffreDTO rslt = appelOffreService.findOne(code);
 
         JasperDesign jasperDesign = JRXmlLoader.load(fileNameJrxml);
         JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
         Map<String, Object> params = new HashMap<>();
         params.put("ItemDataSource", new JRBeanCollectionDataSource(dto));
-        params.put("UserCreate", "SoufienCreateCore");     
-        params.put("codeSaisieAppelOffre", rslt.getCodeSaisie());     
+        params.put("UserCreate", "SoufienCreateCore");
+        params.put("codeSaisieAppelOffre", rslt.getCodeSaisie());
         params.put("Observation", rslt.getObservation());
-
-
-         
+        params.put("societe", dTOs.getValeur());
+        params.put("dateLivraison", rslt.getDateLivraison());
+        params.put("modeReglement", rslt.getModeReglementDTO().getDesignationLt());
+        params.put("AdressLivraison", rslt.getAdressLivraison());
+        params.put("EtatValidation", rslt.getEtatApprouverOrdreAchatDTO().getDesignation());
 
         System.out.println("filling parameters to .JASPER file....");
         JasperPrint print = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
@@ -153,5 +163,5 @@ public class AppelOffreRessource {
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(res);
     }
-    
+
 }

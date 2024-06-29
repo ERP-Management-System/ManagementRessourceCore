@@ -5,6 +5,7 @@
 package com.MangmentRessources.MangRess.Achat.factory;
 
 import com.MangmentRessources.MangRess.Achat.domaine.DetailsAppelOffre; 
+import com.MangmentRessources.MangRess.Achat.dto.AppelOffreDTO;
 import com.MangmentRessources.MangRess.Achat.dto.DetailsAppelOffreDTO;
 import java.util.ArrayList;
 import java.util.Collection;  
@@ -52,17 +53,19 @@ public class DetailsAppelOffreFactory {
             DetailsAppelOffreDTO dTO = new DetailsAppelOffreDTO();
             dTO.setCodeAppelOffre(domaine.getDetailsAppelOffrePK().getCodeAppelOffre());
             dTO.setDatecreate(domaine.getDateCreate());
-            dTO.setUsercreate(domaine.getUsercreate()); 
-
-            System.out.println("soufien return");
+            dTO.setUsercreate(domaine.getUsercreate());  
+            dTO.setDateLivraison(domaine.getAppelOffre().getDateLivraison());
             dTO.setCodeSaisieAppelOffre(domaine.getAppelOffre().getCodeSaisie());
             dTO.setCodeMatieres(domaine.getMatiere().getCode());
+            dTO.setCodeModeReglement(domaine.getAppelOffre().getCodeModeReglement());
 
             dTO.setCodeSaisieMatiere(domaine.getMatiere().getCodeSaisie());
             dTO.setDesignationArMatiere(domaine.getMatiere().getDesignationAr());
             dTO.setDesignationLtMatiere(domaine.getMatiere().getDesignationLt());      
             dTO.setPrixAchat(domaine.getMatiere().getPrixAchat());       
-            dTO.setCodeTaxe(domaine.getMatiere().getCodeTaxe());
+            dTO.setCodeTaxe(domaine.getMatiere().getCodeTaxe());        
+            dTO.setOrdreMatiere(domaine.getOrdreMatiere());
+
 
 
 

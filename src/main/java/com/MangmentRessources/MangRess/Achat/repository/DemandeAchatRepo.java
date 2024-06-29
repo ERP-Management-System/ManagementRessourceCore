@@ -4,7 +4,9 @@
  */
 package com.MangmentRessources.MangRess.Achat.repository;
 
+import com.MangmentRessources.MangRess.Achat.domaine.AppelOffre;
 import com.MangmentRessources.MangRess.Achat.domaine.DemandeAchat;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
  
@@ -15,5 +17,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface DemandeAchatRepo extends JpaRepository <DemandeAchat, Integer>{
+        List<DemandeAchat> findDemandeAchatByCodeEtatApprouver(Integer codeEtatApprouver);
     
 }

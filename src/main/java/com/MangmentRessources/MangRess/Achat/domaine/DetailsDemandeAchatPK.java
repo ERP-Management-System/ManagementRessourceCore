@@ -19,8 +19,7 @@ import jakarta.validation.constraints.NotNull;
  */
 @Embeddable
 public class DetailsDemandeAchatPK {
-    
-    
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "code_demande_achat", nullable = false)
@@ -40,7 +39,8 @@ public class DetailsDemandeAchatPK {
     @NotNull
     @Column(name = "code_unite", nullable = false)
     private int codeUnite;
-    
+
+ 
 
     public DetailsDemandeAchatPK() {
     }
@@ -76,11 +76,5 @@ public class DetailsDemandeAchatPK {
     public void setCodeUnite(int codeUnite) {
         this.codeUnite = codeUnite;
     }
- 
-    
-    
-    
-    
-    
 
 }

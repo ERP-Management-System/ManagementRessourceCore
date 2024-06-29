@@ -59,6 +59,12 @@ public class DepotFactory {
 
             }
 
+            domaine.setCodeDepartement(Dto.getCodeDepartement());
+            if (domaine.getCodeDepartement() != null) {
+                domaine.setDepartmenet(DepartementFactory.createDepartementByCode(Dto.getCodeDepartement()));
+
+            }
+
             return domaine;
         } else {
             return null;
@@ -80,13 +86,16 @@ public class DepotFactory {
             }
             dTO.setCodeSaisie(domaine.getCodeSaisie());
             dTO.setActif(domaine.isActif());
-            dTO.setVisible(domaine.isVisible()); 
+            dTO.setVisible(domaine.isVisible());
             dTO.setPrincipal(domaine.isPrincipal());
 
             dTO.setDateCreate(domaine.getDateCreate());
             dTO.setUserCreate(domaine.getUserCreate());
             dTO.setCategorieDepotDTO(CategorieDepotFactory.categorieDepotToCategorieDepotDTO(domaine.getCategorieDepot()));
             dTO.setCodeCategorieDepot(domaine.getCodeCategorieDepot());
+
+            dTO.setDepartmenetDTO(DepartementFactory.departementToDepartementDTO(domaine.getDepartmenet()));
+            dTO.setCodeDepartement(domaine.getCodeDepartement());
 
             return dTO;
         } else {

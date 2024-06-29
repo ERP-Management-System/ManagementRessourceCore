@@ -5,6 +5,11 @@
 package com.MangmentRessources.MangRess.Achat.domaine;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,6 +24,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import javax.validation.constraints.Size;
@@ -66,9 +73,50 @@ public class DemandeAchat {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "demandeAchat", fetch = FetchType.LAZY, orphanRemoval = true)
     private Collection<DetailsDemandeAchat> detailsDemandeAchats;
 
- 
     @Column(name = "observation", nullable = false, columnDefinition = "nvarchar(max)")
     private String observation;
+
+    @JoinColumn(name = "code_appel_offre", referencedColumnName = "code", nullable = false, updatable = false, insertable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private AppelOffre appelOffre;
+    @Column(name = "code_appel_offre", insertable = false, updatable = false)
+    private Integer codeAppelOffre;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate dateLivraison;
+
+//    @Column(name = "montant_total_ttc" ,columnDefinition = ("bigint default 0") )
+//    private BigDecimal mntTotalTTC;
+//
+//    @Column(name = "montant_total_ht"  ,columnDefinition = ("bigint default 0"))
+//    private BigDecimal mntTotalHT;
+//
+//    @Column(name = "montant_total_taxe"  ,columnDefinition = ("bigint default 0"))
+//    private BigDecimal mntTotalTaxe;
+    @JoinColumn(name = "code_departement", referencedColumnName = "code", nullable = false, updatable = false, insertable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Departement departement;
+    @Column(name = "code_departement", insertable = false, updatable = false)
+    private Integer codeDepartement;
+
+    @JoinColumn(name = "code_depot", referencedColumnName = "code", nullable = false, updatable = false, insertable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Depot depot;
+    @Column(name = "code_depot", insertable = false, updatable = false)
+    private Integer codeDepot;
+
+    @JoinColumn(name = "etat_approuver", referencedColumnName = "code", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private EtatApprouver etatApprouver;
+
+    @Column(name = "etat_approuver", updatable = false, insertable = false)
+    private Integer codeEtatApprouver;
 
     public DemandeAchat() {
     }
@@ -89,7 +137,6 @@ public class DemandeAchat {
         this.codeSaisie = codeSaisie;
     }
 
- 
     public EtatDemandeAchat getEtatDemande() {
         return etatDemande;
     }
@@ -154,6 +201,99 @@ public class DemandeAchat {
         this.observation = observation;
     }
 
-    
-    
+    public AppelOffre getAppelOffre() {
+        return appelOffre;
+    }
+
+    public void setAppelOffre(AppelOffre appelOffre) {
+        this.appelOffre = appelOffre;
+    }
+
+    public Integer getCodeAppelOffre() {
+        return codeAppelOffre;
+    }
+
+    public void setCodeAppelOffre(Integer codeAppelOffre) {
+        this.codeAppelOffre = codeAppelOffre;
+    }
+
+//    public BigDecimal getMntTotalTTC() {
+//        return mntTotalTTC;
+//    }
+//
+//    public void setMntTotalTTC(BigDecimal mntTotalTTC) {
+//        this.mntTotalTTC = mntTotalTTC;
+//    }
+//
+//    public BigDecimal getMntTotalHT() {
+//        return mntTotalHT;
+//    }
+//
+//    public void setMntTotalHT(BigDecimal mntTotalHT) {
+//        this.mntTotalHT = mntTotalHT;
+//    }
+//
+//    public BigDecimal getMntTotalTaxe() {
+//        return mntTotalTaxe;
+//    }
+//
+//    public void setMntTotalTaxe(BigDecimal mntTotalTaxe) {
+//        this.mntTotalTaxe = mntTotalTaxe;
+//    }
+    public LocalDate getDateLivraison() {
+        return dateLivraison;
+    }
+
+    public void setDateLivraison(LocalDate dateLivraison) {
+        this.dateLivraison = dateLivraison;
+    }
+
+    public Departement getDepartement() {
+        return departement;
+    }
+
+    public void setDepartement(Departement departement) {
+        this.departement = departement;
+    }
+
+    public Integer getCodeDepartement() {
+        return codeDepartement;
+    }
+
+    public void setCodeDepartement(Integer codeDepartement) {
+        this.codeDepartement = codeDepartement;
+    }
+
+    public Depot getDepot() {
+        return depot;
+    }
+
+    public void setDepot(Depot depot) {
+        this.depot = depot;
+    }
+
+    public Integer getCodeDepot() {
+        return codeDepot;
+    }
+
+    public void setCodeDepot(Integer codeDepot) {
+        this.codeDepot = codeDepot;
+    }
+
+    public EtatApprouver getEtatApprouver() {
+        return etatApprouver;
+    }
+
+    public void setEtatApprouver(EtatApprouver etatApprouver) {
+        this.etatApprouver = etatApprouver;
+    }
+
+    public Integer getCodeEtatApprouver() {
+        return codeEtatApprouver;
+    }
+
+    public void setCodeEtatApprouver(Integer codeEtatApprouver) {
+        this.codeEtatApprouver = codeEtatApprouver;
+    }
+
 }

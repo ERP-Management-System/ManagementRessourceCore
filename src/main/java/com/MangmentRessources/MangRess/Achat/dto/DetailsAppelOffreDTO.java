@@ -4,10 +4,14 @@
  */
 package com.MangmentRessources.MangRess.Achat.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -15,7 +19,8 @@ import java.util.Date;
  * @author Administrator
  */
 public class DetailsAppelOffreDTO {
-
+ 
+    
     private int codeAppelOffre;
     private String codeSaisieAppelOffre;
     @NotNull
@@ -52,6 +57,17 @@ public class DetailsAppelOffreDTO {
     private String codeSaisieColoriss;
     private String designationArColoriss;
     private String designationLtColoriss;
+    
+
+    private Integer ordreMatiere;
+    
+    private Integer codeModeReglement;
+    
+    @Basic(optional = false)
+    @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @Column(name = "date_livraison", nullable = false)
+    private LocalDate dateLivraison;
      
     public DetailsAppelOffreDTO() {
     }
@@ -236,6 +252,35 @@ public class DetailsAppelOffreDTO {
     public void setCodeTaxe(Integer codeTaxe) {
         this.codeTaxe = codeTaxe;
     }
+
+    public LocalDate getDateLivraison() {
+        return dateLivraison;
+    }
+
+    public void setDateLivraison(LocalDate dateLivraison) {
+        this.dateLivraison = dateLivraison;
+    }
+
+ 
+    public Integer getOrdreMatiere() {
+        return ordreMatiere;
+    }
+
+    public void setOrdreMatiere(Integer ordreMatiere) {
+        this.ordreMatiere = ordreMatiere;
+    }
+
+    public Integer getCodeModeReglement() {
+        return codeModeReglement;
+    }
+
+    public void setCodeModeReglement(Integer codeModeReglement) {
+        this.codeModeReglement = codeModeReglement;
+    }
+
+   
+
+ 
 
  
 

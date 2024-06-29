@@ -6,6 +6,7 @@ package com.MangmentRessources.MangRess.Achat.domaine;
 
 import com.MangmentRessources.MangRess.ParametrageCentral.domaine.ModeReglement;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -20,6 +21,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import javax.validation.constraints.Size;
@@ -50,11 +53,7 @@ public class AppelOffre {
     @Column(name = "designation_lt", length = 200, nullable = false, columnDefinition = "nvarchar(200)")
     private String designationLt;
 
-    @Column(name = "actif", nullable = false)
-    private boolean actif;
-
-    @Column(name = "visible", nullable = false)
-    private boolean visible;
+ 
 
     @Column(name = "user_Create", nullable = false, length = 255, columnDefinition = "nvarchar(200)")
     private String userCreate;
@@ -62,6 +61,12 @@ public class AppelOffre {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_Create", nullable = false)
     private Date dateCreate;
+
+    @Basic(optional = false)
+    @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @Column(name = "date_livraison", nullable = false)
+    private LocalDate dateLivraison;
 
     @JoinColumn(name = "code_mode_reglement", referencedColumnName = "Code", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -78,7 +83,7 @@ public class AppelOffre {
 
     @Column(name = "code_fournisseur", updatable = false, insertable = false)
     private Integer codeFournisseur;
- 
+
     @JoinColumn(name = "code_etat_reception", referencedColumnName = "Code", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonBackReference
@@ -92,6 +97,17 @@ public class AppelOffre {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "appelOffre", orphanRemoval = true)
     private Collection<DetailsAppelOffre> detailsAppelOffresCollections;
+
+    @JoinColumn(name = "etat_approuver", referencedColumnName = "code", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private EtatApprouver etatApprouverOrdreAchat;
+
+    @Column(name = "etat_approuver", updatable = false, insertable = false)
+    private Integer codeEtatApprouverOrdreAchat;
+
+    @Column(name = "adress_livraison", nullable = false, columnDefinition = "nvarchar(max) default '...'")
+    private String adressLivraison;
 
     public AppelOffre() {
     }
@@ -127,22 +143,7 @@ public class AppelOffre {
     public void setDesignationLt(String designationLt) {
         this.designationLt = designationLt;
     }
-
-    public boolean isActif() {
-        return actif;
-    }
-
-    public void setActif(boolean actif) {
-        this.actif = actif;
-    }
-
-    public boolean isVisible() {
-        return visible;
-    }
-
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
+ 
 
     public String getUserCreate() {
         return userCreate;
@@ -238,6 +239,38 @@ public class AppelOffre {
 
     public void setDetailsAppelOffresCollections(Collection<DetailsAppelOffre> detailsAppelOffresCollections) {
         this.detailsAppelOffresCollections = detailsAppelOffresCollections;
+    }
+
+    public LocalDate getDateLivraison() {
+        return dateLivraison;
+    }
+
+    public void setDateLivraison(LocalDate dateLivraison) {
+        this.dateLivraison = dateLivraison;
+    }
+
+    public EtatApprouver getEtatApprouverOrdreAchat() {
+        return etatApprouverOrdreAchat;
+    }
+
+    public void setEtatApprouverOrdreAchat(EtatApprouver etatApprouverOrdreAchat) {
+        this.etatApprouverOrdreAchat = etatApprouverOrdreAchat;
+    }
+
+    public Integer getCodeEtatApprouverOrdreAchat() {
+        return codeEtatApprouverOrdreAchat;
+    }
+
+    public void setCodeEtatApprouverOrdreAchat(Integer codeEtatApprouverOrdreAchat) {
+        this.codeEtatApprouverOrdreAchat = codeEtatApprouverOrdreAchat;
+    }
+
+    public String getAdressLivraison() {
+        return adressLivraison;
+    }
+
+    public void setAdressLivraison(String adressLivraison) {
+        this.adressLivraison = adressLivraison;
     }
 
 }

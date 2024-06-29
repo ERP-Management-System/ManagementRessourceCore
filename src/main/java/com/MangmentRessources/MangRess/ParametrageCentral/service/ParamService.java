@@ -36,11 +36,20 @@ public class ParamService {
         this.paramRepo = paramRepo;
     }
 
-    @Transactional(readOnly = true)
-    public Collection<paramDTO> findParamByCodeParam(Collection<String> codeParam) {
-        Collection<param> result = paramRepo.findParamByCodeParamIn(Helper.removeNullValueFromCollection(codeParam));
+//    @Transactional(readOnly = true)
+//    public Collection<paramDTO> findParamByCodeParam(Collection<String> codeParam) {
+//        Collection<param> result = paramRepo.findParamByCodeParamIn(Helper.removeNullValueFromCollection(codeParam));
+//        Preconditions.checkBusinessLogique(result != null, "error.RegionNotFound");
+//        return paramFactory.CollectionparamToparamDTOs(result);
+//    }
+    
+        @Transactional(readOnly = true)
+    public paramDTO  findParamByCodeParamS( String  codeParam) {
+         param  result = paramRepo.findParamByCodeParam(codeParam);
         Preconditions.checkBusinessLogique(result != null, "error.RegionNotFound");
-        return paramFactory.CollectionparamToparamDTOs(result);
+        return paramFactory.paramToparamDTO(result);
     }
+
+    
 
 }

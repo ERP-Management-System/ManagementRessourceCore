@@ -4,13 +4,22 @@
  */
 package com.MangmentRessources.MangRess.Achat.dto;
 
+import com.MangmentRessources.MangRess.Achat.domaine.EtatApprouver;
 import com.MangmentRessources.MangRess.Achat.domaine.EtatReception;
 import com.MangmentRessources.MangRess.ParametrageCentral.dto.ModeReglementDTO;
- 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import jakarta.persistence.Column;
+
 import jakarta.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 import java.util.Collection;
 import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -20,7 +29,6 @@ public class AppelOffreDTO {
 
     private Integer code;
 
-
     private Integer codeAppel;
 
     private String codeSaisie;
@@ -28,10 +36,7 @@ public class AppelOffreDTO {
     private String designationAr;
 
     private String designationLt;
-
-    private boolean actif;
-
-    private boolean visible;
+ 
 
     private String userCreate;
 
@@ -55,7 +60,19 @@ public class AppelOffreDTO {
 
     private Integer codeEtatReception;
 
-    private String observation;
+    private String observation;   
+    
+    private String adressLivraison;
+
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate dateLivraison;
+    
+        private EtatApprouverDTO etatApprouverOrdreAchatDTO;
+ 
+    private Integer codeEtatApprouverOrdreAchat;
 
     public AppelOffreDTO() {
     }
@@ -100,22 +117,7 @@ public class AppelOffreDTO {
         this.designationLt = designationLt;
     }
 
-    public boolean isActif() {
-        return actif;
-    }
-
-    public void setActif(boolean actif) {
-        this.actif = actif;
-    }
-
-    public boolean isVisible() {
-        return visible;
-    }
-
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
-
+ 
     public String getUserCreate() {
         return userCreate;
     }
@@ -212,5 +214,38 @@ public class AppelOffreDTO {
         this.observation = observation;
     }
 
+    public LocalDate getDateLivraison() {
+        return dateLivraison;
+    }
+
+    public void setDateLivraison(LocalDate dateLivraison) {
+        this.dateLivraison = dateLivraison;
+    }
+
+    public EtatApprouverDTO getEtatApprouverOrdreAchatDTO() {
+        return etatApprouverOrdreAchatDTO;
+    }
+
+    public void setEtatApprouverOrdreAchatDTO(EtatApprouverDTO etatApprouverOrdreAchatDTO) {
+        this.etatApprouverOrdreAchatDTO = etatApprouverOrdreAchatDTO;
+    }
+
+    public Integer getCodeEtatApprouverOrdreAchat() {
+        return codeEtatApprouverOrdreAchat;
+    }
+
+    public void setCodeEtatApprouverOrdreAchat(Integer codeEtatApprouverOrdreAchat) {
+        this.codeEtatApprouverOrdreAchat = codeEtatApprouverOrdreAchat;
+    }
+
+    public String getAdressLivraison() {
+        return adressLivraison;
+    }
+
+    public void setAdressLivraison(String adressLivraison) {
+        this.adressLivraison = adressLivraison;
+    }
+
+ 
 
 }

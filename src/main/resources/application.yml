@@ -34,6 +34,7 @@ spring:
 
         
     jpa:
+        defer-datasource-initialization : true
         database-platform: org.hibernate.dialect.SQLServer2012Dialect
         database: SQL_SERVER
         show-sql: false

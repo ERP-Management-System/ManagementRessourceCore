@@ -8,6 +8,8 @@ import com.MangmentRessources.MangRess.Achat.domaine.DetailsAppelOffre;
 import com.MangmentRessources.MangRess.Achat.domaine.DetailsAppelOffrePK;
 import java.util.Collection;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -18,4 +20,9 @@ import org.springframework.stereotype.Repository;
 public interface DetailsAppelOffreRepo extends JpaRepository<DetailsAppelOffre, DetailsAppelOffrePK> {
 
     Collection<DetailsAppelOffre> findByDetailsAppelOffrePK_codeAppelOffre(Integer codeAppelOffre);
+
+    @Modifying
+    @Query("delete from DetailsAppelOffre det where det.detailsAppelOffrePK.codeAppelOffre=?1 ")
+    public void deleteByCodeAppelOffre(Integer codeAppelOffre);
+
 }

@@ -59,12 +59,13 @@ public class DetailsDemandeAchat {
     @Column(name = "code_unite", insertable = false, updatable = false)
     private Integer codeUnite;
 
+
+
     @NotNull
     @Column(name = "qte_demander", nullable = false)
     private BigDecimal qteDemander;
 
- 
-    @Column(name = "qte_livrer" )
+    @Column(name = "qte_livrer")
     private BigDecimal qteLivrer;
 
     @Column(name = "user_create", nullable = false, columnDefinition = "nvarchar(200)")
@@ -174,5 +175,5 @@ public class DetailsDemandeAchat {
     public void setDateCreate(Date dateCreate) {
         this.dateCreate = dateCreate;
     }
-
+ 
 }

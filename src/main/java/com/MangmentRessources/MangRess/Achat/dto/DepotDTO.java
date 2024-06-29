@@ -5,6 +5,7 @@
 package com.MangmentRessources.MangRess.Achat.dto;
 
 import com.MangmentRessources.MangRess.Achat.domaine.CategorieDepot;
+import com.MangmentRessources.MangRess.Achat.domaine.Departement;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
@@ -42,6 +43,11 @@ public class DepotDTO {
     private CategorieDepotDTO categorieDepotDTO;
  
     private Integer codeCategorieDepot;
+    
+    
+        private DepartementDTO departmenetDTO;
+ 
+    private Integer codeDepartement;
 
     public DepotDTO() {
     }
@@ -132,6 +138,22 @@ public class DepotDTO {
 
     public void setCodeCategorieDepot(Integer codeCategorieDepot) {
         this.codeCategorieDepot = codeCategorieDepot;
+    }
+
+    public DepartementDTO getDepartmenetDTO() {
+        return departmenetDTO;
+    }
+
+    public void setDepartmenetDTO(DepartementDTO departmenetDTO) {
+        this.departmenetDTO = departmenetDTO;
+    }
+
+    public Integer getCodeDepartement() {
+        return codeDepartement;
+    }
+
+    public void setCodeDepartement(Integer codeDepartement) {
+        this.codeDepartement = codeDepartement;
     }
     
     

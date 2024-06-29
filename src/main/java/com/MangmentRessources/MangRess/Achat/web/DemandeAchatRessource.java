@@ -3,11 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.MangmentRessources.MangRess.Achat.web;
- 
-import com.MangmentRessources.MangRess.Achat.domaine.DemandeAchat; 
+
+import com.MangmentRessources.MangRess.Achat.domaine.DemandeAchat;
+import com.MangmentRessources.MangRess.Achat.dto.AppelOffreDTO;
 import com.MangmentRessources.MangRess.Achat.dto.DemandeAchatDTO;
-import com.MangmentRessources.MangRess.Achat.dto.DetailsDemandeAchatDTO;  
+import com.MangmentRessources.MangRess.Achat.dto.DetailsDemandeAchatDTO;
 import com.MangmentRessources.MangRess.Achat.service.DemandeAchatService;
+import com.MangmentRessources.MangRess.ParametrageCentral.dto.paramDTO;
+import com.MangmentRessources.MangRess.ParametrageCentral.service.ParamService;
 import jakarta.validation.Valid;
 import java.io.ByteArrayOutputStream;
 import java.net.URI;
@@ -40,7 +43,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping; 
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -51,18 +54,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/parametrage_achat/")
 public class DemandeAchatRessource {
 
-    private final DemandeAchatService demandeAchatService; 
+    private final DemandeAchatService demandeAchatService;
+    private final ParamService paramService;
 
-    public DemandeAchatRessource(DemandeAchatService demandeAchatService) {
+    public DemandeAchatRessource(DemandeAchatService demandeAchatService, ParamService paramService) {
         this.demandeAchatService = demandeAchatService;
+        this.paramService = paramService;
     }
 
-  
- 
- 
     @GetMapping("demande_achat/all")
-    public ResponseEntity<List<DemandeAchatDTO>> getAllArticle() { 
+    public ResponseEntity<List<DemandeAchatDTO>> getAllArticle() {
         return ResponseEntity.ok().body(demandeAchatService.findAllDemandeAchat());
+    }
+
+    @GetMapping("demande_achat/EtatApprouver/{codeEtatApprouver}")
+    public ResponseEntity<List<DemandeAchatDTO>> getAppelOffreByCodeEtatApprouve(@PathVariable Integer codeEtatApprouver) {
+        List<DemandeAchatDTO> dto = demandeAchatService.findOneByEtatApprouver(codeEtatApprouver);
+        return ResponseEntity.ok().body(dto);
+
     }
 
     @PutMapping("demande_achat/update")
@@ -89,27 +98,26 @@ public class DemandeAchatRessource {
         return ResponseEntity.ok().body(dto);
 
     }
-    
-    
-    @GetMapping("details_demande_achat/edition/{code}")
-    public ResponseEntity<byte[]> getReport (@PathVariable Integer code) throws Exception {
 
-        String fileNameJrxml = "src/main/resources/Reports/DetailsAppelOffre.jrxml"; 
-        
-         Collection<DetailsDemandeAchatDTO> dto = demandeAchatService.findOneWithDetilas(code);    
-             
-          DemandeAchatDTO rslt = demandeAchatService.findOne(code);
+    @GetMapping("details_demande_achat/edition/{code}")
+    public ResponseEntity<byte[]> getReport(@PathVariable Integer code) throws Exception {
+
+        String fileNameJrxml = "src/main/resources/Reports/DetailsDemandeAchat.jrxml";
+
+        Collection<DetailsDemandeAchatDTO> dto = demandeAchatService.findOneWithDetilas(code);
+        paramDTO dTOs = paramService.findParamByCodeParamS("NomSociete");
+        DemandeAchatDTO rslt = demandeAchatService.findOne(code);
 
         JasperDesign jasperDesign = JRXmlLoader.load(fileNameJrxml);
         JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
         Map<String, Object> params = new HashMap<>();
         params.put("ItemDataSource", new JRBeanCollectionDataSource(dto));
-        params.put("UserCreate", "SoufienCreateCore");     
-        params.put("codeSaisieAppelOffre", rslt.getCodeSaisie());     
+        params.put("UserCreate", "SoufienCreateCore");
+        params.put("codeSaisie", rslt.getCodeSaisie());
         params.put("Observation", rslt.getObservation());
-
-
-         
+        params.put("societe", dTOs.getValeur());
+        params.put("dateLivraison", rslt.getDateLivraison());
+        params.put("EtatValidation", rslt.getEtatApprouverDTO().getDesignation());
 
         System.out.println("filling parameters to .JASPER file....");
         JasperPrint print = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());

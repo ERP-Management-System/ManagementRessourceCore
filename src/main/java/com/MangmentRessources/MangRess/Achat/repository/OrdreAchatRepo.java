@@ -15,5 +15,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface OrdreAchatRepo extends JpaRepository <OrdreAchat, Integer> {
+    OrdreAchat findByCodeAppelOffre (Integer codeAppelOffre);
     
 }

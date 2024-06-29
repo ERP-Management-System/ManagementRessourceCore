@@ -12,6 +12,8 @@ import com.MangmentRessources.MangRess.Achat.factory.OrdreAchatFactory;
 import com.MangmentRessources.MangRess.Achat.factory.DetailsOrdreAchatFactory;
 import com.MangmentRessources.MangRess.Achat.repository.OrdreAchatRepo;
 import com.MangmentRessources.MangRess.Achat.repository.DetailsOrdreAchatRepo;
+import com.MangmentRessources.MangRess.ParametrageCentral.domaine.Compteur;
+import com.MangmentRessources.MangRess.ParametrageCentral.service.CompteurService;
 import com.google.common.base.Preconditions;
 import java.util.Collection;
 import java.util.Date;
@@ -27,14 +29,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class OrdreAchatService {
      private final OrdreAchatRepo ordreAchatRepo;
-    
+    private final CompteurService compteurService;
     private final DetailsOrdreAchatRepo detailsOrdreAchatRepo;
 
-    public OrdreAchatService(OrdreAchatRepo ordreAchatRepo, DetailsOrdreAchatRepo detailsOrdreAchatRepo) {
+    public OrdreAchatService(OrdreAchatRepo ordreAchatRepo, CompteurService compteurService, DetailsOrdreAchatRepo detailsOrdreAchatRepo) {
         this.ordreAchatRepo = ordreAchatRepo;
+        this.compteurService = compteurService;
         this.detailsOrdreAchatRepo = detailsOrdreAchatRepo;
     }
-    
+
+ 
     
 
   
@@ -96,15 +100,20 @@ public class OrdreAchatService {
         ordreAchatRepo.deleteById(code);
     }
 
-    public OrdreAchatDTO saveDdeAchat(OrdreAchatDTO Dto) { 
+    public OrdreAchatDTO saveOrdreAchat(OrdreAchatDTO Dto) { 
          
         OrdreAchat domaine = OrdreAchatFactory.ordreAchatDTOToOrdreAchatWithDetails(new OrdreAchat(), Dto);
 
         domaine.setCode(null);
         domaine.setUserCreate(domaine.getUserCreate());
+        domaine.setDateCreate(new Date());  
+                Compteur CompteurCodeSaisie = compteurService.findOne("codeSaisieOA");
+        String codeSaisieDA = CompteurCodeSaisie.getPrefixe() + CompteurCodeSaisie.getSuffixe();
+        domaine.setCode(null);
+        domaine.setUserCreate(domaine.getUserCreate());
         domaine.setDateCreate(new Date());
-        domaine.setCodeSaisie(Dto.getCodeSaisie()); 
-        
+        domaine.setCodeSaisie(codeSaisieDA);
+        compteurService.incrementeSuffixe(CompteurCodeSaisie); 
         domaine = ordreAchatRepo.save(domaine);
         OrdreAchatDTO resultDTO = OrdreAchatFactory.UpdateordreAchatWithDetailsToordreAchatDTOWithDetails(domaine);
         return resultDTO;

@@ -3,19 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.MangmentRessources.MangRess.Achat.factory;
-
-import com.MangmentRessources.MangRess.Achat.domaine.DetailsDemandeAchat;
-import com.MangmentRessources.MangRess.Achat.domaine.DetailsDemandeAchat;
-import com.MangmentRessources.MangRess.Achat.domaine.DetailsDemandeAchatPK;
-import com.MangmentRessources.MangRess.Achat.domaine.DetailsNomenclaturePK;
-import com.MangmentRessources.MangRess.Achat.dto.DetailsDemandeAchatDTO;
+ 
+import com.MangmentRessources.MangRess.Achat.domaine.DetailsDemandeAchat; 
 import com.MangmentRessources.MangRess.Achat.dto.DetailsDemandeAchatDTO;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Locale;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.i18n.LocaleContextHolder;
+import java.util.Collection; 
+import org.springframework.beans.factory.annotation.Value; 
 import org.springframework.stereotype.Component;
 
 /**
@@ -44,7 +37,8 @@ public class DetailsDemandeAchatFactory {
             dTO.setCodeColoris(ColorisFactory.colorisToColorisDTO(domaine.getColoris()));
             dTO.setCodeUnite(UniteFactory.uniteToUniteDTO(domaine.getUnite()));
 
-            dTO.setQteDemander(domaine.getQteDemander());
+            dTO.setQteDemander(domaine.getQteDemander());       
+
             return dTO;
         } else {
             return null;
@@ -61,12 +55,16 @@ public class DetailsDemandeAchatFactory {
             dTO.setUsercreate(domaine.getUsercreate());
             System.out.println("soufien returnxxxx");
             dTO.setCodeSaisieDemandeAchat(domaine.getDemandeAchat().getCodeSaisie());
-            dTO.setCodeMatieres(domaine.getMatiere().getCode());
+            dTO.setCodeMatieres(domaine.getMatiere().getCode());      
+ 
+
+//            dTO.setCodeAppelOffre(domaine.getDemandeAchat().getCodeAppelOffre());      
+//            dTO.setCodeModeReglement(domaine.getDemandeAchat().getAppelOffre().getCodeModeReglement());      
 
             dTO.setCodeSaisieMatiere(domaine.getMatiere().getCodeSaisie());
             dTO.setDesignationArMatiere(domaine.getMatiere().getDesignationAr());
             dTO.setDesignationLtMatiere(domaine.getMatiere().getDesignationLt());
-            dTO.setPrixAchat(domaine.getMatiere().getPrixAchat());       
+//            dTO.setPrixAchat(domaine.getMatiere().getPrixAchat());       
             dTO.setCodeTaxe(domaine.getMatiere().getCodeTaxe());
             
             

@@ -70,11 +70,17 @@ public class Depot {
     @Column(name = "code_categorie_depot", updatable = false, insertable = false)
     private Integer codeCategorieDepot;
 
+    @JoinColumn(name = "code_departement", referencedColumnName = "Code", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Departement departmenet;
+
+    @Column(name = "code_departement", updatable = false, insertable = false)
+    private Integer codeDepartement;
+
     public Depot() {
     }
 
-    
-    
     public Integer getCode() {
         return code;
     }
@@ -163,6 +169,22 @@ public class Depot {
         this.codeCategorieDepot = codeCategorieDepot;
     }
 
+    public Departement getDepartmenet() {
+        return departmenet;
+    }
+
+    public void setDepartmenet(Departement departmenet) {
+        this.departmenet = departmenet;
+    }
+
+    public Integer getCodeDepartement() {
+        return codeDepartement;
+    }
+
+    public void setCodeDepartement(Integer codeDepartement) {
+        this.codeDepartement = codeDepartement;
+    }
     
     
+
 }

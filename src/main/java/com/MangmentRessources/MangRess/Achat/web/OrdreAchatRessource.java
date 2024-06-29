@@ -60,30 +60,30 @@ public class OrdreAchatRessource {
  
  
     @GetMapping("ordre_achat/all")
-    public ResponseEntity<List<OrdreAchatDTO>> getAllArticle() { 
+    public ResponseEntity<List<OrdreAchatDTO>> getAllOrdreAchat() { 
         return ResponseEntity.ok().body(ordreAchatService.findAllOrdreAchat());
     }
 
     @PutMapping("ordre_achat/update")
-    public ResponseEntity<OrdreAchatDTO> updateModelePanier(@Valid @RequestBody OrdreAchatDTO dTO, BindingResult bindingResult) throws MethodArgumentNotValidException {
+    public ResponseEntity<OrdreAchatDTO> updateOrdreAchat(@Valid @RequestBody OrdreAchatDTO dTO, BindingResult bindingResult) throws MethodArgumentNotValidException {
         OrdreAchatDTO result = ordreAchatService.updateNewWithFlush(dTO);
         return ResponseEntity.ok().body(result);
     }
 
     @DeleteMapping("ordre_achat/delete/{code}")
-    public ResponseEntity<OrdreAchat> deleteAppelOffre(@PathVariable("code") Integer code) {
+    public ResponseEntity<OrdreAchat> deleteOrdreAchat(@PathVariable("code") Integer code) {
         ordreAchatService.deleteOrdreAchat(code);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("ordre_achat")
-    public ResponseEntity<OrdreAchatDTO> postDetailsAppelOffreNew(@Valid @RequestBody OrdreAchatDTO dTO, BindingResult bindingResult) throws URISyntaxException, MethodArgumentNotValidException {
-        OrdreAchatDTO result = ordreAchatService.saveDdeAchat(dTO);
+    public ResponseEntity<OrdreAchatDTO> postDetailsOrdreAchatNew(@Valid @RequestBody OrdreAchatDTO dTO, BindingResult bindingResult) throws URISyntaxException, MethodArgumentNotValidException {
+        OrdreAchatDTO result = ordreAchatService.saveOrdreAchat(dTO);
         return ResponseEntity.created(new URI("/api/parametrage-achat/" + result.getCode())).body(result);
     }
 
     @GetMapping("details_ordre_achat/{code}")
-    public ResponseEntity<Collection<DetailsOrdreAchatDTO>> getAppelOffre(@PathVariable Integer code) {
+    public ResponseEntity<Collection<DetailsOrdreAchatDTO>> getOrdreAchat(@PathVariable Integer code) {
         Collection<DetailsOrdreAchatDTO> dto = ordreAchatService.findOneWithDetilas(code);
         return ResponseEntity.ok().body(dto);
 

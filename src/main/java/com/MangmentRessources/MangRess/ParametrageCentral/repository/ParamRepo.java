@@ -17,6 +17,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ParamRepo extends JpaRepository<param, Integer>{
     
-    List<param> findParamByCodeParamIn(Collection<String> codeParam);
+//    List<param> findParamByCodeParamIn(Collection<String> codeParam);  
+     param findParamByCodeParam(String codeParam);
+
     
 }

@@ -4,8 +4,12 @@
  */
 package com.MangmentRessources.MangRess.Achat.dto;
 
-import com.MangmentRessources.MangRess.Achat.domaine.TypeCircuitAchat;
-import jakarta.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 
@@ -23,6 +27,8 @@ public class DemandeAchatDTO {
 
     private Integer codeEtatDemande;
 
+//    private AppelOffreDTO appelOffreDTO;
+//    private Integer codeAppelOffre;
     private String designationArEtat;
     private String designationLTEtat;
 
@@ -41,6 +47,29 @@ public class DemandeAchatDTO {
     private String designationLTTypeCircuitAchat;
 
     private String observation;
+
+//    private BigDecimal  mntTotalTTC;
+//
+//    private BigDecimal mntTotalHT;
+//
+//    private BigDecimal mntTotalTaxe;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate dateLivraison;
+
+    private DepartementDTO departementDTO;
+    private Integer codeDepartement;
+    
+    
+    private DepotDTO depotDTO;
+    private Integer codeDepot;
+    
+    
+            private EtatApprouverDTO etatApprouverDTO;
+ 
+    private Integer codeEtatApprouver;
+    
 
     public DemandeAchatDTO() {
     }
@@ -76,8 +105,6 @@ public class DemandeAchatDTO {
     public void setDesignationLTEtat(String designationLTEtat) {
         this.designationLTEtat = designationLTEtat;
     }
-
- 
 
     public EtatDemandeAchatDTO getEtatDemandeAchatDTO() {
         return etatDemandeAchatDTO;
@@ -127,9 +154,6 @@ public class DemandeAchatDTO {
         this.typeCircuitAchatDTO = typeCircuitAchatDTO;
     }
 
- 
- 
-
     public Integer getCodeTypeCircuitAchat() {
         return codeTypeCircuitAchat;
     }
@@ -161,6 +185,103 @@ public class DemandeAchatDTO {
     public void setObservation(String observation) {
         this.observation = observation;
     }
+//
+//    public AppelOffreDTO getAppelOffreDTO() {
+//        return appelOffreDTO;
+//    }
+//
+//    public void setAppelOffreDTO(AppelOffreDTO appelOffreDTO) {
+//        this.appelOffreDTO = appelOffreDTO;
+//    }
+//
+//    public Integer getCodeAppelOffre() {
+//        return codeAppelOffre;
+//    }
+//
+//    public void setCodeAppelOffre(Integer codeAppelOffre) {
+//        this.codeAppelOffre = codeAppelOffre;
+//    }
+//
+//    public BigDecimal getMntTotalTTC() {
+//        return mntTotalTTC;
+//    }
+//
+//    public void setMntTotalTTC(BigDecimal mntTotalTTC) {
+//        this.mntTotalTTC = mntTotalTTC;
+//    }
+//
+//    public BigDecimal getMntTotalHT() {
+//        return mntTotalHT;
+//    }
+//
+//    public void setMntTotalHT(BigDecimal mntTotalHT) {
+//        this.mntTotalHT = mntTotalHT;
+//    }
+//
+//    public BigDecimal getMntTotalTaxe() {
+//        return mntTotalTaxe;
+//    }
+//
+//    public void setMntTotalTaxe(BigDecimal mntTotalTaxe) {
+//        this.mntTotalTaxe = mntTotalTaxe;
+//    }
 
-    
+    public LocalDate getDateLivraison() {
+        return dateLivraison;
+    }
+
+    public void setDateLivraison(LocalDate dateLivraison) {
+        this.dateLivraison = dateLivraison;
+    }
+
+    public DepartementDTO getDepartementDTO() {
+        return departementDTO;
+    }
+
+    public void setDepartementDTO(DepartementDTO departementDTO) {
+        this.departementDTO = departementDTO;
+    }
+
+    public Integer getCodeDepartement() {
+        return codeDepartement;
+    }
+
+    public void setCodeDepartement(Integer codeDepartement) {
+        this.codeDepartement = codeDepartement;
+    }
+
+    public DepotDTO getDepotDTO() {
+        return depotDTO;
+    }
+
+    public void setDepotDTO(DepotDTO depotDTO) {
+        this.depotDTO = depotDTO;
+    }
+
+    public Integer getCodeDepot() {
+        return codeDepot;
+    }
+
+    public void setCodeDepot(Integer codeDepot) {
+        this.codeDepot = codeDepot;
+    }
+
+    public EtatApprouverDTO getEtatApprouverDTO() {
+        return etatApprouverDTO;
+    }
+
+    public void setEtatApprouverDTO(EtatApprouverDTO etatApprouverDTO) {
+        this.etatApprouverDTO = etatApprouverDTO;
+    }
+
+    public Integer getCodeEtatApprouver() {
+        return codeEtatApprouver;
+    }
+
+    public void setCodeEtatApprouver(Integer codeEtatApprouver) {
+        this.codeEtatApprouver = codeEtatApprouver;
+    }
+
+ 
+
 }
