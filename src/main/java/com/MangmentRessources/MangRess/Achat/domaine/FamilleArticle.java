@@ -15,13 +15,17 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import javax.validation.constraints.Size;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 /**
  *
  * @author Administrator
  */
 @Entity
-@Table(name="famille_article",schema = "achat")
+@Table(name="",schema = "achat")
+//@Audited
+//@AuditTable("famille_article_AUD")
 public class FamilleArticle {
 
     @Id

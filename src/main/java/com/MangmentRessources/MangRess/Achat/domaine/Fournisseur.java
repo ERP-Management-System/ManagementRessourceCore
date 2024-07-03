@@ -20,6 +20,8 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import javax.validation.constraints.Size;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 /**
  *
@@ -27,6 +29,8 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "fournisseur", schema = "achat")
+//@Audited
+//@AuditTable("fournisseur_AUD")
 public class Fournisseur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

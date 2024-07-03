@@ -7,6 +7,8 @@ security:
         enabled: false
  
 spring:
+    main:
+        allow-bean-definition-overriding: true
     profiles:
       active: "prod"
     data:
@@ -57,6 +59,15 @@ spring:
 #                   
     messages:
         basename: i18n/messages
+        
+#    Security:
+#        user :
+#            password : pass
+     
+#http:
+#    auth-token-header-name: x-api-key
+#    auth-token: 115424
+#    auth-token-parametrage-achat: c040d610-134a-475d-b0a3-707e300927a5
      
 lang:
     secondary: ar

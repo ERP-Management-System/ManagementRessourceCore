@@ -23,9 +23,8 @@
         <!--        <liquibase-hibernate5.version>3.6</liquibase-hibernate5.version>
         <javassist.version>3.21.0-GA</javassist.version>
         <validation-api.version>1.1.0.Final</validation-api.version>
-        <springfox.version>2.6.1</springfox.version>
-        <hibernate.version>5.2.9.Final</hibernate.version>
-        <hibernate-envers.version>${hibernate.version}</hibernate-envers.version>-->
+        <springfox.version>2.6.1</springfox.version>-->
+        <!--<hibernate.version>5.2.9.Final</hibernate.version>--> 
     </properties>
     <dependencies>
         <!--        <dependency>
@@ -118,13 +117,19 @@
             <type>jar</type>commons-logging.jar
         </dependency>-->
         
-        
+       
+ 
+ 
+        <!--        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>-->
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
                
-        <dependency>
+        <!--        <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
             <version>6.20.0</version>
@@ -134,7 +139,16 @@
                     <artifactId>commons-logging</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>-->
+        
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.20.0</version>
+            <type>jar</type>
         </dependency>
+
+
         
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -167,12 +181,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <!--		<dependency>-->
-        <!--			<groupId>com.querydsl</groupId>-->
-        <!--			<artifactId>querydsl-core</artifactId>-->
-        <!--			<version></version>-->
-        <!--		</dependency>-->
+        </dependency> 
         <dependency>
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-jpa</artifactId>
@@ -198,12 +207,45 @@
             <artifactId>guava</artifactId>
             <version>10.0.1</version>
         </dependency>
- <dependency>
+        <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports-fonts</artifactId>
             <version>6.0.0</version>
         </dependency>
          
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-envers</artifactId>
+            <version>6.5.2.Final</version>
+        </dependency> 
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.5.2.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>6.2.4</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.5</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>4.0.2</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     <build>

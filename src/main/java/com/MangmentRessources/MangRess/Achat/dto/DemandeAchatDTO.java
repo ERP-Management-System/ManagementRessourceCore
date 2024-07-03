@@ -9,6 +9,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import jakarta.persistence.Basic;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
@@ -53,23 +55,22 @@ public class DemandeAchatDTO {
 //    private BigDecimal mntTotalHT;
 //
 //    private BigDecimal mntTotalTaxe;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @Basic(optional = false)
+    @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateLivraison;
 
     private DepartementDTO departementDTO;
     private Integer codeDepartement;
-    
-    
     private DepotDTO depotDTO;
     private Integer codeDepot;
-    
-    
-            private EtatApprouverDTO etatApprouverDTO;
- 
+    private EtatApprouverDTO etatApprouverDTO;
     private Integer codeEtatApprouver;
-    
+    private String userDemander;  
+    private Integer codeUserDemander;
+
 
     public DemandeAchatDTO() {
     }
@@ -282,6 +283,20 @@ public class DemandeAchatDTO {
         this.codeEtatApprouver = codeEtatApprouver;
     }
 
- 
+    public String getUserDemander() {
+        return userDemander;
+    }
+
+    public void setUserDemander(String userDemander) {
+        this.userDemander = userDemander;
+    }
+
+    public Integer getCodeUserDemander() {
+        return codeUserDemander;
+    }
+
+    public void setCodeUserDemander(Integer codeUserDemander) {
+        this.codeUserDemander = codeUserDemander;
+    }
 
 }

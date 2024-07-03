@@ -8,6 +8,7 @@ import com.MangmentRessources.MangRess.Achat.domaine.DetailsDemandeAchat;
 import com.MangmentRessources.MangRess.Achat.dto.DetailsDemandeAchatDTO;
 import java.util.ArrayList;
 import java.util.Collection; 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Value; 
 import org.springframework.stereotype.Component;
 
@@ -88,6 +89,13 @@ public class DetailsDemandeAchatFactory {
 
     public static Collection<DetailsDemandeAchatDTO> UpdatedetailsDemandeAchatTodetailsDemandeAchatDTOCollection(Collection<DetailsDemandeAchat> detailsDemandeAchats) {
         Collection<DetailsDemandeAchatDTO> dTOs = new ArrayList<>();
+        for (DetailsDemandeAchat rslt : detailsDemandeAchats) {
+            dTOs.add(UpdatedetailsDemandeAchatTodetailsDemandeAchatDTO(rslt));
+        }
+        return dTOs;
+    }
+    public static List<DetailsDemandeAchatDTO> UpdatedetailsDemandeAchatTodetailsDemandeAchatDTOList(List<DetailsDemandeAchat> detailsDemandeAchats) {
+        List<DetailsDemandeAchatDTO> dTOs = new ArrayList<>();
         for (DetailsDemandeAchat rslt : detailsDemandeAchats) {
             dTOs.add(UpdatedetailsDemandeAchatTodetailsDemandeAchatDTO(rslt));
         }

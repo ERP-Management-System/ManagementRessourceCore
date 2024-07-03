@@ -11,6 +11,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 /**
  *
@@ -18,6 +20,8 @@ import jakarta.validation.constraints.Max;
  */
 @Entity
 @Table(name = "compteur", schema = "param")
+//@Audited
+//@AuditTable("compteur_AUD")
 public class Compteur {
 
     @Id

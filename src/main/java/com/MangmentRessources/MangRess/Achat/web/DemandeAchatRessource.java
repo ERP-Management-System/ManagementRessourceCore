@@ -4,21 +4,29 @@
  */
 package com.MangmentRessources.MangRess.Achat.web;
 
+import com.MangmentRessources.MangRess.Access.dto.AccessUserDTO;
+import com.MangmentRessources.MangRess.Access.service.AccessUserService;
 import com.MangmentRessources.MangRess.Achat.domaine.DemandeAchat;
-import com.MangmentRessources.MangRess.Achat.dto.AppelOffreDTO;
 import com.MangmentRessources.MangRess.Achat.dto.DemandeAchatDTO;
 import com.MangmentRessources.MangRess.Achat.dto.DetailsDemandeAchatDTO;
 import com.MangmentRessources.MangRess.Achat.service.DemandeAchatService;
+import com.MangmentRessources.MangRess.ParametrageCentral.dto.SocieteDTO;
 import com.MangmentRessources.MangRess.ParametrageCentral.dto.paramDTO;
 import com.MangmentRessources.MangRess.ParametrageCentral.service.ParamService;
+import com.MangmentRessources.MangRess.ParametrageCentral.service.SocieteService;
 import jakarta.validation.Valid;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import static java.lang.StrictMath.log;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Blob;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.sql.rowset.serial.SerialBlob;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -31,10 +39,13 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimplePdfReportConfiguration;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ResourceUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,6 +55,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -56,11 +68,20 @@ public class DemandeAchatRessource {
 
     private final DemandeAchatService demandeAchatService;
     private final ParamService paramService;
+    private final SocieteService societeService;
+    
+    private final AccessUserService accessUserService;
 
-    public DemandeAchatRessource(DemandeAchatService demandeAchatService, ParamService paramService) {
+    public DemandeAchatRessource(DemandeAchatService demandeAchatService, ParamService paramService, SocieteService societeService, AccessUserService accessUserService) {
         this.demandeAchatService = demandeAchatService;
         this.paramService = paramService;
+        this.societeService = societeService;
+        this.accessUserService = accessUserService;
     }
+    
+    
+
+ 
 
     @GetMapping("demande_achat/all")
     public ResponseEntity<List<DemandeAchatDTO>> getAllArticle() {
@@ -107,7 +128,13 @@ public class DemandeAchatRessource {
         Collection<DetailsDemandeAchatDTO> dto = demandeAchatService.findOneWithDetilas(code);
         paramDTO dTOs = paramService.findParamByCodeParamS("NomSociete");
         DemandeAchatDTO rslt = demandeAchatService.findOne(code);
+        System.out.println("getCodeUserDemander)"+rslt.getCodeUserDemander());
+        AccessUserDTO getsignature = accessUserService.findOne(rslt.getCodeUserDemander());
 
+        Resource ressource = new ByteArrayResource(getsignature.getSignature());
+
+//        return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(ressource);
+        SocieteDTO clinique = societeService.findOne(1);
         JasperDesign jasperDesign = JRXmlLoader.load(fileNameJrxml);
         JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
         Map<String, Object> params = new HashMap<>();
@@ -117,8 +144,13 @@ public class DemandeAchatRessource {
         params.put("Observation", rslt.getObservation());
         params.put("societe", dTOs.getValeur());
         params.put("dateLivraison", rslt.getDateLivraison());
-        params.put("EtatValidation", rslt.getEtatApprouverDTO().getDesignation());
+        params.put("EtatValidation", rslt.getEtatApprouverDTO().getDesignation());  
+        params.put("Departement", rslt.getDepartementDTO().getDesignationAr());
+        params.put("Demandeur", rslt.getUserDemander());     
+        params.put("signature", getsignature.getSignature());
 
+
+        params.put("logo", clinique.getLogo()); 
         System.out.println("filling parameters to .JASPER file....");
         JasperPrint print = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 
@@ -143,4 +175,5 @@ public class DemandeAchatRessource {
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(res);
     }
+ 
 }

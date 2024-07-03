@@ -15,6 +15,8 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import javax.validation.constraints.Size;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 /**
  *
@@ -22,6 +24,8 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "etat_demande_achat", schema = "achat")
+//@Audited
+//@AuditTable("etat_demande_achat_AUD")
 public class EtatDemandeAchat {
 
     @Id

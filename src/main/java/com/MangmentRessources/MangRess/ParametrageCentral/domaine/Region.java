@@ -15,6 +15,8 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import javax.validation.constraints.Size;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 /**
  *
@@ -23,6 +25,8 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "region", schema = "param")
+//@Audited
+//@AuditTable("region_AUD")
 public class Region {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -58,21 +58,21 @@ public class DetailsNomenclatureArticleFactory {
 
             if (LocaleContextHolder.getLocale().getLanguage().equals(new Locale(LANGUAGE_SEC).getLanguage())) {
 
-                dTO.setCodeSaisieMatiere(domaine.getDetailsNomenclaturePK().getMatiere().getCodeSaisie());
-                dTO.setDesignationMatiereAr(domaine.getDetailsNomenclaturePK().getMatiere().getDesignationAr());
-                dTO.setDesignationMatiereLT(domaine.getDetailsNomenclaturePK().getMatiere().getDesignationLt());  
-                
-                
-                dTO.setCodeSaisieColoris(domaine.getDetailsNomenclaturePK().getColoris().getCodeSaisie());
-                dTO.setDesignationColorisAr(domaine.getDetailsNomenclaturePK().getColoris().getDesignationAr());
-                dTO.setDesignationColorisLT(domaine.getDetailsNomenclaturePK().getColoris().getDesignationLt());
-
-            } else {
-                dTO.setDesignationMatiereLT(domaine.getDetailsNomenclaturePK().getMatiere().getDesignationLt());
-                dTO.setDesignationMatiereAr(domaine.getDetailsNomenclaturePK().getMatiere().getDesignationAr());
-
-                dTO.setDesignationColorisLT(domaine.getDetailsNomenclaturePK().getColoris().getDesignationLt());
-                dTO.setDesignationColorisAr(domaine.getDetailsNomenclaturePK().getColoris().getDesignationAr());
+//                dTO.setCodeSaisieMatiere(domaine.getDetailsNomenclaturePK().getMatiere().getCodeSaisie());
+//                dTO.setDesignationMatiereAr(domaine.getDetailsNomenclaturePK().getMatiere().getDesignationAr());
+//                dTO.setDesignationMatiereLT(domaine.getDetailsNomenclaturePK().getMatiere().getDesignationLt());  
+//                
+//                
+//                dTO.setCodeSaisieColoris(domaine.getDetailsNomenclaturePK().getColoris().getCodeSaisie());
+//                dTO.setDesignationColorisAr(domaine.getDetailsNomenclaturePK().getColoris().getDesignationAr());
+//                dTO.setDesignationColorisLT(domaine.getDetailsNomenclaturePK().getColoris().getDesignationLt());
+//
+//            } else {
+//                dTO.setDesignationMatiereLT(domaine.getDetailsNomenclaturePK().getMatiere().getDesignationLt());
+//                dTO.setDesignationMatiereAr(domaine.getDetailsNomenclaturePK().getMatiere().getDesignationAr());
+//
+//                dTO.setDesignationColorisLT(domaine.getDetailsNomenclaturePK().getColoris().getDesignationLt());
+//                dTO.setDesignationColorisAr(domaine.getDetailsNomenclaturePK().getColoris().getDesignationAr());
             }
 
             dTO.setQtebesoin(domaine.getQtebesoin());

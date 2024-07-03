@@ -28,22 +28,26 @@ public class DetailsNomenclaturePK {
     @NotNull
     @Column(name = "code_article")
     private Integer codearticle;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "code_matiere")
+    private int codeMatiere;
 
-    @Column(name = "code_matiere", updatable = false, insertable = false)
-    private Integer codeMatiere;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "code_coloris", nullable = false)
+    private int codeColoris;
 
-    @JoinColumn(name = "code_matiere", referencedColumnName = "Code", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonBackReference
-    private Matiere matiere;
+//    @JoinColumn(name = "code_matiere", referencedColumnName = "Code", nullable = false)
+//    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+//    @JsonBackReference
+//    private Matiere matiere;
 
-    @Column(name = "code_coloris", updatable = false, insertable = false)
-    private Integer codeColoris;
-
-    @JoinColumn(name = "code_coloris", referencedColumnName = "Code", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonBackReference
-    private Coloris coloris;
+//    @JoinColumn(name = "code_coloris", referencedColumnName = "code", nullable = false, updatable = false, insertable = false)
+//    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+//    @JsonBackReference
+//    private Coloris coloris;
+ 
 
     public DetailsNomenclaturePK() {
     }
@@ -79,22 +83,7 @@ public class DetailsNomenclaturePK {
     public void setCodeColoris(Integer codeColoris) {
         this.codeColoris = codeColoris;
     }
-
-    public Matiere getMatiere() {
-        return matiere;
-    }
-
-    public void setMatiere(Matiere matiere) {
-        this.matiere = matiere;
-    }
-
-    public Coloris getColoris() {
-        return coloris;
-    }
-
-    public void setColoris(Coloris coloris) {
-        this.coloris = coloris;
-    }
+ 
 
     
     

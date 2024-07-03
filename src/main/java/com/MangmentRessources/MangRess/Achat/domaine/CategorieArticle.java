@@ -19,6 +19,8 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import javax.validation.constraints.Size;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 /**
  *
@@ -26,6 +28,8 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "categorie_article", schema = "achat")
+//@Audited
+//@AuditTable("categorie_article_AUD")
 public class CategorieArticle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,11 +43,11 @@ public class CategorieArticle {
 
     @Size(max = 200)
     @NotNull
-    @Column(name = "designation_ar", length = 200, columnDefinition = "nvarchar")
+    @Column(name = "designation_ar", length = 200, columnDefinition = "nvarchar(200)")
     private String designationAr;
 
     @Size(max = 200)
-    @Column(name = "designation_lt", length = 200, columnDefinition = "nvarchar")
+    @Column(name = "designation_lt", length = 200, columnDefinition = "nvarchar(200)")
     private String designationLt;
 
     @Column(name = "actif", nullable = false)

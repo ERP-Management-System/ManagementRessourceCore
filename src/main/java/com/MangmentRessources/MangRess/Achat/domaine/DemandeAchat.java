@@ -6,10 +6,7 @@ package com.MangmentRessources.MangRess.Achat.domaine;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,7 +21,6 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
@@ -83,9 +79,15 @@ public class DemandeAchat {
     @Column(name = "code_appel_offre", insertable = false, updatable = false)
     private Integer codeAppelOffre;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonSerialize(using = LocalDateSerializer.class)
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+//    @JsonDeserialize(using = LocalDateDeserializer.class)
+//    @JsonSerialize(using = LocalDateSerializer.class)
+//    private LocalDate dateLivraison;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "date_livraison", nullable = false, columnDefinition = ("date default getdate()"))
+//    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateLivraison;
 
 //    @Column(name = "montant_total_ttc" ,columnDefinition = ("bigint default 0") )
@@ -96,14 +98,14 @@ public class DemandeAchat {
 //
 //    @Column(name = "montant_total_taxe"  ,columnDefinition = ("bigint default 0"))
 //    private BigDecimal mntTotalTaxe;
-    @JoinColumn(name = "code_departement", referencedColumnName = "code", nullable = false, updatable = false, insertable = false)
+    @JoinColumn(name = "code_departement", referencedColumnName = "Code", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonBackReference
     private Departement departement;
     @Column(name = "code_departement", insertable = false, updatable = false)
     private Integer codeDepartement;
 
-    @JoinColumn(name = "code_depot", referencedColumnName = "code", nullable = false, updatable = false, insertable = false)
+    @JoinColumn(name = "code_depot", referencedColumnName = "Code", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonBackReference
     private Depot depot;
@@ -117,6 +119,12 @@ public class DemandeAchat {
 
     @Column(name = "etat_approuver", updatable = false, insertable = false)
     private Integer codeEtatApprouver;
+
+    @Column(name = "user_demander", columnDefinition = "nvarchar(max) ")
+    private String userDemander;
+
+    @Column(name = "code_user_demander", nullable = false ,columnDefinition = "Nvarchar(200) default ''")
+    private Integer codeUserDemander;
 
     public DemandeAchat() {
     }
@@ -169,14 +177,6 @@ public class DemandeAchat {
         this.dateCreate = dateCreate;
     }
 
-    public Collection<DetailsDemandeAchat> getDetailsDemandeAchats() {
-        return detailsDemandeAchats;
-    }
-
-    public void setDetailsDemandeAchats(Collection<DetailsDemandeAchat> detailsDemandeAchats) {
-        this.detailsDemandeAchats = detailsDemandeAchats;
-    }
-
     public TypeCircuitAchat getTypeCircuitAchat() {
         return typeCircuitAchat;
     }
@@ -216,30 +216,7 @@ public class DemandeAchat {
     public void setCodeAppelOffre(Integer codeAppelOffre) {
         this.codeAppelOffre = codeAppelOffre;
     }
-
-//    public BigDecimal getMntTotalTTC() {
-//        return mntTotalTTC;
-//    }
-//
-//    public void setMntTotalTTC(BigDecimal mntTotalTTC) {
-//        this.mntTotalTTC = mntTotalTTC;
-//    }
-//
-//    public BigDecimal getMntTotalHT() {
-//        return mntTotalHT;
-//    }
-//
-//    public void setMntTotalHT(BigDecimal mntTotalHT) {
-//        this.mntTotalHT = mntTotalHT;
-//    }
-//
-//    public BigDecimal getMntTotalTaxe() {
-//        return mntTotalTaxe;
-//    }
-//
-//    public void setMntTotalTaxe(BigDecimal mntTotalTaxe) {
-//        this.mntTotalTaxe = mntTotalTaxe;
-//    }
+ 
     public LocalDate getDateLivraison() {
         return dateLivraison;
     }
@@ -295,5 +272,31 @@ public class DemandeAchat {
     public void setCodeEtatApprouver(Integer codeEtatApprouver) {
         this.codeEtatApprouver = codeEtatApprouver;
     }
+
+    public String getUserDemander() {
+        return userDemander;
+    }
+
+    public void setUserDemander(String userDemander) {
+        this.userDemander = userDemander;
+    }
+
+    public Collection<DetailsDemandeAchat> getDetailsDemandeAchats() {
+        return detailsDemandeAchats;
+    }
+
+    public void setDetailsDemandeAchats(Collection<DetailsDemandeAchat> detailsDemandeAchats) {
+        this.detailsDemandeAchats = detailsDemandeAchats;
+    }
+
+    public Integer getCodeUserDemander() {
+        return codeUserDemander;
+    }
+
+    public void setCodeUserDemander(Integer codeUserDemander) {
+        this.codeUserDemander = codeUserDemander;
+    }
+    
+    
 
 }

@@ -20,6 +20,8 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import javax.validation.constraints.Size;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 /**
  *
@@ -27,6 +29,8 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "taxe", schema = "param")
+//@Audited
+//@AuditTable("taxe_AUD")
 public class Taxe {
 
     @Id
@@ -57,7 +61,7 @@ public class Taxe {
     @NotNull
     private Integer codeTypeTaxe;
 
-    @Column(name = "user_Create", nullable = false, length = 255, columnDefinition = "nvarchar")
+    @Column(name = "user_Create", nullable = false, length = 255, columnDefinition = "nvarchar(200)")
     private String userCreate;
 
     @NotNull

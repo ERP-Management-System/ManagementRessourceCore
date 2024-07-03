@@ -11,6 +11,8 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.validation.constraints.Size;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 /**
  *
@@ -18,6 +20,8 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "matiere", schema = "achat")
+//@Audited
+//@AuditTable("matiere_AUD")
 public class Matiere {
 
     @Id
@@ -32,11 +36,11 @@ public class Matiere {
 
     @Size(max = 200)
     @NotNull
-    @Column(name = "designation_ar", length = 200, columnDefinition = "nvarchar")
+    @Column(name = "designation_ar", length = 200, columnDefinition = "nvarchar(200)")
     private String designationAr;
 
     @Size(max = 200)
-    @Column(name = "designation_lt", length = 200, columnDefinition = "nvarchar")
+    @Column(name = "designation_lt", length = 200, columnDefinition = "nvarchar(200)")
     private String designationLt;
 
     @JoinColumn(name = "code_statu_matiere", referencedColumnName = "Code", nullable = false)

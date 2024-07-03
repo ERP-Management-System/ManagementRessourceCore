@@ -20,6 +20,8 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import javax.validation.constraints.Size;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 /**
  *
@@ -27,6 +29,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "article", schema = "achat")
+
 public class Article {
 
     @Id
@@ -42,11 +45,11 @@ public class Article {
 
     @Size(max = 200)
     @NotNull
-    @Column(name = "designation_ar", length = 200, columnDefinition = "nvarchar")
+    @Column(name = "designation_ar", length = 200, columnDefinition = "nvarchar(200)")
     private String designationAr;
 
     @Size(max = 200)
-    @Column(name = "designation_lt", length = 200, columnDefinition = "nvarchar")
+    @Column(name = "designation_lt", length = 200, columnDefinition = "nvarchar(200)")
     private String designationLt;
 
     @Column(name = "Actif", nullable = false)
@@ -57,7 +60,7 @@ public class Article {
     @NotNull
     private boolean visible;
 
-    @Column(name = "User_Create", nullable = false, length = 255, columnDefinition = "nvarchar")
+    @Column(name = "User_Create", nullable = false, length = 255, columnDefinition = "nvarchar(200)")
     private String userCreate;
 
     @NotNull

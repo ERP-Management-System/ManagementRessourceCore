@@ -74,22 +74,27 @@
 	<parameter name="societe" class="java.lang.String"/>
 	<parameter name="dateLivraison" class="java.time.LocalDate"/>
 	<parameter name="EtatValidation" class="java.lang.String"/>
+	<parameter name="logo" class="byte[]"/>
+	<parameter name="signature" class="byte[]"/>
+	<parameter name="Departement" class="java.lang.String"/>
+	<parameter name="Demandeur" class="java.lang.String"/>
 	<title>
-		<band height="21" splitType="Stretch">
-			<line>
-				<reportElement x="0" y="17" width="556" height="1" uuid="0f83349f-f3c6-43d1-aa48-90aa05820575"/>
-			</line>
+		<band height="22" splitType="Stretch">
+			<image scaleImage="RealSize" isLazy="true">
+				<reportElement x="226" y="-12" width="99" height="29" uuid="645092e9-4ba3-4c7c-ba5b-3ef9c0864a16"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
 			<textField pattern="dd/MM/yyyy HH:mm:ss">
-				<reportElement x="0" y="4" width="111" height="12" uuid="aa15b129-e9d6-4d83-a072-b6dacc8546e3"/>
+				<reportElement x="0" y="-6" width="111" height="12" uuid="aa15b129-e9d6-4d83-a072-b6dacc8546e3"/>
 				<textElement>
 					<font fontName="DejaVu Serif" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="443" y="4" width="113" height="13" uuid="a8572f52-4bc1-4e88-a828-738c59f31cdf"/>
+				<reportElement x="440" y="-5" width="113" height="13" uuid="a8572f52-4bc1-4e88-a828-738c59f31cdf"/>
 				<textElement textAlignment="Right">
-					<font fontName="DejaVu Serif" size="10" isBold="false"/>
+					<font fontName="DejaVu Serif" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{societe}]]></textFieldExpression>
 			</textField>
@@ -98,13 +103,19 @@
 	<detail>
 		<band height="214" splitType="Stretch">
 			<rectangle radius="6">
-				<reportElement x="0" y="117" width="243" height="40" uuid="71ad1c05-90b7-443c-9553-d07d76d3f409"/>
+				<reportElement x="0" y="94" width="190" height="58" uuid="0f68b815-5853-487e-825e-0a37604137df"/>
 				<graphicElement>
-					<pen lineColor="#D9D9D9"/>
+					<pen lineColor="rgba(217, 217, 217, 0.5019608)"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="6">
+				<reportElement x="310" y="94" width="200" height="58" uuid="36f300e4-6ab2-43f5-9a0e-5945f5c8ea13"/>
+				<graphicElement>
+					<pen lineColor="rgba(217, 217, 217, 0.5019608)"/>
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="143" y="32" width="141" height="20" uuid="ac6a6f55-0139-4acc-95d9-20e6b7900465"/>
+				<reportElement x="143" y="32" width="148" height="20" uuid="ac6a6f55-0139-4acc-95d9-20e6b7900465"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="12" isBold="true"/>
 				</textElement>
@@ -124,20 +135,6 @@
 				</textElement>
 				<text><![CDATA[Etat Validation :]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="10" y="127" width="70" height="20" uuid="3669ffef-ce77-4cfc-9bf4-980cfbb8c467"/>
-				<textElement>
-					<font fontName="Times New Roman" size="10" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Date Livraison :]]></text>
-			</staticText>
-			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
-				<reportElement x="80" y="127" width="100" height="20" uuid="5ac7ab2c-62a0-4e20-8384-421d613bfbdb"/>
-				<textElement>
-					<font fontName="DejaVu Serif" size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{dateLivraison}]]></textFieldExpression>
-			</textField>
 			<componentElement>
 				<reportElement key="" mode="Transparent" x="0" y="180" width="545" height="30" uuid="eea1f3a9-012c-4c17-9926-ca0160bbf14a">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
@@ -149,12 +146,12 @@
 					<datasetRun subDataset="ItemDataset1" uuid="08c0eda6-5cf4-45af-9cd0-620dc46ceabc">
 						<dataSourceExpression><![CDATA[$P{ItemDataSource}]]></dataSourceExpression>
 					</datasetRun>
-					<jr:columnGroup width="543" uuid="0c0ef8ab-8897-4249-af39-6691e9d39f96">
+					<jr:columnGroup width="512" uuid="0c0ef8ab-8897-4249-af39-6691e9d39f96">
 						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 						<property name="com.jaspersoft.studio.table.style.table_header" value="Table 1_TH"/>
 						<property name="com.jaspersoft.studio.table.style.column_header" value="Table 1_CH"/>
 						<property name="com.jaspersoft.studio.table.style.detail" value="Table 1_TD"/>
-						<jr:column width="111" uuid="e251f278-0703-47db-b47c-39778dc4ba58">
+						<jr:column width="80" uuid="e251f278-0703-47db-b47c-39778dc4ba58">
 							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 							<property name="com.jaspersoft.studio.table.style.table_header" value="Table 1_TH"/>
 							<property name="com.jaspersoft.studio.table.style.column_header" value="Table 1_CH"/>
@@ -170,7 +167,7 @@
 									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C2C2C2"/>
 								</box>
 								<staticText>
-									<reportElement x="0" y="0" width="111" height="15" uuid="d8767819-7e2a-44d4-9f6a-5df04b9c63dc">
+									<reportElement x="0" y="0" width="80" height="15" uuid="d8767819-7e2a-44d4-9f6a-5df04b9c63dc">
 										<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 									</reportElement>
 									<box>
@@ -184,7 +181,7 @@
 										<font fontName="DejaVu Serif" size="10" isBold="false"/>
 										<paragraph leftIndent="10"/>
 									</textElement>
-									<text><![CDATA[Code]]></text>
+									<text><![CDATA[Réf]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell style="Table 1_TD" height="15">
@@ -198,7 +195,7 @@
 									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C2C2C2"/>
 								</box>
 								<textField>
-									<reportElement x="0" y="0" width="111" height="15" uuid="e251e247-ab3d-45e9-a007-064114133719">
+									<reportElement x="0" y="0" width="80" height="15" uuid="e251e247-ab3d-45e9-a007-064114133719">
 										<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 										<property name="com.jaspersoft.studio.unit.height" value="px"/>
 									</reportElement>
@@ -470,12 +467,57 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{EtatValidation}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="10" y="100" width="70" height="20" uuid="37a3def1-199a-4b35-bff7-397cd0f808e7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Demandeur :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="130" width="70" height="20" uuid="45505e3c-eeb5-4dec-a72b-e8e1814d010c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Departement :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-1" y="-1" width="556" height="1" uuid="0f83349f-f3c6-43d1-aa48-90aa05820575"/>
+			</line>
+			<textField>
+				<reportElement x="80" y="130" width="100" height="20" uuid="9e0d7c61-d714-4215-ad69-557925921438"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Departement}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="100" width="100" height="20" uuid="9db5aad8-2ed3-48fa-9c20-ad5fd168d060"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Demandeur}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="320" y="100" width="76" height="20" uuid="3669ffef-ce77-4cfc-9bf4-980cfbb8c467"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Date Souhaitee :]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement x="397" y="101" width="100" height="20" uuid="5ac7ab2c-62a0-4e20-8384-421d613bfbdb"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dateLivraison}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="72">
+		<band height="73">
 			<rectangle radius="6">
-				<reportElement x="290" y="1" width="263" height="69" uuid="229281b4-ebe9-4b83-adeb-7b2a623948a2"/>
+				<reportElement x="290" y="1" width="263" height="58" uuid="229281b4-ebe9-4b83-adeb-7b2a623948a2"/>
 				<graphicElement>
 					<pen lineColor="rgba(217, 217, 217, 0.5019608)"/>
 				</graphicElement>
@@ -488,7 +530,7 @@
 				<text><![CDATA[Observation :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="390" y="11" width="154" height="57" uuid="1641a1bc-2429-4ea2-98d1-4a0bf5af19fd"/>
+				<reportElement x="390" y="11" width="154" height="38" uuid="1641a1bc-2429-4ea2-98d1-4a0bf5af19fd"/>
 				<box>
 					<pen lineColor="#FFFFFF"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
@@ -501,6 +543,20 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Observation}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="0" y="72" width="556" height="1" uuid="66e7d8da-f9c2-4fe8-b04e-e670ead8f221"/>
+			</line>
+			<staticText>
+				<reportElement x="10" y="16" width="70" height="20" uuid="77c82c51-7f17-4c75-b34d-c91f906ae7bd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Signature :]]></text>
+			</staticText>
+			<image scaleImage="RealSize" isLazy="true">
+				<reportElement x="120" y="16" width="99" height="29" uuid="5e7b9db1-9f03-4626-a42d-1ae21a6f7403"/>
+				<imageExpression><![CDATA[$P{signature}]]></imageExpression>
+			</image>
 		</band>
 	</columnFooter>
 	<pageFooter>
@@ -520,7 +576,7 @@
 				<text><![CDATA[Page :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="4" width="100" height="10" uuid="eac47b97-a8b3-439a-b902-4ec507345ffd"/>
+				<reportElement x="0" y="15" width="100" height="10" uuid="eac47b97-a8b3-439a-b902-4ec507345ffd"/>
 				<textElement textAlignment="Left">
 					<font fontName="DejaVu Serif" size="8" isBold="false"/>
 				</textElement>

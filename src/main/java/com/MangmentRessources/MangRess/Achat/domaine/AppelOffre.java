@@ -27,12 +27,16 @@ import java.util.Collection;
 import java.util.Date;
 import javax.validation.constraints.Size;
 
+
+
+
 /**
  *
  * @author Administrator
  */
 @Entity
 @Table(name = "appel_offre", schema = "achat")
+
 public class AppelOffre {
 
     @Id
@@ -106,7 +110,7 @@ public class AppelOffre {
     @Column(name = "etat_approuver", updatable = false, insertable = false)
     private Integer codeEtatApprouverOrdreAchat;
 
-    @Column(name = "adress_livraison", nullable = false, columnDefinition = "nvarchar(max) default '...'")
+    @Column(name = "adress_livraison", nullable = false, columnDefinition = "nvarchar(200) ")
     private String adressLivraison;
 
     public AppelOffre() {

@@ -18,6 +18,8 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import java.util.Date;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 /**
  *
@@ -25,6 +27,8 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "details_nomenclature_article", schema = "achat")
+//@Audited
+//@AuditTable("details_nomenclature_article_AUD")
 public class DetailsNomenclatureArticle {
 
     private static final long serialVersionUID = 1L;
@@ -58,7 +62,20 @@ public class DetailsNomenclatureArticle {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreate;
 
+ @Column(name = "code_matiere", insertable = false, updatable = false)
+    private Integer codematiere;
 
+    @JoinColumn(name = "code_matiere", referencedColumnName = "Code", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Matiere matiere;
+
+    @JoinColumn(name = "code_coloris", referencedColumnName = "code", nullable = false, updatable = false, insertable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Coloris coloris;
+    @Column(name = "code_coloris", insertable = false, updatable = false)
+    private Integer codeColoris;
     
     
 
@@ -126,6 +143,38 @@ public class DetailsNomenclatureArticle {
 
     public void setDateCreate(Date dateCreate) {
         this.dateCreate = dateCreate;
+    }
+
+    public Integer getCodematiere() {
+        return codematiere;
+    }
+
+    public void setCodematiere(Integer codematiere) {
+        this.codematiere = codematiere;
+    }
+
+    public Matiere getMatiere() {
+        return matiere;
+    }
+
+    public void setMatiere(Matiere matiere) {
+        this.matiere = matiere;
+    }
+
+    public Coloris getColoris() {
+        return coloris;
+    }
+
+    public void setColoris(Coloris coloris) {
+        this.coloris = coloris;
+    }
+
+    public Integer getCodeColoris() {
+        return codeColoris;
+    }
+
+    public void setCodeColoris(Integer codeColoris) {
+        this.codeColoris = codeColoris;
     }
 
 }

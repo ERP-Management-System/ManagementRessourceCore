@@ -194,16 +194,21 @@ public class AppelOffreFactory {
             detailsmodelepanierPK.setCodeUnite(x.getCodeUnite().getCode());
             Preconditions.checkBusinessLogique(x.getCodeColoris().getCode() != null, "error.ColorisRequired");
             detailsmodelepanierPK.setCodeColoris(x.getCodeColoris().getCode());
-
             detailsAppelOffre.setDetailsAppelOffrePK(detailsmodelepanierPK);
-            Preconditions.checkBusinessLogique(x.getQteDemander() != null, "error.QuantiteRequired");
-            detailsAppelOffre.setQteDemander(x.getQteDemander());
+            if (LocaleContextHolder.getLocale().getLanguage().equals(new Locale(LANGUAGE_SEC).getLanguage())) {
+                Preconditions.checkBusinessLogique(x.getQteDemander() != null, "error.QuantiteRequired");
+                detailsAppelOffre.setQteDemander(x.getQteDemander());
+            } else {
+                Preconditions.checkBusinessLogique(x.getQteDemander() != null, "error.مشكلة");
+                detailsAppelOffre.setQteDemander(x.getQteDemander());
+            }
+
             detailsAppelOffre.setDateCreate(domaine.getDateCreate());
             detailsAppelOffre.setUsercreate(domaine.getUserCreate());
 
             //order item
             detailsAppelOffre.setOrdreMatiere(order.get());
-            order.getAndSet(order.get() + 1); 
+            order.getAndSet(order.get() + 1);
             detailsAppelOffre.setAppelOffre(domaine);
             detailsModelePanierCollections.add(detailsAppelOffre);
         });

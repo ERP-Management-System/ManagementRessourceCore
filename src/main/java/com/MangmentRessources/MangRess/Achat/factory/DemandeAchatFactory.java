@@ -56,6 +56,7 @@ public class DemandeAchatFactory {
             domaine.setObservation(Dto.getObservation());
 
             domaine.setCodeEtatDemande(Dto.getCodeEtatDemande());
+            domaine.setCodeDepartement(Dto.getCodeDepartement());
 
             return domaine;
         } else {
@@ -75,6 +76,8 @@ public class DemandeAchatFactory {
             dTO.setUserCreate(domaine.getUserCreate());
             dTO.setObservation(domaine.getObservation());
             dTO.setDateLivraison(domaine.getDateLivraison());
+            dTO.setUserDemander(domaine.getUserDemander());
+            dTO.setCodeUserDemander(domaine.getCodeUserDemander());
 
 //            dTO.setMntTotalHT(domaine.getMntTotalHT());
 //            dTO.setMntTotalTTC(domaine.getMntTotalTTC());
@@ -135,18 +138,27 @@ public class DemandeAchatFactory {
         domaine.setDateCreate(new Date());
         domaine.setUserCreate(dTO.getUserCreate());
         domaine.setObservation(dTO.getObservation());
+        domaine.setUserDemander(dTO.getUserDemander());
+        domaine.setDateLivraison(dTO.getDateLivraison()); 
+        domaine.setCodeUserDemander(dTO.getCodeUserDemander());
+
+
 //        domaine.setMntTotalHT(dTO.getMntTotalHT());
 //        domaine.setMntTotalTTC(dTO.getMntTotalTTC());
 //        domaine.setMntTotalTaxe(dTO.getMntTotalTaxe());
-
         domaine.setCodeEtatDemande(2);
         if (domaine.getCodeEtatDemande() != null) {
             domaine.setEtatDemande(EtatDemandeAchatFactory.createEtatDemandeAchatByCode(2));
         }
 
+//        domaine.setCodeDepartement(dTO.getCodeDepartement());
+//        if (domaine.getCodeDepartement() != null) {
+//            domaine.setDepartement(DepartementFactory.createDepartementByCode(dTO.getCodeDepartement()));
+//        }
         domaine.setCodeDepartement(dTO.getCodeDepartement());
         if (domaine.getCodeDepartement() != null) {
             domaine.setDepartement(DepartementFactory.createDepartementByCode(dTO.getCodeDepartement()));
+
         }
 
         domaine.setCodeEtatApprouver(dTO.getCodeEtatApprouver());
@@ -195,45 +207,6 @@ public class DemandeAchatFactory {
 //        System.out.println("soufien send valider");
         return domaine;
     }
-//
-//    public static DemandeAchatDTO demandeAchatWithDetailsTodemandeAchatDTOWithDetails(DemandeAchat domaine) {
-////        System.out.println("soufien return");
-//        if (domaine == null) {
-//            return null;
-//        }
-//        DemandeAchatDTO dTO = new DemandeAchatDTO();
-//        dTO.setCode(domaine.getCode());
-//        dTO.setCodeSaisie(domaine.getCodeSaisie());
-//        dTO.setActif(domaine.isActif());
-//        dTO.setVisible(domaine.isVisible());
-//        dTO.setDateCreate(domaine.getDateCreate());
-//        dTO.setUserCreate(domaine.getUserCreate());
-//        dTO.setObservation(domaine.getObservation());
-//        dTO.setFournisseurDTO(FournisseurFactory.fournisseurToFournisseurDTO(domaine.getFournisseur()));
-//        dTO.setCodeFournisseur(domaine.getCodeFournisseur());
-//
-//        dTO.setModeReglementDTO(ModeReglementFactory.modeReglementToModeReglementDTO(domaine.getModeReglement()));
-//        dTO.setCodeModeReglement(domaine.getCodeModeReglement());
-//
-//        dTO.setEtatReceptionDTO(EtatReceptionFactory.etatReceptionToEtatReceptionDTO(domaine.getEtatReception()));
-//        dTO.setCodeEtatReception(domaine.getCodeEtatReception());
-//
-//        if (domaine.getDetailsDemandeAchatsCollections() != null) {
-//            Collection<DetailsDemandeAchatDTO> detailsDdeTransfertDTOSCollection = new ArrayList<>();
-//            domaine.getDetailsDemandeAchatsCollections().forEach(x -> {
-//                DetailsDemandeAchatDTO detailsDTO = new DetailsDemandeAchatDTO();
-//                detailsDTO = DetailsDemandeAchatFactory.detailsDemandeAchatTodetailsDemandeAchatDTOCollection(x);
-//                detailsDdeTransfertDTOSCollection.add(detailsDTO);
-//            });
-//            if (dTO.getDetailsDemandeAchatDTOs() != null) {
-//                dTO.getDetailsDemandeAchatDTOs().clear();
-//                dTO.getDetailsDemandeAchatDTOs().addAll(detailsDdeTransfertDTOSCollection);
-//            } else {
-//                dTO.setDetailsDemandeAchatDTOs(detailsDdeTransfertDTOSCollection);
-//            }
-//        }
-//        return dTO;
-//    }
 
     public static DemandeAchatDTO DetailsdemandeAchatToDetailsDemandeAchatDTO(DemandeAchat domaine) {
 
@@ -246,6 +219,10 @@ public class DemandeAchatFactory {
             dTO.setDateCreate(domaine.getDateCreate());
             dTO.setUserCreate(domaine.getUserCreate());
             dTO.setObservation(domaine.getObservation());
+            dTO.setUserDemander(domaine.getUserDemander());
+            dTO.setDateLivraison(domaine.getDateLivraison());  
+            dTO.setCodeUserDemander(domaine.getCodeUserDemander());
+
 
 //            dTO.setMntTotalHT(domaine.getMntTotalHT());
 //            dTO.setMntTotalTTC(domaine.getMntTotalTTC());
@@ -283,7 +260,10 @@ public class DemandeAchatFactory {
         dTO.setDateCreate(domaine.getDateCreate());
         dTO.setUserCreate(domaine.getUserCreate());
         dTO.setObservation(domaine.getObservation());
-        dTO.setObservation(domaine.getObservation());
+        dTO.setUserDemander(domaine.getUserDemander());
+        dTO.setDateLivraison(domaine.getDateLivraison());   
+        dTO.setCodeUserDemander(domaine.getCodeUserDemander());
+
 
 //        dTO.setMntTotalHT(domaine.getMntTotalHT());
 //        dTO.setMntTotalTTC(domaine.getMntTotalTTC());
@@ -300,8 +280,8 @@ public class DemandeAchatFactory {
         dTO.setDepotDTO(DepotFactory.depotToDepotDTO(domaine.getDepot()));
         dTO.setCodeDepot(domaine.getCodeDepot());
 
-        dTO.setDepartementDTO(DepartementFactory.departementToDepartementDTO(domaine.getDepartement()));
         dTO.setCodeDepartement(domaine.getCodeDepartement());
+        dTO.setDepartementDTO(DepartementFactory.departementToDepartementDTO(domaine.getDepartement()));
 
         if (domaine.getDetailsDemandeAchats() != null) {
             Collection<DetailsDemandeAchatDTO> detailsDTOSCollection = new ArrayList<>();

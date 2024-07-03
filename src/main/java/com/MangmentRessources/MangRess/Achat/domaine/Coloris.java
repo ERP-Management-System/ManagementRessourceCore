@@ -15,6 +15,8 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import javax.validation.constraints.Size;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 /**
  *
@@ -22,6 +24,8 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "Coloris", schema = "achat")
+//@Audited
+//@AuditTable("Coloris_AUD")
 public class Coloris {
 
     @Id
@@ -36,11 +40,11 @@ public class Coloris {
 
     @Size(max = 200)
     @NotNull
-    @Column(name = "designation_ar", length = 200, columnDefinition = "nvarchar")
+    @Column(name = "designation_ar", length = 200, columnDefinition = "nvarchar(200)")
     private String designationAr;
 
     @Size(max = 200)
-    @Column(name = "designation_lt", length = 200, columnDefinition = "nvarchar")
+    @Column(name = "designation_lt", length = 200, columnDefinition = "nvarchar(200)")
     private String designationLt;
 
     @Column(name = "actif", nullable = false)
@@ -49,7 +53,7 @@ public class Coloris {
     @Column(name = "visible", nullable = false)
     private boolean visible;
 
-    @Column(name = "user_Create", nullable = false, length = 255, columnDefinition = "nvarchar")
+    @Column(name = "user_Create", nullable = false, length = 255, columnDefinition = "nvarchar(200)")
     private String userCreate;
 
     @NotNull

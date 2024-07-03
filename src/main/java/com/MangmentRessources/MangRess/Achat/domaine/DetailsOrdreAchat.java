@@ -19,6 +19,8 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 /**
  *
@@ -26,6 +28,8 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "details_ordre_achat", schema = "achat")
+//@Audited
+//@AuditTable("details_ordre_achat_AUD")
 public class DetailsOrdreAchat {
 
     private static final long serialVersionUID = 1L;

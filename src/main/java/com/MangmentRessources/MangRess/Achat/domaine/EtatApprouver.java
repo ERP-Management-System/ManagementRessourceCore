@@ -13,6 +13,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 /**
  *
@@ -20,6 +22,8 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "etat_approuve", schema = "achat")
+//@Audited
+//@AuditTable("etat_approuve_AUD")
 public class EtatApprouver {
 
     @Id

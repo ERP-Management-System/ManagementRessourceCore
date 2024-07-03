@@ -19,6 +19,8 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Date;
 import javax.validation.constraints.Size;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 /**
  *
@@ -26,6 +28,8 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "type_matiere", schema = "achat")
+//@Audited
+//@AuditTable("type_matiere_AUD")
 public class TypeMatiere {
 
     @Id

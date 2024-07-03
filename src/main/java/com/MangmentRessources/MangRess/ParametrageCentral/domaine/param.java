@@ -10,6 +10,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 /**
  *
@@ -17,6 +19,8 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "param", schema = "param")
+//@Audited
+//@AuditTable("param_AUD")
 public class param {
 
      @Id

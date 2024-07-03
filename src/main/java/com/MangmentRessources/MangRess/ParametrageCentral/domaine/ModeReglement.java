@@ -19,6 +19,8 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import javax.validation.constraints.Size;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 /**
  *
@@ -26,6 +28,8 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "mode_reglement", schema = "param")
+//@Audited
+//@AuditTable("mode_reglement_AUD")
 public class ModeReglement {
 
     @Id
