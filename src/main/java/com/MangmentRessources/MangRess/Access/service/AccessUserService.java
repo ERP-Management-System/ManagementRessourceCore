@@ -42,6 +42,11 @@ public class AccessUserService {
         return AccessUserFactory.societeToSocieteDTOs(accessUserRepo.findAll());
 
     }
+    @Transactional(readOnly = true)
+    public List<AccessUserDTO> findAllAcessUserWithOutPassword() {
+        return AccessUserFactory.societeToSocieteDTOsWithOutPassword(accessUserRepo.findAll());
+
+    }
 //
 
     @Transactional(readOnly = true)

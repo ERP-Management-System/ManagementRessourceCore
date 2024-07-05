@@ -56,6 +56,12 @@ public class AccessUSerRessource {
 //        return ResponseEntity.ok().body(dTO);
 //    }
     @GetMapping("accessUser/all")
+    public ResponseEntity<List<AccessUserDTO>> getAllAccessUserWithOutPasswrod() {
+//        List<DdeAchat> ddeAchatList = ddeAchatService.findAllDdeAchat();
+        return ResponseEntity.ok().body(accessUserService.findAllAcessUserWithOutPassword());
+    }
+    
+        @GetMapping("accessUser/allWithPass")
     public ResponseEntity<List<AccessUserDTO>> getAllAccessUser() {
 //        List<DdeAchat> ddeAchatList = ddeAchatService.findAllDdeAchat();
         return ResponseEntity.ok().body(accessUserService.findAllAcessUser());

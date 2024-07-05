@@ -107,6 +107,21 @@ public class AccessUserFactory {
         }
     }
 
+    public static AccessUserDTO accessUserToAccessUserDTOWithOutPassword(AccessUser domaine) {
+        AccessUserDTO dTO = new AccessUserDTO();
+        dTO.setUserName(domaine.getUserName());
+//        if (!Boolean.TRUE.equals(withoutLogo)) {
+        dTO.setSignature(domaine.getSignature());
+//        }
+
+        dTO.setCode(domaine.getCode());
+        dTO.setNomCompletUser(domaine.getNomCompletUser());
+//        dTO.setPassword(domaine.getPassword());
+        dTO.setActif(domaine.getActif());
+
+        return dTO;
+    }
+    
     public static AccessUserDTO accessUserToAccessUserDTO(AccessUser domaine, Boolean withoutLogo) {
         AccessUserDTO dTO = new AccessUserDTO();
         dTO.setUserName(domaine.getUserName());
@@ -126,6 +141,13 @@ public class AccessUserFactory {
         List<AccessUserDTO> dTOs = new ArrayList<>();
         societes.forEach(x -> {
             dTOs.add(accessUserToAccessUserDTO(x, false));
+        });
+        return dTOs;
+    }
+        public static List<AccessUserDTO> societeToSocieteDTOsWithOutPassword(List<AccessUser> societes) {
+        List<AccessUserDTO> dTOs = new ArrayList<>();
+        societes.forEach(x -> {
+            dTOs.add(accessUserToAccessUserDTOWithOutPassword(x));
         });
         return dTOs;
     }

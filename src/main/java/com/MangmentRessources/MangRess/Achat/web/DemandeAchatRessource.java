@@ -14,6 +14,7 @@ import com.MangmentRessources.MangRess.ParametrageCentral.dto.SocieteDTO;
 import com.MangmentRessources.MangRess.ParametrageCentral.dto.paramDTO;
 import com.MangmentRessources.MangRess.ParametrageCentral.service.ParamService;
 import com.MangmentRessources.MangRess.ParametrageCentral.service.SocieteService;
+import com.google.common.base.Preconditions;
 import jakarta.validation.Valid;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -69,7 +70,7 @@ public class DemandeAchatRessource {
     private final DemandeAchatService demandeAchatService;
     private final ParamService paramService;
     private final SocieteService societeService;
-    
+
     private final AccessUserService accessUserService;
 
     public DemandeAchatRessource(DemandeAchatService demandeAchatService, ParamService paramService, SocieteService societeService, AccessUserService accessUserService) {
@@ -78,10 +79,6 @@ public class DemandeAchatRessource {
         this.societeService = societeService;
         this.accessUserService = accessUserService;
     }
-    
-    
-
- 
 
     @GetMapping("demande_achat/all")
     public ResponseEntity<List<DemandeAchatDTO>> getAllArticle() {
@@ -128,10 +125,12 @@ public class DemandeAchatRessource {
         Collection<DetailsDemandeAchatDTO> dto = demandeAchatService.findOneWithDetilas(code);
         paramDTO dTOs = paramService.findParamByCodeParamS("NomSociete");
         DemandeAchatDTO rslt = demandeAchatService.findOne(code);
-        System.out.println("getCodeUserDemander)"+rslt.getCodeUserDemander());
+        System.out.println("getCodeUserDemander)" + rslt.getCodeUserDemander());
         AccessUserDTO getsignature = accessUserService.findOne(rslt.getCodeUserDemander());
+//        Preconditions.checkArgument(getsignature.getSignature() != null, "Signature Not Found");
 
-        Resource ressource = new ByteArrayResource(getsignature.getSignature());
+        com.MangmentRessources.MangRess.web.Util.Preconditions.checkBusinessLogique(getsignature.getSignature() != null, "Signature Not Found ");
+//        Resource ressource = new ByteArrayResource(getsignature.getSignature());
 
 //        return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(ressource);
         SocieteDTO clinique = societeService.findOne(1);
@@ -144,13 +143,12 @@ public class DemandeAchatRessource {
         params.put("Observation", rslt.getObservation());
         params.put("societe", dTOs.getValeur());
         params.put("dateLivraison", rslt.getDateLivraison());
-        params.put("EtatValidation", rslt.getEtatApprouverDTO().getDesignation());  
+        params.put("EtatValidation", rslt.getEtatApprouverDTO().getDesignation());
         params.put("Departement", rslt.getDepartementDTO().getDesignationAr());
-        params.put("Demandeur", rslt.getUserDemander());     
+        params.put("Demandeur", rslt.getUserDemander());
         params.put("signature", getsignature.getSignature());
 
-
-        params.put("logo", clinique.getLogo()); 
+        params.put("logo", clinique.getLogo());
         System.out.println("filling parameters to .JASPER file....");
         JasperPrint print = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 
@@ -175,5 +173,5 @@ public class DemandeAchatRessource {
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(res);
     }
- 
+
 }
