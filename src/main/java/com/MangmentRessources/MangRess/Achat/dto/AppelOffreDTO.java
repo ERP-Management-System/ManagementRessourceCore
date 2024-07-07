@@ -4,6 +4,7 @@
  */
 package com.MangmentRessources.MangRess.Achat.dto;
 
+import com.MangmentRessources.MangRess.Achat.domaine.DemandeAchat;
 import com.MangmentRessources.MangRess.Achat.domaine.EtatApprouver;
 import com.MangmentRessources.MangRess.Achat.domaine.EtatReception;
 import com.MangmentRessources.MangRess.ParametrageCentral.dto.ModeReglementDTO;
@@ -36,7 +37,6 @@ public class AppelOffreDTO {
     private String designationAr;
 
     private String designationLt;
- 
 
     private String userCreate;
 
@@ -60,19 +60,21 @@ public class AppelOffreDTO {
 
     private Integer codeEtatReception;
 
-    private String observation;   
-    
-    private String adressLivraison;
+    private String observation;
 
+    private String adressLivraison;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateLivraison;
-    
-        private EtatApprouverDTO etatApprouverOrdreAchatDTO;
- 
-    private Integer codeEtatApprouverOrdreAchat;
+
+//        private EtatApprouverDTO etatApprouverOrdreAchatDTO;
+// 
+//    private Integer codeEtatApprouverOrdreAchat;
+    private DemandeAchatDTO demandeAchatDTO;
+
+    private Integer codeDemandeAchat;
 
     public AppelOffreDTO() {
     }
@@ -117,7 +119,6 @@ public class AppelOffreDTO {
         this.designationLt = designationLt;
     }
 
- 
     public String getUserCreate() {
         return userCreate;
     }
@@ -222,22 +223,21 @@ public class AppelOffreDTO {
         this.dateLivraison = dateLivraison;
     }
 
-    public EtatApprouverDTO getEtatApprouverOrdreAchatDTO() {
-        return etatApprouverOrdreAchatDTO;
-    }
-
-    public void setEtatApprouverOrdreAchatDTO(EtatApprouverDTO etatApprouverOrdreAchatDTO) {
-        this.etatApprouverOrdreAchatDTO = etatApprouverOrdreAchatDTO;
-    }
-
-    public Integer getCodeEtatApprouverOrdreAchat() {
-        return codeEtatApprouverOrdreAchat;
-    }
-
-    public void setCodeEtatApprouverOrdreAchat(Integer codeEtatApprouverOrdreAchat) {
-        this.codeEtatApprouverOrdreAchat = codeEtatApprouverOrdreAchat;
-    }
-
+//    public EtatApprouverDTO getEtatApprouverOrdreAchatDTO() {
+//        return etatApprouverOrdreAchatDTO;
+//    }
+//
+//    public void setEtatApprouverOrdreAchatDTO(EtatApprouverDTO etatApprouverOrdreAchatDTO) {
+//        this.etatApprouverOrdreAchatDTO = etatApprouverOrdreAchatDTO;
+//    }
+//
+//    public Integer getCodeEtatApprouverOrdreAchat() {
+//        return codeEtatApprouverOrdreAchat;
+//    }
+//
+//    public void setCodeEtatApprouverOrdreAchat(Integer codeEtatApprouverOrdreAchat) {
+//        this.codeEtatApprouverOrdreAchat = codeEtatApprouverOrdreAchat;
+//    }
     public String getAdressLivraison() {
         return adressLivraison;
     }
@@ -246,6 +246,22 @@ public class AppelOffreDTO {
         this.adressLivraison = adressLivraison;
     }
 
- 
+    public DemandeAchatDTO getDemandeAchatDTO() {
+        return demandeAchatDTO;
+    }
 
+    public void setDemandeAchatDTO(DemandeAchatDTO demandeAchatDTO) {
+        this.demandeAchatDTO = demandeAchatDTO;
+    }
+
+    public Integer getCodeDemandeAchat() {
+        return codeDemandeAchat;
+    }
+
+    public void setCodeDemandeAchat(Integer codeDemandeAchat) {
+        this.codeDemandeAchat = codeDemandeAchat;
+    }
+
+    
+    
 }

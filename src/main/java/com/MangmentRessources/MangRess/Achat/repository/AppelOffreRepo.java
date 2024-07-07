@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AppelOffreRepo extends JpaRepository<AppelOffre, Integer>{
     
-    List<AppelOffre> findAppelOffreByCodeEtatApprouverOrdreAchat(Integer codeEtatApprouverOrdreAchat);
+//    List<AppelOffre> findAppelOffreByCodeEtatApprouverOrdreAchat(Integer codeEtatApprouverOrdreAchat);
     
     
 }

@@ -82,7 +82,7 @@ public class Matiere {
     @JsonBackReference
     private Taxe taxe;
 
-    @Column(name = "code_taxe", updatable = false, insertable = false , columnDefinition = ("decimal(18,3) default 0"))
+    @Column(name = "code_taxe", updatable = false, insertable = false )
     private Integer codeTaxe;
 
     public Matiere() {

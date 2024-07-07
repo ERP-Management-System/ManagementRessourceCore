@@ -113,11 +113,11 @@ public class AccessUSerRessource {
 //        return ResponseEntity.ok().body(dto);
 //    }
 
-//    @DeleteMapping("accessUser/delete/{UserName}")
-//    public ResponseEntity<Void> deleteUser(@PathVariable String UserName) {
-//        accessUserService.deleteUSerName(UserName);
-//        return ResponseEntity.ok().build();
-//    }
+    @DeleteMapping("accessUser/delete/{code}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer code) {
+        accessUserService.deleteUSerName(code);
+        return ResponseEntity.ok().build();
+    }
 
     @GetMapping("/accessUser/{UserName}/sginature")
     public ResponseEntity<Resource> getSignature(@PathVariable Integer code) {

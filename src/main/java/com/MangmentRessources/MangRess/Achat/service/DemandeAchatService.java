@@ -121,6 +121,24 @@ public class DemandeAchatService {
         return resultDTO;
     }
 
+    public DemandeAchatDTO approuveDA(DemandeAchatDTO dTO) {
+        DemandeAchat inBase = demandeAchatRepo.getReferenceById(dTO.getCode());
+        Preconditions.checkArgument(inBase != null, "error.DemandeAchatInexistant");
+        inBase = DemandeAchatFactory.ApprouvedemandeAchatDTOToDemandeAchat(inBase, dTO);
+        inBase = demandeAchatRepo.save(inBase);
+        DemandeAchatDTO resultDTO = DemandeAchatFactory.UpdatedemandeAchatWithDetailsTodemandeAchatDTOWithDetails(inBase);
+        return resultDTO;
+    }
+
+    public DemandeAchatDTO CancelapprouveDA(DemandeAchatDTO dTO) {
+        DemandeAchat inBase = demandeAchatRepo.getReferenceById(dTO.getCode());
+        Preconditions.checkArgument(inBase != null, "error.DemandeAchatInexistant");
+        inBase = DemandeAchatFactory.CancelApprouvedemandeAchatDTOToDemandeAchat(inBase, dTO);
+        inBase = demandeAchatRepo.save(inBase);
+        DemandeAchatDTO resultDTO = DemandeAchatFactory.UpdatedemandeAchatWithDetailsTodemandeAchatDTOWithDetails(inBase);
+        return resultDTO;
+    }
+
     public void deleteDemandeAchat(Integer code) {
         Preconditions.checkArgument(demandeAchatRepo.existsById(code), "error.DemandeAchatNotFound");
         demandeAchatRepo.deleteById(code);

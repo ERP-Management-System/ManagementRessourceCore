@@ -74,10 +74,10 @@ public class AppelOffreService {
         return AppelOffreFactory.appelOffreToAppelOffreDTO(domaine);
     }
 
-    @Transactional(readOnly = true)
-    public List<AppelOffreDTO> findOneByEtatApprouver(Integer CodeEtatApprouverOrdreAchat) {
-        return AppelOffreFactory.listAppelOffreToAppelOffreDTOs(appelOffreRepo.findAppelOffreByCodeEtatApprouverOrdreAchat(CodeEtatApprouverOrdreAchat));
-    }
+//    @Transactional(readOnly = true)
+//    public List<AppelOffreDTO> findOneByEtatApprouver(Integer CodeEtatApprouverOrdreAchat) {
+//        return AppelOffreFactory.listAppelOffreToAppelOffreDTOs(appelOffreRepo.findAppelOffreByCodeEtatApprouverOrdreAchat(CodeEtatApprouverOrdreAchat));
+//    }
 
     public AppelOffreDTO updateNewWithFlush(AppelOffreDTO modelepanierDTO) {
         AppelOffre inBase = appelOffreRepo.getReferenceById(modelepanierDTO.getCode());
@@ -92,8 +92,8 @@ public class AppelOffreService {
 
     public void deleteAppelOffre(Integer code) {
         Preconditions.checkArgument(appelOffreRepo.existsById(code), "error.AppelOffreNotFound");
-        AppelOffre inBase = appelOffreRepo.getReferenceById(code);
-                Preconditions.checkArgument(inBase.getCodeEtatApprouverOrdreAchat().equals("3"), "error.AppelOffreRefuser"); 
+//        AppelOffre inBase = appelOffreRepo.getReferenceById(code);
+//                Preconditions.checkArgument(inBase.getCodeEtatApprouverOrdreAchat().equals("3"), "error.AppelOffreRefuser"); 
         OrdreAchat ordreAchat = ordreAchatRepo.findByCodeAppelOffre(code);
         Preconditions.checkArgument(ordreAchat == null, "error.AppelOffreInOrdreAchat"); 
         detailsAppelOffreService.deleteByCodeAppelOffre(code); 

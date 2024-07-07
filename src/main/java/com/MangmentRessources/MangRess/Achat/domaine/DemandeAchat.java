@@ -123,8 +123,12 @@ public class DemandeAchat {
     @Column(name = "user_demander", columnDefinition = "nvarchar(max) ")
     private String userDemander;
 
-    @Column(name = "code_user_demander", nullable = false ,columnDefinition = "Nvarchar(200) default ''")
-    private Integer codeUserDemander;
+    @Column(name = "code_user_approuver", columnDefinition = "Nvarchar(200) default ''")
+    private Integer codeUserApprouver;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_approuve",columnDefinition = "datetime default(getdate())")
+    private Date dateApprouve;
 
     public DemandeAchat() {
     }
@@ -216,7 +220,7 @@ public class DemandeAchat {
     public void setCodeAppelOffre(Integer codeAppelOffre) {
         this.codeAppelOffre = codeAppelOffre;
     }
- 
+
     public LocalDate getDateLivraison() {
         return dateLivraison;
     }
@@ -289,14 +293,20 @@ public class DemandeAchat {
         this.detailsDemandeAchats = detailsDemandeAchats;
     }
 
-    public Integer getCodeUserDemander() {
-        return codeUserDemander;
+    public Integer getCodeUserApprouver() {
+        return codeUserApprouver;
     }
 
-    public void setCodeUserDemander(Integer codeUserDemander) {
-        this.codeUserDemander = codeUserDemander;
+    public void setCodeUserApprouver(Integer codeUserApprouver) {
+        this.codeUserApprouver = codeUserApprouver;
     }
-    
-    
+
+    public Date getDateApprouve() {
+        return dateApprouve;
+    }
+
+    public void setDateApprouve(Date dateApprouve) {
+        this.dateApprouve = dateApprouve;
+    }
 
 }

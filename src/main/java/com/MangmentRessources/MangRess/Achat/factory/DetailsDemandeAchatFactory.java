@@ -53,8 +53,7 @@ public class DetailsDemandeAchatFactory {
             DetailsDemandeAchatDTO dTO = new DetailsDemandeAchatDTO();
             dTO.setCodeDemandeAchat(domaine.getDetailsDemandeAchatPK().getCodeDemandeAchat());
             dTO.setDatecreate(domaine.getDateCreate());
-            dTO.setUsercreate(domaine.getUsercreate());
-            System.out.println("soufien returnxxxx");
+            dTO.setUsercreate(domaine.getUsercreate()); 
             dTO.setCodeSaisieDemandeAchat(domaine.getDemandeAchat().getCodeSaisie());
             dTO.setCodeMatieres(domaine.getMatiere().getCode());      
  
@@ -65,7 +64,7 @@ public class DetailsDemandeAchatFactory {
             dTO.setCodeSaisieMatiere(domaine.getMatiere().getCodeSaisie());
             dTO.setDesignationArMatiere(domaine.getMatiere().getDesignationAr());
             dTO.setDesignationLtMatiere(domaine.getMatiere().getDesignationLt());
-//            dTO.setPrixAchat(domaine.getMatiere().getPrixAchat());       
+            dTO.setPrixAchat(domaine.getMatiere().getPrixAchat());       
             dTO.setCodeTaxe(domaine.getMatiere().getCodeTaxe());
             
             

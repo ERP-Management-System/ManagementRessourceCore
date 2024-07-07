@@ -41,7 +41,7 @@ public class DetailsDemandeAchatDTO {
     private String codeSaisieMatiere;
     private String designationArMatiere;
     private String designationLtMatiere;
-//    private BigDecimal prixAchat;
+    private BigDecimal prixAchat;
     private Integer codeTaxe;
 
     private Integer codeUnites;
@@ -259,5 +259,15 @@ public class DetailsDemandeAchatDTO {
 //    public void setCodeModeReglement(Integer codeModeReglement) {
 //        this.codeModeReglement = codeModeReglement;
 //    }
+
+    public BigDecimal getPrixAchat() {
+        return prixAchat;
+    }
+
+    public void setPrixAchat(BigDecimal prixAchat) {
+        this.prixAchat = prixAchat;
+    }
+    
+    
 
 }

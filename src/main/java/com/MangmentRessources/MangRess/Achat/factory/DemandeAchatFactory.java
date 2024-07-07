@@ -77,7 +77,8 @@ public class DemandeAchatFactory {
             dTO.setObservation(domaine.getObservation());
             dTO.setDateLivraison(domaine.getDateLivraison());
             dTO.setUserDemander(domaine.getUserDemander());
-            dTO.setCodeUserDemander(domaine.getCodeUserDemander());
+            dTO.setCodeUserApprouver(domaine.getCodeUserApprouver());
+            dTO.setDateApprouve(domaine.getDateApprouve());
 
 //            dTO.setMntTotalHT(domaine.getMntTotalHT());
 //            dTO.setMntTotalTTC(domaine.getMntTotalTTC());
@@ -139,9 +140,8 @@ public class DemandeAchatFactory {
         domaine.setUserCreate(dTO.getUserCreate());
         domaine.setObservation(dTO.getObservation());
         domaine.setUserDemander(dTO.getUserDemander());
-        domaine.setDateLivraison(dTO.getDateLivraison()); 
-        domaine.setCodeUserDemander(dTO.getCodeUserDemander());
-
+        domaine.setDateLivraison(dTO.getDateLivraison());
+        domaine.setCodeUserApprouver(dTO.getCodeUserApprouver());
 
 //        domaine.setMntTotalHT(dTO.getMntTotalHT());
 //        domaine.setMntTotalTTC(dTO.getMntTotalTTC());
@@ -220,9 +220,9 @@ public class DemandeAchatFactory {
             dTO.setUserCreate(domaine.getUserCreate());
             dTO.setObservation(domaine.getObservation());
             dTO.setUserDemander(domaine.getUserDemander());
-            dTO.setDateLivraison(domaine.getDateLivraison());  
-            dTO.setCodeUserDemander(domaine.getCodeUserDemander());
-
+            dTO.setDateLivraison(domaine.getDateLivraison());
+            dTO.setCodeUserApprouver(domaine.getCodeUserApprouver());
+            dTO.setDateApprouve(domaine.getDateApprouve());
 
 //            dTO.setMntTotalHT(domaine.getMntTotalHT());
 //            dTO.setMntTotalTTC(domaine.getMntTotalTTC());
@@ -261,9 +261,9 @@ public class DemandeAchatFactory {
         dTO.setUserCreate(domaine.getUserCreate());
         dTO.setObservation(domaine.getObservation());
         dTO.setUserDemander(domaine.getUserDemander());
-        dTO.setDateLivraison(domaine.getDateLivraison());   
-        dTO.setCodeUserDemander(domaine.getCodeUserDemander());
-
+        dTO.setDateLivraison(domaine.getDateLivraison());
+        dTO.setCodeUserApprouver(domaine.getCodeUserApprouver());
+        dTO.setDateApprouve(domaine.getDateApprouve());
 
 //        dTO.setMntTotalHT(domaine.getMntTotalHT());
 //        dTO.setMntTotalTTC(domaine.getMntTotalTTC());
@@ -299,4 +299,28 @@ public class DemandeAchatFactory {
         }
         return dTO;
     }
+
+    public static DemandeAchat ApprouvedemandeAchatDTOToDemandeAchat(DemandeAchat domaine, DemandeAchatDTO dTO) {
+        domaine.setCode(dTO.getCode());
+        domaine.setCodeEtatApprouver(dTO.getCodeEtatApprouver());
+        if (domaine.getCodeEtatApprouver() != null) {
+            domaine.setEtatApprouver(EtatApprouverFactory.createEtatApprouverByCode(dTO.getCodeEtatApprouver()));
+        }
+        domaine.setCodeUserApprouver(dTO.getCodeUserApprouver());
+        domaine.setDateApprouve(new Date());
+
+        return domaine;
+    }
+      public static DemandeAchat CancelApprouvedemandeAchatDTOToDemandeAchat(DemandeAchat domaine, DemandeAchatDTO dTO) {
+        domaine.setCode(dTO.getCode());
+        domaine.setCodeEtatApprouver(dTO.getCodeEtatApprouver());
+        if (domaine.getCodeEtatApprouver() != null) {
+            domaine.setEtatApprouver(EtatApprouverFactory.createEtatApprouverByCode(dTO.getCodeEtatApprouver()));
+        }
+        domaine.setCodeUserApprouver(null);
+        domaine.setDateApprouve(null);
+
+        return domaine;
+    }
+ 
 }

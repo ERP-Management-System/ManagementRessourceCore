@@ -3,9 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.MangmentRessources.MangRess.Achat.factory;
- 
-import com.MangmentRessources.MangRess.Achat.domaine.Matiere; 
-import com.MangmentRessources.MangRess.Achat.dto.MatiereDTO;  
+
+import com.MangmentRessources.MangRess.Achat.domaine.Matiere;
+import com.MangmentRessources.MangRess.Achat.dto.MatiereDTO;
+import com.MangmentRessources.MangRess.ParametrageCentral.factory.TaxeFactory;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -48,10 +49,14 @@ public class MatiereFactory {
             domaine.setDateCreate(Dto.getDateCreate());
             domaine.setUserCreate(Dto.getUserCreate());
             domaine.setQteMinStock(Dto.getQteMinStock());
-            domaine.setQteMaxStock(Dto.getQteMaxStock());  
-            domaine.setPrixAchat(Dto.getPrixAchat());        
-            domaine.setCodeTaxe(Dto.getCodeTaxe());
+            domaine.setQteMaxStock(Dto.getQteMaxStock());
+            domaine.setPrixAchat(Dto.getPrixAchat());
 
+            domaine.setCodeTaxe(Dto.getCodeTaxe());
+            if (domaine.getCodeTaxe() != null) {
+                domaine.setTaxe(TaxeFactory.createTaxeByCode(Dto.getCodeTaxe()));
+
+            }
 
             domaine.setCodeStatuMatiere(Dto.getCodeStatuMatiere());
             if (domaine.getCodeStatuMatiere() != null) {
@@ -92,16 +97,16 @@ public class MatiereFactory {
                 dTO.setDesignationArMatiere(domaine.getDesignationAr());
             }
             dTO.setCodeSaisie(domaine.getCodeSaisie());
-            dTO.setCodeSaisieMatiere(domaine.getCodeSaisie());     
-            dTO.setCodeTaxe(domaine.getCodeTaxe());
-
+            dTO.setCodeSaisieMatiere(domaine.getCodeSaisie());
 
             dTO.setDateCreate(domaine.getDateCreate());
             dTO.setUserCreate(domaine.getUserCreate());
             dTO.setQteMinStock(domaine.getQteMinStock());
-            dTO.setQteMaxStock(domaine.getQteMaxStock()); 
+            dTO.setQteMaxStock(domaine.getQteMaxStock());
             dTO.setPrixAchat(domaine.getPrixAchat());
 
+            dTO.setTaxeDTO(TaxeFactory.taxeToTaxeDTO(domaine.getTaxe()));
+            dTO.setCodeTaxe(domaine.getCodeTaxe());
 
             dTO.setCodeTypeMatiereDTO(TypeMatiereFactory.typeMatiereToTypeMatiereDTO(domaine.getCodeTypeMatiere()));
             dTO.setTypeMatiere(domaine.getTypeMatiere());

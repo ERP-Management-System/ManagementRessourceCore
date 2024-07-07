@@ -68,9 +68,9 @@ public class DemandeAchatDTO {
     private Integer codeDepot;
     private EtatApprouverDTO etatApprouverDTO;
     private Integer codeEtatApprouver;
-    private String userDemander;  
-    private Integer codeUserDemander;
-
+    private String userDemander;
+    private Integer codeUserApprouver;
+    private Date dateApprouve;
 
     public DemandeAchatDTO() {
     }
@@ -291,12 +291,20 @@ public class DemandeAchatDTO {
         this.userDemander = userDemander;
     }
 
-    public Integer getCodeUserDemander() {
-        return codeUserDemander;
+    public Integer getCodeUserApprouver() {
+        return codeUserApprouver;
     }
 
-    public void setCodeUserDemander(Integer codeUserDemander) {
-        this.codeUserDemander = codeUserDemander;
+    public void setCodeUserApprouver(Integer codeUserApprouver) {
+        this.codeUserApprouver = codeUserApprouver;
+    }
+
+    public Date getDateApprouve() {
+        return dateApprouve;
+    }
+
+    public void setDateApprouve(Date dateApprouve) {
+        this.dateApprouve = dateApprouve;
     }
 
 }

@@ -27,9 +27,6 @@ import java.util.Collection;
 import java.util.Date;
 import javax.validation.constraints.Size;
 
-
-
-
 /**
  *
  * @author Administrator
@@ -56,8 +53,6 @@ public class AppelOffre {
     @Size(max = 200)
     @Column(name = "designation_lt", length = 200, nullable = false, columnDefinition = "nvarchar(200)")
     private String designationLt;
-
- 
 
     @Column(name = "user_Create", nullable = false, length = 255, columnDefinition = "nvarchar(200)")
     private String userCreate;
@@ -102,16 +97,23 @@ public class AppelOffre {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "appelOffre", orphanRemoval = true)
     private Collection<DetailsAppelOffre> detailsAppelOffresCollections;
 
-    @JoinColumn(name = "etat_approuver", referencedColumnName = "code", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonBackReference
-    private EtatApprouver etatApprouverOrdreAchat;
-
-    @Column(name = "etat_approuver", updatable = false, insertable = false)
-    private Integer codeEtatApprouverOrdreAchat;
-
+//    @JoinColumn(name = "etat_approuver", referencedColumnName = "code", nullable = false)
+//    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+//    @JsonBackReference
+//    private EtatApprouver etatApprouverOrdreAchat;
+//
+//    @Column(name = "etat_approuver", updatable = false, insertable = false)
+//    private Integer codeEtatApprouverOrdreAchat;
     @Column(name = "adress_livraison", nullable = false, columnDefinition = "nvarchar(200) ")
     private String adressLivraison;
+
+    @JoinColumn(name = "code_demande_achat", referencedColumnName = "Code", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private DemandeAchat demandeAchat;
+
+    @Column(name = "code_demande_achat", updatable = false, insertable = false)
+    private Integer codeDemandeAchat;
 
     public AppelOffre() {
     }
@@ -147,7 +149,6 @@ public class AppelOffre {
     public void setDesignationLt(String designationLt) {
         this.designationLt = designationLt;
     }
- 
 
     public String getUserCreate() {
         return userCreate;
@@ -253,22 +254,21 @@ public class AppelOffre {
         this.dateLivraison = dateLivraison;
     }
 
-    public EtatApprouver getEtatApprouverOrdreAchat() {
-        return etatApprouverOrdreAchat;
-    }
-
-    public void setEtatApprouverOrdreAchat(EtatApprouver etatApprouverOrdreAchat) {
-        this.etatApprouverOrdreAchat = etatApprouverOrdreAchat;
-    }
-
-    public Integer getCodeEtatApprouverOrdreAchat() {
-        return codeEtatApprouverOrdreAchat;
-    }
-
-    public void setCodeEtatApprouverOrdreAchat(Integer codeEtatApprouverOrdreAchat) {
-        this.codeEtatApprouverOrdreAchat = codeEtatApprouverOrdreAchat;
-    }
-
+//    public EtatApprouver getEtatApprouverOrdreAchat() {
+//        return etatApprouverOrdreAchat;
+//    }
+//
+//    public void setEtatApprouverOrdreAchat(EtatApprouver etatApprouverOrdreAchat) {
+//        this.etatApprouverOrdreAchat = etatApprouverOrdreAchat;
+//    }
+//
+//    public Integer getCodeEtatApprouverOrdreAchat() {
+//        return codeEtatApprouverOrdreAchat;
+//    }
+//
+//    public void setCodeEtatApprouverOrdreAchat(Integer codeEtatApprouverOrdreAchat) {
+//        this.codeEtatApprouverOrdreAchat = codeEtatApprouverOrdreAchat;
+//    }
     public String getAdressLivraison() {
         return adressLivraison;
     }
@@ -277,4 +277,22 @@ public class AppelOffre {
         this.adressLivraison = adressLivraison;
     }
 
+    public DemandeAchat getDemandeAchat() {
+        return demandeAchat;
+    }
+
+    public void setDemandeAchat(DemandeAchat demandeAchat) {
+        this.demandeAchat = demandeAchat;
+    }
+
+    public Integer getCodeDemandeAchat() {
+        return codeDemandeAchat;
+    }
+
+    public void setCodeDemandeAchat(Integer codeDemandeAchat) {
+        this.codeDemandeAchat = codeDemandeAchat;
+    }
+
+    
+    
 }

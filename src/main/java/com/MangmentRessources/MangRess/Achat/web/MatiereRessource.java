@@ -4,11 +4,11 @@
  */
 package com.MangmentRessources.MangRess.Achat.web;
 
-import com.MangmentRessources.MangRess.Achat.domaine.Matiere; 
+import com.MangmentRessources.MangRess.Achat.domaine.Matiere;
 import com.MangmentRessources.MangRess.Achat.dto.MatiereDTO;
-import com.MangmentRessources.MangRess.Achat.dto.StatuMatiereDTO; 
+import com.MangmentRessources.MangRess.Achat.dto.StatuMatiereDTO;
 import com.MangmentRessources.MangRess.Achat.service.MatiereService;
-import com.MangmentRessources.MangRess.Achat.service.StatuMatiereService; 
+import com.MangmentRessources.MangRess.Achat.service.StatuMatiereService;
 import jakarta.validation.Valid;
 import java.io.FileNotFoundException;
 import java.net.URI;
@@ -30,7 +30,7 @@ import net.sf.jasperreports.engine.*;
 @RequestMapping("/api/parametrage_achat/")
 public class MatiereRessource {
 
-    private final MatiereService matiereservice;  
+    private final MatiereService matiereservice;
     private final StatuMatiereService statuMatiereService;
 
     public MatiereRessource(MatiereService matiereservice, StatuMatiereService statuMatiereService) {
@@ -38,8 +38,6 @@ public class MatiereRessource {
         this.statuMatiereService = statuMatiereService;
     }
 
-
- 
     @GetMapping("matiere/{code}")
     public ResponseEntity<MatiereDTO> getMatiereByCode(@PathVariable Integer code) {
         MatiereDTO dTO = matiereservice.findOne(code);
@@ -64,11 +62,10 @@ public class MatiereRessource {
         return ResponseEntity.ok().body(dTOs);
     }
 
-        @GetMapping("statu_matiere/all")
-    public ResponseEntity<List<StatuMatiereDTO>> getAllStatuMatiere() { 
+    @GetMapping("statu_matiere/all")
+    public ResponseEntity<List<StatuMatiereDTO>> getAllStatuMatiere() {
         return ResponseEntity.ok().body(statuMatiereService.findAllStatuMatiere());
     }
- 
 
     @PostMapping("matiere")
     public ResponseEntity<MatiereDTO> postMatiere(@Valid @RequestBody MatiereDTO dTO, BindingResult bindingResult) throws URISyntaxException, MethodArgumentNotValidException {

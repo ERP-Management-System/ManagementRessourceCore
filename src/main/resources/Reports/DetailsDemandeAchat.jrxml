@@ -554,7 +554,7 @@
 				<text><![CDATA[Signature :]]></text>
 			</staticText>
 			<image scaleImage="RealSize" isUsingCache="true" isLazy="true" onErrorType="Icon">
-				<reportElement x="120" y="16" width="99" height="29" uuid="5e7b9db1-9f03-4626-a42d-1ae21a6f7403"/>
+				<reportElement x="79" y="16" width="148" height="47" uuid="5e7b9db1-9f03-4626-a42d-1ae21a6f7403"/>
 				<imageExpression><![CDATA[$P{signature}]]></imageExpression>
 			</image>
 		</band>

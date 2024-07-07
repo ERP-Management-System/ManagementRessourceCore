@@ -102,12 +102,12 @@ public class AppelOffreFactory {
             dTO.setDateLivraison(domaine.getDateLivraison());
             dTO.setAdressLivraison(domaine.getAdressLivraison());
 
-            dTO.setEtatApprouverOrdreAchatDTO(EtatApprouverFactory.etatApprouverToEtatApprouverDTO(domaine.getEtatApprouverOrdreAchat()));
-            dTO.setCodeEtatApprouverOrdreAchat(domaine.getCodeEtatApprouverOrdreAchat());
-
+//            dTO.setEtatApprouverOrdreAchatDTO(EtatApprouverFactory.etatApprouverToEtatApprouverDTO(domaine.getEtatApprouverOrdreAchat()));
+//            dTO.setCodeEtatApprouverOrdreAchat(domaine.getCodeEtatApprouverOrdreAchat());
             dTO.setFournisseurDTO(FournisseurFactory.fournisseurToFournisseurDTO(domaine.getFournisseur()));
             dTO.setCodeFournisseur(domaine.getCodeFournisseur());
-
+            dTO.setDemandeAchatDTO(DemandeAchatFactory.DetailsdemandeAchatToDetailsDemandeAchatDTO(domaine.getDemandeAchat()));
+            dTO.setCodeDemandeAchat(domaine.getCodeDemandeAchat());
             dTO.setModeReglementDTO(ModeReglementFactory.modeReglementToModeReglementDTO(domaine.getModeReglement()));
             dTO.setCodeModeReglement(domaine.getCodeModeReglement());
 
@@ -157,12 +157,19 @@ public class AppelOffreFactory {
         domaine.setDateCreate(new Date());
         domaine.setUserCreate(dTO.getUserCreate());
         domaine.setObservation(dTO.getObservation());
+        domaine.setObservation(dTO.getObservation());
 
-        domaine.setCodeEtatApprouverOrdreAchat(dTO.getCodeEtatApprouverOrdreAchat());
-        if (domaine.getCodeEtatApprouverOrdreAchat() != null) {
-            domaine.setEtatApprouverOrdreAchat(EtatApprouverFactory.createEtatApprouverByCode(dTO.getCodeEtatApprouverOrdreAchat()));
+        domaine.setCodeDemandeAchat(dTO.getCodeDemandeAchat());
+        if (domaine.getCodeDemandeAchat() != null) {
+            domaine.setDemandeAchat(DemandeAchatFactory.createDemandeAchatByCode(dTO.getCodeDemandeAchat()));
         }
+        
+ 
 
+//        domaine.setCodeEtatApprouverOrdreAchat(dTO.getCodeEtatApprouverOrdreAchat());
+//        if (domaine.getCodeEtatApprouverOrdreAchat() != null) {
+//            domaine.setEtatApprouverOrdreAchat(EtatApprouverFactory.createEtatApprouverByCode(dTO.getCodeEtatApprouverOrdreAchat()));
+//        }
         domaine.setCodeFournisseur(dTO.getCodeFournisseur());
         if (domaine.getCodeFournisseur() != null) {
             domaine.setFournisseur(FournisseurFactory.createFournisseurByCode(dTO.getCodeFournisseur()));
@@ -241,12 +248,14 @@ public class AppelOffreFactory {
         dTO.setFournisseurDTO(FournisseurFactory.fournisseurToFournisseurDTO(domaine.getFournisseur()));
         dTO.setCodeFournisseur(domaine.getCodeFournisseur());
 
+        dTO.setDemandeAchatDTO(DemandeAchatFactory.DetailsdemandeAchatToDetailsDemandeAchatDTO(domaine.getDemandeAchat()));
+        dTO.setCodeDemandeAchat(domaine.getCodeDemandeAchat());
+
         dTO.setModeReglementDTO(ModeReglementFactory.modeReglementToModeReglementDTO(domaine.getModeReglement()));
         dTO.setCodeModeReglement(domaine.getCodeModeReglement());
 
-        dTO.setEtatApprouverOrdreAchatDTO(EtatApprouverFactory.etatApprouverToEtatApprouverDTO(domaine.getEtatApprouverOrdreAchat()));
-        dTO.setCodeEtatApprouverOrdreAchat(domaine.getCodeEtatApprouverOrdreAchat());
-
+//        dTO.setEtatApprouverOrdreAchatDTO(EtatApprouverFactory.etatApprouverToEtatApprouverDTO(domaine.getEtatApprouverOrdreAchat()));
+//        dTO.setCodeEtatApprouverOrdreAchat(domaine.getCodeEtatApprouverOrdreAchat());
         dTO.setEtatReceptionDTO(EtatReceptionFactory.etatReceptionToEtatReceptionDTO(domaine.getEtatReception()));
         dTO.setCodeEtatReception(domaine.getCodeEtatReception());
 
@@ -289,11 +298,13 @@ public class AppelOffreFactory {
             dTO.setUserCreate(domaine.getUserCreate());
             dTO.setObservation(domaine.getObservation());
 
-            dTO.setEtatApprouverOrdreAchatDTO(EtatApprouverFactory.etatApprouverToEtatApprouverDTO(domaine.getEtatApprouverOrdreAchat()));
-            dTO.setCodeEtatApprouverOrdreAchat(domaine.getCodeEtatApprouverOrdreAchat());
-
+//            dTO.setEtatApprouverOrdreAchatDTO(EtatApprouverFactory.etatApprouverToEtatApprouverDTO(domaine.getEtatApprouverOrdreAchat()));
+//            dTO.setCodeEtatApprouverOrdreAchat(domaine.getCodeEtatApprouverOrdreAchat());
             dTO.setFournisseurDTO(FournisseurFactory.fournisseurToFournisseurDTO(domaine.getFournisseur()));
             dTO.setCodeFournisseur(domaine.getCodeFournisseur());
+
+            dTO.setDemandeAchatDTO(DemandeAchatFactory.DetailsdemandeAchatToDetailsDemandeAchatDTO(domaine.getDemandeAchat()));
+            dTO.setCodeDemandeAchat(domaine.getCodeDemandeAchat());
 
             dTO.setModeReglementDTO(ModeReglementFactory.modeReglementToModeReglementDTO(domaine.getModeReglement()));
             dTO.setCodeModeReglement(domaine.getCodeModeReglement());
@@ -326,10 +337,10 @@ public class AppelOffreFactory {
 
         dTO.setModeReglementDTO(ModeReglementFactory.modeReglementToModeReglementDTO(domaine.getModeReglement()));
         dTO.setCodeModeReglement(domaine.getCodeModeReglement());
-
-        dTO.setEtatApprouverOrdreAchatDTO(EtatApprouverFactory.etatApprouverToEtatApprouverDTO(domaine.getEtatApprouverOrdreAchat()));
-        dTO.setCodeEtatApprouverOrdreAchat(domaine.getCodeEtatApprouverOrdreAchat());
-
+        dTO.setDemandeAchatDTO(DemandeAchatFactory.DetailsdemandeAchatToDetailsDemandeAchatDTO(domaine.getDemandeAchat()));
+        dTO.setCodeDemandeAchat(domaine.getCodeDemandeAchat());
+//        dTO.setEtatApprouverOrdreAchatDTO(EtatApprouverFactory.etatApprouverToEtatApprouverDTO(domaine.getEtatApprouverOrdreAchat()));
+//        dTO.setCodeEtatApprouverOrdreAchat(domaine.getCodeEtatApprouverOrdreAchat());
         dTO.setEtatReceptionDTO(EtatReceptionFactory.etatReceptionToEtatReceptionDTO(domaine.getEtatReception()));
         dTO.setCodeEtatReception(domaine.getCodeEtatReception());
 

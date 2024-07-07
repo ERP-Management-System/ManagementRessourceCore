@@ -65,10 +65,10 @@ public class AccessUserService {
         return dto;
     }
 
-    public void deleteUSerName(Integer UserName) {
+    public void deleteUSerName(Integer code) {
 //        AccessUser domaine = accessUserRepo.findAccessUserByUserNameIn(dTO.getUserName());
 //        Preconditions.checkArgument(true, "error.DepotNotFound");
-        accessUserRepo.deleteById(UserName);
+        accessUserRepo.deleteById(code);
     }
 
 //    public AccessUserDTO save(AccessUserDTO dTO) throws IOException {
