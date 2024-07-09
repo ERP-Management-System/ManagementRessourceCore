@@ -4,23 +4,16 @@
  */
 package com.MangmentRessources.MangRess.Achat.dto;
 
-import com.MangmentRessources.MangRess.Achat.domaine.DemandeAchat;
-import com.MangmentRessources.MangRess.Achat.domaine.EtatApprouver;
-import com.MangmentRessources.MangRess.Achat.domaine.EtatReception;
 import com.MangmentRessources.MangRess.ParametrageCentral.dto.ModeReglementDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import jakarta.persistence.Column;
-
-import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 import java.util.Collection;
 import java.util.Date;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -75,6 +68,9 @@ public class AppelOffreDTO {
     private DemandeAchatDTO demandeAchatDTO;
 
     private Integer codeDemandeAchat;
+    
+        private Boolean hasOrdreAchat;
+        
 
     public AppelOffreDTO() {
     }
@@ -260,6 +256,14 @@ public class AppelOffreDTO {
 
     public void setCodeDemandeAchat(Integer codeDemandeAchat) {
         this.codeDemandeAchat = codeDemandeAchat;
+    }
+
+    public Boolean getHasOrdreAchat() {
+        return hasOrdreAchat;
+    }
+
+    public void setHasOrdreAchat(Boolean hasOrdreAchat) {
+        this.hasOrdreAchat = hasOrdreAchat;
     }
 
     

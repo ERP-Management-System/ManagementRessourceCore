@@ -9,6 +9,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -33,7 +34,7 @@ public class TaxeDTO {
 
     private Date dateCreate;
 
-    private Integer valeurTaxe;
+    private BigDecimal valeurTaxe;
 
     public TaxeDTO() {
     }
@@ -45,6 +46,7 @@ public class TaxeDTO {
     public void setCode(Integer code) {
         this.code = code;
     }
+ 
 
     public String getCodeSaisie() {
         return codeSaisie;
@@ -102,12 +104,13 @@ public class TaxeDTO {
         this.dateCreate = dateCreate;
     }
 
-    public Integer getValeurTaxe() {
+    public BigDecimal getValeurTaxe() {
         return valeurTaxe;
     }
 
-    public void setValeurTaxe(Integer valeurTaxe) {
+    public void setValeurTaxe(BigDecimal valeurTaxe) {
         this.valeurTaxe = valeurTaxe;
     }
 
+ 
 }

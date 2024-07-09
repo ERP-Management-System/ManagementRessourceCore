@@ -9,7 +9,6 @@ import com.MangmentRessources.MangRess.Access.service.AccessUserService;
 import com.MangmentRessources.MangRess.Achat.domaine.DemandeAchat;
 import com.MangmentRessources.MangRess.Achat.dto.DemandeAchatDTO;
 import com.MangmentRessources.MangRess.Achat.dto.DetailsDemandeAchatDTO;
-import com.MangmentRessources.MangRess.Achat.dto.TailleDTO;
 import com.MangmentRessources.MangRess.Achat.service.DemandeAchatService;
 import com.MangmentRessources.MangRess.ParametrageCentral.dto.SocieteDTO;
 import com.MangmentRessources.MangRess.ParametrageCentral.dto.paramDTO;

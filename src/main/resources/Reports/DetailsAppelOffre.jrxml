@@ -172,7 +172,7 @@
 				<textFieldExpression><![CDATA[$P{AdressLivraison}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="350" y="90" width="113" height="20" uuid="a8572f52-4bc1-4e88-a828-738c59f31cdf"/>
+				<reportElement x="350" y="90" width="150" height="20" uuid="a8572f52-4bc1-4e88-a828-738c59f31cdf"/>
 				<textElement>
 					<font fontName="DejaVu Serif" size="10" isBold="false"/>
 				</textElement>

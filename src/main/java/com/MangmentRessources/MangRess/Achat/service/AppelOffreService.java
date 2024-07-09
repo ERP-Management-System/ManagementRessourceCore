@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +35,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class AppelOffreService {
+
+    static String LANGUAGE_SEC;
+
+    @Value("${lang.secondary}")
+    public void setLanguage(String db) {
+        LANGUAGE_SEC = db;
+    }
 
     private final Logger log = LoggerFactory.getLogger(AppelOffreService.class);
 
@@ -50,10 +58,7 @@ public class AppelOffreService {
         this.detailsAppelOffreRepo = detailsAppelOffreRepo;
         this.ordreAchatRepo = ordreAchatRepo;
     }
-    
-    
 
-  
     @Transactional(readOnly = true)
     public List<AppelOffreDTO> findAllAppelOffre() {
         return AppelOffreFactory.listAppelOffreToAppelOffreDTOs(appelOffreRepo.findAll());
@@ -78,7 +83,6 @@ public class AppelOffreService {
 //    public List<AppelOffreDTO> findOneByEtatApprouver(Integer CodeEtatApprouverOrdreAchat) {
 //        return AppelOffreFactory.listAppelOffreToAppelOffreDTOs(appelOffreRepo.findAppelOffreByCodeEtatApprouverOrdreAchat(CodeEtatApprouverOrdreAchat));
 //    }
-
     public AppelOffreDTO updateNewWithFlush(AppelOffreDTO modelepanierDTO) {
         AppelOffre inBase = appelOffreRepo.getReferenceById(modelepanierDTO.getCode());
         Preconditions.checkArgument(inBase != null, "error.ModelePanierInexistant");
@@ -90,13 +94,22 @@ public class AppelOffreService {
         return resultDTO;
     }
 
+    public AppelOffreDTO updateHasOrdreAchat(AppelOffreDTO dTO) {
+        AppelOffre inBase = appelOffreRepo.getReferenceById(dTO.getCode());
+        Preconditions.checkArgument(inBase != null, "error.ModelePanierInexistant");
+        inBase = AppelOffreFactory.appelOffreDTOToAppelOffreForHasOrdreAchat(inBase, dTO);
+        inBase = appelOffreRepo.save(inBase);
+        AppelOffreDTO resultDTO = AppelOffreFactory.UpdateappelOffreWithDetailsToappelOffreDTOWithDetails(inBase);
+        return resultDTO;
+    }
+
     public void deleteAppelOffre(Integer code) {
         Preconditions.checkArgument(appelOffreRepo.existsById(code), "error.AppelOffreNotFound");
 //        AppelOffre inBase = appelOffreRepo.getReferenceById(code);
 //                Preconditions.checkArgument(inBase.getCodeEtatApprouverOrdreAchat().equals("3"), "error.AppelOffreRefuser"); 
         OrdreAchat ordreAchat = ordreAchatRepo.findByCodeAppelOffre(code);
-        Preconditions.checkArgument(ordreAchat == null, "error.AppelOffreInOrdreAchat"); 
-        detailsAppelOffreService.deleteByCodeAppelOffre(code); 
+        Preconditions.checkArgument(ordreAchat == null, "error.AppelOffreInOrdreAchat");
+        detailsAppelOffreService.deleteByCodeAppelOffre(code);
         appelOffreRepo.deleteById(code);
     }
 
@@ -111,6 +124,7 @@ public class AppelOffreService {
         domaine.setDateCreate(new Date());
         domaine.setCodeSaisie(codeSaisieAO);
         compteurService.incrementeSuffixe(CompteurCodeSaisie);
+        domaine.setHasOrdreAchat(false);
         domaine = appelOffreRepo.save(domaine);
         AppelOffreDTO resultDTO = AppelOffreFactory.appelOffreWithDetailsToappelOffreDTOWithDetails(domaine);
         return resultDTO;

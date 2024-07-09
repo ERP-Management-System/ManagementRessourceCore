@@ -7,7 +7,7 @@ package com.MangmentRessources.MangRess.Achat.web;
 import com.MangmentRessources.MangRess.Achat.domaine.Coloris;
 import com.MangmentRessources.MangRess.Achat.domaine.Matiere;
 import com.MangmentRessources.MangRess.Achat.dto.ColorisDTO;
-import com.MangmentRessources.MangRess.Achat.dto.EtatDemandeAchatDTO;
+import com.MangmentRessources.MangRess.Achat.dto.EtatDemandeDTO;
 import com.MangmentRessources.MangRess.Achat.service.ColorisService;
 import com.MangmentRessources.MangRess.Achat.service.EtatDemandeAchatService;
 import jakarta.validation.Valid;
@@ -42,13 +42,13 @@ public class EtatDemandeAchatRessource {
     }
  
     @GetMapping("eta_demande/{code}")
-    public ResponseEntity<EtatDemandeAchatDTO> getMatiereByCode(@PathVariable Integer code) {
-        EtatDemandeAchatDTO dTO = etatDemandeAchatService.findOne(code);
+    public ResponseEntity<EtatDemandeDTO> getMatiereByCode(@PathVariable Integer code) {
+        EtatDemandeDTO dTO = etatDemandeAchatService.findOne(code);
         return ResponseEntity.ok().body(dTO);
     }
 
     @GetMapping("eta_demande/all")
-    public ResponseEntity<List<EtatDemandeAchatDTO>> getAllMatiere() { 
+    public ResponseEntity<List<EtatDemandeDTO>> getAllMatiere() { 
         return ResponseEntity.ok().body(etatDemandeAchatService.findAllEtatDemande());
     }
 

@@ -207,6 +207,7 @@ public class Matiere {
     public void setCodeTaxe(Integer codeTaxe) {
         this.codeTaxe = codeTaxe;
     }
+ 
     
     
 

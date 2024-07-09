@@ -5,6 +5,8 @@
 package com.MangmentRessources.MangRess.Achat.domaine;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,11 +20,12 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import javax.validation.constraints.Size;
-import org.hibernate.envers.AuditTable;
-import org.hibernate.envers.Audited;
 
 /**
  *
@@ -43,13 +46,13 @@ public class OrdreAchat {
     @Column(name = "code_saisie_demande", length = 200, nullable = false)
     private String codeSaisie;
 
-    @JoinColumn(name = "code_etat_demande", referencedColumnName = "Code", nullable = false)
+    @JoinColumn(name = "code_etat_reception", referencedColumnName = "Code", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonBackReference
-    private EtatDemandeAchat etatDemande;
+    private EtatReception etatReception;
 
-    @Column(name = "code_etat_demande", updatable = false, insertable = false)
-    private Integer codeEtatDemande;
+    @Column(name = "code_etat_reception", updatable = false, insertable = false)
+    private Integer codeEtatReception;
 
     @JoinColumn(name = "code_type_circuit_achat", referencedColumnName = "Code", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -75,7 +78,7 @@ public class OrdreAchat {
     @Column(name = "code_appel_offre", updatable = false, insertable = false)
     private Integer codeAppelOffre;
 
-    @Column(name = "user_Create", nullable = false, length = 255, columnDefinition = "nvarchar")
+    @Column(name = "user_Create", nullable = false, length = 255, columnDefinition = "nvarchar(200)")
     private String userCreate;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -87,6 +90,35 @@ public class OrdreAchat {
 
     @Column(name = "observation", nullable = false, columnDefinition = "nvarchar(max)")
     private String observation;
+
+    @Column(name = "lieu", nullable = false, columnDefinition = "nvarchar(max)")
+    private String lieu;
+
+    @Column(name = "instruction", nullable = false, columnDefinition = "nvarchar(max)")
+    private String instruction;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "date_livraison", nullable = false, columnDefinition = ("date default getdate()"))
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate dateLivraison;
+
+    @Column(name = "montant_total_ttc", columnDefinition = ("decimal(18,6) "))
+    private BigDecimal mntTotalTTC;
+
+    @Column(name = "montant_total_ht", columnDefinition = ("decimal(18,6)"))
+    private BigDecimal mntTotalHT;
+
+    @Column(name = "montant_total_taxe", columnDefinition = ("decimal(18,6) "))
+    private BigDecimal mntTotalTaxe;
+
+    @Column(name = "total_remise_pourcent", columnDefinition = ("decimal(18,6) "))
+    private BigDecimal mntRemise;
+
+    @Column(name = "montant_timbre", columnDefinition = ("decimal(18,6)"))
+    private BigDecimal mntTimbre;
+
+    @Column(name = "montant_net", columnDefinition = ("decimal(18,6) "))
+    private BigDecimal mntNet;
 
     public OrdreAchat() {
     }
@@ -107,20 +139,20 @@ public class OrdreAchat {
         this.codeSaisie = codeSaisie;
     }
 
-    public EtatDemandeAchat getEtatDemande() {
-        return etatDemande;
+    public EtatReception getEtatReception() {
+        return etatReception;
     }
 
-    public void setEtatDemande(EtatDemandeAchat etatDemande) {
-        this.etatDemande = etatDemande;
+    public void setEtatReception(EtatReception etatReception) {
+        this.etatReception = etatReception;
     }
 
-    public Integer getCodeEtatDemande() {
-        return codeEtatDemande;
+    public Integer getCodeEtatReception() {
+        return codeEtatReception;
     }
 
-    public void setCodeEtatDemande(Integer codeEtatDemande) {
-        this.codeEtatDemande = codeEtatDemande;
+    public void setCodeEtatReception(Integer codeEtatReception) {
+        this.codeEtatReception = codeEtatReception;
     }
 
     public TypeCircuitAchat getTypeCircuitAchat() {
@@ -202,7 +234,77 @@ public class OrdreAchat {
     public void setObservation(String observation) {
         this.observation = observation;
     }
-    
-    
+
+    public BigDecimal getMntTotalTTC() {
+        return mntTotalTTC;
+    }
+
+    public void setMntTotalTTC(BigDecimal mntTotalTTC) {
+        this.mntTotalTTC = mntTotalTTC;
+    }
+
+    public BigDecimal getMntTotalHT() {
+        return mntTotalHT;
+    }
+
+    public void setMntTotalHT(BigDecimal mntTotalHT) {
+        this.mntTotalHT = mntTotalHT;
+    }
+
+    public BigDecimal getMntTotalTaxe() {
+        return mntTotalTaxe;
+    }
+
+    public void setMntTotalTaxe(BigDecimal mntTotalTaxe) {
+        this.mntTotalTaxe = mntTotalTaxe;
+    }
+
+    public BigDecimal getMntRemise() {
+        return mntRemise;
+    }
+
+    public void setMntRemise(BigDecimal mntRemise) {
+        this.mntRemise = mntRemise;
+    }
+
+    public BigDecimal getMntTimbre() {
+        return mntTimbre;
+    }
+
+    public void setMntTimbre(BigDecimal mntTimbre) {
+        this.mntTimbre = mntTimbre;
+    }
+
+    public String getLieu() {
+        return lieu;
+    }
+
+    public void setLieu(String lieu) {
+        this.lieu = lieu;
+    }
+
+    public String getInstruction() {
+        return instruction;
+    }
+
+    public void setInstruction(String instruction) {
+        this.instruction = instruction;
+    }
+
+    public LocalDate getDateLivraison() {
+        return dateLivraison;
+    }
+
+    public void setDateLivraison(LocalDate dateLivraison) {
+        this.dateLivraison = dateLivraison;
+    }
+
+    public BigDecimal getMntNet() {
+        return mntNet;
+    }
+
+    public void setMntNet(BigDecimal mntNet) {
+        this.mntNet = mntNet;
+    }
 
 }

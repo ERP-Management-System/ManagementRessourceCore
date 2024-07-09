@@ -5,9 +5,14 @@
 package com.MangmentRessources.MangRess.Achat.web;
 
 import com.MangmentRessources.MangRess.Achat.domaine.OrdreAchat;
+import com.MangmentRessources.MangRess.Achat.dto.DemandeAchatDTO;
 import com.MangmentRessources.MangRess.Achat.dto.OrdreAchatDTO;
 import com.MangmentRessources.MangRess.Achat.dto.DetailsOrdreAchatDTO;
 import com.MangmentRessources.MangRess.Achat.service.OrdreAchatService;
+import com.MangmentRessources.MangRess.ParametrageCentral.dto.SocieteDTO;
+import com.MangmentRessources.MangRess.ParametrageCentral.dto.paramDTO;
+import com.MangmentRessources.MangRess.ParametrageCentral.service.ParamService;
+import com.MangmentRessources.MangRess.ParametrageCentral.service.SocieteService;
 import jakarta.validation.Valid;
 import java.io.ByteArrayOutputStream;
 import java.net.URI;
@@ -50,19 +55,30 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/parametrage_achat/")
 public class OrdreAchatRessource {
-    private final OrdreAchatService ordreAchatService; 
 
-    public OrdreAchatRessource(OrdreAchatService ordreAchatService) {
+    private final OrdreAchatService ordreAchatService;
+    private final ParamService paramService;
+    private final SocieteService societeService;
+
+    public OrdreAchatRessource(OrdreAchatService ordreAchatService, ParamService paramService, SocieteService societeService) {
         this.ordreAchatService = ordreAchatService;
+        this.paramService = paramService;
+        this.societeService = societeService;
     }
 
-  
- 
- 
     @GetMapping("ordre_achat/all")
-    public ResponseEntity<List<OrdreAchatDTO>> getAllOrdreAchat() { 
+    public ResponseEntity<List<OrdreAchatDTO>> getAllOrdreAchat() {
         return ResponseEntity.ok().body(ordreAchatService.findAllOrdreAchat());
     }
+    
+    
+    @GetMapping("ordre_achat/etat_reception/{codeEtatReception}")
+    public ResponseEntity<List<OrdreAchatDTO>> getOrdreAchatByEtatReception(@PathVariable Integer codeEtatReception) {
+        List<OrdreAchatDTO> dto = ordreAchatService.findOneByEtatReception(codeEtatReception);
+        return ResponseEntity.ok().body(dto);
+
+    }
+
 
     @PutMapping("ordre_achat/update")
     public ResponseEntity<OrdreAchatDTO> updateOrdreAchat(@Valid @RequestBody OrdreAchatDTO dTO, BindingResult bindingResult) throws MethodArgumentNotValidException {
@@ -88,27 +104,30 @@ public class OrdreAchatRessource {
         return ResponseEntity.ok().body(dto);
 
     }
-    
-    
+
     @GetMapping("details_ordre_achat/edition/{code}")
-    public ResponseEntity<byte[]> getReport (@PathVariable Integer code) throws Exception {
+    public ResponseEntity<byte[]> getReport(@PathVariable Integer code) throws Exception {
 
-        String fileNameJrxml = "src/main/resources/Reports/DetailsAppelOffre.jrxml"; 
-        
-         Collection<DetailsOrdreAchatDTO> dto = ordreAchatService.findOneWithDetilas(code);    
-             
-          OrdreAchatDTO rslt = ordreAchatService.findOne(code);
+        String fileNameJrxml = "src/main/resources/Reports/DetailsOrdreAchat.jrxml";
 
+        Collection<DetailsOrdreAchatDTO> dto = ordreAchatService.findOneWithDetilas(code);
+        paramDTO dTOs = paramService.findParamByCodeParamS("NomSociete");
+        OrdreAchatDTO rslt = ordreAchatService.findOne(code);
+        SocieteDTO societeDTO = societeService.findOne(1);
         JasperDesign jasperDesign = JRXmlLoader.load(fileNameJrxml);
         JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
         Map<String, Object> params = new HashMap<>();
         params.put("ItemDataSource", new JRBeanCollectionDataSource(dto));
-        params.put("UserCreate", "SoufienCreateCore");     
-        params.put("codeSaisieAppelOffre", rslt.getCodeSaisie());     
+        params.put("UserCreate", "SoufienCreateCore");
+        params.put("codeSaisie", rslt.getCodeSaisie());
         params.put("Observation", rslt.getObservation());
+        params.put("societe", dTOs.getValeur());
+        params.put("dateLivraison", rslt.getDateLivraison());
+        System.out.println("rslt.getDateLivraison()"+rslt.getDateLivraison());
+        params.put("codeAppelOffre", rslt.getAppelOffreDTO().getCodeSaisie());
+        params.put("codeDemandeAchat", rslt.getDemandeAchatDTO().getCodeSaisie());
 
-
-         
+        params.put("logo", societeDTO.getLogo());
 
         System.out.println("filling parameters to .JASPER file....");
         JasperPrint print = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());

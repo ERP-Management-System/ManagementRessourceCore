@@ -47,7 +47,7 @@ public class OrdreAchatFactory {
             domaine.setUserCreate(Dto.getUserCreate());
             domaine.setObservation(Dto.getObservation());
 
-            domaine.setCodeEtatDemande(Dto.getCodeEtatDemande());
+            domaine.setCodeEtatReception(Dto.getCodeEtatReception());
 
             return domaine;
         } else {
@@ -66,12 +66,23 @@ public class OrdreAchatFactory {
             dTO.setDateCreate(domaine.getDateCreate());
             dTO.setUserCreate(domaine.getUserCreate());
             dTO.setObservation(domaine.getObservation());
+            dTO.setDateLivraison(domaine.getDateLivraison());
+
+            dTO.setMntTotalHT(domaine.getMntTotalHT());
+            dTO.setMntTimbre(domaine.getMntTimbre());
+            dTO.setMntRemise(domaine.getMntRemise());
+            dTO.setMntTotalTTC(domaine.getMntTotalTTC());
+            dTO.setMntTotalTaxe(domaine.getMntTotalTaxe());
+            dTO.setMntNet(domaine.getMntNet());
+
+            dTO.setLieu(domaine.getLieu());
+            dTO.setInstruction(domaine.getInstruction());
 
             dTO.setTypeCircuitAchatDTO(TypeCircuitAchatFactory.typeCircuitAchatToTypeCircuitAchatDTO(domaine.getTypeCircuitAchat()));
             dTO.setCodeTypeCircuitAchat(domaine.getCodeTypeCircuitAchat());
 
-            dTO.setEtatDemandeAchatDTO(EtatDemandeAchatFactory.etatDemandeAchatToEtatDemandeAchatDTO(domaine.getEtatDemande()));
-            dTO.setCodeEtatDemande(domaine.getCodeEtatDemande());
+            dTO.setEtatReceptionDTO(EtatReceptionFactory.etatReceptionToEtatReceptionDTO(domaine.getEtatReception()));
+            dTO.setCodeEtatReception(domaine.getCodeEtatReception());
 
             dTO.setAppelOffreDTO(AppelOffreFactory.DetailsappelOffreToDetailsAppelOffreDTO(domaine.getAppelOffre()));
             dTO.setCodeAppelOffre(domaine.getCodeAppelOffre());
@@ -100,10 +111,51 @@ public class OrdreAchatFactory {
         }
     }
 
+    public static OrdreAchatDTO ordreAchatToOrdreAchatDTOLazy(OrdreAchat domaine) {
+
+        if (domaine != null) {
+            OrdreAchatDTO dTO = new OrdreAchatDTO();
+            dTO.setCode(domaine.getCode());
+
+            dTO.setCodeSaisie(domaine.getCodeSaisie());
+
+            dTO.setDateCreate(domaine.getDateCreate());
+            dTO.setUserCreate(domaine.getUserCreate());
+            dTO.setObservation(domaine.getObservation());
+            dTO.setDateLivraison(domaine.getDateLivraison());
+
+            dTO.setMntTotalHT(domaine.getMntTotalHT());
+            dTO.setMntTimbre(domaine.getMntTimbre());
+            dTO.setMntRemise(domaine.getMntRemise());
+            dTO.setMntTotalTTC(domaine.getMntTotalTTC());
+            dTO.setMntTotalTaxe(domaine.getMntTotalTaxe());
+            dTO.setMntNet(domaine.getMntNet());
+
+            dTO.setLieu(domaine.getLieu());
+            dTO.setInstruction(domaine.getInstruction());
+
+            dTO.setTypeCircuitAchatDTO(TypeCircuitAchatFactory.typeCircuitAchatToTypeCircuitAchatDTO(domaine.getTypeCircuitAchat()));
+            dTO.setCodeTypeCircuitAchat(domaine.getCodeTypeCircuitAchat());
+
+            dTO.setEtatReceptionDTO(EtatReceptionFactory.etatReceptionToEtatReceptionDTO(domaine.getEtatReception()));
+            dTO.setCodeEtatReception(domaine.getCodeEtatReception());
+
+            dTO.setAppelOffreDTO(AppelOffreFactory.DetailsappelOffreToDetailsAppelOffreDTO(domaine.getAppelOffre()));
+            dTO.setCodeAppelOffre(domaine.getCodeAppelOffre());
+
+            dTO.setDemandeAchatDTO(DemandeAchatFactory.DetailsdemandeAchatToDetailsDemandeAchatDTO(domaine.getDemandeAchat()));
+            dTO.setCodeDemandeAchat(domaine.getCodeDemandeAchat());
+
+            return dTO;
+        } else {
+            return null;
+        }
+    }
+
     public static List<OrdreAchatDTO> listOrdreAchatToOrdreAchatDTOs(List<OrdreAchat> domaines) {
         List<OrdreAchatDTO> list = new ArrayList<>();
         for (OrdreAchat ordreAchat : domaines) {
-            list.add(ordreAchatToOrdreAchatDTO(ordreAchat));
+            list.add(ordreAchatToOrdreAchatDTOLazy(ordreAchat));
         }
         return list;
     }
@@ -117,24 +169,37 @@ public class OrdreAchatFactory {
         domaine.setUserCreate(dTO.getUserCreate());
         domaine.setObservation(dTO.getObservation());
 
-        domaine.setCodeEtatDemande(dTO.getCodeDemandeAchat());
-        if (domaine.getCodeEtatDemande() != null) {
-            domaine.setEtatDemande(EtatDemandeAchatFactory.createEtatDemandeAchatByCode(dTO.getCodeDemandeAchat()));
+        domaine.setMntTotalHT(dTO.getMntTotalHT());
+        domaine.setMntTimbre(dTO.getMntTimbre());
+        domaine.setMntRemise(dTO.getMntRemise());
+        domaine.setMntTotalTTC(dTO.getMntTotalTTC());
+        domaine.setMntTotalTaxe(dTO.getMntTotalTaxe());
 
-        }
+        domaine.setMntNet(dTO.getMntNet());
+
+        domaine.setLieu(dTO.getLieu());
+        domaine.setInstruction(dTO.getInstruction());
+        domaine.setDateLivraison(dTO.getDateLivraison());
 
         domaine.setCodeTypeCircuitAchat(dTO.getCodeTypeCircuitAchat());
         if (domaine.getCodeTypeCircuitAchat() != null) {
             domaine.setTypeCircuitAchat(TypeCircuitAchatFactory.createTypeCircuitAchatByCode(dTO.getCodeTypeCircuitAchat()));
 
         }
+        
+        Preconditions.checkBusinessLogique(dTO.getCodeEtatReception() != null, "error.CodeEtatReceptionRequired");
+        domaine.setCodeEtatReception(dTO.getCodeEtatReception());
+        if (domaine.getCodeEtatReception() != null) {
+            domaine.setEtatReception(EtatReceptionFactory.createEtatReceptionByCode(dTO.getCodeEtatReception()));
 
+        }
+        Preconditions.checkBusinessLogique(dTO.getCodeDemandeAchat() != null, "error.DemandeAchatRequired");
         domaine.setCodeDemandeAchat(dTO.getCodeDemandeAchat());
         if (domaine.getCodeDemandeAchat() != null) {
             domaine.setDemandeAchat(DemandeAchatFactory.createDemandeAchatByCode(dTO.getCodeDemandeAchat()));
 
         }
-
+        Preconditions.checkBusinessLogique(dTO.getCodeAppelOffre() != null, "error.AppelOffreRequired");
         domaine.setCodeAppelOffre(dTO.getCodeAppelOffre());
         if (domaine.getCodeAppelOffre() != null) {
             domaine.setAppelOffre(AppelOffreFactory.createAppelOffreByCode(dTO.getCodeAppelOffre()));
@@ -145,23 +210,30 @@ public class OrdreAchatFactory {
 
         dTO.getDetailsOrdreAchatDTOs().forEach(x -> {
 
-            DetailsOrdreAchat detailsmodelepanier = new DetailsOrdreAchat();
-            DetailsOrdreAchatPK detailsmodelepanierPK = new DetailsOrdreAchatPK();
+            DetailsOrdreAchat detailsOrdreAchat = new DetailsOrdreAchat();
+            DetailsOrdreAchatPK detailsOrdreAchatPK = new DetailsOrdreAchatPK();
 
             Preconditions.checkBusinessLogique(x.getCodematiere() != null, "error.MatiereRequired");
-            detailsmodelepanierPK.setCodeMatiere(x.getCodematiere().getCode());
+            detailsOrdreAchatPK.setCodeMatiere(x.getCodematiere().getCode());
 
             Preconditions.checkBusinessLogique(x.getCodeUnite().getCode() != null, "error.UniteRequired");
-            detailsmodelepanierPK.setCodeUnite(x.getCodeUnite().getCode());
+            detailsOrdreAchatPK.setCodeUnite(x.getCodeUnite().getCode());
             Preconditions.checkBusinessLogique(x.getCodeColoris().getCode() != null, "error.ColorisRequired");
-            detailsmodelepanierPK.setCodeColoris(x.getCodeColoris().getCode());
-            detailsmodelepanier.setDetailsOrdreAchatPK(detailsmodelepanierPK);
-            Preconditions.checkBusinessLogique(x.getQteOrdre() != null, "error.QuantiteRequired");
-            detailsmodelepanier.setQteOrdre(x.getQteOrdre());
-            detailsmodelepanier.setDateCreate(domaine.getDateCreate());
-            detailsmodelepanier.setUsercreate(domaine.getUserCreate());
-            detailsmodelepanier.setOrdreAchat(domaine);
-            detailsCollections.add(detailsmodelepanier);
+            detailsOrdreAchatPK.setCodeColoris(x.getCodeColoris().getCode());
+            detailsOrdreAchat.setValeurTaxe(x.getCodematiere().getValeurTaxe());
+            detailsOrdreAchat.setDetailsOrdreAchatPK(detailsOrdreAchatPK);
+            Preconditions.checkBusinessLogique(x.getQteDemander() != null, "error.QuantiteRequired");
+            detailsOrdreAchat.setQteDemander(x.getQteDemander());
+            detailsOrdreAchat.setDateCreate(domaine.getDateCreate());
+            detailsOrdreAchat.setUsercreate(domaine.getUserCreate());
+
+            detailsOrdreAchat.setPrixUnitaireAchat(x.getPrixAchat());
+            detailsOrdreAchat.setMntTotalHT(x.getMntTotalHT());
+            detailsOrdreAchat.setMntTotalTTC(x.getMntTotalTTC());
+            detailsOrdreAchat.setMntTotalTaxe(x.getMntTotalTaxe());
+
+            detailsOrdreAchat.setOrdreAchat(domaine);
+            detailsCollections.add(detailsOrdreAchat);
         });
 
         if (domaine.getDetailsOrdreAchats() != null) {
@@ -185,8 +257,27 @@ public class OrdreAchatFactory {
             dTO.setUserCreate(domaine.getUserCreate());
             dTO.setObservation(domaine.getObservation());
 
-            dTO.setEtatDemandeAchatDTO(EtatDemandeAchatFactory.etatDemandeAchatToEtatDemandeAchatDTO(domaine.getEtatDemande()));
-            dTO.setCodeEtatDemande(domaine.getCodeEtatDemande());
+            dTO.setMntTotalHT(domaine.getMntTotalHT());
+            dTO.setMntTimbre(domaine.getMntTimbre());
+            dTO.setMntRemise(domaine.getMntRemise());
+            dTO.setMntTotalTTC(domaine.getMntTotalTTC());
+            dTO.setMntTotalTaxe(domaine.getMntTotalTaxe());
+            dTO.setMntNet(domaine.getMntNet());
+
+            dTO.setLieu(domaine.getLieu());
+            dTO.setInstruction(domaine.getInstruction());
+
+            dTO.setTypeCircuitAchatDTO(TypeCircuitAchatFactory.typeCircuitAchatToTypeCircuitAchatDTO(domaine.getTypeCircuitAchat()));
+            dTO.setCodeTypeCircuitAchat(domaine.getCodeTypeCircuitAchat());
+
+            dTO.setEtatReceptionDTO(EtatReceptionFactory.etatReceptionToEtatReceptionDTO(domaine.getEtatReception()));
+            dTO.setCodeEtatReception(domaine.getCodeEtatReception());
+
+            dTO.setAppelOffreDTO(AppelOffreFactory.DetailsappelOffreToDetailsAppelOffreDTO(domaine.getAppelOffre()));
+            dTO.setCodeAppelOffre(domaine.getCodeAppelOffre());
+
+            dTO.setDemandeAchatDTO(DemandeAchatFactory.DetailsdemandeAchatToDetailsDemandeAchatDTO(domaine.getDemandeAchat()));
+            dTO.setCodeDemandeAchat(domaine.getCodeDemandeAchat());
 
             return dTO;
         } else {
@@ -207,8 +298,28 @@ public class OrdreAchatFactory {
         dTO.setUserCreate(domaine.getUserCreate());
         dTO.setObservation(domaine.getObservation());
 
-        dTO.setEtatDemandeAchatDTO(EtatDemandeAchatFactory.etatDemandeAchatToEtatDemandeAchatDTO(domaine.getEtatDemande()));
-        dTO.setCodeEtatDemande(domaine.getCodeEtatDemande());
+        dTO.setMntTotalHT(domaine.getMntTotalHT());
+        dTO.setMntTimbre(domaine.getMntTimbre());
+        dTO.setMntRemise(domaine.getMntRemise());
+        dTO.setMntTotalTTC(domaine.getMntTotalTTC());
+        dTO.setMntTotalTaxe(domaine.getMntTotalTaxe());
+
+        dTO.setMntNet(domaine.getMntNet());
+
+        dTO.setLieu(domaine.getLieu());
+        dTO.setInstruction(domaine.getInstruction());
+
+        dTO.setTypeCircuitAchatDTO(TypeCircuitAchatFactory.typeCircuitAchatToTypeCircuitAchatDTO(domaine.getTypeCircuitAchat()));
+        dTO.setCodeTypeCircuitAchat(domaine.getCodeTypeCircuitAchat());
+
+        dTO.setEtatReceptionDTO(EtatReceptionFactory.etatReceptionToEtatReceptionDTO(domaine.getEtatReception()));
+        dTO.setCodeEtatReception(domaine.getCodeEtatReception());
+
+        dTO.setAppelOffreDTO(AppelOffreFactory.DetailsappelOffreToDetailsAppelOffreDTO(domaine.getAppelOffre()));
+        dTO.setCodeAppelOffre(domaine.getCodeAppelOffre());
+
+        dTO.setDemandeAchatDTO(DemandeAchatFactory.DetailsdemandeAchatToDetailsDemandeAchatDTO(domaine.getDemandeAchat()));
+        dTO.setCodeDemandeAchat(domaine.getCodeDemandeAchat());
 
         if (domaine.getDetailsOrdreAchats() != null) {
             Collection<DetailsOrdreAchatDTO> detailsDTOSCollection = new ArrayList<>();

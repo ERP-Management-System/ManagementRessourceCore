@@ -4,6 +4,15 @@
  */
 package com.MangmentRessources.MangRess.Achat.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import jakarta.persistence.Basic;
+import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 
@@ -17,12 +26,9 @@ public class OrdreAchatDTO {
 
     private String codeSaisie;
 
-    private EtatDemandeAchatDTO etatDemandeAchatDTO;
+    private EtatReceptionDTO etatReceptionDTO;
 
-    private Integer codeEtatDemande;
-
-    private String designationArEtat;
-    private String designationLTEtat;
+    private Integer codeEtatReception; 
 
     private String userCreate;
 
@@ -40,13 +46,31 @@ public class OrdreAchatDTO {
 
     private AppelOffreDTO appelOffreDTO;
 
-    private Integer codeAppelOffre;
-
-    private String designationArTypeCircuitAchat;
-
-    private String designationLTTypeCircuitAchat;
+    private Integer codeAppelOffre; 
 
     private String observation;
+
+    private BigDecimal mntTotalTTC;
+
+    private BigDecimal mntTotalHT;
+
+    private BigDecimal mntTotalTaxe;
+
+    private BigDecimal mntRemise;
+    
+        private BigDecimal mntNet;
+        
+
+    private BigDecimal mntTimbre;
+    @Basic(optional = false)
+    @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate dateLivraison;
+    private String lieu;
+
+    private String instruction;
 
     public OrdreAchatDTO() {
     }
@@ -67,37 +91,22 @@ public class OrdreAchatDTO {
         this.codeSaisie = codeSaisie;
     }
 
-    public EtatDemandeAchatDTO getEtatDemandeAchatDTO() {
-        return etatDemandeAchatDTO;
+    public EtatReceptionDTO getEtatReceptionDTO() {
+        return etatReceptionDTO;
     }
 
-    public void setEtatDemandeAchatDTO(EtatDemandeAchatDTO etatDemandeAchatDTO) {
-        this.etatDemandeAchatDTO = etatDemandeAchatDTO;
+    public void setEtatReceptionDTO(EtatReceptionDTO etatReceptionDTO) {
+        this.etatReceptionDTO = etatReceptionDTO;
     }
 
-    public Integer getCodeEtatDemande() {
-        return codeEtatDemande;
+    public Integer getCodeEtatReception() {
+        return codeEtatReception;
     }
 
-    public void setCodeEtatDemande(Integer codeEtatDemande) {
-        this.codeEtatDemande = codeEtatDemande;
+    public void setCodeEtatReception(Integer codeEtatReception) {
+        this.codeEtatReception = codeEtatReception;
     }
-
-    public String getDesignationArEtat() {
-        return designationArEtat;
-    }
-
-    public void setDesignationArEtat(String designationArEtat) {
-        this.designationArEtat = designationArEtat;
-    }
-
-    public String getDesignationLTEtat() {
-        return designationLTEtat;
-    }
-
-    public void setDesignationLTEtat(String designationLTEtat) {
-        this.designationLTEtat = designationLTEtat;
-    }
+ 
 
     public String getUserCreate() {
         return userCreate;
@@ -171,21 +180,7 @@ public class OrdreAchatDTO {
         this.codeAppelOffre = codeAppelOffre;
     }
 
-    public String getDesignationArTypeCircuitAchat() {
-        return designationArTypeCircuitAchat;
-    }
-
-    public void setDesignationArTypeCircuitAchat(String designationArTypeCircuitAchat) {
-        this.designationArTypeCircuitAchat = designationArTypeCircuitAchat;
-    }
-
-    public String getDesignationLTTypeCircuitAchat() {
-        return designationLTTypeCircuitAchat;
-    }
-
-    public void setDesignationLTTypeCircuitAchat(String designationLTTypeCircuitAchat) {
-        this.designationLTTypeCircuitAchat = designationLTTypeCircuitAchat;
-    }
+ 
 
     public String getObservation() {
         return observation;
@@ -194,7 +189,77 @@ public class OrdreAchatDTO {
     public void setObservation(String observation) {
         this.observation = observation;
     }
-    
-    
+
+    public BigDecimal getMntTotalTTC() {
+        return mntTotalTTC;
+    }
+
+    public void setMntTotalTTC(BigDecimal mntTotalTTC) {
+        this.mntTotalTTC = mntTotalTTC;
+    }
+
+    public BigDecimal getMntTotalHT() {
+        return mntTotalHT;
+    }
+
+    public void setMntTotalHT(BigDecimal mntTotalHT) {
+        this.mntTotalHT = mntTotalHT;
+    }
+
+    public BigDecimal getMntTotalTaxe() {
+        return mntTotalTaxe;
+    }
+
+    public void setMntTotalTaxe(BigDecimal mntTotalTaxe) {
+        this.mntTotalTaxe = mntTotalTaxe;
+    }
+
+    public BigDecimal getMntRemise() {
+        return mntRemise;
+    }
+
+    public void setMntRemise(BigDecimal mntRemise) {
+        this.mntRemise = mntRemise;
+    }
+
+    public BigDecimal getMntTimbre() {
+        return mntTimbre;
+    }
+
+    public void setMntTimbre(BigDecimal mntTimbre) {
+        this.mntTimbre = mntTimbre;
+    }
+
+    public LocalDate getDateLivraison() {
+        return dateLivraison;
+    }
+
+    public void setDateLivraison(LocalDate dateLivraison) {
+        this.dateLivraison = dateLivraison;
+    }
+
+    public String getLieu() {
+        return lieu;
+    }
+
+    public void setLieu(String lieu) {
+        this.lieu = lieu;
+    }
+
+    public String getInstruction() {
+        return instruction;
+    }
+
+    public void setInstruction(String instruction) {
+        this.instruction = instruction;
+    }
+
+    public BigDecimal getMntNet() {
+        return mntNet;
+    }
+
+    public void setMntNet(BigDecimal mntNet) {
+        this.mntNet = mntNet;
+    }
 
 }

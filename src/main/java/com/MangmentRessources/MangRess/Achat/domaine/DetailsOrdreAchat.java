@@ -65,7 +65,7 @@ public class DetailsOrdreAchat {
 
     @NotNull
     @Column(name = "qte_ordre", nullable = false)
-    private BigDecimal qteOrdre;
+    private BigDecimal qteDemander;
 
     @Column(name = "qte_livrer")
     private BigDecimal qteLivrer;
@@ -85,6 +85,22 @@ public class DetailsOrdreAchat {
     private Depot depot;
     @Column(name = "code_depot", insertable = false, updatable = false)
     private Integer codeDepot;
+
+    @Column(name = "prix_unitaire_achat", columnDefinition = ("decimal(18,6) "), nullable = false)
+    private BigDecimal prixUnitaireAchat;
+
+    @Column(name = "montant_total_ttc", columnDefinition = ("decimal(18,6)"), nullable = false)
+    private BigDecimal mntTotalTTC;
+
+    @Column(name = "montant_total_ht", columnDefinition = ("decimal(18,6)"), nullable = false)
+    private BigDecimal mntTotalHT;
+
+    @Column(name = "montant_total_taxe", columnDefinition = ("decimal(18,6)"), nullable = false)
+    private BigDecimal mntTotalTaxe;
+    
+    
+    @Column(name = "valeur_taxe", columnDefinition = ("decimal(18,2)"), nullable = false)
+    private BigDecimal valeurTaxe;
 
     public DetailsOrdreAchat() {
     }
@@ -153,14 +169,15 @@ public class DetailsOrdreAchat {
         this.codeUnite = codeUnite;
     }
 
-    public BigDecimal getQteOrdre() {
-        return qteOrdre;
+    public BigDecimal getQteDemander() {
+        return qteDemander;
     }
 
-    public void setQteOrdre(BigDecimal qteOrdre) {
-        this.qteOrdre = qteOrdre;
+    public void setQteDemander(BigDecimal qteDemander) {
+        this.qteDemander = qteDemander;
     }
 
+ 
     public BigDecimal getQteLivrer() {
         return qteLivrer;
     }
@@ -201,6 +218,45 @@ public class DetailsOrdreAchat {
         this.codeDepot = codeDepot;
     }
 
-    
-    
+    public BigDecimal getPrixUnitaireAchat() {
+        return prixUnitaireAchat;
+    }
+
+    public void setPrixUnitaireAchat(BigDecimal prixUnitaireAchat) {
+        this.prixUnitaireAchat = prixUnitaireAchat;
+    }
+
+    public BigDecimal getMntTotalTTC() {
+        return mntTotalTTC;
+    }
+
+    public void setMntTotalTTC(BigDecimal mntTotalTTC) {
+        this.mntTotalTTC = mntTotalTTC;
+    }
+
+    public BigDecimal getMntTotalHT() {
+        return mntTotalHT;
+    }
+
+    public void setMntTotalHT(BigDecimal mntTotalHT) {
+        this.mntTotalHT = mntTotalHT;
+    }
+
+    public BigDecimal getMntTotalTaxe() {
+        return mntTotalTaxe;
+    }
+
+    public void setMntTotalTaxe(BigDecimal mntTotalTaxe) {
+        this.mntTotalTaxe = mntTotalTaxe;
+    }
+
+    public BigDecimal getValeurTaxe() {
+        return valeurTaxe;
+    }
+
+    public void setValeurTaxe(BigDecimal valeurTaxe) {
+        this.valeurTaxe = valeurTaxe;
+    }
+
+ 
 }

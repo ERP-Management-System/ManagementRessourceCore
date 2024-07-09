@@ -17,14 +17,14 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class DetailsOrdreAchatFactory {
-     static String LANGUAGE_SEC;
+
+    static String LANGUAGE_SEC;
 
     @Value("${lang.secondary}")
     public void setLanguage(String db) {
         LANGUAGE_SEC = db;
     }
 
-    
     public static DetailsOrdreAchatDTO detailsOrdreAchatTodetailsOrdreAchatDTOCollection(DetailsOrdreAchat domaine) {
 
         if (domaine != null) {
@@ -35,8 +35,9 @@ public class DetailsOrdreAchatFactory {
             dTO.setCodematiere(MatiereFactory.matiereToMatiereDTO(domaine.getMatiere()));
             dTO.setCodeColoris(ColorisFactory.colorisToColorisDTO(domaine.getColoris()));
             dTO.setCodeUnite(UniteFactory.uniteToUniteDTO(domaine.getUnite()));
+//            dTO.setValeurTaxe(domaine.getMatiere().getTaxe().getValeurTaxe());
 
-            dTO.setQteOrdre(domaine.getQteOrdre());
+            dTO.setQteDemander(domaine.getQteDemander());
             return dTO;
         } else {
             return null;
@@ -69,7 +70,14 @@ public class DetailsOrdreAchatFactory {
             dTO.setDesignationArUnites(domaine.getUnite().getDesignationAr());
             dTO.setDesignationLtUnites(domaine.getUnite().getDesignationLt());
 
-            dTO.setQteOrdre(domaine.getQteOrdre());
+            dTO.setPrixAchat(domaine.getPrixUnitaireAchat());
+            dTO.setMntTotalHT(domaine.getMntTotalHT());
+            dTO.setMntTotalTTC(domaine.getMntTotalTTC());
+            dTO.setMntTotalTaxe(domaine.getMntTotalTaxe());
+
+            dTO.setValeurTaxe(domaine.getMatiere().getTaxe().getValeurTaxe());
+
+            dTO.setQteDemander(domaine.getQteDemander());
             return dTO;
         } else {
             return null;

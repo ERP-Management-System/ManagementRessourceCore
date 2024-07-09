@@ -56,7 +56,10 @@ public class MatiereDTO {
 
     private TaxeDTO taxeDTO;
 
-    private Integer codeTaxe;
+    private Integer codeTaxe;   
+    
+    private BigDecimal valeurTaxe;
+
 
     public MatiereDTO() {
     }
@@ -221,4 +224,13 @@ public class MatiereDTO {
         this.codeTaxe = codeTaxe;
     }
 
+    public BigDecimal getValeurTaxe() {
+        return valeurTaxe;
+    }
+
+    public void setValeurTaxe(BigDecimal valeurTaxe) {
+        this.valeurTaxe = valeurTaxe;
+    }
+ 
+ 
 }

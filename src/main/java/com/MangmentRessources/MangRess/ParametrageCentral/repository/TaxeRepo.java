@@ -6,6 +6,7 @@ package com.MangmentRessources.MangRess.ParametrageCentral.repository;
 
 import com.MangmentRessources.MangRess.Achat.domaine.Depot;
 import com.MangmentRessources.MangRess.ParametrageCentral.domaine.Taxe;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;

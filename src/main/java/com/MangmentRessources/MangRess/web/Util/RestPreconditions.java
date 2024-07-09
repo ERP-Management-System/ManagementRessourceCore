@@ -3,8 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.MangmentRessources.MangRess.web.Util;
+ 
+import com.MangmentRessources.MangRess.web.errors.MyResourceNotFoundException;
 
-import com.MangmentRessources.MangRess.web.error.MyResourceNotFoundException;
 
 /**
  *

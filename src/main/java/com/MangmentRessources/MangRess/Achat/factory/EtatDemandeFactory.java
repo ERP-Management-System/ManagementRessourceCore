@@ -4,8 +4,8 @@
  */
 package com.MangmentRessources.MangRess.Achat.factory;
 
-import com.MangmentRessources.MangRess.Achat.domaine.EtatDemandeAchat;
-import com.MangmentRessources.MangRess.Achat.dto.EtatDemandeAchatDTO;
+import com.MangmentRessources.MangRess.Achat.domaine.EtatDemande;
+import com.MangmentRessources.MangRess.Achat.dto.EtatDemandeDTO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
  * @author Administrator
  */
 @Component
-public class EtatDemandeAchatFactory {
+public class EtatDemandeFactory {
 
     static String LANGUAGE_SEC;
 
@@ -27,13 +27,13 @@ public class EtatDemandeAchatFactory {
         LANGUAGE_SEC = db;
     }
 
-    public static EtatDemandeAchat createEtatDemandeAchatByCode(int code) {
-        EtatDemandeAchat domaine = new EtatDemandeAchat();
+    public static EtatDemande createEtatDemandeAchatByCode(int code) {
+        EtatDemande domaine = new EtatDemande();
         domaine.setCode(code);
         return domaine;
     }
 
-    public static EtatDemandeAchat etatDemandeAchatDTOToEtatDemandeAchat(EtatDemandeAchatDTO Dto, EtatDemandeAchat domaine) {
+    public static EtatDemande etatDemandeAchatDTOToEtatDemandeAchat(EtatDemandeDTO Dto, EtatDemande domaine) {
         if (Dto != null) {
             domaine.setCode(Dto.getCode());
             if (LocaleContextHolder.getLocale().getLanguage().equals(new Locale(LANGUAGE_SEC).getLanguage())) {
@@ -52,10 +52,10 @@ public class EtatDemandeAchatFactory {
         }
     }
 
-    public static EtatDemandeAchatDTO etatDemandeAchatToEtatDemandeAchatDTO(EtatDemandeAchat domaine) {
+    public static EtatDemandeDTO etatDemandeAchatToEtatDemandeAchatDTO(EtatDemande domaine) {
 
         if (domaine != null) {
-            EtatDemandeAchatDTO dTO = new EtatDemandeAchatDTO();
+            EtatDemandeDTO dTO = new EtatDemandeDTO();
             dTO.setCode(domaine.getCode());
 //            System.out.println("jihennn  " + LocaleContextHolder.getLocale().getLanguage());
 //            System.out.println("jihennn  " + new Locale(LANGUAGE_SEC).getLanguage());
@@ -77,9 +77,9 @@ public class EtatDemandeAchatFactory {
         }
     }
 
-    public static List<EtatDemandeAchatDTO> listEtatDemandeAchatToEtatDemandeAchatDTOs(List<EtatDemandeAchat> etatDemandeAchats) {
-        List<EtatDemandeAchatDTO> list = new ArrayList<>();
-        for (EtatDemandeAchat etatDemandeAchat : etatDemandeAchats) {
+    public static List<EtatDemandeDTO> listEtatDemandeAchatToEtatDemandeAchatDTOs(List<EtatDemande> etatDemandeAchats) {
+        List<EtatDemandeDTO> list = new ArrayList<>();
+        for (EtatDemande etatDemandeAchat : etatDemandeAchats) {
             list.add(etatDemandeAchatToEtatDemandeAchatDTO(etatDemandeAchat));
         }
         return list;

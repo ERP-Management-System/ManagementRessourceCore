@@ -4,6 +4,7 @@
  */
 package com.MangmentRessources.MangRess.Achat.domaine;
 
+import com.MangmentRessources.MangRess.ParametrageCentral.domaine.Taxe;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -63,7 +64,12 @@ public class DetailsDemandeAchat {
     @Column(name = "code_unite", insertable = false, updatable = false)
     private Integer codeUnite;
 
-
+    @JoinColumn(name = "code_taxe", referencedColumnName = "code", nullable = false, updatable = false, insertable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Taxe taxe;
+    @Column(name = "code_taxe", insertable = false, updatable = false)
+    private Integer codeTaxe;
 
     @NotNull
     @Column(name = "qte_demander", nullable = false)
@@ -179,5 +185,21 @@ public class DetailsDemandeAchat {
     public void setDateCreate(Date dateCreate) {
         this.dateCreate = dateCreate;
     }
- 
+
+    public Taxe getTaxe() {
+        return taxe;
+    }
+
+    public void setTaxe(Taxe taxe) {
+        this.taxe = taxe;
+    }
+
+    public Integer getCodeTaxe() {
+        return codeTaxe;
+    }
+
+    public void setCodeTaxe(Integer codeTaxe) {
+        this.codeTaxe = codeTaxe;
+    }
+
 }

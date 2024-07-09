@@ -5,7 +5,6 @@
 package com.MangmentRessources.MangRess.Achat.factory;
 
 import com.MangmentRessources.MangRess.Achat.domaine.DetailsAppelOffre; 
-import com.MangmentRessources.MangRess.Achat.dto.AppelOffreDTO;
 import com.MangmentRessources.MangRess.Achat.dto.DetailsAppelOffreDTO;
 import java.util.ArrayList;
 import java.util.Collection;  

@@ -4,7 +4,6 @@
  */
 package com.MangmentRessources.MangRess.ParametrageCentral.domaine;
 
-import com.MangmentRessources.MangRess.Achat.domaine.StatuMatiere;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,10 +17,9 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.validation.constraints.Size;
-import org.hibernate.envers.AuditTable;
-import org.hibernate.envers.Audited;
 
 /**
  *
@@ -35,7 +33,7 @@ public class Taxe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "code" , columnDefinition = ("decimal(18,3)"))
+    @Column(name = "code")
     private Integer code;
 
     @Size(max = 200)
@@ -71,7 +69,7 @@ public class Taxe {
 
     @NotNull
     @Column(name = "valeur_taxe", columnDefinition = "decimal(18,3)")
-    private Integer valeurTaxe;
+    private BigDecimal valeurTaxe;
 
     public Taxe() {
     }
@@ -84,6 +82,8 @@ public class Taxe {
         this.code = code;
     }
 
+ 
+ 
     public String getCodeSaisie() {
         return codeSaisie;
     }
@@ -140,12 +140,13 @@ public class Taxe {
         this.dateCreate = dateCreate;
     }
 
-    public Integer getValeurTaxe() {
+    public BigDecimal getValeurTaxe() {
         return valeurTaxe;
     }
 
-    public void setValeurTaxe(Integer valeurTaxe) {
+    public void setValeurTaxe(BigDecimal valeurTaxe) {
         this.valeurTaxe = valeurTaxe;
     }
 
+ 
 }

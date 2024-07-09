@@ -5,11 +5,11 @@
 package com.MangmentRessources.MangRess.Achat.service;
 
 import com.MangmentRessources.MangRess.Achat.domaine.Coloris;
-import com.MangmentRessources.MangRess.Achat.domaine.EtatDemandeAchat;
+import com.MangmentRessources.MangRess.Achat.domaine.EtatDemande;
 import com.MangmentRessources.MangRess.Achat.dto.ColorisDTO;
-import com.MangmentRessources.MangRess.Achat.dto.EtatDemandeAchatDTO;
+import com.MangmentRessources.MangRess.Achat.dto.EtatDemandeDTO;
 import com.MangmentRessources.MangRess.Achat.factory.ColorisFactory;
-import com.MangmentRessources.MangRess.Achat.factory.EtatDemandeAchatFactory;
+import com.MangmentRessources.MangRess.Achat.factory.EtatDemandeFactory;
 import com.MangmentRessources.MangRess.Achat.repository.ColorisRepo;
 import com.MangmentRessources.MangRess.Achat.repository.EtatDemandeAchatRepo;
 import com.google.common.base.Preconditions;
@@ -34,16 +34,16 @@ public class EtatDemandeAchatService {
     }
     
     @Transactional(readOnly = true)
-    public List<EtatDemandeAchatDTO> findAllEtatDemande() {
-        return EtatDemandeAchatFactory.listEtatDemandeAchatToEtatDemandeAchatDTOs(etatDemandeAchatRepo.findAll());
+    public List<EtatDemandeDTO> findAllEtatDemande() {
+        return EtatDemandeFactory.listEtatDemandeAchatToEtatDemandeAchatDTOs(etatDemandeAchatRepo.findAll());
 
     }
 
     @Transactional(readOnly = true)
-    public EtatDemandeAchatDTO findOne(Integer code) {
-        EtatDemandeAchat domaine = etatDemandeAchatRepo.getReferenceById(code);
+    public EtatDemandeDTO findOne(Integer code) {
+        EtatDemande domaine = etatDemandeAchatRepo.getReferenceById(code);
         Preconditions.checkArgument(domaine.getCode() != null, "error.EtatDemandeAchatNotFound");
-        return EtatDemandeAchatFactory.etatDemandeAchatToEtatDemandeAchatDTO(domaine);
+        return EtatDemandeFactory.etatDemandeAchatToEtatDemandeAchatDTO(domaine);
     }
 
  

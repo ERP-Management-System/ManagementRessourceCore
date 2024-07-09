@@ -4,10 +4,24 @@
  */
 package com.MangmentRessources.MangRess.Achat.dto;
 
+import com.MangmentRessources.MangRess.ParametrageCentral.domaine.Taxe;
+import com.MangmentRessources.MangRess.ParametrageCentral.dto.TaxeDTO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -42,7 +56,9 @@ public class DetailsDemandeAchatDTO {
     private String designationArMatiere;
     private String designationLtMatiere;
     private BigDecimal prixAchat;
-    private Integer codeTaxe;
+    private BigDecimal valeurTaxe;
+ 
+    private TaxeDTO taxeDTO;  
 
     private Integer codeUnites;
     private String codeSaisieUnites;
@@ -54,8 +70,12 @@ public class DetailsDemandeAchatDTO {
     private String designationArColoriss;
     private String designationLtColoriss;
 
-//    private Integer codeAppelOffre;
-//    private Integer codeModeReglement;
+    @Basic(optional = false)
+    @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate dateLivraison;
 
     public DetailsDemandeAchatDTO() {
     }
@@ -235,14 +255,7 @@ public class DetailsDemandeAchatDTO {
 //    public void setPrixAchat(BigDecimal prixAchat) {
 //        this.prixAchat = prixAchat;
 //    }
-
-    public Integer getCodeTaxe() {
-        return codeTaxe;
-    }
-
-    public void setCodeTaxe(Integer codeTaxe) {
-        this.codeTaxe = codeTaxe;
-    }
+ 
 //
 //    public Integer getCodeAppelOffre() {
 //        return codeAppelOffre;
@@ -266,6 +279,30 @@ public class DetailsDemandeAchatDTO {
 
     public void setPrixAchat(BigDecimal prixAchat) {
         this.prixAchat = prixAchat;
+    }
+
+    public LocalDate getDateLivraison() {
+        return dateLivraison;
+    }
+
+    public void setDateLivraison(LocalDate dateLivraison) {
+        this.dateLivraison = dateLivraison;
+    }
+
+    public TaxeDTO getTaxeDTO() {
+        return taxeDTO;
+    }
+
+    public void setTaxeDTO(TaxeDTO taxeDTO) {
+        this.taxeDTO = taxeDTO;
+    }
+
+    public BigDecimal getValeurTaxe() {
+        return valeurTaxe;
+    }
+
+    public void setValeurTaxe(BigDecimal valeurTaxe) {
+        this.valeurTaxe = valeurTaxe;
     }
     
     

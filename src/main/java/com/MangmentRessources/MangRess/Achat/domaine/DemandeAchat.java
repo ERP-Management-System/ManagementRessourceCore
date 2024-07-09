@@ -46,7 +46,7 @@ public class DemandeAchat {
     @JoinColumn(name = "code_etat_demande", referencedColumnName = "Code", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonBackReference
-    private EtatDemandeAchat etatDemande;
+    private EtatDemande etatDemande;
 
     @Column(name = "code_etat_demande", updatable = false, insertable = false)
     private Integer codeEtatDemande;
@@ -149,11 +149,11 @@ public class DemandeAchat {
         this.codeSaisie = codeSaisie;
     }
 
-    public EtatDemandeAchat getEtatDemande() {
+    public EtatDemande getEtatDemande() {
         return etatDemande;
     }
 
-    public void setEtatDemande(EtatDemandeAchat etatDemande) {
+    public void setEtatDemande(EtatDemande etatDemande) {
         this.etatDemande = etatDemande;
     }
 

@@ -115,6 +115,9 @@ public class AppelOffre {
     @Column(name = "code_demande_achat", updatable = false, insertable = false)
     private Integer codeDemandeAchat;
 
+    @Column(name = "ordre_achat", nullable = false, columnDefinition = ("bit default 0"))
+    private Boolean hasOrdreAchat;
+
     public AppelOffre() {
     }
 
@@ -293,6 +296,12 @@ public class AppelOffre {
         this.codeDemandeAchat = codeDemandeAchat;
     }
 
-    
-    
+    public Boolean getHasOrdreAchat() {
+        return hasOrdreAchat;
+    }
+
+    public void setHasOrdreAchat(Boolean hasOrdreAchat) {
+        this.hasOrdreAchat = hasOrdreAchat;
+    }
+
 }

@@ -4,7 +4,7 @@
  */
 package com.MangmentRessources.MangRess.Achat.repository;
 
-import com.MangmentRessources.MangRess.Achat.domaine.EtatDemandeAchat;
+import com.MangmentRessources.MangRess.Achat.domaine.EtatDemande;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
  * @author Administrator
  */
 @Repository
-public interface EtatDemandeAchatRepo extends JpaRepository<EtatDemandeAchat, Integer>{
+public interface EtatDemandeAchatRepo extends JpaRepository<EtatDemande, Integer>{
     
 }

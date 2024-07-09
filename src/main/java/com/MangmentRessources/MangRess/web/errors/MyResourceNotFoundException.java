@@ -1,10 +1,10 @@
-package com.MangmentRessources.MangRess.web.error;
+package com.MangmentRessources.MangRess.web.errors;
 
-public class MyResourceNotFoundException extends RuntimeException{
+public final class MyResourceNotFoundException extends RuntimeException {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    public MyResourceNotFoundException() {
+	public MyResourceNotFoundException() {
         super();
     }
 
@@ -19,4 +19,5 @@ public class MyResourceNotFoundException extends RuntimeException{
     public MyResourceNotFoundException(final Throwable cause) {
         super(cause);
     }
+
 }

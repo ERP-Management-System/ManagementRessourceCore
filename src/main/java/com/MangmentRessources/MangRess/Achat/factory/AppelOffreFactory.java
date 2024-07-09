@@ -360,4 +360,12 @@ public class AppelOffreFactory {
         }
         return dTO;
     }
+    
+    
+    public static AppelOffre appelOffreDTOToAppelOffreForHasOrdreAchat(AppelOffre domaine, AppelOffreDTO dTO) {
+        domaine.setCode(dTO.getCode());    
+        domaine.setHasOrdreAchat(dTO.getHasOrdreAchat()); 
+        return domaine;
+    }
+
 }

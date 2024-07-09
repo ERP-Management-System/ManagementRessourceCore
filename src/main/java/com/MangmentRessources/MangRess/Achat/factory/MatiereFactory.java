@@ -106,7 +106,9 @@ public class MatiereFactory {
             dTO.setPrixAchat(domaine.getPrixAchat());
 
             dTO.setTaxeDTO(TaxeFactory.taxeToTaxeDTO(domaine.getTaxe()));
-            dTO.setCodeTaxe(domaine.getCodeTaxe());
+//            dTO.setCodeTaxe(domaine.getCodeTaxe());    
+            dTO.setValeurTaxe(domaine.getTaxe().getValeurTaxe());
+
 
             dTO.setCodeTypeMatiereDTO(TypeMatiereFactory.typeMatiereToTypeMatiereDTO(domaine.getCodeTypeMatiere()));
             dTO.setTypeMatiere(domaine.getTypeMatiere());

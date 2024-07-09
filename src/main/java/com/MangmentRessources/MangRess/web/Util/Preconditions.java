@@ -4,8 +4,9 @@
  */
 package com.MangmentRessources.MangRess.web.Util;
 
-import com.MangmentRessources.MangRess.web.error.IllegalBusinessLogiqueException;
-import com.MangmentRessources.MangRess.web.error.MyResourceNotFoundException; 
+ 
+import com.MangmentRessources.MangRess.web.errors.IllegalBusinessLogiqueException;
+import com.MangmentRessources.MangRess.web.errors.MyResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

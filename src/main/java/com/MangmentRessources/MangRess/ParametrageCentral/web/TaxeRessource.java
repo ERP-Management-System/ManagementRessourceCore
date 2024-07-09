@@ -4,11 +4,11 @@
  */
 package com.MangmentRessources.MangRess.ParametrageCentral.web;
 
-import com.MangmentRessources.MangRess.Achat.dto.DepotDTO;
 import com.MangmentRessources.MangRess.ParametrageCentral.domaine.Taxe;
 import com.MangmentRessources.MangRess.ParametrageCentral.dto.TaxeDTO;
 import com.MangmentRessources.MangRess.ParametrageCentral.service.TaxeService;
 import jakarta.validation.Valid;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
@@ -31,12 +31,11 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author Administrator
  */
-
 @RestController
 @RequestMapping("/api/parametrage/")
 public class TaxeRessource {
-    
-     private final TaxeService taxeService;
+
+    private final TaxeService taxeService;
 
     public TaxeRessource(TaxeService taxeService) {
         this.taxeService = taxeService;
@@ -49,16 +48,15 @@ public class TaxeRessource {
     }
 
     @GetMapping("taxe/all")
-    public ResponseEntity<List<TaxeDTO>> getAllTaxe() { 
+    public ResponseEntity<List<TaxeDTO>> getAllTaxe() {
         return ResponseEntity.ok().body(taxeService.findAllTaxe());
     }
-    
-        @GetMapping("taxe/type_taxe")
-    public ResponseEntity<Collection<TaxeDTO>> getDepotPrincipal(@RequestParam Collection<Integer> type_taxe) {
+
+    @GetMapping("taxe/type_taxe")
+    public ResponseEntity<Collection<TaxeDTO>> getTaxe(@RequestParam Collection<Integer> type_taxe) {
         Collection<TaxeDTO> dTOs = taxeService.findByTypeTaxe(type_taxe);
         return ResponseEntity.ok().body(dTOs);
     }
-
 
     @PostMapping("taxe")
     public ResponseEntity<TaxeDTO> postTaxe(@Valid @RequestBody TaxeDTO dTO, BindingResult bindingResult) throws URISyntaxException, MethodArgumentNotValidException {

@@ -25,7 +25,7 @@ public class DemandeAchatDTO {
 
     private String codeSaisie;
 
-    private EtatDemandeAchatDTO etatDemandeAchatDTO;
+    private EtatDemandeDTO etatDemandeAchatDTO;
 
     private Integer codeEtatDemande;
 
@@ -107,11 +107,11 @@ public class DemandeAchatDTO {
         this.designationLTEtat = designationLTEtat;
     }
 
-    public EtatDemandeAchatDTO getEtatDemandeAchatDTO() {
+    public EtatDemandeDTO getEtatDemandeAchatDTO() {
         return etatDemandeAchatDTO;
     }
 
-    public void setEtatDemandeAchatDTO(EtatDemandeAchatDTO etatDemandeAchatDTO) {
+    public void setEtatDemandeAchatDTO(EtatDemandeDTO etatDemandeAchatDTO) {
         this.etatDemandeAchatDTO = etatDemandeAchatDTO;
     }
 

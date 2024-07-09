@@ -2,33 +2,57 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.MangmentRessources.MangRess.Achat.dto;
+package com.MangmentRessources.MangRess.Achat.domaine;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
 import java.util.Date;
+import javax.validation.constraints.Size;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 /**
  *
  * @author Administrator
  */
-public class EtatDemandeAchatDTO {
+@Entity
+@Table(name = "etat_demande", schema = "achat")
+//@Audited
+//@AuditTable("etat_demande_achat_AUD")
+public class EtatDemande {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Code")
     private Integer code;
 
+    @Size(max = 200)
+    @Column(name = "code_saisie", length = 200, nullable = false)
     private String codeSaisie;
 
+    @Size(max = 200)
+    @Column(name = "designation_ar", nullable = false, length = 200, columnDefinition = "nvarchar(200)")
     private String designationAr;
 
+    @Size(max = 200)
+    @Column(name = "designation_lt", nullable = false, length = 200, columnDefinition = "nvarchar(200)")
     private String designationLt;
 
-    private boolean actif;
-
-    private boolean visible;
-
+    @Column(name = "user_Create", nullable = false, length = 255, columnDefinition = "nvarchar(200)")
     private String userCreate;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_Create", nullable = false,columnDefinition = "datetime")
     private Date dateCreate;
 
-    public EtatDemandeAchatDTO() {
+    public EtatDemande() {
     }
 
     public Integer getCode() {
@@ -63,22 +87,6 @@ public class EtatDemandeAchatDTO {
         this.designationLt = designationLt;
     }
 
-    public boolean isActif() {
-        return actif;
-    }
-
-    public void setActif(boolean actif) {
-        this.actif = actif;
-    }
-
-    public boolean isVisible() {
-        return visible;
-    }
-
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
-
     public String getUserCreate() {
         return userCreate;
     }
@@ -94,6 +102,7 @@ public class EtatDemandeAchatDTO {
     public void setDateCreate(Date dateCreate) {
         this.dateCreate = dateCreate;
     }
+
     
     
 }

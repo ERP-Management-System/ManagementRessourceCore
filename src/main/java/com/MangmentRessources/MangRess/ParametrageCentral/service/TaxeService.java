@@ -16,6 +16,7 @@ import com.MangmentRessources.MangRess.ParametrageCentral.factory.TaxeFactory;
 import com.MangmentRessources.MangRess.ParametrageCentral.repository.TaxeRepo;
 import com.MangmentRessources.MangRess.web.Util.Helper;
 import com.MangmentRessources.MangRess.web.Util.Preconditions;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -73,7 +74,9 @@ public class TaxeService {
     }
 
     public void deleteTaxe(Integer code) {
-        Preconditions.checkBusinessLogique(taxeRepo.existsById(code), "error.TaxeNotFound");
+//        Preconditions.checkBusinessLogique(taxeRepo.getReferenceById(code), "error.TaxeNotFound");
+        Taxe domaine = taxeRepo.getReferenceById(code);
+        Preconditions.checkBusinessLogique(true, "error.TaxeNotFound");
         taxeRepo.deleteById(code);
     }
 

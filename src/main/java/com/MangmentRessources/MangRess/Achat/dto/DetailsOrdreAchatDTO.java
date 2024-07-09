@@ -29,7 +29,7 @@ public class DetailsOrdreAchatDTO {
 
     private DepotDTO codeDepot;
 
-    private BigDecimal qteOrdre;
+    private BigDecimal qteDemander;
 
     private BigDecimal qteLivrer;
 
@@ -53,6 +53,15 @@ public class DetailsOrdreAchatDTO {
     private String codeSaisieColoriss;
     private String designationArColoriss;
     private String designationLtColoriss;
+
+    private BigDecimal prixAchat;
+
+    private BigDecimal mntTotalTTC;
+
+    private BigDecimal mntTotalHT;
+
+    private BigDecimal mntTotalTaxe;
+    private BigDecimal valeurTaxe;
 
     public DetailsOrdreAchatDTO() {
     }
@@ -105,14 +114,14 @@ public class DetailsOrdreAchatDTO {
         this.codeDepot = codeDepot;
     }
 
-    public BigDecimal getQteOrdre() {
-        return qteOrdre;
+    public BigDecimal getQteDemander() {
+        return qteDemander;
     }
 
-    public void setQteOrdre(BigDecimal qteOrdre) {
-        this.qteOrdre = qteOrdre;
+    public void setQteDemander(BigDecimal qteDemander) {
+        this.qteDemander = qteDemander;
     }
-
+ 
     public BigDecimal getQteLivrer() {
         return qteLivrer;
     }
@@ -232,8 +241,47 @@ public class DetailsOrdreAchatDTO {
     public void setDesignationLtColoriss(String designationLtColoriss) {
         this.designationLtColoriss = designationLtColoriss;
     }
-    
-    
-    
+
+    public BigDecimal getPrixAchat() {
+        return prixAchat;
+    }
+
+    public void setPrixAchat(BigDecimal prixAchat) {
+        this.prixAchat = prixAchat;
+    }
+
+    public BigDecimal getMntTotalTTC() {
+        return mntTotalTTC;
+    }
+
+    public void setMntTotalTTC(BigDecimal mntTotalTTC) {
+        this.mntTotalTTC = mntTotalTTC;
+    }
+
+    public BigDecimal getMntTotalHT() {
+        return mntTotalHT;
+    }
+
+    public void setMntTotalHT(BigDecimal mntTotalHT) {
+        this.mntTotalHT = mntTotalHT;
+    }
+
+    public BigDecimal getMntTotalTaxe() {
+        return mntTotalTaxe;
+    }
+
+    public void setMntTotalTaxe(BigDecimal mntTotalTaxe) {
+        this.mntTotalTaxe = mntTotalTaxe;
+    }
+
+    public BigDecimal getValeurTaxe() {
+        return valeurTaxe;
+    }
+
+    public void setValeurTaxe(BigDecimal valeurTaxe) {
+        this.valeurTaxe = valeurTaxe;
+    }
+
+ 
 
 }

@@ -3,13 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.MangmentRessources.MangRess.Achat.factory;
- 
-import com.MangmentRessources.MangRess.Achat.domaine.DetailsDemandeAchat; 
+
+import com.MangmentRessources.MangRess.Achat.domaine.DetailsDemandeAchat;
 import com.MangmentRessources.MangRess.Achat.dto.DetailsDemandeAchatDTO;
 import java.util.ArrayList;
-import java.util.Collection; 
+import java.util.Collection;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Value; 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -26,7 +26,6 @@ public class DetailsDemandeAchatFactory {
         LANGUAGE_SEC = db;
     }
 
-    
     public static DetailsDemandeAchatDTO detailsDemandeAchatTodetailsDemandeAchatDTOCollection(DetailsDemandeAchat domaine) {
 
         if (domaine != null) {
@@ -37,8 +36,8 @@ public class DetailsDemandeAchatFactory {
             dTO.setCodematiere(MatiereFactory.matiereToMatiereDTO(domaine.getMatiere()));
             dTO.setCodeColoris(ColorisFactory.colorisToColorisDTO(domaine.getColoris()));
             dTO.setCodeUnite(UniteFactory.uniteToUniteDTO(domaine.getUnite()));
-
-            dTO.setQteDemander(domaine.getQteDemander());       
+            dTO.setDateLivraison(domaine.getDemandeAchat().getDateLivraison());
+            dTO.setQteDemander(domaine.getQteDemander());
 
             return dTO;
         } else {
@@ -53,21 +52,20 @@ public class DetailsDemandeAchatFactory {
             DetailsDemandeAchatDTO dTO = new DetailsDemandeAchatDTO();
             dTO.setCodeDemandeAchat(domaine.getDetailsDemandeAchatPK().getCodeDemandeAchat());
             dTO.setDatecreate(domaine.getDateCreate());
-            dTO.setUsercreate(domaine.getUsercreate()); 
+            dTO.setUsercreate(domaine.getUsercreate());
             dTO.setCodeSaisieDemandeAchat(domaine.getDemandeAchat().getCodeSaisie());
-            dTO.setCodeMatieres(domaine.getMatiere().getCode());      
- 
+            dTO.setCodeMatieres(domaine.getMatiere().getCode());
+
+            dTO.setDateLivraison(domaine.getDemandeAchat().getDateLivraison());
 
 //            dTO.setCodeAppelOffre(domaine.getDemandeAchat().getCodeAppelOffre());      
 //            dTO.setCodeModeReglement(domaine.getDemandeAchat().getAppelOffre().getCodeModeReglement());      
-
             dTO.setCodeSaisieMatiere(domaine.getMatiere().getCodeSaisie());
             dTO.setDesignationArMatiere(domaine.getMatiere().getDesignationAr());
             dTO.setDesignationLtMatiere(domaine.getMatiere().getDesignationLt());
-            dTO.setPrixAchat(domaine.getMatiere().getPrixAchat());       
-            dTO.setCodeTaxe(domaine.getMatiere().getCodeTaxe());
-            
-            
+            dTO.setPrixAchat(domaine.getMatiere().getPrixAchat());
+            System.out.println("domaine.getMatiere().getTaxe()"+domaine.getMatiere().getTaxe());
+            dTO.setValeurTaxe(domaine.getMatiere().getTaxe().getValeurTaxe());      
             dTO.setCodeColoriss(domaine.getColoris().getCode());
             dTO.setCodeSaisieColoriss(domaine.getColoris().getCodeSaisie());
             dTO.setDesignationArColoriss(domaine.getColoris().getDesignationAr());
@@ -93,6 +91,7 @@ public class DetailsDemandeAchatFactory {
         }
         return dTOs;
     }
+
     public static List<DetailsDemandeAchatDTO> UpdatedetailsDemandeAchatTodetailsDemandeAchatDTOList(List<DetailsDemandeAchat> detailsDemandeAchats) {
         List<DetailsDemandeAchatDTO> dTOs = new ArrayList<>();
         for (DetailsDemandeAchat rslt : detailsDemandeAchats) {
