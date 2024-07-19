@@ -16,5 +16,11 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface DetailsOrdreAchatRepo  extends JpaRepository<DetailsOrdreAchat, DetailsOrdreAchatPK> {
-      Collection<DetailsOrdreAchat> findByDetailsOrdreAchatPK_codeOrdreAchat(Integer codeOrdreAchat);
+//      Collection<DetailsOrdreAchat> findByDetailsOrdreAchatPK_codeOrdreAchat(Integer codeOrdreAchat);   
+      
+       Collection<DetailsOrdreAchat>  findByDetailsOrdreAchatPK_codeOrdreAchat(Integer codeOrdreAchat); 
+
+      
+//       DetailsOrdreAchat  existeByDetailsOrdreAchatPK_codeOrdreAchat(Integer codeOrdreAchat);
+    Boolean existsByDetailsOrdreAchatPK_codeOrdreAchat(int codeOrdreAchat);
 }

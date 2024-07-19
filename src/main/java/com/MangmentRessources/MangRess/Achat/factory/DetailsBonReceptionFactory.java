@@ -4,8 +4,8 @@
  */
 package com.MangmentRessources.MangRess.Achat.factory;
 
-import com.MangmentRessources.MangRess.Achat.domaine.DetailsOrdreAchat;
-import com.MangmentRessources.MangRess.Achat.dto.DetailsOrdreAchatDTO;
+import com.MangmentRessources.MangRess.Achat.domaine.DetailsBonReception;
+import com.MangmentRessources.MangRess.Achat.dto.DetailsBonReceptionDTO;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  * @author Administrator
  */
 @Component
-public class DetailsOrdreAchatFactory {
+public class DetailsBonReceptionFactory {
 
     static String LANGUAGE_SEC;
 
@@ -25,19 +25,20 @@ public class DetailsOrdreAchatFactory {
         LANGUAGE_SEC = db;
     }
 
-    public static DetailsOrdreAchatDTO detailsOrdreAchatTodetailsOrdreAchatDTOCollection(DetailsOrdreAchat domaine) {
+    public static DetailsBonReceptionDTO detailsBonReceptionTodetailsBonReceptionDTOCollection(DetailsBonReception domaine) {
 
         if (domaine != null) {
-            DetailsOrdreAchatDTO dTO = new DetailsOrdreAchatDTO();
-            dTO.setCodeOrdreAchat(domaine.getDetailsOrdreAchatPK().getCodeOrdreAchat());
+            DetailsBonReceptionDTO dTO = new DetailsBonReceptionDTO();
+            dTO.setCodeBonReception(domaine.getDetailsBonReceptionPK().getCodeBonReception());
             dTO.setDatecreate(domaine.getDateCreate());
             dTO.setUsercreate(domaine.getUsercreate());
-            dTO.setMatiereDTO(MatiereFactory.matiereToMatiereDTO(domaine.getMatiere()));
+            dTO.setCodeMatieres(MatiereFactory.matiereToMatiereDTO(domaine.getMatiere()).getCode());
             dTO.setCodeColoris(ColorisFactory.colorisToColorisDTO(domaine.getColoris()));
             dTO.setCodeUnite(UniteFactory.uniteToUniteDTO(domaine.getUnite()));
-//            dTO.setValeurTaxe(domaine.getMatiere().getTaxe().getValeurTaxe());
 
-            dTO.setQteDemander(domaine.getQteDemander());
+            dTO.setDepotDTO(DepotFactory.depotToDepotDTO(domaine.getDepot()));
+
+            dTO.setQteReceptionner(domaine.getQteReceptionner());
             return dTO;
         } else {
             return null;
@@ -45,21 +46,22 @@ public class DetailsOrdreAchatFactory {
 
     }
 
-    public static DetailsOrdreAchatDTO UpdatedetailsOrdreAchatTodetailsOrdreAchatDTO(DetailsOrdreAchat domaine) {
+    public static DetailsBonReceptionDTO UpdatedetailsBonReceptionTodetailsBonReceptionDTO(DetailsBonReception domaine) {
 
         if (domaine != null) {
-          
-            DetailsOrdreAchatDTO dTO = new DetailsOrdreAchatDTO();
-            dTO.setCodeOrdreAchat(domaine.getDetailsOrdreAchatPK().getCodeOrdreAchat());
+            DetailsBonReceptionDTO dTO = new DetailsBonReceptionDTO();
+            dTO.setCodeBonReception(domaine.getDetailsBonReceptionPK().getCodeBonReception());
             dTO.setDatecreate(domaine.getDateCreate());
             dTO.setUsercreate(domaine.getUsercreate());
-//            System.out.println("soufien returnxxxx");
-            dTO.setCodeSaisieOrdreAchat(domaine.getOrdreAchat().getCodeSaisie());
+            dTO.setCodeSaisieBonReception(domaine.getBonReception().getCodeSaisie());
             dTO.setCodeMatieres(domaine.getMatiere().getCode());
 
             dTO.setCodeSaisieMatiere(domaine.getMatiere().getCodeSaisie());
             dTO.setDesignationArMatiere(domaine.getMatiere().getDesignationAr());
             dTO.setDesignationLtMatiere(domaine.getMatiere().getDesignationLt());
+            dTO.setPrixAchat(domaine.getMatiere().getPrixAchat());
+            dTO.setCodeTaxe(domaine.getMatiere().getCodeTaxe());
+            dTO.setQteReceptionner(domaine.getQteReceptionner());
 
             dTO.setCodeColoriss(domaine.getColoris().getCode());
             dTO.setCodeSaisieColoriss(domaine.getColoris().getCodeSaisie());
@@ -71,18 +73,6 @@ public class DetailsOrdreAchatFactory {
             dTO.setDesignationArUnites(domaine.getUnite().getDesignationAr());
             dTO.setDesignationLtUnites(domaine.getUnite().getDesignationLt());
 
-            dTO.setPrixAchat(domaine.getPrixUnitaireAchat());
-            dTO.setMntTotalHT(domaine.getMntTotalHT());
-            dTO.setMntTotalTTC(domaine.getMntTotalTTC());
-            dTO.setMntTotalTaxe(domaine.getMntTotalTaxe());
-
-            dTO.setValeurTaxe(domaine.getMatiere().getTaxe().getValeurTaxe());
-
-            dTO.setQteDemander(domaine.getQteDemander());
-            
-            dTO.setOrdreAchatDTO(OrdreAchatFactory.DetailsordreAchatToDetailsOrdreAchatDTO(domaine.getOrdreAchat()));
-             
-          
             return dTO;
         } else {
             return null;
@@ -90,11 +80,11 @@ public class DetailsOrdreAchatFactory {
 
     }
 
-    public static Collection<DetailsOrdreAchatDTO> UpdatedetailsOrdreAchatTodetailsOrdreAchatDTOCollection(Collection<DetailsOrdreAchat> detailsOrdreAchats) {
-        Collection<DetailsOrdreAchatDTO> dTOs = new ArrayList<>();
-        for (DetailsOrdreAchat rslt : detailsOrdreAchats) {
-            dTOs.add(UpdatedetailsOrdreAchatTodetailsOrdreAchatDTO(rslt));
+    public static Collection<DetailsBonReceptionDTO> UpdatedetailsBonReceptionTodetailsBonReceptionDTOCollection(Collection<DetailsBonReception> detailsOrdreAchats) {
+        Collection<DetailsBonReceptionDTO> detailsBonReceptionDTOs = new ArrayList<>();
+        for (DetailsBonReception detailsBonReception : detailsOrdreAchats) {
+            detailsBonReceptionDTOs.add(UpdatedetailsBonReceptionTodetailsBonReceptionDTO(detailsBonReception));
         }
-        return dTOs;
+        return detailsBonReceptionDTOs;
     }
 }

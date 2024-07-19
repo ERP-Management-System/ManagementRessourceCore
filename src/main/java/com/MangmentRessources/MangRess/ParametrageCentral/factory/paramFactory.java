@@ -33,13 +33,9 @@ public class paramFactory {
     }
 
     public static param paramDTOToparam(paramDTO Dto, param domaine) {
-        if (Dto != null) {
-            domaine.setCode(Dto.getCode());
-            domaine.setDescription(Dto.getDescription());
-            domaine.setValeur(Dto.getValeur());  
-            domaine.setCodeParam(Dto.getCodeParam());
-
-
+        if (Dto != null) { 
+            domaine.setValeur(Dto.getValeur());    
+            domaine.setVisible(Dto.getVisible());   
             return domaine;
         } else {
             return null;
@@ -50,11 +46,7 @@ public class paramFactory {
 
         if (domaine != null) {
             paramDTO dTO = new paramDTO();
-            dTO.setCode(domaine.getCode());      
-            dTO.setCodeParam(domaine.getCodeParam());
-
-
-            dTO.setDescription(domaine.getDescription());
+            dTO.setVisible(domaine.getVisible());
             dTO.setValeur(domaine.getValeur());
 
             return dTO;

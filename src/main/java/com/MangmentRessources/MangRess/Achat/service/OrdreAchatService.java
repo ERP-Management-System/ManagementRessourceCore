@@ -4,14 +4,10 @@
  */
 package com.MangmentRessources.MangRess.Achat.service;
 
-import com.MangmentRessources.MangRess.Achat.domaine.AppelOffre;
 import com.MangmentRessources.MangRess.Achat.domaine.OrdreAchat;
 import com.MangmentRessources.MangRess.Achat.domaine.DetailsOrdreAchat;
-import com.MangmentRessources.MangRess.Achat.dto.AppelOffreDTO;
-import com.MangmentRessources.MangRess.Achat.dto.DemandeAchatDTO;
 import com.MangmentRessources.MangRess.Achat.dto.OrdreAchatDTO;
 import com.MangmentRessources.MangRess.Achat.dto.DetailsOrdreAchatDTO;
-import com.MangmentRessources.MangRess.Achat.factory.DemandeAchatFactory;
 import com.MangmentRessources.MangRess.Achat.factory.OrdreAchatFactory;
 import com.MangmentRessources.MangRess.Achat.factory.DetailsOrdreAchatFactory;
 import com.MangmentRessources.MangRess.Achat.repository.OrdreAchatRepo;
@@ -23,11 +19,8 @@ import jakarta.persistence.EntityManager;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,7 +40,7 @@ public class OrdreAchatService {
 //    private MessageSource messageSource;
 //    
 
-   static String LANGUAGE_SEC;
+    static String LANGUAGE_SEC;
     @Autowired
     EntityManager entityManager;
 
@@ -55,7 +48,6 @@ public class OrdreAchatService {
     public void setLanguage(String db) {
         LANGUAGE_SEC = db;
     }
-
 
     public OrdreAchatService(OrdreAchatRepo ordreAchatRepo, CompteurService compteurService, DetailsOrdreAchatRepo detailsOrdreAchatRepo, AppelOffreService appelOffreService) {
         this.ordreAchatRepo = ordreAchatRepo;
@@ -69,7 +61,6 @@ public class OrdreAchatService {
 //    private String getMessage(String code, Object... args) {
 //        return messageSource.getMessage(code, args, LocaleContextHolder.getLocale());
 //    }
-
     @Transactional(readOnly = true)
     public List<OrdreAchatDTO> findAllOrdreAchat() {
         return OrdreAchatFactory.listOrdreAchatToOrdreAchatDTOs(ordreAchatRepo.findAllByOrderByCodeSaisieDesc());
@@ -99,10 +90,35 @@ public class OrdreAchatService {
         OrdreAchat domaine = ordreAchatRepo.getReferenceById(dTO.getCode());
         Preconditions.checkArgument(true, "error.OrdreAchatNotFound");
         dTO.setCode(domaine.getCode());
+        
+        dTO.setDetailsOrdreAchatDTOs(DetailsOrdreAchatFactory.UpdatedetailsOrdreAchatTodetailsOrdreAchatDTOCollection(domaine.getDetailsOrdreAchats()));
+        
+          System.out.println("nourhene getCodematiere  " + dTO.getDetailsOrdreAchatDTOs().iterator().next().getCodeMatieres());
         OrdreAchatFactory.ordreAchatDTOToOrdreAchatWithDetails(domaine, dTO);
         return ordreAchatRepo.save(domaine);
     }
-
+    
+ 
+    public OrdreAchat updateEtatRecpetion(OrdreAchatDTO dTO) {
+        OrdreAchat domaine = ordreAchatRepo.getReferenceById(dTO.getCode());
+        Preconditions.checkArgument(true, "error.OrdreAchatNotFound");
+        dTO.setCode(domaine.getCode());
+        OrdreAchatFactory.ordreAchatDTOToOrdreAchat(dTO,domaine );
+        System.out.println("Update etat reception ");
+        return ordreAchatRepo.save(domaine);
+    }
+    
+    
+        public Boolean updateEtatRecpetions(OrdreAchat ordreAchat) {
+        if (ordreAchat != null) {
+            ordreAchat.setCodeEtatReception(ordreAchat.getCodeEtatReception());
+            ordreAchatRepo.save(ordreAchat);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public OrdreAchatDTO updateNewWithFlush(OrdreAchatDTO dTO) {
         OrdreAchat inBase = ordreAchatRepo.getReferenceById(dTO.getCode());
         Preconditions.checkArgument(inBase != null, "error.OrdreAchatInexistant");
@@ -125,19 +141,23 @@ public class OrdreAchatService {
     public void deleteOrdreAchat(Integer code) {
         Preconditions.checkArgument(ordreAchatRepo.existsById(code), "error.OrdreAchatNotFound");
 
-        OrdreAchat inBase = ordreAchatRepo.getReferenceById(code);
-        System.out.println("inBase.getCodeEtatReception()" + inBase.getCodeEtatReception());
-        if (inBase.getCodeEtatReception() != null) {
-            Integer codeEtatRecept = inBase.getCodeEtatReception();
-            Preconditions.checkArgument(codeEtatRecept.equals(5), "error.OrdreAchatRecpetionnerTotalemenet");
-        }
-
-        if (inBase.getCodeEtatReception() != null) {
-            Integer codeEtatRecept = inBase.getCodeEtatReception();
-            Preconditions.checkArgument(codeEtatRecept.equals(7), "error.OrdreAchatRecpetionnerPartielement");
-        }
+//        OrdreAchat inBase = ordreAchatRepo.findOrdreAchatByCodeEtatReception(2);
+//        System.out.println("inBase.getCodeEtatReception()" + inBase.getCodeEtatReception());
+//        if (inBase.getCodeEtatReception() != null) {
+//            Integer codeEtatRecept = inBase.getCodeEtatReception();
+//            Preconditions.checkArgument(codeEtatRecept.equals("5"), "error.OrdreAchatRecpetionnerTotalemenet");
+//        }else if
+//
+//         (inBase.getCodeEtatReception() != null) {
+//            Integer codeEtatRecept = inBase.getCodeEtatReception();
+//            Preconditions.checkArgument(codeEtatRecept., "error.OrdreAchatRecpetionnerPartielement");
+//        }else
+//        {
+//        }
+//        List<OrdreAchat> inBase = ordreAchatRepo.findOrdreAchatByCodeEtatReception(9);
 
         ordreAchatRepo.deleteById(code);
+
     }
 
     public OrdreAchatDTO saveOrdreAchat(OrdreAchatDTO Dto) {

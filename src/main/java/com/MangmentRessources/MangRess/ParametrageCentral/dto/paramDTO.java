@@ -15,7 +15,7 @@ public class paramDTO {
     private Integer code;   
     private String codeParam;
 
-
+    private Boolean Visible;
     private String description;
 
     private String valeur;
@@ -23,31 +23,9 @@ public class paramDTO {
     public paramDTO() {
     }
 
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getCodeParam() {
-        return codeParam;
-    }
-
-    public void setCodeParam(String codeParam) {
-        this.codeParam = codeParam;
-    }
-
  
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+ 
+ 
 
     public String getValeur() {
         return valeur;
@@ -55,6 +33,14 @@ public class paramDTO {
 
     public void setValeur(String valeur) {
         this.valeur = valeur;
+    }
+
+    public Boolean getVisible() {
+        return Visible;
+    }
+
+    public void setVisible(Boolean Visible) {
+        this.Visible = Visible;
     }
     
     

@@ -4,11 +4,11 @@
  */
 package com.MangmentRessources.MangRess.Achat.web;
 
-import com.MangmentRessources.MangRess.Achat.domaine.OrdreAchat;
-import com.MangmentRessources.MangRess.Achat.dto.DemandeAchatDTO;
-import com.MangmentRessources.MangRess.Achat.dto.OrdreAchatDTO;
-import com.MangmentRessources.MangRess.Achat.dto.DetailsOrdreAchatDTO;
-import com.MangmentRessources.MangRess.Achat.service.OrdreAchatService;
+import com.MangmentRessources.MangRess.Achat.domaine.BonReception;
+import com.MangmentRessources.MangRess.Achat.dto.BonReceptionDTO;
+import com.MangmentRessources.MangRess.Achat.dto.DetailsBonReceptionDTO;
+import com.MangmentRessources.MangRess.Achat.repository.DetailsBonReceptionRepo;
+import com.MangmentRessources.MangRess.Achat.service.BonReceptionService;
 import com.MangmentRessources.MangRess.ParametrageCentral.dto.SocieteDTO;
 import com.MangmentRessources.MangRess.ParametrageCentral.dto.paramDTO;
 import com.MangmentRessources.MangRess.ParametrageCentral.service.ParamService;
@@ -17,7 +17,6 @@ import jakarta.validation.Valid;
 import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.Clock;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -55,96 +54,85 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/parametrage_achat/")
-public class OrdreAchatRessource {
+public class BonReceptionRessource {
+    private final BonReceptionService bonReceptionService;
 
-    private final OrdreAchatService ordreAchatService;
-    private final ParamService paramService;
+    private final DetailsBonReceptionRepo detailsBonReceptionRepo;
+
     private final SocieteService societeService;
+    private final ParamService paramService;
 
-    public OrdreAchatRessource(OrdreAchatService ordreAchatService, ParamService paramService, SocieteService societeService) {
-        this.ordreAchatService = ordreAchatService;
-        this.paramService = paramService;
+    public BonReceptionRessource(BonReceptionService bonReceptionService, DetailsBonReceptionRepo detailsBonReceptionRepo, SocieteService societeService, ParamService paramService) {
+        this.bonReceptionService = bonReceptionService;
+        this.detailsBonReceptionRepo = detailsBonReceptionRepo;
         this.societeService = societeService;
+        this.paramService = paramService;
+    }
+ 
+    @GetMapping("bon_reception/{code}")
+    public ResponseEntity<BonReceptionDTO> getBonReceptionByCode(@PathVariable Integer code) {
+        BonReceptionDTO dTO = bonReceptionService.findOne(code);
+        return ResponseEntity.ok().body(dTO);
     }
 
-    @GetMapping("ordre_achat/all")
-    public ResponseEntity<List<OrdreAchatDTO>> getAllOrdreAchat() {
-        return ResponseEntity.ok().body(ordreAchatService.findAllOrdreAchat());
+    @GetMapping("bon_reception/all")
+    public ResponseEntity<List<BonReceptionDTO>> getAllBonReception() {
+        return ResponseEntity.ok().body(bonReceptionService.findAllBonReception());
     }
 
-    @GetMapping("ordre_achat/etat_reception/{codeEtatReception}")
-    public ResponseEntity<List<OrdreAchatDTO>> getOrdreAchatByEtatReception(@PathVariable Integer codeEtatReception) {
-        List<OrdreAchatDTO> dto = ordreAchatService.findOneByEtatReception(codeEtatReception);
-        return ResponseEntity.ok().body(dto);
+//    @GetMapping("bon_reception/EtatApprouverOrdreAchat/{codeEtatApprouverOrdreAchat}")
+//    public ResponseEntity<List<BonReceptionDTO>> getBonReceptionByCodeEtatApprouve(@PathVariable Integer codeEtatApprouverOrdreAchat) {
+//        List<BonReceptionDTO> dto = bonReceptionService.findOneByEtatApprouver(codeEtatApprouverOrdreAchat);
+//        return ResponseEntity.ok().body(dto);
+//
+//    }
 
-    }
-
-    @PutMapping("ordre_achat/update")
-    public ResponseEntity<OrdreAchatDTO> updateOrdreAchat(@Valid @RequestBody OrdreAchatDTO dTO, BindingResult bindingResult) throws MethodArgumentNotValidException {
-        OrdreAchatDTO result = ordreAchatService.updateNewWithFlush(dTO);
+    @PutMapping("bon_reception/update")
+    public ResponseEntity<BonReceptionDTO> updateModelePanier(@Valid @RequestBody BonReceptionDTO dTO, BindingResult bindingResult) throws MethodArgumentNotValidException {
+        BonReceptionDTO result = bonReceptionService.updateNewWithFlush(dTO);
         return ResponseEntity.ok().body(result);
     }
 
-    
-        @PutMapping("ordre_achat/update_etat_reception")
-    public ResponseEntity<OrdreAchat> updateOrdreAchatEtatReception(@Valid @RequestBody OrdreAchatDTO dTO, BindingResult bindingResult) throws MethodArgumentNotValidException {
-        OrdreAchat result = ordreAchatService.updateEtatRecpetion(dTO);
-            
-        return ResponseEntity.ok().body(result);
-    }
-
-    
-    
-    @DeleteMapping("ordre_achat/delete/{code}")
-    public ResponseEntity<OrdreAchat> deleteOrdreAchat(@PathVariable("code") Integer code) {
-        ordreAchatService.deleteOrdreAchat(code);
+// 
+    @DeleteMapping("bon_reception/delete/{code}")
+    public ResponseEntity<BonReception> deleteBonReception(@PathVariable("code") Integer code) {
+        bonReceptionService.deleteBonReception(code);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("ordre_achat")
-    public ResponseEntity<OrdreAchatDTO> postDetailsOrdreAchatNew(@Valid @RequestBody OrdreAchatDTO dTO, BindingResult bindingResult) throws URISyntaxException, MethodArgumentNotValidException {
-        OrdreAchatDTO result = ordreAchatService.saveOrdreAchat(dTO);
+    @PostMapping("bon_reception")
+    public ResponseEntity<BonReceptionDTO> postDetailsBonReceptionNew(@Valid @RequestBody BonReceptionDTO dTO, BindingResult bindingResult) throws URISyntaxException, MethodArgumentNotValidException {
+        BonReceptionDTO result = bonReceptionService.saveBonReception(dTO);
         return ResponseEntity.created(new URI("/api/parametrage-achat/" + result.getCode())).body(result);
     }
 
-    @GetMapping("details_ordre_achat/{code}")
-    public ResponseEntity<Collection<DetailsOrdreAchatDTO>> getDetailsOrdreAchat(@PathVariable Integer code) {
-        Collection<DetailsOrdreAchatDTO> dto = ordreAchatService.findOneWithDetilas(code);
+    @GetMapping("details_bon_reception/{code}")
+    public ResponseEntity<Collection<DetailsBonReceptionDTO>> getBonReception(@PathVariable Integer code) {
+        Collection<DetailsBonReceptionDTO> dto = bonReceptionService.findOneWithDetilas(code);
         return ResponseEntity.ok().body(dto);
 
     }
 
-    @GetMapping("ordre_achat/{code}")
-    public ResponseEntity< OrdreAchatDTO> getOrdreAchat(@PathVariable Integer code) {
-         OrdreAchatDTO  dto = ordreAchatService.findOne(code);
-        return ResponseEntity.ok().body(dto);
-
-    }
-
-    @GetMapping("details_ordre_achat/edition/{code}")
+    @GetMapping("details_bon_reception/edition/{code}")
     public ResponseEntity<byte[]> getReport(@PathVariable Integer code) throws Exception {
 
-        String fileNameJrxml = "src/main/resources/Reports/DetailsOrdreAchat.jrxml";
+        String fileNameJrxml = "src/main/resources/Reports/DetailsBonReception.jrxml";
+//        Collection<DetailsBonReception> products = detailsBonReceptionRepo.findAll();
 
-        Collection<DetailsOrdreAchatDTO> dto = ordreAchatService.findOneWithDetilas(code);
+        Collection<DetailsBonReceptionDTO> dto = bonReceptionService.findOneWithDetilas(code);
+
         paramDTO dTOs = paramService.findParamByCodeParamS("NomSociete");
-        OrdreAchatDTO rslt = ordreAchatService.findOne(code);
+        BonReceptionDTO rslt = bonReceptionService.findOne(code);
         SocieteDTO societeDTO = societeService.findOne(1);
         JasperDesign jasperDesign = JRXmlLoader.load(fileNameJrxml);
         JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
         Map<String, Object> params = new HashMap<>();
         params.put("ItemDataSource", new JRBeanCollectionDataSource(dto));
         params.put("UserCreate", "SoufienCreateCore");
-        params.put("codeSaisie", rslt.getCodeSaisie());
+        params.put("codeSaisieBonReception", rslt.getCodeSaisie());
         params.put("Observation", rslt.getObservation());
-        params.put("societe", dTOs.getValeur());
-        params.put("dateLivraison", rslt.getDateLivraison());
-        System.out.println("rslt.getDateLivraison()" + rslt.getDateLivraison());
-        params.put("codeAppelOffre", rslt.getAppelOffreDTO().getCodeSaisie());
-        params.put("codeDemandeAchat", rslt.getDemandeAchatDTO().getCodeSaisie());
-
+        params.put("societe", dTOs.getValeur()); 
         params.put("logo", societeDTO.getLogo());
-
         System.out.println("filling parameters to .JASPER file....");
         JasperPrint print = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 

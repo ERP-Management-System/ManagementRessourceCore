@@ -46,7 +46,7 @@ public class ParamService {
         @Transactional(readOnly = true)
     public paramDTO  findParamByCodeParamS( String  codeParam) {
          param  result = paramRepo.findParamByCodeParam(codeParam);
-        Preconditions.checkBusinessLogique(result != null, "error.RegionNotFound");
+        Preconditions.checkBusinessLogique(result != null, "error.ParamNotFound");
         return paramFactory.paramToparamDTO(result);
     }
 

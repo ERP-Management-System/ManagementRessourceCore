@@ -68,14 +68,14 @@ public class AppelOffreService {
     @Transactional(readOnly = true)
     public AppelOffreDTO findOne(Integer code) {
         AppelOffre domaine = appelOffreRepo.getReferenceById(code);
-        Preconditions.checkArgument(domaine.getCode() != null, "error.AppelOffreNotFound");
+        Preconditions.checkArgument(domaine == null, "error.AppelOffreNotFound");
         return AppelOffreFactory.appelOffreToAppelOffreDTO(domaine);
     }
 
     @Transactional(readOnly = true)
     public AppelOffreDTO findOneDetails(Integer code) {
         AppelOffre domaine = appelOffreRepo.getReferenceById(code);
-        Preconditions.checkArgument(domaine.getCode() != null, "error.AppelOffreNotFound");
+        Preconditions.checkArgument(domaine == null, "error.AppelOffreNotFound");
         return AppelOffreFactory.appelOffreToAppelOffreDTO(domaine);
     }
 
@@ -83,12 +83,12 @@ public class AppelOffreService {
 //    public List<AppelOffreDTO> findOneByEtatApprouver(Integer CodeEtatApprouverOrdreAchat) {
 //        return AppelOffreFactory.listAppelOffreToAppelOffreDTOs(appelOffreRepo.findAppelOffreByCodeEtatApprouverOrdreAchat(CodeEtatApprouverOrdreAchat));
 //    }
-    public AppelOffreDTO updateNewWithFlush(AppelOffreDTO modelepanierDTO) {
-        AppelOffre inBase = appelOffreRepo.getReferenceById(modelepanierDTO.getCode());
-        Preconditions.checkArgument(inBase != null, "error.ModelePanierInexistant");
+    public AppelOffreDTO updateNewWithFlush(AppelOffreDTO appelOffreDTO) {
+        AppelOffre inBase = appelOffreRepo.getReferenceById(appelOffreDTO.getCode());
+        Preconditions.checkArgument(inBase == null, "error.appelOffreDTOInexistant");
         inBase.getDetailsAppelOffresCollections().clear();
         appelOffreRepo.flush();
-        inBase = AppelOffreFactory.appelOffreDTOToAppelOffreWithDetails(inBase, modelepanierDTO);
+        inBase = AppelOffreFactory.appelOffreDTOToAppelOffreWithDetails(inBase, appelOffreDTO);
         inBase = appelOffreRepo.save(inBase);
         AppelOffreDTO resultDTO = AppelOffreFactory.UpdateappelOffreWithDetailsToappelOffreDTOWithDetails(inBase);
         return resultDTO;
@@ -96,7 +96,7 @@ public class AppelOffreService {
 
     public AppelOffreDTO updateHasOrdreAchat(AppelOffreDTO dTO) {
         AppelOffre inBase = appelOffreRepo.getReferenceById(dTO.getCode());
-        Preconditions.checkArgument(inBase != null, "error.ModelePanierInexistant");
+        Preconditions.checkArgument(inBase == null, "error.ModelePanierInexistant");
         inBase = AppelOffreFactory.appelOffreDTOToAppelOffreForHasOrdreAchat(inBase, dTO);
         inBase = appelOffreRepo.save(inBase);
         AppelOffreDTO resultDTO = AppelOffreFactory.UpdateappelOffreWithDetailsToappelOffreDTOWithDetails(inBase);

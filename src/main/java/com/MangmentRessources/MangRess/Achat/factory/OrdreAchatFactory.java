@@ -8,7 +8,7 @@ import com.MangmentRessources.MangRess.Achat.domaine.OrdreAchat;
 import com.MangmentRessources.MangRess.Achat.domaine.DetailsOrdreAchat;
 import com.MangmentRessources.MangRess.Achat.domaine.DetailsOrdreAchatPK;
 import com.MangmentRessources.MangRess.Achat.dto.OrdreAchatDTO;
-import com.MangmentRessources.MangRess.Achat.dto.DetailsOrdreAchatDTO;
+import com.MangmentRessources.MangRess.Achat.dto.DetailsOrdreAchatDTO; 
 import com.MangmentRessources.MangRess.web.Util.Preconditions;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,14 +40,11 @@ public class OrdreAchatFactory {
     public static OrdreAchat ordreAchatDTOToOrdreAchat(OrdreAchatDTO Dto, OrdreAchat domaine) {
         if (Dto != null) {
             domaine.setCode(Dto.getCode());
-
-            domaine.setCodeSaisie(Dto.getCodeSaisie());
-
-            domaine.setDateCreate(Dto.getDateCreate());
-            domaine.setUserCreate(Dto.getUserCreate());
-            domaine.setObservation(Dto.getObservation());
-
             domaine.setCodeEtatReception(Dto.getCodeEtatReception());
+            if (domaine.getCodeEtatReception() != null) {
+                domaine.setEtatReception(EtatReceptionFactory.createEtatReceptionByCode(Dto.getCodeEtatReception()));
+
+            }
 
             return domaine;
         } else {
@@ -162,9 +159,6 @@ public class OrdreAchatFactory {
 
     public static OrdreAchat ordreAchatDTOToOrdreAchatWithDetails(OrdreAchat domaine, OrdreAchatDTO dTO) {
         domaine.setCode(dTO.getCode());
-
-        domaine.setCodeSaisie(dTO.getCodeSaisie());
-
         domaine.setDateCreate(new Date());
         domaine.setUserCreate(dTO.getUserCreate());
         domaine.setObservation(dTO.getObservation());
@@ -186,7 +180,7 @@ public class OrdreAchatFactory {
             domaine.setTypeCircuitAchat(TypeCircuitAchatFactory.createTypeCircuitAchatByCode(dTO.getCodeTypeCircuitAchat()));
 
         }
-        
+
         Preconditions.checkBusinessLogique(dTO.getCodeEtatReception() != null, "error.CodeEtatReceptionRequired");
         domaine.setCodeEtatReception(dTO.getCodeEtatReception());
         if (domaine.getCodeEtatReception() != null) {
@@ -213,14 +207,14 @@ public class OrdreAchatFactory {
             DetailsOrdreAchat detailsOrdreAchat = new DetailsOrdreAchat();
             DetailsOrdreAchatPK detailsOrdreAchatPK = new DetailsOrdreAchatPK();
 
-            Preconditions.checkBusinessLogique(x.getCodematiere() != null, "error.MatiereRequired");
-            detailsOrdreAchatPK.setCodeMatiere(x.getCodematiere().getCode());
-
-            Preconditions.checkBusinessLogique(x.getCodeUnite().getCode() != null, "error.UniteRequired");
-            detailsOrdreAchatPK.setCodeUnite(x.getCodeUnite().getCode());
-            Preconditions.checkBusinessLogique(x.getCodeColoris().getCode() != null, "error.ColorisRequired");
-            detailsOrdreAchatPK.setCodeColoris(x.getCodeColoris().getCode());
-            detailsOrdreAchat.setValeurTaxe(x.getCodematiere().getValeurTaxe());
+            Preconditions.checkBusinessLogique(x.getMatiereDTO().getCode()!= null, "error.MatiereRequired");
+            detailsOrdreAchatPK.setCodeMatiere(x.getMatiereDTO().getCode());
+            Preconditions.checkBusinessLogique(x.getCodeUnites() != null, "error.UniteRequired");
+            detailsOrdreAchatPK.setCodeUnite(x.getCodeUnites());
+            Preconditions.checkBusinessLogique(x.getCodeColoriss() != null, "error.ColorisRequired");
+            detailsOrdreAchatPK.setCodeColoris(x.getCodeColoriss());
+            
+//            detailsOrdreAchat.setValeurTaxe(x.getCodematiere().getValeurTaxe());
             detailsOrdreAchat.setDetailsOrdreAchatPK(detailsOrdreAchatPK);
             Preconditions.checkBusinessLogique(x.getQteDemander() != null, "error.QuantiteRequired");
             detailsOrdreAchat.setQteDemander(x.getQteDemander());
@@ -256,6 +250,8 @@ public class OrdreAchatFactory {
             dTO.setDateCreate(domaine.getDateCreate());
             dTO.setUserCreate(domaine.getUserCreate());
             dTO.setObservation(domaine.getObservation());
+
+            dTO.setDateLivraison(domaine.getDateLivraison());
 
             dTO.setMntTotalHT(domaine.getMntTotalHT());
             dTO.setMntTimbre(domaine.getMntTimbre());
@@ -336,5 +332,13 @@ public class OrdreAchatFactory {
             }
         }
         return dTO;
+    }
+    
+        public static Collection< OrdreAchatDTO> DetailsordreAchatToDetailsOrdreAchatDTOCollection(Collection< OrdreAchat> detailsOrdreAchats) {
+        Collection< OrdreAchatDTO> dTOs = new ArrayList<>();
+        for ( OrdreAchat rslt : detailsOrdreAchats) {
+            dTOs.add(DetailsordreAchatToDetailsOrdreAchatDTO(rslt));
+        }
+        return dTOs;
     }
 }

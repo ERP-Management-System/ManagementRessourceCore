@@ -32,10 +32,8 @@ import javax.validation.constraints.Size;
  * @author Administrator
  */
 @Entity
-@Table(name = "ordre_achat", schema = "achat")
-//@Audited
-//@AuditTable("ordre_achat_AUD")
-public class OrdreAchat {
+@Table(name = "bon_reception", schema = "achat")
+public class BonReception {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,7 +41,7 @@ public class OrdreAchat {
     private Integer code;
 
     @Size(max = 200)
-    @Column(name = "code_saisie_demande", length = 200, nullable = false)
+    @Column(name = "code_saisie", length = 200, nullable = false)
     private String codeSaisie;
 
     @JoinColumn(name = "code_etat_reception", referencedColumnName = "Code", nullable = false)
@@ -54,14 +52,6 @@ public class OrdreAchat {
     @Column(name = "code_etat_reception", updatable = false, insertable = false)
     private Integer codeEtatReception;
 
-    @JoinColumn(name = "code_type_circuit_achat", referencedColumnName = "Code", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonBackReference
-    private TypeCircuitAchat typeCircuitAchat;
-
-    @Column(name = "code_type_circuit_achat", updatable = false, insertable = false)
-    private Integer codeTypeCircuitAchat;
-
     @JoinColumn(name = "code_demande_achat", referencedColumnName = "Code", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonBackReference
@@ -69,6 +59,14 @@ public class OrdreAchat {
 
     @Column(name = "code_demande_achat", updatable = false, insertable = false)
     private Integer codeDemandeAchat;
+
+    @JoinColumn(name = "code_ordre_achat", referencedColumnName = "Code", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private OrdreAchat ordreAchat;
+
+    @Column(name = "code_ordre_achat", updatable = false, insertable = false)
+    private Integer codeOrdreAchat;
 
     @JoinColumn(name = "code_appel_offre", referencedColumnName = "Code", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -82,45 +80,63 @@ public class OrdreAchat {
     private String userCreate;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "date_Create", nullable = false)
+    @Column(name = "date_Create", nullable = false, columnDefinition = "datetime default(getdate())")
     private Date dateCreate;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ordreAchat", fetch = FetchType.LAZY)
-    private Collection<DetailsOrdreAchat> detailsOrdreAchats;
-
-    @Column(name = "observation", nullable = false, columnDefinition = "nvarchar(max)")
-    private String observation;
-
-    @Column(name = "lieu", nullable = false, columnDefinition = "nvarchar(max)")
-    private String lieu;
-
-    @Column(name = "instruction", nullable = false, columnDefinition = "nvarchar(max)")
-    private String instruction;
-    
-    @Basic(optional = false) 
-    @Column(name = "date_livraison", nullable = false, columnDefinition = ("date default getdate()"))
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate dateLivraison;
 
     @Column(name = "montant_total_ttc", columnDefinition = ("decimal(18,6) "))
     private BigDecimal mntTotalTTC;
 
-@Column(name = "montant_total_ht", columnDefinition = ("decimal(18,6)"))
-private BigDecimal mntTotalHT;
+    @Column(name = "montant_total_ht", columnDefinition = ("decimal(18,6)"))
+    private BigDecimal mntTotalHT;
 
-@Column(name = "montant_total_taxe", columnDefinition = ("decimal(18,6) "))
-private BigDecimal mntTotalTaxe;
+    @Column(name = "montant_total_taxe", columnDefinition = ("decimal(18,6) "))
+    private BigDecimal mntTotalTaxe;
 
-@Column(name = "total_remise_pourcent", columnDefinition = ("decimal(18,6) "))
-private BigDecimal mntRemise;
+    @Column(name = "total_remise_pourcent", columnDefinition = ("decimal(18,6) "))
+    private BigDecimal mntRemise;
 
-@Column(name = "montant_timbre", columnDefinition = ("decimal(18,6)"))
-private BigDecimal mntTimbre;
+    @Column(name = "montant_timbre", columnDefinition = ("decimal(18,6)"))
+    private BigDecimal mntTimbre;
 
-@Column(name = "montant_net", columnDefinition = ("decimal(18,6) "))
-private BigDecimal mntNet;
+    @Column(name = "montant_net", columnDefinition = ("decimal(18,6) "))
+    private BigDecimal mntNet;
 
-    public OrdreAchat() {
+    @Column(name = "montant_facture_fournisseur", columnDefinition = ("decimal(18,6)"))
+    private BigDecimal MntFactureFournisseur;
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "date_facture_fournisseur", nullable = false, columnDefinition = ("date default getdate()"))
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate dateFactureFournisseur;
+
+    @Size(max = 200)
+    @Column(name = "code_facture_fournisseur", length = 200, nullable = false, columnDefinition = ("nvarchar(200)"))
+    private String codeFactureFournisseur;
+
+    @JoinColumn(name = "code_depot", referencedColumnName = "Code", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Depot depot;
+
+    @Column(name = "code_depot", updatable = false, insertable = false)
+    private Integer codeDepot;
+
+    @JoinColumn(name = "code_fournisseur", referencedColumnName = "Code", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Fournisseur fournisseur;
+
+    @Column(name = "code_fournisseur", updatable = false, insertable = false)
+    private Integer codeFournisseur;
+
+    @Column(name = "observation", nullable = false, columnDefinition = "nvarchar(max)")
+    private String observation;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bonReception", fetch = FetchType.LAZY, orphanRemoval = true)
+    private Collection<DetailsBonReception> detailsBonReceptions;
+
+    public BonReception() {
     }
 
     public Integer getCode() {
@@ -153,22 +169,6 @@ private BigDecimal mntNet;
 
     public void setCodeEtatReception(Integer codeEtatReception) {
         this.codeEtatReception = codeEtatReception;
-    }
-
-    public TypeCircuitAchat getTypeCircuitAchat() {
-        return typeCircuitAchat;
-    }
-
-    public void setTypeCircuitAchat(TypeCircuitAchat typeCircuitAchat) {
-        this.typeCircuitAchat = typeCircuitAchat;
-    }
-
-    public Integer getCodeTypeCircuitAchat() {
-        return codeTypeCircuitAchat;
-    }
-
-    public void setCodeTypeCircuitAchat(Integer codeTypeCircuitAchat) {
-        this.codeTypeCircuitAchat = codeTypeCircuitAchat;
     }
 
     public DemandeAchat getDemandeAchat() {
@@ -219,22 +219,6 @@ private BigDecimal mntNet;
         this.dateCreate = dateCreate;
     }
 
-    public Collection<DetailsOrdreAchat> getDetailsOrdreAchats() {
-        return detailsOrdreAchats;
-    }
-
-    public void setDetailsOrdreAchats(Collection<DetailsOrdreAchat> detailsOrdreAchats) {
-        this.detailsOrdreAchats = detailsOrdreAchats;
-    }
-
-    public String getObservation() {
-        return observation;
-    }
-
-    public void setObservation(String observation) {
-        this.observation = observation;
-    }
-
     public BigDecimal getMntTotalTTC() {
         return mntTotalTTC;
     }
@@ -275,30 +259,6 @@ private BigDecimal mntNet;
         this.mntTimbre = mntTimbre;
     }
 
-    public String getLieu() {
-        return lieu;
-    }
-
-    public void setLieu(String lieu) {
-        this.lieu = lieu;
-    }
-
-    public String getInstruction() {
-        return instruction;
-    }
-
-    public void setInstruction(String instruction) {
-        this.instruction = instruction;
-    }
-
-    public LocalDate getDateLivraison() {
-        return dateLivraison;
-    }
-
-    public void setDateLivraison(LocalDate dateLivraison) {
-        this.dateLivraison = dateLivraison;
-    }
-
     public BigDecimal getMntNet() {
         return mntNet;
     }
@@ -307,4 +267,94 @@ private BigDecimal mntNet;
         this.mntNet = mntNet;
     }
 
+    public Depot getDepot() {
+        return depot;
+    }
+
+    public void setDepot(Depot depot) {
+        this.depot = depot;
+    }
+
+    public Integer getCodeDepot() {
+        return codeDepot;
+    }
+
+    public void setCodeDepot(Integer codeDepot) {
+        this.codeDepot = codeDepot;
+    }
+
+    public Fournisseur getFournisseur() {
+        return fournisseur;
+    }
+
+    public void setFournisseur(Fournisseur fournisseur) {
+        this.fournisseur = fournisseur;
+    }
+
+    public Integer getCodeFournisseur() {
+        return codeFournisseur;
+    }
+
+    public void setCodeFournisseur(Integer codeFournisseur) {
+        this.codeFournisseur = codeFournisseur;
+    }
+
+    public String getObservation() {
+        return observation;
+    }
+
+    public void setObservation(String observation) {
+        this.observation = observation;
+    }
+
+    public Collection<DetailsBonReception> getDetailsBonReceptions() {
+        return detailsBonReceptions;
+    }
+
+    public void setDetailsBonReceptions(Collection<DetailsBonReception> detailsBonReceptions) {
+        this.detailsBonReceptions = detailsBonReceptions;
+    }
+
+    public BigDecimal getMntFactureFournisseur() {
+        return MntFactureFournisseur;
+    }
+
+    public void setMntFactureFournisseur(BigDecimal MntFactureFournisseur) {
+        this.MntFactureFournisseur = MntFactureFournisseur;
+    }
+
+    public LocalDate getDateFactureFournisseur() {
+        return dateFactureFournisseur;
+    }
+
+    public void setDateFactureFournisseur(LocalDate dateFactureFournisseur) {
+        this.dateFactureFournisseur = dateFactureFournisseur;
+    }
+
+    public String getCodeFactureFournisseur() {
+        return codeFactureFournisseur;
+    }
+
+    public void setCodeFactureFournisseur(String codeFactureFournisseur) {
+        this.codeFactureFournisseur = codeFactureFournisseur;
+    }
+
+    public OrdreAchat getOrdreAchat() {
+        return ordreAchat;
+    }
+
+    public void setOrdreAchat(OrdreAchat ordreAchat) {
+        this.ordreAchat = ordreAchat;
+    }
+
+    public Integer getCodeOrdreAchat() {
+        return codeOrdreAchat;
+    }
+
+    public void setCodeOrdreAchat(Integer codeOrdreAchat) {
+        this.codeOrdreAchat = codeOrdreAchat;
+    }
+
+    
+    
 }

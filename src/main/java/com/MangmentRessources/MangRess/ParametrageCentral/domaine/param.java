@@ -23,12 +23,11 @@ import org.hibernate.envers.Audited;
 //@AuditTable("param_AUD")
 public class param {
 
-     @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "code" )
+    @Column(name = "code")
     private Integer code;
-     
-     
+
     @Column(name = "code_param", columnDefinition = ("varchar(200)"))
     private String codeParam;
 
@@ -38,9 +37,11 @@ public class param {
     @Column(name = "valeur", columnDefinition = ("nvarchar(200)"))
     private String valeur;
 
+    @Column(name = "visible")
+    private Boolean Visible;
+
     public param() {
     }
- 
 
     public String getDescription() {
         return description;
@@ -73,8 +74,13 @@ public class param {
     public void setCodeParam(String codeParam) {
         this.codeParam = codeParam;
     }
-    
-    
-    
+
+    public Boolean getVisible() {
+        return Visible;
+    }
+
+    public void setVisible(Boolean Visible) {
+        this.Visible = Visible;
+    }
 
 }

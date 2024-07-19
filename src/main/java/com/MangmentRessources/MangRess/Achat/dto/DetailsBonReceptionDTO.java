@@ -14,15 +14,12 @@ import java.util.Date;
  *
  * @author Administrator
  */
-public class DetailsOrdreAchatDTO {
+public class DetailsBonReceptionDTO {
 
-    private int codeOrdreAchat;
-    
-    private OrdreAchatDTO ordreAchatDTO;
-    
-    private String codeSaisieOrdreAchat;
+    private int codeBonReception;
+    private String codeSaisieBonReception;
     @NotNull
-    private MatiereDTO matiereDTO;
+    private MatiereDTO codematiere;
 
     @NotNull
     private ColorisDTO codeColoris;
@@ -30,11 +27,7 @@ public class DetailsOrdreAchatDTO {
     @NotNull
     private UniteDTO codeUnite;
 
-    private DepotDTO codeDepot;
-
-    private BigDecimal qteDemander;
-
-    private BigDecimal qteLivrer;
+    private BigDecimal qteReceptionner;
 
     private String usercreate;
 
@@ -46,6 +39,8 @@ public class DetailsOrdreAchatDTO {
     private String codeSaisieMatiere;
     private String designationArMatiere;
     private String designationLtMatiere;
+ 
+    private Integer codeTaxe;
 
     private Integer codeUnites;
     private String codeSaisieUnites;
@@ -57,7 +52,18 @@ public class DetailsOrdreAchatDTO {
     private String designationArColoriss;
     private String designationLtColoriss;
 
-    private BigDecimal prixAchat;
+    private Integer ordreMatiere;
+
+    private Integer codeModeReglement;
+
+    private DepotDTO depotDTO;
+    private Integer codeDepot;
+
+    private FournisseurDTO fournisseurDTO;
+
+    private Integer codeFournisseur;
+    
+        private BigDecimal prixAchat;
 
     private BigDecimal mntTotalTTC;
 
@@ -66,34 +72,32 @@ public class DetailsOrdreAchatDTO {
     private BigDecimal mntTotalTaxe;
     private BigDecimal valeurTaxe;
 
-    public DetailsOrdreAchatDTO() {
+    public DetailsBonReceptionDTO() {
     }
 
-    public int getCodeOrdreAchat() {
-        return codeOrdreAchat;
+    public int getCodeBonReception() {
+        return codeBonReception;
     }
 
-    public void setCodeOrdreAchat(int codeOrdreAchat) {
-        this.codeOrdreAchat = codeOrdreAchat;
+    public void setCodeBonReception(int codeBonReception) {
+        this.codeBonReception = codeBonReception;
     }
 
-    public String getCodeSaisieOrdreAchat() {
-        return codeSaisieOrdreAchat;
+    public String getCodeSaisieBonReception() {
+        return codeSaisieBonReception;
     }
 
-    public void setCodeSaisieOrdreAchat(String codeSaisieOrdreAchat) {
-        this.codeSaisieOrdreAchat = codeSaisieOrdreAchat;
+    public void setCodeSaisieBonReception(String codeSaisieBonReception) {
+        this.codeSaisieBonReception = codeSaisieBonReception;
     }
 
-    public MatiereDTO getMatiereDTO() {
-        return matiereDTO;
+    public MatiereDTO getCodematiere() {
+        return codematiere;
     }
 
-    public void setMatiereDTO(MatiereDTO matiereDTO) {
-        this.matiereDTO = matiereDTO;
+    public void setCodematiere(MatiereDTO codematiere) {
+        this.codematiere = codematiere;
     }
-
- 
 
     public ColorisDTO getCodeColoris() {
         return codeColoris;
@@ -111,28 +115,12 @@ public class DetailsOrdreAchatDTO {
         this.codeUnite = codeUnite;
     }
 
-    public DepotDTO getCodeDepot() {
-        return codeDepot;
+    public BigDecimal getQteReceptionner() {
+        return qteReceptionner;
     }
 
-    public void setCodeDepot(DepotDTO codeDepot) {
-        this.codeDepot = codeDepot;
-    }
-
-    public BigDecimal getQteDemander() {
-        return qteDemander;
-    }
-
-    public void setQteDemander(BigDecimal qteDemander) {
-        this.qteDemander = qteDemander;
-    }
- 
-    public BigDecimal getQteLivrer() {
-        return qteLivrer;
-    }
-
-    public void setQteLivrer(BigDecimal qteLivrer) {
-        this.qteLivrer = qteLivrer;
+    public void setQteReceptionner(BigDecimal qteReceptionner) {
+        this.qteReceptionner = qteReceptionner;
     }
 
     public String getUsercreate() {
@@ -181,6 +169,22 @@ public class DetailsOrdreAchatDTO {
 
     public void setDesignationLtMatiere(String designationLtMatiere) {
         this.designationLtMatiere = designationLtMatiere;
+    }
+
+    public BigDecimal getPrixAchat() {
+        return prixAchat;
+    }
+
+    public void setPrixAchat(BigDecimal prixAchat) {
+        this.prixAchat = prixAchat;
+    }
+
+    public Integer getCodeTaxe() {
+        return codeTaxe;
+    }
+
+    public void setCodeTaxe(Integer codeTaxe) {
+        this.codeTaxe = codeTaxe;
     }
 
     public Integer getCodeUnites() {
@@ -247,12 +251,52 @@ public class DetailsOrdreAchatDTO {
         this.designationLtColoriss = designationLtColoriss;
     }
 
-    public BigDecimal getPrixAchat() {
-        return prixAchat;
+    public Integer getOrdreMatiere() {
+        return ordreMatiere;
     }
 
-    public void setPrixAchat(BigDecimal prixAchat) {
-        this.prixAchat = prixAchat;
+    public void setOrdreMatiere(Integer ordreMatiere) {
+        this.ordreMatiere = ordreMatiere;
+    }
+
+    public Integer getCodeModeReglement() {
+        return codeModeReglement;
+    }
+
+    public void setCodeModeReglement(Integer codeModeReglement) {
+        this.codeModeReglement = codeModeReglement;
+    }
+
+    public DepotDTO getDepotDTO() {
+        return depotDTO;
+    }
+
+    public void setDepotDTO(DepotDTO depotDTO) {
+        this.depotDTO = depotDTO;
+    }
+
+    public Integer getCodeDepot() {
+        return codeDepot;
+    }
+
+    public void setCodeDepot(Integer codeDepot) {
+        this.codeDepot = codeDepot;
+    }
+
+    public FournisseurDTO getFournisseurDTO() {
+        return fournisseurDTO;
+    }
+
+    public void setFournisseurDTO(FournisseurDTO fournisseurDTO) {
+        this.fournisseurDTO = fournisseurDTO;
+    }
+
+    public Integer getCodeFournisseur() {
+        return codeFournisseur;
+    }
+
+    public void setCodeFournisseur(Integer codeFournisseur) {
+        this.codeFournisseur = codeFournisseur;
     }
 
     public BigDecimal getMntTotalTTC() {
@@ -286,15 +330,6 @@ public class DetailsOrdreAchatDTO {
     public void setValeurTaxe(BigDecimal valeurTaxe) {
         this.valeurTaxe = valeurTaxe;
     }
-
-    public OrdreAchatDTO getOrdreAchatDTO() {
-        return ordreAchatDTO;
-    }
-
-    public void setOrdreAchatDTO(OrdreAchatDTO ordreAchatDTO) {
-        this.ordreAchatDTO = ordreAchatDTO;
-    }
-
- 
-
+    
+    
 }
