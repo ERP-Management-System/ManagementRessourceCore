@@ -9,17 +9,16 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+//import jakarta.persistence.Table;
+
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date; 
-
+import jakarta.persistence.Table;
 @Entity
-@Table(name = "[Access_Control]" , schema = "access")
-
-public class AccessControl implements Serializable {
-    private static final long serialVersionUID = 1L;
+@Table(name = "[Access_Control]" , schema = "access") 
+public class AccessControl  { 
     @Id
     @Basic(optional = false)
     @Column(name = "User_name")

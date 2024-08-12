@@ -18,6 +18,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
@@ -106,12 +107,12 @@ public class BonReception {
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "date_facture_fournisseur", nullable = false, columnDefinition = ("date default getdate()"))
+    @Column(name = "date_facture_fournisseur" , columnDefinition = ("date default getdate()"))
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateFactureFournisseur;
 
     @Size(max = 200)
-    @Column(name = "code_facture_fournisseur", length = 200, nullable = false, columnDefinition = ("nvarchar(200)"))
+    @Column(name = "code_facture_fournisseur", length = 200 , columnDefinition = ("nvarchar(200)"))
     private String codeFactureFournisseur;
 
     @JoinColumn(name = "code_depot", referencedColumnName = "Code", nullable = false)

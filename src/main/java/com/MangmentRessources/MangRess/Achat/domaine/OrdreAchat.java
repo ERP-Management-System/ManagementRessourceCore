@@ -18,6 +18,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
@@ -91,13 +92,13 @@ public class OrdreAchat {
     @Column(name = "observation", nullable = false, columnDefinition = "nvarchar(max)")
     private String observation;
 
-    @Column(name = "lieu", nullable = false, columnDefinition = "nvarchar(max)")
+    @Column(name = "lieu" , columnDefinition = "nvarchar(max)")
     private String lieu;
 
-    @Column(name = "instruction", nullable = false, columnDefinition = "nvarchar(max)")
+    @Column(name = "instruction" , columnDefinition = "nvarchar(max)")
     private String instruction;
-    
-    @Basic(optional = false) 
+
+    @Basic(optional = false)
     @Column(name = "date_livraison", nullable = false, columnDefinition = ("date default getdate()"))
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateLivraison;
@@ -105,20 +106,28 @@ public class OrdreAchat {
     @Column(name = "montant_total_ttc", columnDefinition = ("decimal(18,6) "))
     private BigDecimal mntTotalTTC;
 
-@Column(name = "montant_total_ht", columnDefinition = ("decimal(18,6)"))
-private BigDecimal mntTotalHT;
+    @Column(name = "montant_total_ht", columnDefinition = ("decimal(18,6)"))
+    private BigDecimal mntTotalHT;
 
-@Column(name = "montant_total_taxe", columnDefinition = ("decimal(18,6) "))
-private BigDecimal mntTotalTaxe;
+    @Column(name = "montant_total_taxe", columnDefinition = ("decimal(18,6) "))
+    private BigDecimal mntTotalTaxe;
 
-@Column(name = "total_remise_pourcent", columnDefinition = ("decimal(18,6) "))
-private BigDecimal mntRemise;
+    @Column(name = "total_remise_pourcent", columnDefinition = ("decimal(18,6) "))
+    private BigDecimal mntRemise;
 
-@Column(name = "montant_timbre", columnDefinition = ("decimal(18,6)"))
-private BigDecimal mntTimbre;
+    @Column(name = "montant_timbre", columnDefinition = ("decimal(18,6)"))
+    private BigDecimal mntTimbre;
 
-@Column(name = "montant_net", columnDefinition = ("decimal(18,6) "))
-private BigDecimal mntNet;
+    @Column(name = "montant_net", columnDefinition = ("decimal(18,6) "))
+    private BigDecimal mntNet;
+
+    @JoinColumn(name = "code_fournisseur", referencedColumnName = "Code", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Fournisseur fournisseur;
+
+    @Column(name = "code_fournisseur", updatable = false, insertable = false)
+    private Integer codeFournisseur;
 
     public OrdreAchat() {
     }
@@ -307,4 +316,22 @@ private BigDecimal mntNet;
         this.mntNet = mntNet;
     }
 
+    public Fournisseur getFournisseur() {
+        return fournisseur;
+    }
+
+    public void setFournisseur(Fournisseur fournisseur) {
+        this.fournisseur = fournisseur;
+    }
+
+    public Integer getCodeFournisseur() {
+        return codeFournisseur;
+    }
+
+    public void setCodeFournisseur(Integer codeFournisseur) {
+        this.codeFournisseur = codeFournisseur;
+    }
+
+    
+    
 }

@@ -82,8 +82,11 @@ public class Matiere {
     @JsonBackReference
     private Taxe taxe;
 
-    @Column(name = "code_taxe", updatable = false, insertable = false )
+    @Column(name = "code_taxe", updatable = false, insertable = false)
     private Integer codeTaxe;
+
+    @Column(name = "required_num_piece", nullable = false)
+    private Boolean requiredNumPiece;
 
     public Matiere() {
     }
@@ -207,7 +210,14 @@ public class Matiere {
     public void setCodeTaxe(Integer codeTaxe) {
         this.codeTaxe = codeTaxe;
     }
- 
+
+    public Boolean getRequiredNumPiece() {
+        return requiredNumPiece;
+    }
+
+    public void setRequiredNumPiece(Boolean requiredNumPiece) {
+        this.requiredNumPiece = requiredNumPiece;
+    }
     
     
 

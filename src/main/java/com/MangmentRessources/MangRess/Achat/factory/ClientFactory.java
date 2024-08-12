@@ -47,11 +47,6 @@ public class ClientFactory {
 //            domaine.setCodeSaisie(Dto.getCodeSaisie());
             domaine.setActif(Dto.isActif());
             domaine.setVisible(Dto.isVisible());
-//            if (adherantDTO.getLienParentale() != null) {
-//                adherant.setCodeLienParental(adherantDTO.getLienParentale().getCode());
-//            } else {
-//                adherant.setCodeLienParental(null);
-//            } 
             domaine.setDateCreate(Dto.getDateCreate());
             domaine.setUserCreate(Dto.getUserCreate());
             domaine.setCodeRegion(Dto.getCodeRegion());

@@ -64,6 +64,7 @@ public class DetailsAppelOffreFactory {
             dTO.setPrixAchat(domaine.getMatiere().getPrixAchat());       
             dTO.setCodeTaxe(domaine.getMatiere().getCodeTaxe());        
             dTO.setOrdreMatiere(domaine.getOrdreMatiere());
+           
 
 
 

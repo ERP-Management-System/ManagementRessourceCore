@@ -36,7 +36,10 @@ public class ParamRessource {
  
         @GetMapping("param/codeParam")
     public ResponseEntity<paramDTO> getParamByCodeParam(@RequestParam String codeParam) {
-        paramDTO dTOs = paramService.findParamByCodeParamS(codeParam);
+        paramDTO dTOs = paramService.findParamByCodeParamS(codeParam);      
+        
+       
+ 
         return ResponseEntity.ok().body(dTOs);
     }
 }

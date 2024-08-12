@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
@@ -26,9 +27,7 @@ import javax.validation.constraints.Size;
  * @author Administrator
  */
 @Entity
-@Table(name = "taxe", schema = "param")
-//@Audited
-//@AuditTable("taxe_AUD")
+@Table(name = "taxe", schema = "param") 
 public class Taxe {
 
     @Id

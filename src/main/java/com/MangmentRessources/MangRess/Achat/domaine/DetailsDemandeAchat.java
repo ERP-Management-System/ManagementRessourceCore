@@ -15,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
+
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
@@ -86,6 +87,9 @@ public class DetailsDemandeAchat {
     @Column(name = "date_Create", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreate;
+
+    @Column(name = "laize")
+    private BigDecimal laize;
 
     public DetailsDemandeAchat() {
     }
@@ -202,4 +206,13 @@ public class DetailsDemandeAchat {
         this.codeTaxe = codeTaxe;
     }
 
+    public BigDecimal getLaize() {
+        return laize;
+    }
+
+    public void setLaize(BigDecimal laize) {
+        this.laize = laize;
+    }
+
+    
 }

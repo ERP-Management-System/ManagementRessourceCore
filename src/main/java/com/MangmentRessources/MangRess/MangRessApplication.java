@@ -15,11 +15,15 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.util.Arrays;
 import java.util.Locale;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.core.env.Environment;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-//@EnableAutoConfiguration
+@EnableAutoConfiguration
 //@EnableAspectJAutoProxy(proxyTargetClass=true)
 public class MangRessApplication {
 

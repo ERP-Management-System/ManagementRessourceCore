@@ -32,7 +32,7 @@ public class DetailsBonReceptionFactory {
             dTO.setCodeBonReception(domaine.getDetailsBonReceptionPK().getCodeBonReception());
             dTO.setDatecreate(domaine.getDateCreate());
             dTO.setUsercreate(domaine.getUsercreate());
-            dTO.setCodeMatieres(MatiereFactory.matiereToMatiereDTO(domaine.getMatiere()).getCode());
+            dTO.setMatiereDTO(MatiereFactory.matiereToMatiereDTO(domaine.getMatiere()));
             dTO.setCodeColoris(ColorisFactory.colorisToColorisDTO(domaine.getColoris()));
             dTO.setCodeUnite(UniteFactory.uniteToUniteDTO(domaine.getUnite()));
 
@@ -61,7 +61,9 @@ public class DetailsBonReceptionFactory {
             dTO.setDesignationLtMatiere(domaine.getMatiere().getDesignationLt());
             dTO.setPrixAchat(domaine.getMatiere().getPrixAchat());
             dTO.setCodeTaxe(domaine.getMatiere().getCodeTaxe());
-            dTO.setQteReceptionner(domaine.getQteReceptionner());
+            dTO.setQteReceptionner(domaine.getQteReceptionner());  
+            dTO.setLaize(domaine.getLaize());
+
 
             dTO.setCodeColoriss(domaine.getColoris().getCode());
             dTO.setCodeSaisieColoriss(domaine.getColoris().getCodeSaisie());

@@ -68,5 +68,39 @@ public class DetailsBonReceptionPK {
     public void setCodeUnite(int codeUnite) {
         this.codeUnite = codeUnite;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 41 * hash + this.codeBonReception;
+        hash = 41 * hash + this.codeMatiere;
+        hash = 41 * hash + this.codeColoris;
+        hash = 41 * hash + this.codeUnite;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DetailsBonReceptionPK other = (DetailsBonReceptionPK) obj;
+        if (this.codeBonReception != other.codeBonReception) {
+            return false;
+        }
+        if (this.codeMatiere != other.codeMatiere) {
+            return false;
+        }
+        if (this.codeColoris != other.codeColoris) {
+            return false;
+        }
+        return this.codeUnite == other.codeUnite;
+    }
     
 }

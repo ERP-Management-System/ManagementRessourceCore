@@ -22,9 +22,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class AccessControlService {
 
-    @Autowired
-    AccessControlRepository accesscontrolRepository;
+ 
+   private final AccessControlRepository accesscontrolRepository;
 
+    public AccessControlService(AccessControlRepository accesscontrolRepository) {
+        this.accesscontrolRepository = accesscontrolRepository;
+    }
+
+ 
+
+    
+    
     @Transactional(readOnly = true)
     public List<AccessControlDTO> findAll() {
         List<AccessControl> result = accesscontrolRepository.findAll();

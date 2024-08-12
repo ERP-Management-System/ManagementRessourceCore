@@ -11,6 +11,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import jakarta.persistence.Basic;
 import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
@@ -71,6 +72,7 @@ public class DemandeAchatDTO {
     private String userDemander;
     private Integer codeUserApprouver;
     private Date dateApprouve;
+    private BigDecimal laize;
 
     public DemandeAchatDTO() {
     }
@@ -305,6 +307,14 @@ public class DemandeAchatDTO {
 
     public void setDateApprouve(Date dateApprouve) {
         this.dateApprouve = dateApprouve;
+    }
+
+    public BigDecimal getLaize() {
+        return laize;
+    }
+
+    public void setLaize(BigDecimal laize) {
+        this.laize = laize;
     }
 
 }

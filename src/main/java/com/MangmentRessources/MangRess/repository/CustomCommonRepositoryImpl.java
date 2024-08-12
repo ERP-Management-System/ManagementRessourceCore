@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Table;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.jdbc.Work;

@@ -4,12 +4,14 @@
  */
 package com.MangmentRessources.MangRess.Achat.dto;
 
+import com.MangmentRessources.MangRess.Achat.domaine.Fournisseur;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -28,7 +30,7 @@ public class OrdreAchatDTO {
 
     private EtatReceptionDTO etatReceptionDTO;
 
-    private Integer codeEtatReception; 
+    private Integer codeEtatReception;
 
     private String userCreate;
 
@@ -46,7 +48,7 @@ public class OrdreAchatDTO {
 
     private AppelOffreDTO appelOffreDTO;
 
-    private Integer codeAppelOffre; 
+    private Integer codeAppelOffre;
 
     private String observation;
 
@@ -57,9 +59,8 @@ public class OrdreAchatDTO {
     private BigDecimal mntTotalTaxe;
 
     private BigDecimal mntRemise;
-    
-        private BigDecimal mntNet;
-        
+
+    private BigDecimal mntNet;
 
     private BigDecimal mntTimbre;
     @Basic(optional = false)
@@ -72,9 +73,20 @@ public class OrdreAchatDTO {
 
     private String instruction;
 
+    private FournisseurDTO fournisseurDTO;
+
+    private Integer codeFournisseur;
+
     public OrdreAchatDTO() {
     }
 
+    public OrdreAchatDTO(Integer code, String codeSaisie) {
+        this.code = code;
+        this.codeSaisie = codeSaisie;
+    }
+
+    
+    
     public Integer getCode() {
         return code;
     }
@@ -106,7 +118,6 @@ public class OrdreAchatDTO {
     public void setCodeEtatReception(Integer codeEtatReception) {
         this.codeEtatReception = codeEtatReception;
     }
- 
 
     public String getUserCreate() {
         return userCreate;
@@ -179,8 +190,6 @@ public class OrdreAchatDTO {
     public void setCodeAppelOffre(Integer codeAppelOffre) {
         this.codeAppelOffre = codeAppelOffre;
     }
-
- 
 
     public String getObservation() {
         return observation;
@@ -262,4 +271,21 @@ public class OrdreAchatDTO {
         this.mntNet = mntNet;
     }
 
+    public FournisseurDTO getFournisseurDTO() {
+        return fournisseurDTO;
+    }
+
+    public void setFournisseurDTO(FournisseurDTO fournisseurDTO) {
+        this.fournisseurDTO = fournisseurDTO;
+    }
+
+    public Integer getCodeFournisseur() {
+        return codeFournisseur;
+    }
+
+    public void setCodeFournisseur(Integer codeFournisseur) {
+        this.codeFournisseur = codeFournisseur;
+    }
+
+    
 }

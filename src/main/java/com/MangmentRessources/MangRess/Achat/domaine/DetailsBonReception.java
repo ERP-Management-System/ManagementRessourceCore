@@ -6,18 +6,25 @@ package com.MangmentRessources.MangRess.Achat.domaine;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -29,8 +36,11 @@ import java.util.Date;
 public class DetailsBonReception {
 
     private static final long serialVersionUID = 1L;
+
     @EmbeddedId
     protected DetailsBonReceptionPK detailsBonReceptionPK;
+
+    private Integer code;
 
     @MapsId("codeBonReception")
     @JoinColumn(name = "code_bon_reception", referencedColumnName = "Code", nullable = false)
@@ -61,6 +71,9 @@ public class DetailsBonReception {
 
     @Column(name = "qte_receptionner")
     private BigDecimal qteReceptionner;
+
+    @Column(name = "laize")
+    private BigDecimal laize;
 
     @Column(name = "user_create", nullable = false, columnDefinition = "nvarchar(200)")
     private String usercreate;
@@ -100,11 +113,18 @@ public class DetailsBonReception {
 
     @Column(name = "code_fournisseur", updatable = false, insertable = false)
     private Integer codeFournisseur;
-    
-        @NotNull
+
+    @NotNull
     @Column(name = "ordre_martiere", nullable = false, columnDefinition = "int default 1")
     private Integer ordreMatiere;
-        
+
+    @JoinColumn(name = "code_ordre_achat", referencedColumnName = "Code", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private OrdreAchat ordreAchat;
+
+    @Column(name = "code_ordre_achat", updatable = false, insertable = false)
+    private Integer codeOrdreAchat;
 
     public DetailsBonReception() {
     }
@@ -124,9 +144,6 @@ public class DetailsBonReception {
     public void setBonReception(BonReception bonReception) {
         this.bonReception = bonReception;
     }
- 
-    
- 
 
     public Integer getCodematiere() {
         return codematiere;
@@ -279,7 +296,39 @@ public class DetailsBonReception {
     public void setOrdreMatiere(Integer ordreMatiere) {
         this.ordreMatiere = ordreMatiere;
     }
-    
-    
 
+    public OrdreAchat getOrdreAchat() {
+        return ordreAchat;
+    }
+
+    public void setOrdreAchat(OrdreAchat ordreAchat) {
+        this.ordreAchat = ordreAchat;
+    }
+
+    public Integer getCodeOrdreAchat() {
+        return codeOrdreAchat;
+    }
+
+    public void setCodeOrdreAchat(Integer codeOrdreAchat) {
+        this.codeOrdreAchat = codeOrdreAchat;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public BigDecimal getLaize() {
+        return laize;
+    }
+
+    public void setLaize(BigDecimal laize) {
+        this.laize = laize;
+    }
+
+    
+    
 }

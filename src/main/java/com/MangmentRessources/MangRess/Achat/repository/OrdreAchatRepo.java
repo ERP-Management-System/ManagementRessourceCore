@@ -20,8 +20,8 @@ public interface OrdreAchatRepo extends JpaRepository<OrdreAchat, Integer> {
 
     OrdreAchat findByCodeDemandeAchat(Integer codeDemandeAchat);
 
-    List<OrdreAchat> findOrdreAchatByCodeEtatReception(Integer codeEtatReception);
-
+    List<OrdreAchat> findOrdreAchatByCodeEtatReception(Integer codeEtatReception); 
+    List<OrdreAchat> findOrdreAchatByCodeEtatReceptionIn(List<Integer> codeEtatReception); 
 
     List<OrdreAchat> findAllByOrderByCodeSaisieDesc();
 

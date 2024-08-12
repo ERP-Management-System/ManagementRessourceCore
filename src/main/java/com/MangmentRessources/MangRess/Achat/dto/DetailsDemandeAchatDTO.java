@@ -69,7 +69,10 @@ public class DetailsDemandeAchatDTO {
     private String codeSaisieColoriss;
     private String designationArColoriss;
     private String designationLtColoriss;
-
+    @Column(name="laize")
+    private BigDecimal laize;
+    
+    
     @Basic(optional = false)
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -303,6 +306,14 @@ public class DetailsDemandeAchatDTO {
 
     public void setValeurTaxe(BigDecimal valeurTaxe) {
         this.valeurTaxe = valeurTaxe;
+    }
+
+    public BigDecimal getLaize() {
+        return laize;
+    }
+
+    public void setLaize(BigDecimal laize) {
+        this.laize = laize;
     }
     
     

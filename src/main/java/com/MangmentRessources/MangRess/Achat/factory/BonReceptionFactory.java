@@ -7,6 +7,7 @@ package com.MangmentRessources.MangRess.Achat.factory;
 import com.MangmentRessources.MangRess.Achat.domaine.BonReception;
 import com.MangmentRessources.MangRess.Achat.domaine.DetailsBonReception;
 import com.MangmentRessources.MangRess.Achat.domaine.DetailsBonReceptionPK;
+import com.MangmentRessources.MangRess.Achat.domaine.DetailsOrdreAchat;
 import com.MangmentRessources.MangRess.Achat.dto.BonReceptionDTO;
 import com.MangmentRessources.MangRess.Achat.dto.DetailsBonReceptionDTO;
 import com.MangmentRessources.MangRess.web.Util.Preconditions;
@@ -25,10 +26,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class BonReceptionFactory {
 
- 
-   
-    
-    
     static String LANGUAGE_SEC;
 
     @Value("${lang.secondary}")
@@ -55,6 +52,13 @@ public class BonReceptionFactory {
             dTO.setCodeFactureFournisseur(domaine.getCodeFactureFournisseur());
             dTO.setMntFactureFournisseur(domaine.getMntFactureFournisseur());
             dTO.setDateFactureFournisseur(domaine.getDateFactureFournisseur());
+
+            dTO.setMntTotalHT(domaine.getMntTotalHT());
+            dTO.setMntTimbre(domaine.getMntTimbre());
+            dTO.setMntRemise(domaine.getMntRemise());
+            dTO.setMntTotalTTC(domaine.getMntTotalTTC());
+            dTO.setMntTotalTaxe(domaine.getMntTotalTaxe());
+            dTO.setMntNet(domaine.getMntNet());
 
             dTO.setFournisseurDTO(FournisseurFactory.fournisseurToFournisseurDTO(domaine.getFournisseur()));
             dTO.setCodeFournisseur(domaine.getCodeFournisseur());
@@ -155,15 +159,15 @@ public class BonReceptionFactory {
             domaine.setEtatReception(EtatReceptionFactory.createEtatReceptionByCode(dTO.getCodeEtatReception()));
 
         }
-
-        Collection<DetailsBonReception> detailsModelePanierCollections = new ArrayList<>();
+        Preconditions.checkBusinessLogique(dTO.getDetailsBonReceptionDTOs() != null, "error.DetailsBonReceptionRequired");
+        Collection<DetailsBonReception> detailsBonReceptions = new ArrayList<>();
         AtomicReference<Integer> order = new AtomicReference<>(1);
         dTO.getDetailsBonReceptionDTOs().forEach(x -> {
 
             DetailsBonReception detailsBonReception = new DetailsBonReception();
             DetailsBonReceptionPK detailsmodelepanierPK = new DetailsBonReceptionPK();
-
-            Preconditions.checkBusinessLogique(x.getCodeMatieres()!= null, "error.MatiereRequired");
+    
+            Preconditions.checkBusinessLogique(x.getCodeMatieres() != null, "error.MatiereRequired");
             detailsmodelepanierPK.setCodeMatiere(x.getCodeMatieres());
 
             Preconditions.checkBusinessLogique(x.getCodeUnites() != null, "error.UniteRequired");
@@ -179,6 +183,11 @@ public class BonReceptionFactory {
             detailsBonReception.setUsercreate(domaine.getUserCreate());
             detailsBonReception.setPrixUnitaireAchat(x.getPrixAchat());
             detailsBonReception.setValeurTaxe(x.getValeurTaxe());
+
+            detailsBonReception.setCodeOrdreAchat(dTO.getCodeOrdreAchat());
+            if (detailsBonReception.getCodeOrdreAchat() != null) {
+                detailsBonReception.setOrdreAchat(OrdreAchatFactory.createOrdreAchatByCode(dTO.getCodeOrdreAchat()));
+            }
 
             detailsBonReception.setCodeDepot(x.getCodeDepot());
             if (detailsBonReception.getCodeDepot() != null) {
@@ -196,19 +205,24 @@ public class BonReceptionFactory {
             detailsBonReception.setOrdreMatiere(order.get());
             order.getAndSet(order.get() + 1);
             detailsBonReception.setBonReception(domaine);
-            detailsModelePanierCollections.add(detailsBonReception);
+            detailsBonReceptions.add(detailsBonReception);
         });
-        
-        
-        
-        
 
         if (domaine.getDetailsBonReceptions() != null) {
             domaine.getDetailsBonReceptions().clear();
-            domaine.getDetailsBonReceptions().addAll(detailsModelePanierCollections);
+            domaine.getDetailsBonReceptions().addAll(detailsBonReceptions);
         } else {
-            domaine.setDetailsBonReceptions(detailsModelePanierCollections);
+            domaine.setDetailsBonReceptions(detailsBonReceptions);
         }
+        
+  
+        
+        
+        //// details order achat
+        
+        
+        
+        
 //        System.out.println("soufien send valider");
         return domaine;
     }

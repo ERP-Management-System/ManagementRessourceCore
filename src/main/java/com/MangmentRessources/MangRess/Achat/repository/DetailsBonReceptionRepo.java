@@ -8,6 +8,7 @@ import com.MangmentRessources.MangRess.Achat.domaine.DetailsAppelOffre;
 import com.MangmentRessources.MangRess.Achat.domaine.DetailsBonReception;
 import com.MangmentRessources.MangRess.Achat.domaine.DetailsBonReceptionPK;
 import java.util.Collection;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,7 +21,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DetailsBonReceptionRepo extends JpaRepository<DetailsBonReception, DetailsBonReceptionPK> {
 
-    Collection<DetailsBonReception> findByDetailsBonReceptionPK_codeBonReception(Integer codeBonReception);
+    Collection<DetailsBonReception> findByDetailsBonReceptionPK_codeBonReception(Integer codeBonReception);    
+    
+    List<DetailsBonReception> findByCodeOrdreAchat(Integer codeOrdreAchat);
+
 
     @Modifying
     @Query("delete from DetailsBonReception det where det.detailsBonReceptionPK.codeBonReception=?1 ")

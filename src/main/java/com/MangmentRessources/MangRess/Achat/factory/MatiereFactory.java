@@ -1,4 +1,4 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -50,7 +50,9 @@ public class MatiereFactory {
             domaine.setUserCreate(Dto.getUserCreate());
             domaine.setQteMinStock(Dto.getQteMinStock());
             domaine.setQteMaxStock(Dto.getQteMaxStock());
-            domaine.setPrixAchat(Dto.getPrixAchat());
+            domaine.setPrixAchat(Dto.getPrixAchat());  
+            domaine.setRequiredNumPiece(Dto.getRequiredNumPiece());
+
 
             domaine.setCodeTaxe(Dto.getCodeTaxe());
             if (domaine.getCodeTaxe() != null) {
@@ -82,7 +84,9 @@ public class MatiereFactory {
             MatiereDTO dTO = new MatiereDTO();
             dTO.setCode(domaine.getCode());
 
-            dTO.setCodeMatieres(domaine.getCode());
+            dTO.setCodeMatieres(domaine.getCode());       
+            dTO.setRequiredNumPiece(domaine.getRequiredNumPiece());
+ 
 
             if (LocaleContextHolder.getLocale().getLanguage().equals(new Locale(LANGUAGE_SEC).getLanguage())) {
 
@@ -107,7 +111,9 @@ public class MatiereFactory {
 
             dTO.setTaxeDTO(TaxeFactory.taxeToTaxeDTO(domaine.getTaxe()));
 //            dTO.setCodeTaxe(domaine.getCodeTaxe());    
-            dTO.setValeurTaxe(domaine.getTaxe().getValeurTaxe());
+//            dTO.setValeurTaxe(domaine.getTaxe().getValeurTaxe());  
+            dTO.setCodeTaxe(domaine.getCodeTaxe());
+
 
 
             dTO.setCodeTypeMatiereDTO(TypeMatiereFactory.typeMatiereToTypeMatiereDTO(domaine.getCodeTypeMatiere()));

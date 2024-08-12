@@ -8,12 +8,16 @@ import com.MangmentRessources.MangRess.Achat.domaine.OrdreAchat;
 import com.MangmentRessources.MangRess.Achat.domaine.DetailsOrdreAchat;
 import com.MangmentRessources.MangRess.Achat.domaine.DetailsOrdreAchatPK;
 import com.MangmentRessources.MangRess.Achat.dto.OrdreAchatDTO;
-import com.MangmentRessources.MangRess.Achat.dto.DetailsOrdreAchatDTO; 
+import com.MangmentRessources.MangRess.Achat.dto.DetailsOrdreAchatDTO;
+import com.MangmentRessources.MangRess.ParametrageCentral.domaine.Compteur;
 import com.MangmentRessources.MangRess.web.Util.Preconditions;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -45,7 +49,32 @@ public class OrdreAchatFactory {
                 domaine.setEtatReception(EtatReceptionFactory.createEtatReceptionByCode(Dto.getCodeEtatReception()));
 
             }
-
+//            Collection<DetailsOrdreAchat> detailsCollections = new ArrayList<>();
+//            Dto.getDetailsOrdreAchatDTOs().forEach(x -> {
+//
+//                DetailsOrdreAchat detailsOrdreAchat = new DetailsOrdreAchat();
+//                DetailsOrdreAchatPK detailsOrdreAchatPK = new DetailsOrdreAchatPK();
+////            detailsOrdreAchatPK.setCode(x.getCode());
+//                Preconditions.checkBusinessLogique(x.getCodeMatieres() != null, "error.MatiereRequired");
+//                detailsOrdreAchatPK.setCodeMatiere(x.getCodeMatieres());
+//
+//                Preconditions.checkBusinessLogique(x.getCodeUnites() != null, "error.UniteRequired");
+//                detailsOrdreAchatPK.setCodeUnite(x.getCodeUnites());
+//                Preconditions.checkBusinessLogique(x.getCodeColoriss() != null, "error.ColorisRequired");
+//                detailsOrdreAchatPK.setCodeColoris(x.getCodeColoriss());
+//                detailsOrdreAchat.setValeurTaxe(x.getValeurTaxe());
+//                detailsOrdreAchat.setDetailsOrdreAchatPK(detailsOrdreAchatPK);
+//
+//                detailsOrdreAchat.setQteLivrer(x.getQteLivrer());
+//                detailsOrdreAchat.setOrdreAchat(domaine);
+//                detailsCollections.add(detailsOrdreAchat);
+//            });
+//            if (domaine.getDetailsOrdreAchats() != null) {
+//                domaine.getDetailsOrdreAchats().clear();
+//                domaine.getDetailsOrdreAchats().addAll(detailsCollections);
+//            } else {
+//                domaine.setDetailsOrdreAchats(detailsCollections);
+//            }
             return domaine;
         } else {
             return null;
@@ -77,6 +106,9 @@ public class OrdreAchatFactory {
 
             dTO.setTypeCircuitAchatDTO(TypeCircuitAchatFactory.typeCircuitAchatToTypeCircuitAchatDTO(domaine.getTypeCircuitAchat()));
             dTO.setCodeTypeCircuitAchat(domaine.getCodeTypeCircuitAchat());
+
+            dTO.setFournisseurDTO(FournisseurFactory.fournisseurToFournisseurDTO(domaine.getFournisseur()));
+            dTO.setCodeFournisseur(domaine.getCodeFournisseur());
 
             dTO.setEtatReceptionDTO(EtatReceptionFactory.etatReceptionToEtatReceptionDTO(domaine.getEtatReception()));
             dTO.setCodeEtatReception(domaine.getCodeEtatReception());
@@ -140,6 +172,9 @@ public class OrdreAchatFactory {
             dTO.setAppelOffreDTO(AppelOffreFactory.DetailsappelOffreToDetailsAppelOffreDTO(domaine.getAppelOffre()));
             dTO.setCodeAppelOffre(domaine.getCodeAppelOffre());
 
+            dTO.setFournisseurDTO(FournisseurFactory.fournisseurToFournisseurDTO(domaine.getFournisseur()));
+            dTO.setCodeFournisseur(domaine.getCodeFournisseur());
+
             dTO.setDemandeAchatDTO(DemandeAchatFactory.DetailsdemandeAchatToDetailsDemandeAchatDTO(domaine.getDemandeAchat()));
             dTO.setCodeDemandeAchat(domaine.getCodeDemandeAchat());
 
@@ -158,7 +193,9 @@ public class OrdreAchatFactory {
     }
 
     public static OrdreAchat ordreAchatDTOToOrdreAchatWithDetails(OrdreAchat domaine, OrdreAchatDTO dTO) {
+
         domaine.setCode(dTO.getCode());
+        domaine.setCodeSaisie(dTO.getCodeSaisie());
         domaine.setDateCreate(new Date());
         domaine.setUserCreate(dTO.getUserCreate());
         domaine.setObservation(dTO.getObservation());
@@ -181,7 +218,14 @@ public class OrdreAchatFactory {
 
         }
 
-        Preconditions.checkBusinessLogique(dTO.getCodeEtatReception() != null, "error.CodeEtatReceptionRequired");
+        Preconditions.checkBusinessLogique(dTO.getCodeFournisseur() != null, "error.FournisseurRequired");
+        domaine.setCodeFournisseur(dTO.getCodeFournisseur());
+        if (domaine.getCodeFournisseur() != null) {
+            domaine.setFournisseur(FournisseurFactory.createFournisseurByCode(dTO.getCodeFournisseur()));
+
+        }
+
+        Preconditions.checkBusinessLogique(dTO.getCodeEtatReception() != null, "error.EtatReceptionRequired");
         domaine.setCodeEtatReception(dTO.getCodeEtatReception());
         if (domaine.getCodeEtatReception() != null) {
             domaine.setEtatReception(EtatReceptionFactory.createEtatReceptionByCode(dTO.getCodeEtatReception()));
@@ -201,27 +245,36 @@ public class OrdreAchatFactory {
         }
 
         Collection<DetailsOrdreAchat> detailsCollections = new ArrayList<>();
-
+//        AtomicInteger codeCounter = new AtomicInteger(1);
         dTO.getDetailsOrdreAchatDTOs().forEach(x -> {
 
             DetailsOrdreAchat detailsOrdreAchat = new DetailsOrdreAchat();
             DetailsOrdreAchatPK detailsOrdreAchatPK = new DetailsOrdreAchatPK();
+//            detailsOrdreAchatPK.setCode(x.getCode());
+            Preconditions.checkBusinessLogique(x.getCodeMatieres() != null, "error.MatiereRequired");
+            detailsOrdreAchatPK.setCodeMatiere(x.getCodeMatieres());
 
-            Preconditions.checkBusinessLogique(x.getMatiereDTO().getCode()!= null, "error.MatiereRequired");
-            detailsOrdreAchatPK.setCodeMatiere(x.getMatiereDTO().getCode());
             Preconditions.checkBusinessLogique(x.getCodeUnites() != null, "error.UniteRequired");
             detailsOrdreAchatPK.setCodeUnite(x.getCodeUnites());
             Preconditions.checkBusinessLogique(x.getCodeColoriss() != null, "error.ColorisRequired");
             detailsOrdreAchatPK.setCodeColoris(x.getCodeColoriss());
-            
-//            detailsOrdreAchat.setValeurTaxe(x.getCodematiere().getValeurTaxe());
+            detailsOrdreAchat.setValeurTaxe(x.getValeurTaxe());
             detailsOrdreAchat.setDetailsOrdreAchatPK(detailsOrdreAchatPK);
             Preconditions.checkBusinessLogique(x.getQteDemander() != null, "error.QuantiteRequired");
-            detailsOrdreAchat.setQteDemander(x.getQteDemander());
+            detailsOrdreAchat.setQteDemander(x.getQteDemander());      
+            
+            detailsOrdreAchat.setQteLivrer(BigDecimal.ZERO);
+
             detailsOrdreAchat.setDateCreate(domaine.getDateCreate());
             detailsOrdreAchat.setUsercreate(domaine.getUserCreate());
 
-            detailsOrdreAchat.setPrixUnitaireAchat(x.getPrixAchat());
+            detailsOrdreAchat.setPrixUnitaireAchat(x.getPrixAchat());     
+            detailsOrdreAchat.setTotalementLivred(false);
+
+//            detailsOrdreAchat.setCode(codeCounter.getAndIncrement());
+
+//            detailsOrdreAchat.setCode(codeCounter.getAndIncrement());
+//            order.getAndSet(order.get() + 1);
             detailsOrdreAchat.setMntTotalHT(x.getMntTotalHT());
             detailsOrdreAchat.setMntTotalTTC(x.getMntTotalTTC());
             detailsOrdreAchat.setMntTotalTaxe(x.getMntTotalTaxe());
@@ -229,7 +282,12 @@ public class OrdreAchatFactory {
             detailsOrdreAchat.setOrdreAchat(domaine);
             detailsCollections.add(detailsOrdreAchat);
         });
+//  detailsCollections.iterator().next().setDetailsOrdreAchatPK(new DetailsOrdreAchatPK(codeCounter.getAndIncrement(), domaine.getCode()
+//          domaine.getDetailsOrdreAchats().iterator().next().getDetailsOrdreAchatPK().getCodeMatiere(),
+//          domaine.getDetailsOrdreAchats().iterator().next().getDetailsOrdreAchatPK().getCodeColoris(),
+//          domaine.getDetailsOrdreAchats().iterator().next().getDetailsOrdreAchatPK().getCodeUnite()
 
+//  ));
         if (domaine.getDetailsOrdreAchats() != null) {
             domaine.getDetailsOrdreAchats().clear();
             domaine.getDetailsOrdreAchats().addAll(detailsCollections);
@@ -275,6 +333,9 @@ public class OrdreAchatFactory {
             dTO.setDemandeAchatDTO(DemandeAchatFactory.DetailsdemandeAchatToDetailsDemandeAchatDTO(domaine.getDemandeAchat()));
             dTO.setCodeDemandeAchat(domaine.getCodeDemandeAchat());
 
+            dTO.setFournisseurDTO(FournisseurFactory.fournisseurToFournisseurDTO(domaine.getFournisseur()));
+            dTO.setCodeFournisseur(domaine.getCodeFournisseur());
+
             return dTO;
         } else {
             return null;
@@ -308,6 +369,9 @@ public class OrdreAchatFactory {
         dTO.setTypeCircuitAchatDTO(TypeCircuitAchatFactory.typeCircuitAchatToTypeCircuitAchatDTO(domaine.getTypeCircuitAchat()));
         dTO.setCodeTypeCircuitAchat(domaine.getCodeTypeCircuitAchat());
 
+        dTO.setFournisseurDTO(FournisseurFactory.fournisseurToFournisseurDTO(domaine.getFournisseur()));
+        dTO.setCodeFournisseur(domaine.getCodeFournisseur());
+
         dTO.setEtatReceptionDTO(EtatReceptionFactory.etatReceptionToEtatReceptionDTO(domaine.getEtatReception()));
         dTO.setCodeEtatReception(domaine.getCodeEtatReception());
 
@@ -333,10 +397,10 @@ public class OrdreAchatFactory {
         }
         return dTO;
     }
-    
-        public static Collection< OrdreAchatDTO> DetailsordreAchatToDetailsOrdreAchatDTOCollection(Collection< OrdreAchat> detailsOrdreAchats) {
+
+    public static Collection< OrdreAchatDTO> DetailsordreAchatToDetailsOrdreAchatDTOCollection(Collection< OrdreAchat> detailsOrdreAchats) {
         Collection< OrdreAchatDTO> dTOs = new ArrayList<>();
-        for ( OrdreAchat rslt : detailsOrdreAchats) {
+        for (OrdreAchat rslt : detailsOrdreAchats) {
             dTOs.add(DetailsordreAchatToDetailsOrdreAchatDTO(rslt));
         }
         return dTOs;

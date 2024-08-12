@@ -7,8 +7,10 @@ package com.MangmentRessources.MangRess.Achat.web;
 import com.MangmentRessources.MangRess.Achat.domaine.BonReception;
 import com.MangmentRessources.MangRess.Achat.dto.BonReceptionDTO;
 import com.MangmentRessources.MangRess.Achat.dto.DetailsBonReceptionDTO;
+import com.MangmentRessources.MangRess.Achat.dto.DetailsReceptionTempDTO;
 import com.MangmentRessources.MangRess.Achat.repository.DetailsBonReceptionRepo;
 import com.MangmentRessources.MangRess.Achat.service.BonReceptionService;
+import com.MangmentRessources.MangRess.Achat.service.DetailsReceptionTempService;
 import com.MangmentRessources.MangRess.ParametrageCentral.dto.SocieteDTO;
 import com.MangmentRessources.MangRess.ParametrageCentral.dto.paramDTO;
 import com.MangmentRessources.MangRess.ParametrageCentral.service.ParamService;
@@ -46,6 +48,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -55,26 +58,30 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/parametrage_achat/")
 public class BonReceptionRessource {
+    
     private final BonReceptionService bonReceptionService;
-
+    
     private final DetailsBonReceptionRepo detailsBonReceptionRepo;
-
+    
     private final SocieteService societeService;
     private final ParamService paramService;
-
-    public BonReceptionRessource(BonReceptionService bonReceptionService, DetailsBonReceptionRepo detailsBonReceptionRepo, SocieteService societeService, ParamService paramService) {
+    
+    private final DetailsReceptionTempService detailsReceptionTempService;
+    
+    public BonReceptionRessource(BonReceptionService bonReceptionService, DetailsBonReceptionRepo detailsBonReceptionRepo, SocieteService societeService, ParamService paramService, DetailsReceptionTempService detailsReceptionTempService) {
         this.bonReceptionService = bonReceptionService;
         this.detailsBonReceptionRepo = detailsBonReceptionRepo;
         this.societeService = societeService;
         this.paramService = paramService;
+        this.detailsReceptionTempService = detailsReceptionTempService;
     }
- 
+    
     @GetMapping("bon_reception/{code}")
     public ResponseEntity<BonReceptionDTO> getBonReceptionByCode(@PathVariable Integer code) {
         BonReceptionDTO dTO = bonReceptionService.findOne(code);
         return ResponseEntity.ok().body(dTO);
     }
-
+    
     @GetMapping("bon_reception/all")
     public ResponseEntity<List<BonReceptionDTO>> getAllBonReception() {
         return ResponseEntity.ok().body(bonReceptionService.findAllBonReception());
@@ -86,7 +93,6 @@ public class BonReceptionRessource {
 //        return ResponseEntity.ok().body(dto);
 //
 //    }
-
     @PutMapping("bon_reception/update")
     public ResponseEntity<BonReceptionDTO> updateModelePanier(@Valid @RequestBody BonReceptionDTO dTO, BindingResult bindingResult) throws MethodArgumentNotValidException {
         BonReceptionDTO result = bonReceptionService.updateNewWithFlush(dTO);
@@ -99,28 +105,45 @@ public class BonReceptionRessource {
         bonReceptionService.deleteBonReception(code);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    
     @PostMapping("bon_reception")
     public ResponseEntity<BonReceptionDTO> postDetailsBonReceptionNew(@Valid @RequestBody BonReceptionDTO dTO, BindingResult bindingResult) throws URISyntaxException, MethodArgumentNotValidException {
         BonReceptionDTO result = bonReceptionService.saveBonReception(dTO);
         return ResponseEntity.created(new URI("/api/parametrage-achat/" + result.getCode())).body(result);
     }
-
+    
+    @GetMapping("details_reception_temp/By")
+    public ResponseEntity<List<DetailsReceptionTempDTO>> getDetailsReceptionTemp(@RequestParam(required = true) Integer codeOrdreAchat, @RequestParam Integer codematiere) {
+        return ResponseEntity.ok().body(detailsReceptionTempService.findOneByCodeOrdreAchatAndCodeMatiere(codeOrdreAchat, codematiere));
+    }
+    
+    @PostMapping("details_reception_temp")
+    public ResponseEntity<DetailsReceptionTempDTO> postDetailsBonReceptionTemp(@Valid @RequestBody DetailsReceptionTempDTO dTO, BindingResult bindingResult) throws URISyntaxException, MethodArgumentNotValidException {
+        DetailsReceptionTempDTO result = detailsReceptionTempService.saveDetailsReceptionTemp(dTO);
+        return ResponseEntity.created(new URI("/api/parametrage-achat/" + result.getCode())).body(result);
+    }
+    
+    @DeleteMapping("details_reception_temp/delete")
+    public ResponseEntity<BonReception> deleteDetailsReceptionTemp(@RequestParam(required = true) Integer codeOrdreAchat, @RequestParam Integer codematiere) {
+        detailsReceptionTempService.deleteByCodeOrdreAchatAndCodeMatiere(codeOrdreAchat, codematiere);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    
     @GetMapping("details_bon_reception/{code}")
     public ResponseEntity<Collection<DetailsBonReceptionDTO>> getBonReception(@PathVariable Integer code) {
         Collection<DetailsBonReceptionDTO> dto = bonReceptionService.findOneWithDetilas(code);
         return ResponseEntity.ok().body(dto);
-
+        
     }
-
+    
     @GetMapping("details_bon_reception/edition/{code}")
     public ResponseEntity<byte[]> getReport(@PathVariable Integer code) throws Exception {
-
+        
         String fileNameJrxml = "src/main/resources/Reports/DetailsBonReception.jrxml";
 //        Collection<DetailsBonReception> products = detailsBonReceptionRepo.findAll();
 
         Collection<DetailsBonReceptionDTO> dto = bonReceptionService.findOneWithDetilas(code);
-
+        
         paramDTO dTOs = paramService.findParamByCodeParamS("NomSociete");
         BonReceptionDTO rslt = bonReceptionService.findOne(code);
         SocieteDTO societeDTO = societeService.findOne(1);
@@ -131,7 +154,7 @@ public class BonReceptionRessource {
         params.put("UserCreate", "SoufienCreateCore");
         params.put("codeSaisieBonReception", rslt.getCodeSaisie());
         params.put("Observation", rslt.getObservation());
-        params.put("societe", dTOs.getValeur()); 
+        params.put("societe", dTOs.getValeur());
         params.put("logo", societeDTO.getLogo());
         System.out.println("filling parameters to .JASPER file....");
         JasperPrint print = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
@@ -141,14 +164,14 @@ public class BonReceptionRessource {
         ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
         exporter.setExporterInput(new SimpleExporterInput(print));
         exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(pdfOutputStream));
-
+        
         SimplePdfReportConfiguration reportConfig = new SimplePdfReportConfiguration();
         reportConfig.setSizePageToContent(true);
         reportConfig.setForceLineBreakPolicy(false);
-
+        
         exporter.exportReport();
         var res = pdfOutputStream.toByteArray();
-
+        
         var headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename= filename.pdf");
         return ResponseEntity

@@ -37,7 +37,9 @@ public class DetailsDemandeAchatFactory {
             dTO.setCodeColoris(ColorisFactory.colorisToColorisDTO(domaine.getColoris()));
             dTO.setCodeUnite(UniteFactory.uniteToUniteDTO(domaine.getUnite()));
             dTO.setDateLivraison(domaine.getDemandeAchat().getDateLivraison());
-            dTO.setQteDemander(domaine.getQteDemander());
+            dTO.setQteDemander(domaine.getQteDemander());    
+            dTO.setLaize(domaine.getLaize());
+
 
             return dTO;
         } else {
@@ -63,8 +65,7 @@ public class DetailsDemandeAchatFactory {
             dTO.setCodeSaisieMatiere(domaine.getMatiere().getCodeSaisie());
             dTO.setDesignationArMatiere(domaine.getMatiere().getDesignationAr());
             dTO.setDesignationLtMatiere(domaine.getMatiere().getDesignationLt());
-            dTO.setPrixAchat(domaine.getMatiere().getPrixAchat());
-            System.out.println("domaine.getMatiere().getTaxe()"+domaine.getMatiere().getTaxe());
+            dTO.setPrixAchat(domaine.getMatiere().getPrixAchat()); 
             dTO.setValeurTaxe(domaine.getMatiere().getTaxe().getValeurTaxe());      
             dTO.setCodeColoriss(domaine.getColoris().getCode());
             dTO.setCodeSaisieColoriss(domaine.getColoris().getCodeSaisie());
@@ -76,7 +77,9 @@ public class DetailsDemandeAchatFactory {
             dTO.setDesignationArUnites(domaine.getUnite().getDesignationAr());
             dTO.setDesignationLtUnites(domaine.getUnite().getDesignationLt());
 
-            dTO.setQteDemander(domaine.getQteDemander());
+            dTO.setQteDemander(domaine.getQteDemander());   
+            dTO.setLaize(domaine.getLaize());
+
             return dTO;
         } else {
             return null;

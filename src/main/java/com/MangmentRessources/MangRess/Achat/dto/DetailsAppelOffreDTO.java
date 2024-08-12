@@ -46,6 +46,7 @@ public class DetailsAppelOffreDTO {
     private String designationLtMatiere;   
     private BigDecimal prixAchat;
     private Integer codeTaxe;
+    private BigDecimal laize;
 
 
     private Integer codeUnites;
@@ -276,6 +277,14 @@ public class DetailsAppelOffreDTO {
 
     public void setCodeModeReglement(Integer codeModeReglement) {
         this.codeModeReglement = codeModeReglement;
+    }
+
+    public BigDecimal getLaize() {
+        return laize;
+    }
+
+    public void setLaize(BigDecimal laize) {
+        this.laize = laize;
     }
 
    

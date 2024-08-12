@@ -4,14 +4,11 @@
  */
 package com.MangmentRessources.MangRess.Achat.domaine;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
+import java.util.Objects;
 
 /**
  *
@@ -82,6 +79,40 @@ public class DetailsNomenclaturePK {
 
     public void setCodeColoris(Integer codeColoris) {
         this.codeColoris = codeColoris;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.codeNomenclatureArticle);
+        hash = 67 * hash + Objects.hashCode(this.codearticle);
+        hash = 67 * hash + this.codeMatiere;
+        hash = 67 * hash + this.codeColoris;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DetailsNomenclaturePK other = (DetailsNomenclaturePK) obj;
+        if (this.codeMatiere != other.codeMatiere) {
+            return false;
+        }
+        if (this.codeColoris != other.codeColoris) {
+            return false;
+        }
+        if (!Objects.equals(this.codeNomenclatureArticle, other.codeNomenclatureArticle)) {
+            return false;
+        }
+        return Objects.equals(this.codearticle, other.codearticle);
     }
  
 

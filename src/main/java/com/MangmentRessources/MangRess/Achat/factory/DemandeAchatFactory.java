@@ -191,7 +191,9 @@ public class DemandeAchatFactory {
             detailsmodelepanierPK.setCodeColoris(x.getCodeColoris().getCode());
             detailsDemandeAchat.setDetailsDemandeAchatPK(detailsmodelepanierPK);
             Preconditions.checkBusinessLogique(x.getQteDemander() != null, "error.QuantiteRequired");
-            detailsDemandeAchat.setQteDemander(x.getQteDemander());
+            detailsDemandeAchat.setQteDemander(x.getQteDemander());    
+            detailsDemandeAchat.setLaize(x.getLaize());
+
             detailsDemandeAchat.setDateCreate(domaine.getDateCreate());    
             
 

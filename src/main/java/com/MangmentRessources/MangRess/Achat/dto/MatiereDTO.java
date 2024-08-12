@@ -59,7 +59,7 @@ public class MatiereDTO {
     private Integer codeTaxe;   
     
     private BigDecimal valeurTaxe;
-
+  private Boolean requiredNumPiece;
 
     public MatiereDTO() {
     }
@@ -230,6 +230,14 @@ public class MatiereDTO {
 
     public void setValeurTaxe(BigDecimal valeurTaxe) {
         this.valeurTaxe = valeurTaxe;
+    }
+
+    public Boolean getRequiredNumPiece() {
+        return requiredNumPiece;
+    }
+
+    public void setRequiredNumPiece(Boolean requiredNumPiece) {
+        this.requiredNumPiece = requiredNumPiece;
     }
  
  

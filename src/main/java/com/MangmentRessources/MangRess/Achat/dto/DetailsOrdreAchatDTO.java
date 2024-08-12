@@ -14,12 +14,13 @@ import java.util.Date;
  *
  * @author Administrator
  */
+//@AllArgsConstructor
 public class DetailsOrdreAchatDTO {
 
-    private int codeOrdreAchat;
-    
+    private Integer codeOrdreAchat;
+
     private OrdreAchatDTO ordreAchatDTO;
-    
+
     private String codeSaisieOrdreAchat;
     @NotNull
     private MatiereDTO matiereDTO;
@@ -45,7 +46,10 @@ public class DetailsOrdreAchatDTO {
     private Integer codeMatieres;
     private String codeSaisieMatiere;
     private String designationArMatiere;
-    private String designationLtMatiere;
+    private String designationLtMatiere;   
+    
+    private Boolean requiredNumPiece;
+
 
     private Integer codeUnites;
     private String codeSaisieUnites;
@@ -65,15 +69,52 @@ public class DetailsOrdreAchatDTO {
 
     private BigDecimal mntTotalTaxe;
     private BigDecimal valeurTaxe;
+    private Boolean totalementLivred;
 
     public DetailsOrdreAchatDTO() {
     }
 
-    public int getCodeOrdreAchat() {
+    public DetailsOrdreAchatDTO(Integer codeOrdreAchat, Integer codeMatieres, String codeSaisieMatiere,
+            String designationArMatiere, String designationLtMatiere, Integer codeUnites,
+            String codeSaisieUnites, String designationArUnites, String designationLtUnites,
+            Integer codeColoriss, String codeSaisieColoriss, String designationArColoriss,
+            String designationLtColoriss, BigDecimal qteDemander, BigDecimal qteLivrer, BigDecimal prixAchat, BigDecimal valeurTaxe, Boolean requiredNumPiece) {
+        this.codeOrdreAchat = codeOrdreAchat;
+        this.qteDemander = qteDemander;
+        this.qteLivrer = qteLivrer;
+        this.codeMatieres = codeMatieres;
+        this.codeSaisieMatiere = codeSaisieMatiere;
+        this.designationArMatiere = designationArMatiere;
+        this.designationLtMatiere = designationLtMatiere;
+        this.codeUnites = codeUnites;
+        this.codeSaisieUnites = codeSaisieUnites;
+        this.designationArUnites = designationArUnites;
+        this.designationLtUnites = designationLtUnites;
+        this.codeColoriss = codeColoriss;
+        this.codeSaisieColoriss = codeSaisieColoriss;
+        this.designationArColoriss = designationArColoriss;
+        this.designationLtColoriss = designationLtColoriss;
+        this.prixAchat = prixAchat;
+        this.valeurTaxe = valeurTaxe;
+        this.requiredNumPiece = requiredNumPiece;
+
+    }
+
+    public Boolean getRequiredNumPiece() {
+        return requiredNumPiece;
+    }
+
+    public void setRequiredNumPiece(Boolean requiredNumPiece) {
+        this.requiredNumPiece = requiredNumPiece;
+    }
+
+    
+    public Integer getCodeOrdreAchat() {
         return codeOrdreAchat;
     }
 
-    public void setCodeOrdreAchat(int codeOrdreAchat) {
+    
+    public void setCodeOrdreAchat(Integer codeOrdreAchat) {
         this.codeOrdreAchat = codeOrdreAchat;
     }
 
@@ -92,8 +133,6 @@ public class DetailsOrdreAchatDTO {
     public void setMatiereDTO(MatiereDTO matiereDTO) {
         this.matiereDTO = matiereDTO;
     }
-
- 
 
     public ColorisDTO getCodeColoris() {
         return codeColoris;
@@ -126,7 +165,7 @@ public class DetailsOrdreAchatDTO {
     public void setQteDemander(BigDecimal qteDemander) {
         this.qteDemander = qteDemander;
     }
- 
+
     public BigDecimal getQteLivrer() {
         return qteLivrer;
     }
@@ -295,6 +334,14 @@ public class DetailsOrdreAchatDTO {
         this.ordreAchatDTO = ordreAchatDTO;
     }
 
- 
+    public Boolean getTotalementLivred() {
+        return totalementLivred;
+    }
 
+    public void setTotalementLivred(Boolean totalementLivred) {
+        this.totalementLivred = totalementLivred;
+    }
+
+    
+    
 }

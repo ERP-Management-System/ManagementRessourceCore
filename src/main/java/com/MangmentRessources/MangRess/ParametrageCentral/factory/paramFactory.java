@@ -5,11 +5,12 @@
 package com.MangmentRessources.MangRess.parametrageCentral.factory;
 
 import com.MangmentRessources.MangRess.ParametrageCentral.domaine.param;
-import com.MangmentRessources.MangRess.ParametrageCentral.dto.paramDTO; 
+import com.MangmentRessources.MangRess.ParametrageCentral.dto.paramDTO;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List; 
-import org.springframework.beans.factory.annotation.Value; 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class paramFactory {
+ 
 
     static String LANGUAGE_SEC;
 
@@ -33,9 +35,9 @@ public class paramFactory {
     }
 
     public static param paramDTOToparam(paramDTO Dto, param domaine) {
-        if (Dto != null) { 
-            domaine.setValeur(Dto.getValeur());    
-            domaine.setVisible(Dto.getVisible());   
+        if (Dto != null) {
+            domaine.setValeur(Dto.getValeur());
+            domaine.setVisible(Dto.getVisible());
             return domaine;
         } else {
             return null;
@@ -46,6 +48,7 @@ public class paramFactory {
 
         if (domaine != null) {
             paramDTO dTO = new paramDTO();
+            
             dTO.setVisible(domaine.getVisible());
             dTO.setValeur(domaine.getValeur());
 

@@ -6,18 +6,23 @@ package com.MangmentRessources.MangRess.Achat.domaine;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  *
  * @author Administrator
  */
-public class DetailsOrdreAchatPK {
+ @Embeddable
+public class DetailsOrdreAchatPK implements Serializable {
+
+ 
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "code_ordre_achat", nullable = false)
-    private int codeOrdreAchat;
+    private Integer codeOrdreAchat;
 
     @Basic(optional = false)
     @NotNull
@@ -33,15 +38,20 @@ public class DetailsOrdreAchatPK {
     @NotNull
     @Column(name = "code_unite", nullable = false)
     private int codeUnite;
-
+ 
+    
+    
     public DetailsOrdreAchatPK() {
     }
+ 
+    
+    
 
-    public int getCodeOrdreAchat() {
+    public Integer getCodeOrdreAchat() {
         return codeOrdreAchat;
     }
 
-    public void setCodeOrdreAchat(int codeOrdreAchat) {
+    public void setCodeOrdreAchat(Integer codeOrdreAchat) {
         this.codeOrdreAchat = codeOrdreAchat;
     }
 
@@ -68,6 +78,42 @@ public class DetailsOrdreAchatPK {
     public void setCodeUnite(int codeUnite) {
         this.codeUnite = codeUnite;
     }
+
+ 
     
     
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 89 * hash + this.codeOrdreAchat;
+        hash = 89 * hash + this.codeMatiere;
+        hash = 89 * hash + this.codeColoris;
+        hash = 89 * hash + this.codeUnite;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DetailsOrdreAchatPK other = (DetailsOrdreAchatPK) obj;
+        if (this.codeOrdreAchat != other.codeOrdreAchat) {
+            return false;
+        }
+        if (this.codeMatiere != other.codeMatiere) {
+            return false;
+        }
+        if (this.codeColoris != other.codeColoris) {
+            return false;
+        }
+        return this.codeUnite == other.codeUnite;
+    }
+ 
 }

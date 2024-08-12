@@ -18,9 +18,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
@@ -129,6 +131,8 @@ public class DemandeAchat {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_approuve",columnDefinition = "datetime default(getdate())")
     private Date dateApprouve;
+    
+
 
     public DemandeAchat() {
     }
@@ -308,5 +312,6 @@ public class DemandeAchat {
     public void setDateApprouve(Date dateApprouve) {
         this.dateApprouve = dateApprouve;
     }
-
+ 
+    
 }

@@ -6,6 +6,8 @@ package com.MangmentRessources.MangRess.Achat.service;
 
 import com.MangmentRessources.MangRess.Achat.domaine.DetailsBonReception;
 import com.MangmentRessources.MangRess.Achat.domaine.BonReception;
+import com.MangmentRessources.MangRess.Achat.domaine.DetailsOrdreAchat;
+import com.MangmentRessources.MangRess.Achat.domaine.DetailsOrdreAchatPK;
 import com.MangmentRessources.MangRess.Achat.dto.DetailsBonReceptionDTO;
 import com.MangmentRessources.MangRess.Achat.dto.BonReceptionDTO;
 import com.MangmentRessources.MangRess.Achat.dto.DetailsOrdreAchatDTO;
@@ -21,11 +23,13 @@ import com.MangmentRessources.MangRess.ParametrageCentral.service.CompteurServic
 import com.google.common.base.Preconditions;
 import jakarta.persistence.EntityManager;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -41,9 +45,10 @@ public class BonReceptionService {
 
     private final BonReceptionRepo bonReceptionRepo;
     private final CompteurService compteurService;
-    private final DetailsBonReceptionRepo detailsBonReceptionRepo; 
+    private final DetailsBonReceptionRepo detailsBonReceptionRepo;
     private final OrdreAchatService achatService;
     private final DetailsOrdreAchatService detailsOrdreAchatService;
+    private final DetailsOrdreAchatRepo detailsOrdreAchatRepo;
 
 //    @Autowired
 //    private MessageSource messageSource;
@@ -57,14 +62,15 @@ public class BonReceptionService {
         LANGUAGE_SEC = db;
     }
 
-    public BonReceptionService(BonReceptionRepo bonReceptionRepo, CompteurService compteurService, DetailsBonReceptionRepo detailsBonReceptionRepo, OrdreAchatService achatService, DetailsOrdreAchatService detailsOrdreAchatService) {
+    public BonReceptionService(BonReceptionRepo bonReceptionRepo, CompteurService compteurService, DetailsBonReceptionRepo detailsBonReceptionRepo, OrdreAchatService achatService, DetailsOrdreAchatService detailsOrdreAchatService, DetailsOrdreAchatRepo detailsOrdreAchatRepo) {
         this.bonReceptionRepo = bonReceptionRepo;
         this.compteurService = compteurService;
         this.detailsBonReceptionRepo = detailsBonReceptionRepo;
         this.achatService = achatService;
         this.detailsOrdreAchatService = detailsOrdreAchatService;
+        this.detailsOrdreAchatRepo = detailsOrdreAchatRepo;
     }
- 
+
 //    private final static String  Product_notfound= "error.BonReceptionRecpetionnerTotalemenet";  
 //    private final static String  productUSer= "error.BonReceptionRecpetionnerTotalemenet";
 //    private String getMessage(String code, Object... args) {
@@ -138,31 +144,64 @@ public class BonReceptionService {
 
     public BonReceptionDTO saveBonReception(BonReceptionDTO Dto) {
         com.MangmentRessources.MangRess.web.Util.Preconditions.checkBusinessLogique(Dto.getCodeDepot() != null, "error.DepotRequired");
-
         Collection<DetailsBonReceptionDTO> detailsBonReceptions = new ArrayList<>();
         detailsBonReceptions = Dto.getDetailsBonReceptionDTOs();
         Collection<DetailsOrdreAchatDTO> detailsOrdreAchatDTOs = detailsOrdreAchatService.findOne(Dto.getCodeOrdreAchat());
         OrdreAchatDTO ordreAchatDTO = null;
-      
-      
+        List<DetailsOrdreAchatDTO> listDetailsOrdreAchatDTOs = new ArrayList<>();
         for (DetailsBonReceptionDTO detail : detailsBonReceptions) {
+//                System.out.println("lajmi vvv "+detail.getCodeMatieres());
             BigDecimal qteDemander;
-          
             Optional<DetailsOrdreAchatDTO> details = detailsOrdreAchatDTOs.stream().filter(x -> (x.getCodeMatieres().equals(detail.getCodeMatieres()))).findFirst();
+//            DetailsOrdreAchatDTO newDetails = new DetailsOrdreAchatDTO();
+
           
             if (details.isPresent()) {
                 qteDemander = details.get().getQteDemander();
-                if (qteDemander.compareTo(detail.getQteReceptionner()) >= 0) {
 
-                    ordreAchatDTO = detailsOrdreAchatDTOs.iterator().next().getOrdreAchatDTO(); 
-                    ordreAchatDTO.setCodeEtatReception(5);
-                    break;
-                } else if (qteDemander.compareTo(detail.getQteReceptionner()) < 0) {
+                BigDecimal qteOldReviced = details.get().getQteLivrer();
+                BigDecimal qteLivree = detail.getQteReceptionner();
+                BigDecimal sumQteLivred = qteOldReviced.add(qteLivree);
+
+                if (qteDemander.compareTo(sumQteLivred) > 0) {
+
                     ordreAchatDTO = detailsOrdreAchatDTOs.iterator().next().getOrdreAchatDTO();
-                    ordreAchatDTO.setCodeEtatReception(7); 
+                    ordreAchatDTO.setCodeEtatReception(5);
+
+                    break;
+                } else if (qteDemander.compareTo(sumQteLivred) <= 0) {
+                    ordreAchatDTO = detailsOrdreAchatDTOs.iterator().next().getOrdreAchatDTO();
+                    ordreAchatDTO.setCodeEtatReception(7);
                 }
             }
 
+            com.MangmentRessources.MangRess.web.Util.Preconditions.checkBusinessLogique(detail.getQteReceptionner() != null, "error.QuantiteRecptionnerRequired");
+        }
+
+        for (DetailsBonReceptionDTO detail : detailsBonReceptions) {
+
+            Optional<DetailsOrdreAchatDTO> details = detailsOrdreAchatDTOs.stream().filter(x -> (x.getCodeMatieres().equals(detail.getCodeMatieres())) && (x.getCodeOrdreAchat().equals(detail.getCodeOrdreAchat()))).findFirst();
+            DetailsOrdreAchatDTO newDetails = new DetailsOrdreAchatDTO();
+
+            if (details.isPresent()) {
+                newDetails = details.get();
+//                
+                BigDecimal qteOldReviced = details.get().getQteLivrer();
+                BigDecimal qteLivree = detail.getQteReceptionner();
+                BigDecimal sumQteLivredx = qteOldReviced.add(qteLivree);
+
+//                BigDecimal difference = bigDecimal1.subtract(bigDecimal2);
+                if (details.get().getQteDemander().compareTo(sumQteLivredx) > 0) {
+                    newDetails.setTotalementLivred(false);
+
+                } else {
+                    newDetails.setTotalementLivred(true);
+                } 
+                newDetails.setQteLivrer(sumQteLivredx);
+
+                listDetailsOrdreAchatDTOs.add(newDetails);
+
+            }
         }
 
         BonReception domaine = BonReceptionFactory.bonReceptionDTOToBonReceptionWithDetails(new BonReception(), Dto);
@@ -181,8 +220,10 @@ public class BonReceptionService {
         domaine.setDateCreate(new Date());
         domaine.setCodeSaisie(codeSaisieDA);
         compteurService.incrementeSuffixe(CompteurCodeSaisie);
+
         domaine = bonReceptionRepo.save(domaine);
         achatService.updateEtatRecpetion(ordreAchatDTO);
+        detailsOrdreAchatService.update(listDetailsOrdreAchatDTOs);
         BonReceptionDTO resultDTO = BonReceptionFactory.UpdatebonReceptionWithDetailsTobonReceptionDTOWithDetails(domaine);
 
         return resultDTO;

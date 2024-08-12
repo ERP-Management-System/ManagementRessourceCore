@@ -70,6 +70,11 @@ public class BonReceptionDTO {
 
     private Collection<DetailsBonReceptionDTO> detailsBonReceptionDTOs;
 
+    
+    
+    private Collection<DetailsOrdreAchatDTO> detailsOrdreAchatDTOs;
+    
+    
     @Basic(optional = false)
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -255,6 +260,8 @@ public class BonReceptionDTO {
         return detailsBonReceptionDTOs;
     }
 
+    
+  
     public void setDetailsBonReceptionDTOs(Collection<DetailsBonReceptionDTO> detailsBonReceptionDTOs) {
         this.detailsBonReceptionDTOs = detailsBonReceptionDTOs;
     }
@@ -298,6 +305,14 @@ public class BonReceptionDTO {
 
     public void setCodeOrdreAchat(Integer codeOrdreAchat) {
         this.codeOrdreAchat = codeOrdreAchat;
+    }
+
+    public Collection<DetailsOrdreAchatDTO> getDetailsOrdreAchatDTOs() {
+        return detailsOrdreAchatDTOs;
+    }
+
+    public void setDetailsOrdreAchatDTOs(Collection<DetailsOrdreAchatDTO> detailsOrdreAchatDTOs) {
+        this.detailsOrdreAchatDTOs = detailsOrdreAchatDTOs;
     }
 
     

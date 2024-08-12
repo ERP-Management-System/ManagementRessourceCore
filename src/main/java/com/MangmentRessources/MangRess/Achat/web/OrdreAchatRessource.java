@@ -4,10 +4,11 @@
  */
 package com.MangmentRessources.MangRess.Achat.web;
 
+import com.MangmentRessources.MangRess.Achat.domaine.DetailsOrdreAchat;
 import com.MangmentRessources.MangRess.Achat.domaine.OrdreAchat;
-import com.MangmentRessources.MangRess.Achat.dto.DemandeAchatDTO;
 import com.MangmentRessources.MangRess.Achat.dto.OrdreAchatDTO;
 import com.MangmentRessources.MangRess.Achat.dto.DetailsOrdreAchatDTO;
+import com.MangmentRessources.MangRess.Achat.repository.OrdreAchatRepo;
 import com.MangmentRessources.MangRess.Achat.service.OrdreAchatService;
 import com.MangmentRessources.MangRess.ParametrageCentral.dto.SocieteDTO;
 import com.MangmentRessources.MangRess.ParametrageCentral.dto.paramDTO;
@@ -17,7 +18,6 @@ import jakarta.validation.Valid;
 import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.Clock;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -61,10 +61,13 @@ public class OrdreAchatRessource {
     private final ParamService paramService;
     private final SocieteService societeService;
 
-    public OrdreAchatRessource(OrdreAchatService ordreAchatService, ParamService paramService, SocieteService societeService) {
+    private final OrdreAchatRepo ordreAchatRepo;
+
+    public OrdreAchatRessource(OrdreAchatService ordreAchatService, ParamService paramService, SocieteService societeService, OrdreAchatRepo ordreAchatRepo) {
         this.ordreAchatService = ordreAchatService;
         this.paramService = paramService;
         this.societeService = societeService;
+        this.ordreAchatRepo = ordreAchatRepo;
     }
 
     @GetMapping("ordre_achat/all")
@@ -79,22 +82,33 @@ public class OrdreAchatRessource {
 
     }
 
+    @GetMapping("ordre_achat/etat_reception_in/{codeEtatReception}")
+    public ResponseEntity<List<OrdreAchatDTO>> getOrdreAchatByEtatReceptionIn(@PathVariable List<Integer> codeEtatReception) {
+        List<OrdreAchatDTO> dto = ordreAchatService.findOneByEtatReceptionIn(codeEtatReception);
+        return ResponseEntity.ok().body(dto);
+
+    }
+//
+//    @GetMapping("ordre_achat/etat_reception_in_nonReciedFull/{codeEtatReception}")
+//    public ResponseEntity<List<OrdreAchatDTO>> getOrdreAchatByEtatReceptionInAndNotFullRecived(@PathVariable List<Integer> codeEtatReception) {
+//        List<OrdreAchatDTO> dto = ordreAchatService.findOneByEtatReceptionAndNotFullRecived(codeEtatReception);
+//        return ResponseEntity.ok().body(dto);
+//
+//    }
+
     @PutMapping("ordre_achat/update")
     public ResponseEntity<OrdreAchatDTO> updateOrdreAchat(@Valid @RequestBody OrdreAchatDTO dTO, BindingResult bindingResult) throws MethodArgumentNotValidException {
         OrdreAchatDTO result = ordreAchatService.updateNewWithFlush(dTO);
         return ResponseEntity.ok().body(result);
     }
 
-    
-        @PutMapping("ordre_achat/update_etat_reception")
+    @PutMapping("ordre_achat/update_etat_reception")
     public ResponseEntity<OrdreAchat> updateOrdreAchatEtatReception(@Valid @RequestBody OrdreAchatDTO dTO, BindingResult bindingResult) throws MethodArgumentNotValidException {
         OrdreAchat result = ordreAchatService.updateEtatRecpetion(dTO);
-            
+
         return ResponseEntity.ok().body(result);
     }
 
-    
-    
     @DeleteMapping("ordre_achat/delete/{code}")
     public ResponseEntity<OrdreAchat> deleteOrdreAchat(@PathVariable("code") Integer code) {
         ordreAchatService.deleteOrdreAchat(code);
@@ -114,9 +128,35 @@ public class OrdreAchatRessource {
 
     }
 
+    @GetMapping("details_ordre_achat_not_full_recived/{code}")
+    public ResponseEntity<Collection<DetailsOrdreAchatDTO>> getDetailsOrdreAchatNonLivredTotalment(@PathVariable Integer code, Boolean totalementLivred) {
+        Collection<DetailsOrdreAchatDTO> dto = ordreAchatService.findOneWithDetilasTotalmentLivredFalse(code, false);
+        return ResponseEntity.ok().body(dto);
+
+    }
+//    
+//    @GetMapping("details_ordre_achat/all_non_complete_receptionner")
+//    public List<DetailsOrdreAchatDTO> getAllDetailsOrdersNonReceptionnerComplete() {
+//        return ordreAchatService.getDetailsOrdreAchatNonCompleteReceptionner();
+//    }
+//
+//    
+// 
+//    
+//    
+//    @GetMapping("details_ordre_achat/all_non_complete_receptionner/{codeOrdreAchat}")
+//    public Collection<DetailsOrdreAchatDTO> getAllDetailsOrdersNonReceptionnerComplete(@PathVariable Integer codeOrdreAchat) {
+//        return ordreAchatService.getDetailsOrdreAchatNonCompleteReceptionnerByCode(codeOrdreAchat);
+//    }
+//
+//    @GetMapping("ordre_achat/all_non_complete_receptionner")
+//    public List<OrdreAchatDTO> getOrdersAchatNonReceptionnerComplete() {
+//        return ordreAchatService.getOrdreAchatNonCompleteReceptionner();
+//    }
+
     @GetMapping("ordre_achat/{code}")
     public ResponseEntity< OrdreAchatDTO> getOrdreAchat(@PathVariable Integer code) {
-         OrdreAchatDTO  dto = ordreAchatService.findOne(code);
+        OrdreAchatDTO dto = ordreAchatService.findOne(code);
         return ResponseEntity.ok().body(dto);
 
     }

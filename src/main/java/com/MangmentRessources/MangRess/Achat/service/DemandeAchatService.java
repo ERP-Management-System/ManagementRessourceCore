@@ -84,12 +84,12 @@ public class DemandeAchatService {
 //        DemandeAchatDTO resultDTO = DemandeAchatFactory.UpdatedemandeAchatWithDetailsTodemandeAchatDTOWithDetails(inBase);
 //        return resultDTO;
 //    }
-    public DemandeAchatDTO updateNewWithFlush(DemandeAchatDTO modelepanierDTO) {
-        DemandeAchat inBase = demandeAchatRepo.getReferenceById(modelepanierDTO.getCode());
-        Preconditions.checkArgument(inBase != null, "error.ModelePanierInexistant");
+    public DemandeAchatDTO updateNewWithFlush(DemandeAchatDTO demandeAchatDTO) {
+        DemandeAchat inBase = demandeAchatRepo.getReferenceById(demandeAchatDTO.getCode());
+        Preconditions.checkArgument(inBase != null, "error.DemandeAchatInexistant");
         inBase.getDetailsDemandeAchats().clear();
         demandeAchatRepo.flush();
-        inBase = DemandeAchatFactory.demandeAchatDTOToDemandeAchatWithDetails(inBase, modelepanierDTO);
+        inBase = DemandeAchatFactory.demandeAchatDTOToDemandeAchatWithDetails(inBase, demandeAchatDTO);
         inBase = demandeAchatRepo.save(inBase);
         DemandeAchatDTO resultDTO = DemandeAchatFactory.UpdatedemandeAchatWithDetailsTodemandeAchatDTOWithDetails(inBase);
         return resultDTO;

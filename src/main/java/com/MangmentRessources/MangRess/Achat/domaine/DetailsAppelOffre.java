@@ -17,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
+
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
@@ -82,6 +83,9 @@ public class DetailsAppelOffre {
     @Column(name = "ordre_martiere", nullable = false, columnDefinition = "int default 1")
     private Integer ordreMatiere;
  
+     
+    @Column(name = "laize",columnDefinition = "decimal(18,3)")
+    private BigDecimal laize;
 
     public DetailsAppelOffre() {
     }
@@ -136,6 +140,14 @@ public class DetailsAppelOffre {
 
     public Matiere getMatiere() {
         return matiere;
+    }
+
+    public BigDecimal getLaize() {
+        return laize;
+    }
+
+    public void setLaize(BigDecimal laize) {
+        this.laize = laize;
     }
 
     public Coloris getColoris() {

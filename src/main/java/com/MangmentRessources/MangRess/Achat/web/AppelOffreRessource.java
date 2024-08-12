@@ -56,19 +56,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/parametrage_achat/")
 public class AppelOffreRessource {
 
-    private final AppelOffreService appelOffreService;
-
-    private final DetailsAppelOffreRepo detailsAppelOffreRepo;
-
+    private final AppelOffreService appelOffreService; 
     private final SocieteService societeService;
     private final ParamService paramService;
 
-    public AppelOffreRessource(AppelOffreService appelOffreService, DetailsAppelOffreRepo detailsAppelOffreRepo, SocieteService societeService, ParamService paramService) {
+    public AppelOffreRessource(AppelOffreService appelOffreService, SocieteService societeService, ParamService paramService) {
         this.appelOffreService = appelOffreService;
-        this.detailsAppelOffreRepo = detailsAppelOffreRepo;
         this.societeService = societeService;
         this.paramService = paramService;
     }
+ 
+    
  
     @GetMapping("appel_offre/{code}")
     public ResponseEntity<AppelOffreDTO> getAppelOffreByCode(@PathVariable Integer code) {
@@ -81,12 +79,7 @@ public class AppelOffreRessource {
         return ResponseEntity.ok().body(appelOffreService.findAllAppelOffre());
     }
 
-//    @GetMapping("appel_offre/EtatApprouverOrdreAchat/{codeEtatApprouverOrdreAchat}")
-//    public ResponseEntity<List<AppelOffreDTO>> getAppelOffreByCodeEtatApprouve(@PathVariable Integer codeEtatApprouverOrdreAchat) {
-//        List<AppelOffreDTO> dto = appelOffreService.findOneByEtatApprouver(codeEtatApprouverOrdreAchat);
-//        return ResponseEntity.ok().body(dto);
-//
-//    }
+ 
 
     @PutMapping("appel_offre/update")
     public ResponseEntity<AppelOffreDTO> updateModelePanier(@Valid @RequestBody AppelOffreDTO dTO, BindingResult bindingResult) throws MethodArgumentNotValidException {

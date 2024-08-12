@@ -4,6 +4,7 @@
  */
 package com.MangmentRessources.MangRess.Achat.dto;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
@@ -19,7 +20,7 @@ public class DetailsBonReceptionDTO {
     private int codeBonReception;
     private String codeSaisieBonReception;
     @NotNull
-    private MatiereDTO codematiere;
+    private MatiereDTO matiereDTO;
 
     @NotNull
     private ColorisDTO codeColoris;
@@ -39,7 +40,7 @@ public class DetailsBonReceptionDTO {
     private String codeSaisieMatiere;
     private String designationArMatiere;
     private String designationLtMatiere;
- 
+
     private Integer codeTaxe;
 
     private Integer codeUnites;
@@ -62,8 +63,8 @@ public class DetailsBonReceptionDTO {
     private FournisseurDTO fournisseurDTO;
 
     private Integer codeFournisseur;
-    
-        private BigDecimal prixAchat;
+
+    private BigDecimal prixAchat;
 
     private BigDecimal mntTotalTTC;
 
@@ -71,6 +72,13 @@ public class DetailsBonReceptionDTO {
 
     private BigDecimal mntTotalTaxe;
     private BigDecimal valeurTaxe;
+
+    private OrdreAchatDTO ordreAchatDTO;
+
+    private Integer codeOrdreAchat;
+
+    private Boolean totalementLivred;
+    private BigDecimal laize;
 
     public DetailsBonReceptionDTO() {
     }
@@ -91,12 +99,12 @@ public class DetailsBonReceptionDTO {
         this.codeSaisieBonReception = codeSaisieBonReception;
     }
 
-    public MatiereDTO getCodematiere() {
-        return codematiere;
+    public MatiereDTO getMatiereDTO() {
+        return matiereDTO;
     }
 
-    public void setCodematiere(MatiereDTO codematiere) {
-        this.codematiere = codematiere;
+    public void setMatiereDTO(MatiereDTO matiereDTO) {
+        this.matiereDTO = matiereDTO;
     }
 
     public ColorisDTO getCodeColoris() {
@@ -330,6 +338,39 @@ public class DetailsBonReceptionDTO {
     public void setValeurTaxe(BigDecimal valeurTaxe) {
         this.valeurTaxe = valeurTaxe;
     }
+
+    public OrdreAchatDTO getOrdreAchatDTO() {
+        return ordreAchatDTO;
+    }
+
+    public void setOrdreAchatDTO(OrdreAchatDTO ordreAchatDTO) {
+        this.ordreAchatDTO = ordreAchatDTO;
+    }
+
+    public Integer getCodeOrdreAchat() {
+        return codeOrdreAchat;
+    }
+
+    public void setCodeOrdreAchat(Integer codeOrdreAchat) {
+        this.codeOrdreAchat = codeOrdreAchat;
+    }
+
+    public BigDecimal getLaize() {
+        return laize;
+    }
+
+    public void setLaize(BigDecimal laize) {
+        this.laize = laize;
+    }
+
+    public Boolean getTotalementLivred() {
+        return totalementLivred;
+    }
+
+    public void setTotalementLivred(Boolean totalementLivred) {
+        this.totalementLivred = totalementLivred;
+    }
     
     
+
 }

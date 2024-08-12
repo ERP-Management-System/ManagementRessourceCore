@@ -14,14 +14,14 @@ import com.MangmentRessources.MangRess.Achat.factory.DetailsAppelOffreFactory;
 import com.MangmentRessources.MangRess.Achat.repository.AppelOffreRepo;
 import com.MangmentRessources.MangRess.Achat.repository.DetailsAppelOffreRepo;
 import com.MangmentRessources.MangRess.Achat.repository.OrdreAchatRepo;
-import com.MangmentRessources.MangRess.ParametrageCentral.domaine.Compteur;
-import com.MangmentRessources.MangRess.ParametrageCentral.domaine.param;
-import com.MangmentRessources.MangRess.ParametrageCentral.service.CompteurService;
-import com.MangmentRessources.MangRess.ParametrageCentral.service.ParamService;
+import com.MangmentRessources.MangRess.ParametrageCentral.domaine.Compteur; 
+import com.MangmentRessources.MangRess.ParametrageCentral.service.CompteurService; 
 import com.google.common.base.Preconditions;
+
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -67,15 +67,18 @@ public class AppelOffreService {
 
     @Transactional(readOnly = true)
     public AppelOffreDTO findOne(Integer code) {
-        AppelOffre domaine = appelOffreRepo.getReferenceById(code);
-        Preconditions.checkArgument(domaine == null, "error.AppelOffreNotFound");
+        
+         AppelOffre  domaine = appelOffreRepo.getReferenceById(code);   
+//        System.out.println("soufien" + domaine.getCode()  );
+//        Preconditions.checkNotNull(domaine ==null , "Reference with ID 2 not found.");
+  
         return AppelOffreFactory.appelOffreToAppelOffreDTO(domaine);
     }
 
     @Transactional(readOnly = true)
     public AppelOffreDTO findOneDetails(Integer code) {
         AppelOffre domaine = appelOffreRepo.getReferenceById(code);
-        Preconditions.checkArgument(domaine == null, "error.AppelOffreNotFound");
+        Preconditions.checkArgument(domaine != null, "Reference with ID 2 not found.");
         return AppelOffreFactory.appelOffreToAppelOffreDTO(domaine);
     }
 
@@ -85,7 +88,7 @@ public class AppelOffreService {
 //    }
     public AppelOffreDTO updateNewWithFlush(AppelOffreDTO appelOffreDTO) {
         AppelOffre inBase = appelOffreRepo.getReferenceById(appelOffreDTO.getCode());
-        Preconditions.checkArgument(inBase == null, "error.appelOffreDTOInexistant");
+//        Preconditions.checkArgument(inBase == null, "error.appelOffreDTOInexistant");
         inBase.getDetailsAppelOffresCollections().clear();
         appelOffreRepo.flush();
         inBase = AppelOffreFactory.appelOffreDTOToAppelOffreWithDetails(inBase, appelOffreDTO);
@@ -115,7 +118,7 @@ public class AppelOffreService {
 
     public AppelOffreDTO saveAO(AppelOffreDTO Dto) {
 
-        log.debug("Request to update Convention : {}", Dto);
+        log.debug("Request to update AppelOffreDTO : {}", Dto);
         AppelOffre domaine = AppelOffreFactory.appelOffreDTOToAppelOffreWithDetails(new AppelOffre(), Dto);
         Compteur CompteurCodeSaisie = compteurService.findOne("codeSaisieAO");
         String codeSaisieAO = CompteurCodeSaisie.getPrefixe() + CompteurCodeSaisie.getSuffixe();

@@ -83,5 +83,39 @@ public class DetailsAppelOffrePK implements Serializable {
         this.codeUnite = codeUnite;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + this.codeAppelOffre;
+        hash = 97 * hash + this.codeMatiere;
+        hash = 97 * hash + this.codeColoris;
+        hash = 97 * hash + this.codeUnite;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DetailsAppelOffrePK other = (DetailsAppelOffrePK) obj;
+        if (this.codeAppelOffre != other.codeAppelOffre) {
+            return false;
+        }
+        if (this.codeMatiere != other.codeMatiere) {
+            return false;
+        }
+        if (this.codeColoris != other.codeColoris) {
+            return false;
+        }
+        return this.codeUnite == other.codeUnite;
+    }
+
 
 }

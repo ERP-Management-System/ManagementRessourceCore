@@ -7,13 +7,18 @@ package com.MangmentRessources.MangRess.Achat.domaine;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
+
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
@@ -33,6 +38,7 @@ import org.hibernate.envers.Audited;
 public class DetailsOrdreAchat {
 
     private static final long serialVersionUID = 1L;
+
     @EmbeddedId
     protected DetailsOrdreAchatPK detailsOrdreAchatPK;
 
@@ -53,6 +59,7 @@ public class DetailsOrdreAchat {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonBackReference
     private Coloris coloris;
+
     @Column(name = "code_coloris", insertable = false, updatable = false)
     private Integer codeColoris;
 
@@ -67,7 +74,7 @@ public class DetailsOrdreAchat {
     @Column(name = "qte_ordre", nullable = false)
     private BigDecimal qteDemander;
 
-    @Column(name = "qte_livrer")
+    @Column(name = "qte_livrer", columnDefinition = ("numeric(38,2) default(0)"))
     private BigDecimal qteLivrer;
 
     @Column(name = "user_create", nullable = false, columnDefinition = "nvarchar(200)")
@@ -97,10 +104,12 @@ public class DetailsOrdreAchat {
 
     @Column(name = "montant_total_taxe", columnDefinition = ("decimal(18,6)"), nullable = false)
     private BigDecimal mntTotalTaxe;
-    
-    
+
     @Column(name = "valeur_taxe", columnDefinition = ("decimal(18,2)"), nullable = false)
     private BigDecimal valeurTaxe;
+
+    @Column(name = "totalment_livred", nullable = false)
+    private Boolean totalementLivred;
 
     public DetailsOrdreAchat() {
     }
@@ -177,7 +186,6 @@ public class DetailsOrdreAchat {
         this.qteDemander = qteDemander;
     }
 
- 
     public BigDecimal getQteLivrer() {
         return qteLivrer;
     }
@@ -258,5 +266,14 @@ public class DetailsOrdreAchat {
         this.valeurTaxe = valeurTaxe;
     }
 
- 
+    public Boolean getTotalementLivred() {
+        return totalementLivred;
+    }
+
+    public void setTotalementLivred(Boolean totalementLivred) {
+        this.totalementLivred = totalementLivred;
+    }
+
+    
+    
 }
