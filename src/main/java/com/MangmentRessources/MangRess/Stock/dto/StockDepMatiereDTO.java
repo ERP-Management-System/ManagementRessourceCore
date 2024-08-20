@@ -4,10 +4,13 @@
  */
 package com.MangmentRessources.MangRess.Stock.dto;
 
+import com.MangmentRessources.MangRess.Achat.domaine.OrdreAchat;
 import com.MangmentRessources.MangRess.Achat.dto.ColorisDTO;
 import com.MangmentRessources.MangRess.Achat.dto.DepotDTO;
 import com.MangmentRessources.MangRess.Achat.dto.MatiereDTO;
+import com.MangmentRessources.MangRess.Achat.dto.OrdreAchatDTO;
 import com.MangmentRessources.MangRess.Achat.dto.UniteDTO;
+import jakarta.persistence.Column;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -44,6 +47,9 @@ public class StockDepMatiereDTO {
     private String numPiece;
 
     private String laize;
+    
+        private OrdreAchatDTO ordreAchatDTO; 
+    private Integer codeOrdreAchat; 
 
     public StockDepMatiereDTO() {
     }
@@ -174,6 +180,22 @@ public class StockDepMatiereDTO {
 
     public void setLaize(String laize) {
         this.laize = laize;
+    }
+
+    public OrdreAchatDTO getOrdreAchatDTO() {
+        return ordreAchatDTO;
+    }
+
+    public void setOrdreAchatDTO(OrdreAchatDTO ordreAchatDTO) {
+        this.ordreAchatDTO = ordreAchatDTO;
+    }
+
+    public Integer getCodeOrdreAchat() {
+        return codeOrdreAchat;
+    }
+
+    public void setCodeOrdreAchat(Integer codeOrdreAchat) {
+        this.codeOrdreAchat = codeOrdreAchat;
     }
 
     

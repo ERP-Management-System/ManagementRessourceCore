@@ -48,33 +48,7 @@ public class OrdreAchatFactory {
             if (domaine.getCodeEtatReception() != null) {
                 domaine.setEtatReception(EtatReceptionFactory.createEtatReceptionByCode(Dto.getCodeEtatReception()));
 
-            }
-//            Collection<DetailsOrdreAchat> detailsCollections = new ArrayList<>();
-//            Dto.getDetailsOrdreAchatDTOs().forEach(x -> {
-//
-//                DetailsOrdreAchat detailsOrdreAchat = new DetailsOrdreAchat();
-//                DetailsOrdreAchatPK detailsOrdreAchatPK = new DetailsOrdreAchatPK();
-////            detailsOrdreAchatPK.setCode(x.getCode());
-//                Preconditions.checkBusinessLogique(x.getCodeMatieres() != null, "error.MatiereRequired");
-//                detailsOrdreAchatPK.setCodeMatiere(x.getCodeMatieres());
-//
-//                Preconditions.checkBusinessLogique(x.getCodeUnites() != null, "error.UniteRequired");
-//                detailsOrdreAchatPK.setCodeUnite(x.getCodeUnites());
-//                Preconditions.checkBusinessLogique(x.getCodeColoriss() != null, "error.ColorisRequired");
-//                detailsOrdreAchatPK.setCodeColoris(x.getCodeColoriss());
-//                detailsOrdreAchat.setValeurTaxe(x.getValeurTaxe());
-//                detailsOrdreAchat.setDetailsOrdreAchatPK(detailsOrdreAchatPK);
-//
-//                detailsOrdreAchat.setQteLivrer(x.getQteLivrer());
-//                detailsOrdreAchat.setOrdreAchat(domaine);
-//                detailsCollections.add(detailsOrdreAchat);
-//            });
-//            if (domaine.getDetailsOrdreAchats() != null) {
-//                domaine.getDetailsOrdreAchats().clear();
-//                domaine.getDetailsOrdreAchats().addAll(detailsCollections);
-//            } else {
-//                domaine.setDetailsOrdreAchats(detailsCollections);
-//            }
+            } 
             return domaine;
         } else {
             return null;

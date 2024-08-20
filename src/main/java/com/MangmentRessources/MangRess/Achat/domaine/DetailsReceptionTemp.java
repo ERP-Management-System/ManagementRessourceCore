@@ -55,6 +55,32 @@ public class DetailsReceptionTemp {
 
     @Column(name = "qte_receptionner")
     private BigDecimal qteReceptionner;
+    
+    
+     @JoinColumn(name = "code_coloris", referencedColumnName = "code", nullable = false, updatable = false, insertable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Coloris coloris;
+    @Column(name = "code_coloris", insertable = false, updatable = false)
+    private Integer codeColoris;
+
+    @JoinColumn(name = "code_unite", referencedColumnName = "code", nullable = false, updatable = false, insertable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Unite unite;
+    @Column(name = "code_unite", insertable = false, updatable = false)
+    private Integer codeUnite;
+
+        @JoinColumn(name = "code_depot", referencedColumnName = "code", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Depot depot;
+    @Column(name = "code_depot", insertable = false, updatable = false)
+    private Integer codeDepot;
+
+    @Column(name = "prix_unitaire_achat", columnDefinition = ("decimal(18,3)"), nullable = false)
+    private BigDecimal prixUnitaireAchat;
+    
 
     public DetailsReceptionTemp() {
     }
@@ -121,6 +147,62 @@ public class DetailsReceptionTemp {
 
     public void setQteReceptionner(BigDecimal qteReceptionner) {
         this.qteReceptionner = qteReceptionner;
+    }
+
+    public Coloris getColoris() {
+        return coloris;
+    }
+
+    public void setColoris(Coloris coloris) {
+        this.coloris = coloris;
+    }
+
+    public Integer getCodeColoris() {
+        return codeColoris;
+    }
+
+    public void setCodeColoris(Integer codeColoris) {
+        this.codeColoris = codeColoris;
+    }
+
+    public Unite getUnite() {
+        return unite;
+    }
+
+    public void setUnite(Unite unite) {
+        this.unite = unite;
+    }
+
+    public Integer getCodeUnite() {
+        return codeUnite;
+    }
+
+    public void setCodeUnite(Integer codeUnite) {
+        this.codeUnite = codeUnite;
+    }
+
+    public Depot getDepot() {
+        return depot;
+    }
+
+    public void setDepot(Depot depot) {
+        this.depot = depot;
+    }
+
+    public Integer getCodeDepot() {
+        return codeDepot;
+    }
+
+    public void setCodeDepot(Integer codeDepot) {
+        this.codeDepot = codeDepot;
+    }
+
+    public BigDecimal getPrixUnitaireAchat() {
+        return prixUnitaireAchat;
+    }
+
+    public void setPrixUnitaireAchat(BigDecimal prixUnitaireAchat) {
+        this.prixUnitaireAchat = prixUnitaireAchat;
     }
     
     

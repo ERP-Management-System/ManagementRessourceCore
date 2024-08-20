@@ -117,113 +117,104 @@ public class BonReceptionFactory {
         domaine.setUserCreate(dTO.getUserCreate());
         domaine.setObservation(dTO.getObservation());
 
-        domaine.setMntTotalHT(dTO.getMntTotalHT());
-        domaine.setMntTimbre(dTO.getMntTimbre());
-        domaine.setMntRemise(dTO.getMntRemise());
-        domaine.setMntTotalTTC(dTO.getMntTotalTTC());
-        domaine.setMntTotalTaxe(dTO.getMntTotalTaxe());
-
-        domaine.setMntNet(dTO.getMntNet());
+//        domaine.setMntTotalHT(dTO.getMntTotalHT());
+//        domaine.setMntTimbre(dTO.getMntTimbre());
+//        domaine.setMntRemise(dTO.getMntRemise());
+//        domaine.setMntTotalTTC(dTO.getMntTotalTTC());
+//        domaine.setMntTotalTaxe(dTO.getMntTotalTaxe());
+//
+//        domaine.setMntNet(dTO.getMntNet());
 
         domaine.setCodeFactureFournisseur(dTO.getCodeFactureFournisseur());
         domaine.setMntFactureFournisseur(dTO.getMntFactureFournisseur());
         domaine.setDateFactureFournisseur(dTO.getDateFactureFournisseur());
 
-        domaine.setCodeDemandeAchat(dTO.getCodeDemandeAchat());
-        if (domaine.getCodeDemandeAchat() != null) {
-            domaine.setDemandeAchat(DemandeAchatFactory.createDemandeAchatByCode(dTO.getCodeDemandeAchat()));
-        }
+//        domaine.setCodeDemandeAchat(dTO.getCodeDemandeAchat());
+//        if (domaine.getCodeDemandeAchat() != null) {
+//            domaine.setDemandeAchat(DemandeAchatFactory.createDemandeAchatByCode(dTO.getCodeDemandeAchat()));
+//        }
+//
+//        domaine.setCodeAppelOffre(dTO.getCodeAppelOffre());
+//        if (domaine.getCodeAppelOffre() != null) {
+//            domaine.setAppelOffre(AppelOffreFactory.createAppelOffreByCode(dTO.getCodeAppelOffre()));
+//        }
 
-        domaine.setCodeAppelOffre(dTO.getCodeAppelOffre());
-        if (domaine.getCodeAppelOffre() != null) {
-            domaine.setAppelOffre(AppelOffreFactory.createAppelOffreByCode(dTO.getCodeAppelOffre()));
-        }
-
-        domaine.setCodeDepot(dTO.getCodeDepot());
-        if (domaine.getCodeDepot() != null) {
-            domaine.setDepot(DepotFactory.createDepotByCode(dTO.getCodeDepot()));
-        }
+//        domaine.setCodeDepot(dTO.getCodeDepot());
+//        if (domaine.getCodeDepot() != null) {
+//            domaine.setDepot(DepotFactory.createDepotByCode(dTO.getCodeDepot()));
+//        }
 
         domaine.setCodeFournisseur(dTO.getCodeFournisseur());
         if (domaine.getCodeFournisseur() != null) {
             domaine.setFournisseur(FournisseurFactory.createFournisseurByCode(dTO.getCodeFournisseur()));
         }
 
-        domaine.setCodeOrdreAchat(dTO.getCodeOrdreAchat());
-        if (domaine.getCodeOrdreAchat() != null) {
-            domaine.setOrdreAchat(OrdreAchatFactory.createOrdreAchatByCode(dTO.getCodeOrdreAchat()));
-        }
-
-        domaine.setCodeEtatReception(dTO.getCodeEtatReception());
-        if (domaine.getCodeEtatReception() != null) {
-            domaine.setEtatReception(EtatReceptionFactory.createEtatReceptionByCode(dTO.getCodeEtatReception()));
-
-        }
-        Preconditions.checkBusinessLogique(dTO.getDetailsBonReceptionDTOs() != null, "error.DetailsBonReceptionRequired");
-        Collection<DetailsBonReception> detailsBonReceptions = new ArrayList<>();
-        AtomicReference<Integer> order = new AtomicReference<>(1);
-        dTO.getDetailsBonReceptionDTOs().forEach(x -> {
-
-            DetailsBonReception detailsBonReception = new DetailsBonReception();
-            DetailsBonReceptionPK detailsmodelepanierPK = new DetailsBonReceptionPK();
-    
-            Preconditions.checkBusinessLogique(x.getCodeMatieres() != null, "error.MatiereRequired");
-            detailsmodelepanierPK.setCodeMatiere(x.getCodeMatieres());
-
-            Preconditions.checkBusinessLogique(x.getCodeUnites() != null, "error.UniteRequired");
-            detailsmodelepanierPK.setCodeUnite(x.getCodeUnites());
-            Preconditions.checkBusinessLogique(x.getCodeColoriss() != null, "error.ColorisRequired");
-            detailsmodelepanierPK.setCodeColoris(x.getCodeColoriss());
-            detailsBonReception.setDetailsBonReceptionPK(detailsmodelepanierPK);
-
-            Preconditions.checkBusinessLogique(x.getQteReceptionner() != null, "error.QuantiteRequired");
-            detailsBonReception.setQteReceptionner(x.getQteReceptionner());
-
-            detailsBonReception.setDateCreate(domaine.getDateCreate());
-            detailsBonReception.setUsercreate(domaine.getUserCreate());
-            detailsBonReception.setPrixUnitaireAchat(x.getPrixAchat());
-            detailsBonReception.setValeurTaxe(x.getValeurTaxe());
-
-            detailsBonReception.setCodeOrdreAchat(dTO.getCodeOrdreAchat());
-            if (detailsBonReception.getCodeOrdreAchat() != null) {
-                detailsBonReception.setOrdreAchat(OrdreAchatFactory.createOrdreAchatByCode(dTO.getCodeOrdreAchat()));
-            }
-
-            detailsBonReception.setCodeDepot(x.getCodeDepot());
-            if (detailsBonReception.getCodeDepot() != null) {
-                detailsBonReception.setDepot(DepotFactory.createDepotByCode(x.getCodeDepot()));
-            }
-            detailsBonReception.setCodeFournisseur(x.getCodeFournisseur());
-            if (detailsBonReception.getCodeFournisseur() != null) {
-                detailsBonReception.setFournisseur(FournisseurFactory.createFournisseurByCode(x.getCodeFournisseur()));
-            }
-
-            detailsBonReception.setMntTotalHT(x.getMntTotalHT());
-            detailsBonReception.setMntTotalTTC(x.getMntTotalTTC());
-            detailsBonReception.setMntTotalTaxe(x.getMntTotalTaxe());
-            //order item
-            detailsBonReception.setOrdreMatiere(order.get());
-            order.getAndSet(order.get() + 1);
-            detailsBonReception.setBonReception(domaine);
-            detailsBonReceptions.add(detailsBonReception);
-        });
-
-        if (domaine.getDetailsBonReceptions() != null) {
-            domaine.getDetailsBonReceptions().clear();
-            domaine.getDetailsBonReceptions().addAll(detailsBonReceptions);
-        } else {
-            domaine.setDetailsBonReceptions(detailsBonReceptions);
-        }
-        
-  
-        
-        
-        //// details order achat
-        
-        
-        
-        
-//        System.out.println("soufien send valider");
+//        domaine.setCodeOrdreAchat(dTO.getCodeOrdreAchat());
+//        if (domaine.getCodeOrdreAchat() != null) {
+//            domaine.setOrdreAchat(OrdreAchatFactory.createOrdreAchatByCode(dTO.getCodeOrdreAchat()));
+//        }
+//
+//        domaine.setCodeEtatReception(dTO.getCodeEtatReception());
+//        if (domaine.getCodeEtatReception() != null) {
+//            domaine.setEtatReception(EtatReceptionFactory.createEtatReceptionByCode(dTO.getCodeEtatReception()));
+//
+//        }
+//        Preconditions.checkBusinessLogique(dTO.getDetailsBonReceptionDTOs() != null, "error.DetailsBonReceptionRequired");
+//        Collection<DetailsBonReception> detailsBonReceptions = new ArrayList<>();
+//        AtomicReference<Integer> order = new AtomicReference<>(1);
+//        dTO.getDetailsBonReceptionDTOs().forEach(x -> {
+//
+//            DetailsBonReception detailsBonReception = new DetailsBonReception();
+//            DetailsBonReceptionPK detailsmodelepanierPK = new DetailsBonReceptionPK();
+//    
+//            Preconditions.checkBusinessLogique(x.getCodeMatieres() != null, "error.MatiereRequired");
+//            detailsmodelepanierPK.setCodeMatiere(x.getCodeMatieres());
+//
+//            Preconditions.checkBusinessLogique(x.getCodeUnites() != null, "error.UniteRequired");
+//            detailsmodelepanierPK.setCodeUnite(x.getCodeUnites());
+//            Preconditions.checkBusinessLogique(x.getCodeColoriss() != null, "error.ColorisRequired");
+//            detailsmodelepanierPK.setCodeColoris(x.getCodeColoriss());
+//            detailsBonReception.setDetailsBonReceptionPK(detailsmodelepanierPK);
+//
+//            Preconditions.checkBusinessLogique(x.getQteReceptionner() != null, "error.QuantiteRequired");
+//            detailsBonReception.setQteReceptionner(x.getQteReceptionner());
+//
+//            detailsBonReception.setDateCreate(domaine.getDateCreate());
+//            detailsBonReception.setUsercreate(domaine.getUserCreate());
+//            detailsBonReception.setPrixUnitaireAchat(x.getPrixAchat());
+//            detailsBonReception.setValeurTaxe(x.getValeurTaxe());
+//
+//            detailsBonReception.setCodeOrdreAchat(dTO.getCodeOrdreAchat());
+//            if (detailsBonReception.getCodeOrdreAchat() != null) {
+//                detailsBonReception.setOrdreAchat(OrdreAchatFactory.createOrdreAchatByCode(dTO.getCodeOrdreAchat()));
+//            }
+//
+//            detailsBonReception.setCodeDepot(x.getCodeDepot());
+//            if (detailsBonReception.getCodeDepot() != null) {
+//                detailsBonReception.setDepot(DepotFactory.createDepotByCode(x.getCodeDepot()));
+//            }
+//            detailsBonReception.setCodeFournisseur(x.getCodeFournisseur());
+//            if (detailsBonReception.getCodeFournisseur() != null) {
+//                detailsBonReception.setFournisseur(FournisseurFactory.createFournisseurByCode(x.getCodeFournisseur()));
+//            }
+//
+//            detailsBonReception.setMntTotalHT(x.getMntTotalHT());
+//            detailsBonReception.setMntTotalTTC(x.getMntTotalTTC());
+//            detailsBonReception.setMntTotalTaxe(x.getMntTotalTaxe());
+//            //order item
+//            detailsBonReception.setOrdreMatiere(order.get());
+//            order.getAndSet(order.get() + 1);
+//            detailsBonReception.setBonReception(domaine);
+//            detailsBonReceptions.add(detailsBonReception);
+//        });
+//
+//        if (domaine.getDetailsBonReceptions() != null) {
+//            domaine.getDetailsBonReceptions().clear();
+//            domaine.getDetailsBonReceptions().addAll(detailsBonReceptions);
+//        } else {
+//            domaine.setDetailsBonReceptions(detailsBonReceptions);
+//        }
+         
         return domaine;
     }
 

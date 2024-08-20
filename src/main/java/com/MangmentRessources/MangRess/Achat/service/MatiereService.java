@@ -5,12 +5,18 @@
 package com.MangmentRessources.MangRess.Achat.service;
 
 import com.MangmentRessources.MangRess.Achat.domaine.Depot;
+import com.MangmentRessources.MangRess.Achat.domaine.DetailsDemandeAchat;
+import com.MangmentRessources.MangRess.Achat.domaine.DetailsNomenclatureArticle;
 import com.MangmentRessources.MangRess.Achat.domaine.Matiere;
 import com.MangmentRessources.MangRess.Achat.dto.DepotDTO;
+import com.MangmentRessources.MangRess.Achat.dto.DetailsDemandeAchatDTO;
 import com.MangmentRessources.MangRess.Achat.dto.MatiereDTO;
 import com.MangmentRessources.MangRess.Achat.factory.DepotFactory;
 import com.MangmentRessources.MangRess.Achat.factory.MatiereFactory;
-import com.MangmentRessources.MangRess.Achat.repository.MatiereRepo; 
+import com.MangmentRessources.MangRess.Achat.repository.DemandeAchatRepo;
+import com.MangmentRessources.MangRess.Achat.repository.DetailsDemandeAchatRepo;
+import com.MangmentRessources.MangRess.Achat.repository.DetailsNomenclatureRepo;
+import com.MangmentRessources.MangRess.Achat.repository.MatiereRepo;
 import com.MangmentRessources.MangRess.web.Util.Helper;
 import com.google.common.base.Preconditions;
 import java.io.File;
@@ -42,9 +48,13 @@ import org.springframework.util.ResourceUtils;
 public class MatiereService {
 
     private final MatiereRepo matiereRepo;
+    private final DetailsDemandeAchatRepo detailsDemandeAchatRepo;
+    private final DetailsNomenclatureRepo detailsNomenclatureRepo;
 
-    public MatiereService(MatiereRepo matiereRepo) {
+    public MatiereService(MatiereRepo matiereRepo, DetailsDemandeAchatRepo detailsDemandeAchatRepo, DetailsNomenclatureRepo detailsNomenclatureRepo) {
         this.matiereRepo = matiereRepo;
+        this.detailsDemandeAchatRepo = detailsDemandeAchatRepo;
+        this.detailsNomenclatureRepo = detailsNomenclatureRepo;
     }
 
     @Transactional(readOnly = true)
@@ -77,6 +87,11 @@ public class MatiereService {
 
     public void delete(Integer code) {
         Preconditions.checkArgument(matiereRepo.existsById(code), "error.MatiereNotFound");
+        Collection<DetailsDemandeAchat> detailsDemandeAchat = detailsDemandeAchatRepo.findByDetailsDemandeAchatPK_codeMatiere(code);
+        Preconditions.checkArgument(detailsDemandeAchat.isEmpty(), "Item.Used.In.Demande.Achat");
+        Collection<DetailsNomenclatureArticle> detailsNomenclatureArticles = detailsNomenclatureRepo.findByDetailsNomenclaturePK_codeMatiere(code);
+        Preconditions.checkArgument(detailsNomenclatureArticles.isEmpty() , "Item.Used.In.Nomencalture");
+
         matiereRepo.deleteMatiereByCode(code);
     }
 

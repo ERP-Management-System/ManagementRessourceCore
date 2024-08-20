@@ -49,6 +49,7 @@ public class BonReceptionService {
     private final OrdreAchatService achatService;
     private final DetailsOrdreAchatService detailsOrdreAchatService;
     private final DetailsOrdreAchatRepo detailsOrdreAchatRepo;
+    private final DetailsReceptionTempService detailsReceptionTempService;
 
 //    @Autowired
 //    private MessageSource messageSource;
@@ -62,20 +63,16 @@ public class BonReceptionService {
         LANGUAGE_SEC = db;
     }
 
-    public BonReceptionService(BonReceptionRepo bonReceptionRepo, CompteurService compteurService, DetailsBonReceptionRepo detailsBonReceptionRepo, OrdreAchatService achatService, DetailsOrdreAchatService detailsOrdreAchatService, DetailsOrdreAchatRepo detailsOrdreAchatRepo) {
+    public BonReceptionService(BonReceptionRepo bonReceptionRepo, CompteurService compteurService, DetailsBonReceptionRepo detailsBonReceptionRepo, OrdreAchatService achatService, DetailsOrdreAchatService detailsOrdreAchatService, DetailsOrdreAchatRepo detailsOrdreAchatRepo, DetailsReceptionTempService detailsReceptionTempService) {
         this.bonReceptionRepo = bonReceptionRepo;
         this.compteurService = compteurService;
         this.detailsBonReceptionRepo = detailsBonReceptionRepo;
         this.achatService = achatService;
         this.detailsOrdreAchatService = detailsOrdreAchatService;
         this.detailsOrdreAchatRepo = detailsOrdreAchatRepo;
+        this.detailsReceptionTempService = detailsReceptionTempService;
     }
 
-//    private final static String  Product_notfound= "error.BonReceptionRecpetionnerTotalemenet";  
-//    private final static String  productUSer= "error.BonReceptionRecpetionnerTotalemenet";
-//    private String getMessage(String code, Object... args) {
-//        return messageSource.getMessage(code, args, LocaleContextHolder.getLocale());
-//    }
     @Transactional(readOnly = true)
     public List<BonReceptionDTO> findAllBonReception() {
         return BonReceptionFactory.listBonReceptionToBonReceptionDTOs(bonReceptionRepo.findAllByOrderByCodeSaisieDesc());
@@ -111,10 +108,10 @@ public class BonReceptionService {
 
     public BonReceptionDTO updateNewWithFlush(BonReceptionDTO dTO) {
         BonReception inBase = bonReceptionRepo.getReferenceById(dTO.getCode());
-        Preconditions.checkArgument(inBase == null, "error.BonReceptionInexistant");
+//        Preconditions.checkArgument(inBase == null, "error.BonReceptionInexistant");
 
-        inBase.getDetailsBonReceptions().clear();
-        bonReceptionRepo.flush();
+//        inBase.getDetailsBonReceptions().clear();
+//        bonReceptionRepo.flush();
         inBase = BonReceptionFactory.bonReceptionDTOToBonReceptionWithDetails(inBase, dTO);
         inBase = bonReceptionRepo.save(inBase);
         BonReceptionDTO resultDTO = BonReceptionFactory.UpdatebonReceptionWithDetailsTobonReceptionDTOWithDetails(inBase);
@@ -150,12 +147,9 @@ public class BonReceptionService {
         OrdreAchatDTO ordreAchatDTO = null;
         List<DetailsOrdreAchatDTO> listDetailsOrdreAchatDTOs = new ArrayList<>();
         for (DetailsBonReceptionDTO detail : detailsBonReceptions) {
-//                System.out.println("lajmi vvv "+detail.getCodeMatieres());
             BigDecimal qteDemander;
             Optional<DetailsOrdreAchatDTO> details = detailsOrdreAchatDTOs.stream().filter(x -> (x.getCodeMatieres().equals(detail.getCodeMatieres()))).findFirst();
-//            DetailsOrdreAchatDTO newDetails = new DetailsOrdreAchatDTO();
 
-          
             if (details.isPresent()) {
                 qteDemander = details.get().getQteDemander();
 
@@ -183,25 +177,25 @@ public class BonReceptionService {
             Optional<DetailsOrdreAchatDTO> details = detailsOrdreAchatDTOs.stream().filter(x -> (x.getCodeMatieres().equals(detail.getCodeMatieres())) && (x.getCodeOrdreAchat().equals(detail.getCodeOrdreAchat()))).findFirst();
             DetailsOrdreAchatDTO newDetails = new DetailsOrdreAchatDTO();
 
+            BigDecimal qteOldReviced = details.get().getQteLivrer();
+            BigDecimal qteLivree = detail.getQteReceptionner();
+            BigDecimal sumQteLivredx = qteOldReviced.add(qteLivree);
+
             if (details.isPresent()) {
                 newDetails = details.get();
-//                
-                BigDecimal qteOldReviced = details.get().getQteLivrer();
-                BigDecimal qteLivree = detail.getQteReceptionner();
-                BigDecimal sumQteLivredx = qteOldReviced.add(qteLivree);
 
-//                BigDecimal difference = bigDecimal1.subtract(bigDecimal2);
-                if (details.get().getQteDemander().compareTo(sumQteLivredx) > 0) {
-                    newDetails.setTotalementLivred(false);
+                if (details.get().getQteDemander().compareTo(sumQteLivredx) >= 0) {
+                    newDetails.setTotalementLivred(Boolean.FALSE);
 
                 } else {
-                    newDetails.setTotalementLivred(true);
-                } 
-                newDetails.setQteLivrer(sumQteLivredx);
+                    newDetails.setTotalementLivred(Boolean.TRUE);
+                }
 
                 listDetailsOrdreAchatDTOs.add(newDetails);
 
             }
+            System.out.println("sumQteLivredx"+sumQteLivredx);
+            newDetails.setQteLivrer(qteLivree);
         }
 
         BonReception domaine = BonReceptionFactory.bonReceptionDTOToBonReceptionWithDetails(new BonReception(), Dto);
@@ -224,6 +218,7 @@ public class BonReceptionService {
         domaine = bonReceptionRepo.save(domaine);
         achatService.updateEtatRecpetion(ordreAchatDTO);
         detailsOrdreAchatService.update(listDetailsOrdreAchatDTOs);
+        detailsReceptionTempService.deleteByCodeOrdreAchat(Dto.getCodeOrdreAchat());
         BonReceptionDTO resultDTO = BonReceptionFactory.UpdatebonReceptionWithDetailsTobonReceptionDTOWithDetails(domaine);
 
         return resultDTO;

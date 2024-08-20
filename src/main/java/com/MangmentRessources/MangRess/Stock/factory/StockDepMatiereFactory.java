@@ -7,6 +7,7 @@ package com.MangmentRessources.MangRess.Stock.factory;
 import com.MangmentRessources.MangRess.Achat.factory.ColorisFactory;
 import com.MangmentRessources.MangRess.Achat.factory.DepotFactory;
 import com.MangmentRessources.MangRess.Achat.factory.MatiereFactory;
+import com.MangmentRessources.MangRess.Achat.factory.OrdreAchatFactory;
 import com.MangmentRessources.MangRess.Achat.factory.UniteFactory;
 import com.MangmentRessources.MangRess.Stock.domaine.StockDepMatiere;
 import com.MangmentRessources.MangRess.Stock.dto.StockDepMatiereDTO;
@@ -51,6 +52,11 @@ public class StockDepMatiereFactory {
             dTO.setUniteDTO(UniteFactory.uniteToUniteDTO(domaine.getUnite()));
             dTO.setCodeUnite(domaine.getCodeUnite());
 
+            
+            dTO.setOrdreAchatDTO(OrdreAchatFactory.ordreAchatToOrdreAchatDTO(domaine.getOrdreAchat()));
+            dTO.setCodeOrdreAchat(domaine.getCodeOrdreAchat());
+
+            
             dTO.setDepotDTO(DepotFactory.depotToDepotDTO(domaine.getDepot()));
             dTO.setCodeDepot(domaine.getCodeDepot());
 
@@ -90,6 +96,12 @@ public class StockDepMatiereFactory {
 
         }
 
+        domaine.setCodeOrdreAchat(dTO.getCodeOrdreAchat());
+        if (domaine.getCodeOrdreAchat() != null) {
+            domaine.setOrdreAchat(OrdreAchatFactory.createOrdreAchatByCode(dTO.getCodeOrdreAchat()));
+
+        }
+
         domaine.setCodeColoris(dTO.getCodeColoris());
         if (domaine.getCodeColoris() != null) {
             domaine.setColoris(ColorisFactory.createColorisByCode(dTO.getCodeColoris()));
@@ -104,14 +116,13 @@ public class StockDepMatiereFactory {
 
         return domaine;
     }
-    
-        public static Collection<StockDepMatiereDTO> detailsStockDepMatiereTodetailsStockDepMatiereDTOCollection(Collection<StockDepMatiere> stockDepMatieres) {
+
+    public static Collection<StockDepMatiereDTO> detailsStockDepMatiereTodetailsStockDepMatiereDTOCollection(Collection<StockDepMatiere> stockDepMatieres) {
         Collection<StockDepMatiereDTO> collection = new ArrayList<>();
         for (StockDepMatiere ddtm : stockDepMatieres) {
             collection.add(StockDepMatiereToStockDepMatiereDTO(ddtm));
         }
         return collection;
     }
-
 
 }

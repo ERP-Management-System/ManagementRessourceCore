@@ -8,6 +8,8 @@ Without this configuration present, some functionality in the IDE may be limited
 -->
     <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
         <word>couleur</word>
+        <word>datasources</word>
+        <word>javamelody</word>
         <word>lezemmmm</word>
         <word>messsaaagggeeee</word>
         <word>Partielement</word>

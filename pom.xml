@@ -24,7 +24,7 @@
         <javassist.version>3.21.0-GA</javassist.version>
         <validation-api.version>1.1.0.Final</validation-api.version>
         <springfox.version>2.6.1</springfox.version>-->
-        <!--<hibernate.version>5.2.9.Final</hibernate.version>--> 
+        <!--<hibernate.version>5.2.9.Final</hibernate.version>-->  
     </properties>
     <dependencies>
         <!--        <dependency>
@@ -234,8 +234,7 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.12.0</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+        </dependency> 
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
@@ -248,21 +247,7 @@
             <version>3.1.0</version>
             <type>jar</type>
         </dependency>
-  
-  
-        <!--        <dependency>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>4.0.2</version>
-            <type>jar</type>
-        </dependency>-->
-      
-        <!--        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.18</version>
-            <type>jar</type>
-        </dependency>-->
+         
         <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
@@ -275,7 +260,39 @@
             <version>4.0.2</version>
             <type>jar</type>
         </dependency>
+        
+        <dependency>
+            <groupId>net.bull.javamelody</groupId>
+            <artifactId>javamelody-spring-boot-starter</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>net.bull.javamelody</groupId>
+            <artifactId>javamelody-core</artifactId>
+            <version>2.2.0</version> <!-- Use the latest version -->
+        </dependency>
+        
+        
+        <!--Garfana-->
+
+         
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+                      
     </dependencies>
+  
 
     <build>
         <plugins>

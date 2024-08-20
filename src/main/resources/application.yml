@@ -2,14 +2,35 @@
 management:
     security:
         enabled: false
+    endpoint:
+        health: 
+            group: 
+                custom :
+                    show-details: always
 security:
     basic:
         enabled: false
+        
+javamelody:
+    monitoring-path: /monitoring
+    storage-directory: ${user.home}/javamelody/
+    max-request-size: 256000
+    enabled: true
+    logging:
+        level: error 
+        file: ${user.home}/javamelody/javamelody.log  
+        max-log-size: 10M   
+        max-log-age: 7 
+        
+         
+
+  
 spring:
     main:
         allow-bean-definition-overriding: true
     profiles:
-      active: "prod"
+      active: prod,javamelody
+  
     data:
         rest:
             base-path: /api/data
@@ -78,8 +99,7 @@ server:
     error:
         include-stacktrace: ON_PARAM
  
-environnement : local
- 
+environnement : local 
  
 # 
 #spring:

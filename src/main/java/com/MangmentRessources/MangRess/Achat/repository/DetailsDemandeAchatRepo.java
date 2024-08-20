@@ -16,6 +16,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface DetailsDemandeAchatRepo extends JpaRepository<DetailsDemandeAchat, DetailsDemandeAchatPK>{
-        Collection<DetailsDemandeAchat> findByDetailsDemandeAchatPK_codeDemandeAchat(Integer codeDemandeAchat);
+        Collection<DetailsDemandeAchat> findByDetailsDemandeAchatPK_codeDemandeAchat(Integer codeDemandeAchat);  
+        
+        Collection<DetailsDemandeAchat> findByDetailsDemandeAchatPK_codeMatiere(Integer codeMatiere);
+
 
 }

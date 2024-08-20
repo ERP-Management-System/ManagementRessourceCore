@@ -94,7 +94,7 @@ public class BonReceptionRessource {
 //
 //    }
     @PutMapping("bon_reception/update")
-    public ResponseEntity<BonReceptionDTO> updateModelePanier(@Valid @RequestBody BonReceptionDTO dTO, BindingResult bindingResult) throws MethodArgumentNotValidException {
+    public ResponseEntity<BonReceptionDTO> updateBonReception(@Valid @RequestBody BonReceptionDTO dTO, BindingResult bindingResult) throws MethodArgumentNotValidException {
         BonReceptionDTO result = bonReceptionService.updateNewWithFlush(dTO);
         return ResponseEntity.ok().body(result);
     }
@@ -113,7 +113,7 @@ public class BonReceptionRessource {
     }
     
     @GetMapping("details_reception_temp/By")
-    public ResponseEntity<List<DetailsReceptionTempDTO>> getDetailsReceptionTemp(@RequestParam(required = true) Integer codeOrdreAchat, @RequestParam Integer codematiere) {
+        public ResponseEntity<List<DetailsReceptionTempDTO>> getDetailsReceptionTemp(@RequestParam(required = true) Integer codeOrdreAchat, @RequestParam Integer codematiere) {
         return ResponseEntity.ok().body(detailsReceptionTempService.findOneByCodeOrdreAchatAndCodeMatiere(codeOrdreAchat, codematiere));
     }
     
@@ -123,11 +123,20 @@ public class BonReceptionRessource {
         return ResponseEntity.created(new URI("/api/parametrage-achat/" + result.getCode())).body(result);
     }
     
-    @DeleteMapping("details_reception_temp/delete")
-    public ResponseEntity<BonReception> deleteDetailsReceptionTemp(@RequestParam(required = true) Integer codeOrdreAchat, @RequestParam Integer codematiere) {
+    @DeleteMapping("details_reception_temp/deleteByCodeOrdreAchatAndCodeMatiere")
+    public ResponseEntity<BonReception> deleteDetailsReceptionTempByCodeOrdreAchatAndCodeMatiere(@RequestParam(required = true) Integer codeOrdreAchat, @RequestParam Integer codematiere) {
         detailsReceptionTempService.deleteByCodeOrdreAchatAndCodeMatiere(codeOrdreAchat, codematiere);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    
+    
+        @DeleteMapping("details_reception_temp/deleteByCodeOrdreAchat")
+    public ResponseEntity<BonReception> deleteDetailsReceptionTempByCodeOrdreAchat(@RequestParam(required = true) Integer codeOrdreAchat) {
+        detailsReceptionTempService.deleteByCodeOrdreAchat(codeOrdreAchat);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    
+    
     
     @GetMapping("details_bon_reception/{code}")
     public ResponseEntity<Collection<DetailsBonReceptionDTO>> getBonReception(@PathVariable Integer code) {

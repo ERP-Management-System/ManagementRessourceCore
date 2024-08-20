@@ -46,7 +46,9 @@ public class MatiereFactory {
                 domaine.setDesignationAr(Dto.getDesignationAr());
             }
 
+            domaine.setCodeSaisie(Dto.getCodeSaisie());  
             domaine.setDateCreate(Dto.getDateCreate());
+
             domaine.setUserCreate(Dto.getUserCreate());
             domaine.setQteMinStock(Dto.getQteMinStock());
             domaine.setQteMaxStock(Dto.getQteMaxStock());

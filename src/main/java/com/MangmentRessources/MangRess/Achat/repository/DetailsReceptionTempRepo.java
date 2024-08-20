@@ -16,13 +16,17 @@ import org.springframework.stereotype.Repository;
  * @author Administrator
  */
 @Repository
-public interface DetailsReceptionRepo extends JpaRepository<DetailsReceptionTemp, Integer> {
+public interface DetailsReceptionTempRepo extends JpaRepository<DetailsReceptionTemp, Integer> {
 
     List<DetailsReceptionTemp> findByCodeOrdreAchatAndCodematiere(Integer codeOrdreAchat, Integer codematiere);
 
     @Modifying
     @Query("delete from DetailsReceptionTemp det where det.codeOrdreAchat=?1  and det.codematiere=?2 ")
     public void deleteByCodeOrdreAchatAndCodematiere(Integer codeOrdreAchat, Integer codematiere);
+
+    @Modifying
+    @Query("delete from DetailsReceptionTemp det where det.codeOrdreAchat=?1 ")
+    public void deleteByCodeOrdreAchat(Integer codeOrdreAchat);
 
     public void save(List<DetailsReceptionTemp> lits);
 }

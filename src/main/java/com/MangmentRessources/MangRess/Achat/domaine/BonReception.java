@@ -134,7 +134,7 @@ public class BonReception {
     @Column(name = "observation", nullable = false, columnDefinition = "nvarchar(max)")
     private String observation;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bonReception", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bonReception", fetch = FetchType.LAZY)
     private Collection<DetailsBonReception> detailsBonReceptions;
 
     public BonReception() {

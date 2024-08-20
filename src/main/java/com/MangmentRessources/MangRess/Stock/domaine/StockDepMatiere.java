@@ -7,6 +7,7 @@ package com.MangmentRessources.MangRess.Stock.domaine;
 import com.MangmentRessources.MangRess.Achat.domaine.Coloris;
 import com.MangmentRessources.MangRess.Achat.domaine.Depot;
 import com.MangmentRessources.MangRess.Achat.domaine.Matiere;
+import com.MangmentRessources.MangRess.Achat.domaine.OrdreAchat;
 import com.MangmentRessources.MangRess.Achat.domaine.Unite;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Basic;
@@ -88,6 +89,13 @@ public class StockDepMatiere {
 
     @Column(name = "laize", nullable = false, columnDefinition = "nvarchar(200)")
     private String laize;
+
+    @JoinColumn(name = "code_ordre_achat", referencedColumnName = "code", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private OrdreAchat ordreAchat;
+    @Column(name = "code_ordre_achat", insertable = false, updatable = false)
+    private Integer codeOrdreAchat;
 
     public StockDepMatiere() {
     }
@@ -219,10 +227,22 @@ public class StockDepMatiere {
     public void setLaize(String laize) {
         this.laize = laize;
     }
-    
-    
-    
-    
-    
 
+    public OrdreAchat getOrdreAchat() {
+        return ordreAchat;
+    }
+
+    public void setOrdreAchat(OrdreAchat ordreAchat) {
+        this.ordreAchat = ordreAchat;
+    }
+
+    public Integer getCodeOrdreAchat() {
+        return codeOrdreAchat;
+    }
+
+    public void setCodeOrdreAchat(Integer codeOrdreAchat) {
+        this.codeOrdreAchat = codeOrdreAchat;
+    }
+
+    
 }

@@ -14,6 +14,7 @@ import com.MangmentRessources.MangRess.Stock.factory.StockDepMatiereFactory;
 import com.MangmentRessources.MangRess.Stock.factory.StockDepMatiereFactory;
 import com.MangmentRessources.MangRess.Stock.factory.StockDepMatiereFactory;
 import com.MangmentRessources.MangRess.Stock.repository.StockDepMatiereRepo;
+import com.google.common.base.Preconditions;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -41,7 +42,7 @@ public class StockDepMatiereService {
 
     @Transactional(readOnly = true)
     public Collection<StockDepMatiereDTO> findByCodeDepot(Integer codeDepot) {
-        Collection<StockDepMatiere> collection = stockDepMatiereRepo.findByCodeDepot(codeDepot);
+        Collection<StockDepMatiere> collection = stockDepMatiereRepo.findByCodeDepot(codeDepot); 
         return StockDepMatiereFactory.detailsStockDepMatiereTodetailsStockDepMatiereDTOCollection(collection);
     }
 
